@@ -1,9 +1,9 @@
-﻿using GitCandy.Log;
-using System.Configuration;
+﻿using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Serialization;
+using NewLife.Log;
 
 namespace GitCandy.Configuration
 {
@@ -45,7 +45,7 @@ namespace GitCandy.Configuration
 
                     if (_current == null)
                     {
-                        Logger.Info("New configuration of {0}", typeof(TEntry).FullName);
+                        XTrace.WriteLine("New configuration of {0}", typeof(TEntry).FullName);
                         _current = NewDefault();
                         _current.Save(false);
                     }

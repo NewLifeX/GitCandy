@@ -1,13 +1,13 @@
-﻿using GitCandy.Configuration;
-using GitCandy.Data;
-using GitCandy.Log;
-using GitCandy.Security;
-using System;
+﻿using System;
 using System.Composition;
 using System.Threading;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
+using GitCandy.Configuration;
+using GitCandy.Data;
+using GitCandy.Security;
+using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
@@ -109,7 +109,7 @@ namespace GitCandy.Controllers
             {
                 var uri = Request.Url;
                 filterContext.Result = Redirect(new Uri(string.Format("https://{0}:{1}{2}", uri.Host, UserConfiguration.Current.SslPort, uri.PathAndQuery)).ToString());
-                Logger.Info("Redirect to SSL from " + uri);
+                XTrace.WriteLine("Redirect to SSL from " + uri);
                 return;
             }
 

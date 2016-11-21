@@ -16,7 +16,7 @@
     <AssemblyName>GitCandy</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -99,6 +99,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="NewLife.Core">
+      <HintPath>..\DLL\NewLife.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NewLife.Cube">
+      <HintPath>..\DLL\NewLife.Cube.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -165,6 +171,9 @@
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="XCode">
+      <HintPath>..\DLL\XCode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -348,8 +357,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Log\Logger.cs" />
-    <Compile Include="Log\LogLevels.cs" />
     <Compile Include="Models\AheadBehindModel.cs" />
     <Compile Include="Models\BlameHunkModel.cs" />
     <Compile Include="Models\BlameModel.cs" />
@@ -385,7 +392,6 @@
     <Compile Include="Schedules\IJob.cs" />
     <Compile Include="Schedules\JobContext.cs" />
     <Compile Include="Schedules\JobType.cs" />
-    <Compile Include="Schedules\LogJob.cs" />
     <Compile Include="Schedules\Runner.cs" />
     <Compile Include="Schedules\Scheduler.cs" />
     <Compile Include="Schedules\SingleJob.cs" />
@@ -496,7 +502,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>11422</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:11422/</IISUrl>
+          <IISUrl>http://localhost/GitCandy</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,5 +1,4 @@
-﻿using GitCandy.Log;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Composition.Convention;
 using System.Composition.Hosting;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using NewLife.Log;
 
 namespace GitCandy.Base
 {
@@ -19,13 +19,13 @@ namespace GitCandy.Base
         public MefDependencyResolver(AttributedModelProvider builder, IDependencyResolver resolver)
         {
             var searchPath = HttpRuntime.BinDirectory;
-            Logger.Info("Addions search path: {0}", searchPath);
+            XTrace.WriteLine("Addions search path: {0}", searchPath);
 
             var addions = Directory.GetFiles(searchPath, "gitcandy.*.dll")
                 .Select(x => Assembly.Load(File.ReadAllBytes(x)))
                 .ToList();
 
-            Logger.Info("It is found {0} DLLs for resloving addion: {1}",
+            XTrace.WriteLine("It is found {0} DLLs for resloving addion: {1}",
                 addions.Count,
                 string.Concat(addions.Select(x => x.GetName().Name + " ").ToArray()));
 

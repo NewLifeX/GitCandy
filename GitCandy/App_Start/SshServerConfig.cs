@@ -1,11 +1,10 @@
-﻿using GitCandy.Configuration;
-using GitCandy.Git;
-using GitCandy.Log;
-using GitCandy.Ssh;
-using System;
-using System.Diagnostics.Contracts;
+﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using GitCandy.Configuration;
+using GitCandy.Git;
+using GitCandy.Ssh;
+using NewLife.Log;
 
 namespace GitCandy
 {
@@ -23,7 +22,7 @@ namespace GitCandy
             _server.ExceptionRasied += (s, e) =>
             {
                 if (!(e is SshConnectionException))
-                    Logger.Error(e.ToString());
+                    XTrace.Log.Error(e.ToString());
             };
             foreach (var key in UserConfiguration.Current.HostKeys)
             {
@@ -34,12 +33,12 @@ namespace GitCandy
                 try
                 {
                     _server.Start();
-                    Logger.Info("SSH server started.");
+                    XTrace.WriteLine("SSH server started.");
                     break;
                 }
                 catch (Exception ex)
                 {
-                    Logger.Info("Attempt to start SSH server failed in {0} times. {1}", i, ex);
+                    XTrace.WriteLine("Attempt to start SSH server failed in {0} times. {1}", i, ex);
                     Task.Delay(1000).Wait();
                 }
             }
@@ -53,7 +52,7 @@ namespace GitCandy
             _server.Stop();
             _server = null;
 
-            Logger.Info("SSH server stoped.");
+            XTrace.WriteLine("SSH server stoped.");
         }
 
         public static void RestartSshServer()

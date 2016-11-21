@@ -1,19 +1,19 @@
-﻿using GitCandy.App_GlobalResources;
+﻿using System;
+using System.Collections.Generic;
+using System.Composition;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using GitCandy.App_GlobalResources;
 using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Filters;
 using GitCandy.Git;
 using GitCandy.Git.Cache;
-using GitCandy.Log;
 using GitCandy.Models;
 using GitCandy.Ssh;
-using System;
-using System.Collections.Generic;
-using System.Composition;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
@@ -200,7 +200,7 @@ namespace GitCandy.Controllers
                 RepositoryService.Delete(name);
                 GitService.DeleteRepository(name);
                 GitCacheAccessor.Delete(name);
-                Logger.Info("Repository {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
+                XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
             return View((object)name);

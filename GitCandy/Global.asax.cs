@@ -1,8 +1,4 @@
-﻿using GitCandy.Base;
-using GitCandy.Configuration;
-using GitCandy.Git.Cache;
-using GitCandy.Log;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -12,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using GitCandy.Base;
+using GitCandy.Configuration;
+using GitCandy.Git.Cache;
+using NewLife.Log;
 
 namespace GitCandy
 {
@@ -23,8 +23,8 @@ namespace GitCandy
         {
             HidingRequestResponse = HttpRuntime.UsingIntegratedPipeline;
 
-            Logger.SetLogPath();
-            Logger.Info(AppInfomation.GetAppStartingInfo());
+            //Logger.SetLogPath();
+            XTrace.WriteLine(AppInfomation.GetAppStartingInfo());
 
             AreaRegistration.RegisterAllAreas();
 
@@ -38,7 +38,7 @@ namespace GitCandy
             GitCacheAccessor.Initialize();
             SshServerConfig.StartSshServer();
 
-            Logger.Info(AppInfomation.GetAppStartedInfo());
+            XTrace.WriteLine(AppInfomation.GetAppStartedInfo());
 
             HidingRequestResponse = false;
         }
@@ -47,7 +47,7 @@ namespace GitCandy
         {
             SshServerConfig.StopSshServer();
             ScheduleConfig.StopAndWait();
-            Logger.Info(AppInfomation.GetAppEndInfo());
+            XTrace.WriteLine(AppInfomation.GetAppEndInfo());
 
             Process.GetCurrentProcess().Kill();
         }
@@ -67,11 +67,11 @@ namespace GitCandy
             if (statusCode == 500)
             {
                 sb.AppendLine(ex.ToString());
-                Logger.Error(sb.ToString());
+                XTrace.Log.Error(sb.ToString());
             }
             else
             {
-                Logger.Warning(sb.ToString());
+                XTrace.Log.Warn(sb.ToString());
             }
 
             if (!HidingRequestResponse && UserConfiguration.Current.LocalSkipCustomError && context.Request.IsLocal)

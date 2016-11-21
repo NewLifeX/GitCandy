@@ -1,14 +1,12 @@
-﻿using GitCandy.App_GlobalResources;
-using GitCandy.Configuration;
-using GitCandy.Filters;
-using GitCandy.Git;
-using GitCandy.Log;
-using GitCandy.Models;
-using GitCandy.Ssh;
-using System;
+﻿using System;
 using System.Composition;
 using System.Web;
 using System.Web.Mvc;
+using GitCandy.Configuration;
+using GitCandy.Filters;
+using GitCandy.Models;
+using GitCandy.Ssh;
+using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
@@ -70,7 +68,7 @@ namespace GitCandy.Controllers
                 ModelState.Clear();
             }
 
-            Logger.Info("Settings updated by {0}#{1}", Token.Username, Token.UserID);
+            XTrace.WriteLine("Settings updated by {0}#{1}", Token.Username, Token.UserID);
 
             if (needRestart)
             {

@@ -1,7 +1,7 @@
-﻿using GitCandy.Log;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using NewLife.Log;
 
 namespace GitCandy.Schedules
 {
@@ -80,12 +80,12 @@ namespace GitCandy.Schedules
 
                         context.OnExecuting(this, context);
                         context.ExecutionTimes++;
-                        Logger.Info("Job {0} executing on runner #{1}", jobName, ID);
+                        XTrace.WriteLine("Job {0} executing on runner #{1}", jobName, ID);
                         context.Job.Execute(context);
                         context.UtcLastEnd = DateTime.UtcNow;
                         context.UtcLastStart = utcStart;
                         context.UtcStart = null;
-                        Logger.Info("Job {0} executed on runner #{1}, elapsed {2}", jobName, ID, context.UtcLastEnd - context.UtcLastStart);
+                        XTrace.WriteLine("Job {0} executed on runner #{1}, elapsed {2}", jobName, ID, context.UtcLastEnd - context.UtcLastStart);
 
                         context.OnExecuted(this, context);
 
@@ -94,7 +94,7 @@ namespace GitCandy.Schedules
                     catch (Exception ex)
                     {
                         context.LastException = ex;
-                        Logger.Error("Job {0} exception on runner #{1}" + Environment.NewLine + "{2}", jobName, ID, ex);
+                        XTrace.Log.Error("Job {0} exception on runner #{1}" + Environment.NewLine + "{2}", jobName, ID, ex);
                     }
                     context.Scheduler.JobExecuted(context);
                 }
@@ -103,7 +103,7 @@ namespace GitCandy.Schedules
             }
 
             _tokenSource = null;
-            Logger.Info("Exit schedule runner #{0} loop", ID);
+            XTrace.WriteLine("Exit schedule runner #{0} loop", ID);
         }
     }
 }

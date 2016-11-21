@@ -1,5 +1,4 @@
-﻿using GitCandy.Log;
-using System;
+﻿using System;
 
 namespace GitCandy.Schedules
 {

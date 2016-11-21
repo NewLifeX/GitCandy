@@ -1,15 +1,15 @@
-﻿using GitCandy.Configuration;
-using GitCandy.Extensions;
-using GitCandy.Log;
-using GitCandy.Schedules;
-using LibGit2Sharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
+using GitCandy.Configuration;
+using GitCandy.Extensions;
+using GitCandy.Schedules;
+using LibGit2Sharp;
+using NewLife.Log;
 
 namespace GitCandy.Git.Cache
 {
@@ -98,7 +98,7 @@ namespace GitCandy.Git.Cache
                 var dirs = Directory.GetDirectories(cachePath, "*.del");
                 foreach (var dir in dirs)
                 {
-                    Logger.Info("Delete cache directory {0}", dir);
+                    XTrace.WriteLine("Delete cache directory {0}", dir);
                     Directory.Delete(dir, true);
                 }
             }, JobType.LongRunning));
@@ -157,7 +157,7 @@ namespace GitCandy.Git.Cache
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error("GitCacheAccessor {0} exception" + Environment.NewLine + "{1}", this.GetType().FullName, ex);
+                        XTrace.Log.Error("GitCacheAccessor {0} exception" + Environment.NewLine + "{1}", this.GetType().FullName, ex);
                     }
                 });
 
@@ -250,7 +250,7 @@ namespace GitCandy.Git.Cache
             if (AccessorId == 0)
             {
                 AccessorId = selfType.GetHashCode() % 10000000 + 10000000;
-                Logger.Error("Not found the register of type '{0}', assign id {1} to '{2}'", selfType.FullName, AccessorId, selfType.Name);
+                XTrace.Log.Error("Not found the register of type '{0}', assign id {1} to '{2}'", selfType.FullName, AccessorId, selfType.Name);
             }
         }
 

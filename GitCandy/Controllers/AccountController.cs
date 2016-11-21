@@ -1,15 +1,15 @@
-﻿using GitCandy.App_GlobalResources;
-using GitCandy.Base;
-using GitCandy.Configuration;
-using GitCandy.Filters;
-using GitCandy.Log;
-using GitCandy.Models;
-using GitCandy.Security;
-using System;
+﻿using System;
 using System.Composition;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GitCandy.App_GlobalResources;
+using GitCandy.Base;
+using GitCandy.Configuration;
+using GitCandy.Filters;
+using GitCandy.Models;
+using GitCandy.Security;
+using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
@@ -244,7 +244,7 @@ namespace GitCandy.Controllers
             else if (string.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 MembershipService.DeleteUser(name);
-                Logger.Info("User {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
+                XTrace.WriteLine("User {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
             return View((object)name);

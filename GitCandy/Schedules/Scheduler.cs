@@ -1,6 +1,6 @@
-﻿using GitCandy.Log;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using NewLife.Log;
 
 namespace GitCandy.Schedules
 {
@@ -38,7 +38,7 @@ namespace GitCandy.Schedules
             for (int i = 0; i < _runners.Length; i++)
             {
                 _runners[i].Start();
-                Logger.Info("Schedule runner #{0} {1} started", _runners[i].ID, _runners[i].JobType);
+                XTrace.WriteLine("Schedule runner #{0} {1} started", _runners[i].ID, _runners[i].JobType);
             }
         }
 
@@ -46,7 +46,7 @@ namespace GitCandy.Schedules
         {
             for (int i = 0; i < _runners.Length; i++)
             {
-                Logger.Info("Schedule runner #{0} stopping", _runners[i].ID);
+                XTrace.WriteLine("Schedule runner #{0} stopping", _runners[i].ID);
                 _runners[i].Stop();
             }
         }
