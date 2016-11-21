@@ -178,8 +178,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Web.config" />
-    <Content Include="bin\Web.config" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\highlight.css" />
