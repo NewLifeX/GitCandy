@@ -92,8 +92,22 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
+        private List<TeamRepository> _Repositories;
+        /// <summary>绑定信息</summary>
+        public List<TeamRepository> Repositories
+        {
+            get
+            {
+                if (_Repositories == null && !Dirtys.ContainsKey("Repositories"))
+                {
+                    _Repositories = TeamRepository.FindAllByUserID(ID);
 
-
+                    Dirtys["Repositories"] = true;
+                }
+                return _Repositories;
+            }
+            set { _Repositories = value; }
+        }
         #endregion
 
         #region 扩展查询

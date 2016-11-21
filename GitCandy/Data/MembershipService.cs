@@ -423,61 +423,54 @@ namespace GitCandy.Data
 
         public TeamModel GetTeamModel(string name, bool withMembers = false, string viewUser = null)
         {
-            using (var ctx = new GitCandyContext())
+            var team = Team.FindByName(name);
+            if (team == null) return null;
+
+            var model = new TeamModel
             {
-                var team = ctx.Teams.FirstOrDefault(s => s.Name == name);
-                if (team == null)
-                    return null;
+                Name = team.Name,
+                Description = team.Description,
+            };
+            if (withMembers)
+            {
+                model.MembersRole = UserTeam.FindAllByTeamID(team.ID).ToList()
+                    .Select(s => new TeamModel.UserRole
+                    {
+                        Name = s.User.Name,
+                        IsAdministrator = s.IsAdministrator
+                    })
+                    .OrderBy(s => s.Name, new StringLogicalComparer())
+                    .ToArray();
+                model.Members = model.MembersRole
+                    .Select(s => s.Name)
+                    .ToArray();
 
-                var model = new TeamModel
-                {
-                    Name = team.Name,
-                    Description = team.Description,
-                };
-                if (withMembers)
-                {
-                    model.MembersRole = ctx.UserTeamRoles
-                        .Where(s => s.TeamID == team.ID)
-                        .Select(s => new TeamModel.UserRole
-                        {
-                            Name = s.User.Name,
-                            IsAdministrator = s.IsAdministrator
-                        })
-                        .AsEnumerable()
-                        .OrderBy(s => s.Name, new StringLogicalComparer())
-                        .ToArray();
-                    model.Members = model.MembersRole
-                        .Select(s => s.Name)
-                        .ToArray();
-
-                    model.RepositoriesRole = ctx.TeamRepositoryRoles
-                        // belong team
-                        .Where(s => s.TeamID == team.ID)
-                        // can view for viewUser
-                        .Where(s => !s.Repository.IsPrivate
-                            || viewUser != null &&
-                                (ctx.Users.Any(t => t.Name == viewUser && t.IsSystemAdministrator)
-                                || ctx.UserRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                                    && t.User.Name == viewUser
-                                    && t.AllowRead)
-                                || ctx.TeamRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                                    && t.Team.UserTeamRoles.Any(r => r.User.Name == viewUser)
-                                    && t.AllowRead)))
-                        .Select(s => new TeamModel.RepositoryRole
-                        {
-                            Name = s.Repository.Name,
-                            AllowRead = s.AllowRead,
-                            AllowWrite = s.AllowWrite,
-                        })
-                        .AsEnumerable()
-                        .OrderBy(s => s.Name, new StringLogicalComparer())
-                        .ToArray();
-                    model.Repositories = model.RepositoriesRole
-                        .Select(s => s.Name)
-                        .ToArray();
-                }
-                return model;
+                model.RepositoriesRole = team.Repositories
+                    // belong team
+                    .Where(s => s.TeamID == team.ID)
+                    // can view for viewUser
+                    .Where(s => !s.Repository.IsPrivate
+                        || viewUser != null &&
+                            (ctx.Users.Any(t => t.Name == viewUser && t.IsSystemAdministrator)
+                            || ctx.UserRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
+                                && t.User.Name == viewUser
+                                && t.AllowRead)
+                            || ctx.TeamRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
+                                && t.Team.UserTeamRoles.Any(r => r.User.Name == viewUser)
+                                && t.AllowRead)))
+                    .Select(s => new TeamModel.RepositoryRole
+                    {
+                        Name = s.Repository.Name,
+                        AllowRead = s.AllowRead,
+                        AllowWrite = s.AllowWrite,
+                    })
+                    .OrderBy(s => s.Name, new StringLogicalComparer())
+                    .ToArray();
+                model.Repositories = model.RepositoriesRole
+                    .Select(s => s.Name)
+                    .ToArray();
             }
+            return model;
         }
 
         public bool TeamAddUser(string teamname, string username)

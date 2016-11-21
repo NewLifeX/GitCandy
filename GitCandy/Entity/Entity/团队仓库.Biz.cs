@@ -113,6 +113,13 @@ namespace NewLife.GitCandy.Entity
                 return Meta.Cache.Entities.Find(e => e.TeamID == teamid && e.RepositoryID == repositoryid);
         }
 
+        public static EntityList<TeamRepository> FindAllByUserID(Int32 userid)
+        {
+            if (Meta.Count >= 1000)
+                return FindAll(__.UserID, userid);
+            else
+                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+        }
         #endregion
 
         #region 高级查询

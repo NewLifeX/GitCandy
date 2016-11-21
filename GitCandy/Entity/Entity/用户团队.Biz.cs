@@ -95,6 +95,22 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
+        private User _User;
+        /// <summary>团队</summary>
+        public User User
+        {
+            get
+            {
+                //if (_User == null && GatewayID > 0 && !Dirtys.ContainsKey("User"))
+                {
+                    _User = User.FindByID(UserID);
+                    //Dirtys["User"] = true;
+                }
+                return _User;
+            }
+            set { _User = value; }
+        }
+
         private Team _Team;
         /// <summary>团队</summary>
         public Team Team
@@ -138,6 +154,14 @@ namespace NewLife.GitCandy.Entity
                 return FindAll(__.UserID, userid);
             else
                 return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+        }
+
+        public static EntityList<UserTeam> FindAllByTeamID(Int32 teamid)
+        {
+            if (Meta.Count >= 1000)
+                return FindAll(__.TeamID, teamid);
+            else
+                return Meta.Cache.Entities.FindAll(e => e.TeamID == teamid);
         }
         #endregion
 

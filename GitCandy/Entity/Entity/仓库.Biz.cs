@@ -163,11 +163,19 @@ namespace NewLife.GitCandy.Entity
             if (ur != null && ur.AllowRead) return true;
 
             // 团队
-            foreach (var item in user.Teams)
+            foreach (var team in user.Teams)
             {
-                var tr = TeamRepository.FindByTeamIDAndRepositoryID(item.ID, ID);
+                var tr = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, ID);
                 if (tr != null && tr.AllowRead) return true;
             }
+
+            return false;
+        }
+
+        public Boolean CanViewFor(Team team)
+        {
+            var tr = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, ID);
+            if (tr != null && tr.AllowRead) return true;
 
             return false;
         }
