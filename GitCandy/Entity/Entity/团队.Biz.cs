@@ -21,7 +21,14 @@ namespace NewLife.GitCandy.Entity
     /// <summary>团队</summary>
     public partial class Team : Entity<Team>
     {
-        #region 对象操作           ﻿
+        #region 对象操作    
+        protected override Int32 OnDelete()
+        {
+            TeamRepository.FindAllByTeamID(ID).Delete();
+            UserTeam.FindAllByTeamID(ID).Delete();
+
+            return base.OnDelete();
+        }
         #endregion
 
         #region 扩展属性
@@ -33,7 +40,7 @@ namespace NewLife.GitCandy.Entity
             {
                 if (_Repositories == null && !Dirtys.ContainsKey("Repositories"))
                 {
-                    _Repositories = TeamRepository.FindAllByUserID(ID);
+                    _Repositories = TeamRepository.FindAllByTeamID(ID);
 
                     Dirtys["Repositories"] = true;
                 }

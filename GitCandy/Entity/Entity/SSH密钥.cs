@@ -13,6 +13,7 @@ namespace NewLife.GitCandy.Entity
     [DataObject]
     [Description("SSH密钥")]
     [BindIndex("IU_SshKey_UserID", true, "UserID")]
+    [BindIndex("IX_SshKey_Fingerprint", false, "Fingerprint")]
     [BindTable("SshKey", Description = "SSH密钥", ConnName = "GitCandy", DbType = DatabaseType.SqlServer)]
     public partial class SshKey : ISshKey
     {

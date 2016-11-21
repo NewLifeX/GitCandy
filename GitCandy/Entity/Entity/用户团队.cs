@@ -53,16 +53,16 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.TeamID, value)) { _TeamID = value; OnPropertyChanged(__.TeamID); } }
         }
 
-        private Boolean _IsAdministrator;
+        private Boolean _IsAdmin;
         /// <summary>管理员</summary>
         [DisplayName("管理员")]
         [Description("管理员")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(4, "IsAdministrator", "管理员", null, "bit", 0, 0, false)]
-        public virtual Boolean IsAdministrator
+        [BindColumn(4, "IsAdmin", "管理员", null, "bit", 0, 0, false)]
+        public virtual Boolean IsAdmin
         {
-            get { return _IsAdministrator; }
-            set { if (OnPropertyChanging(__.IsAdministrator, value)) { _IsAdministrator = value; OnPropertyChanged(__.IsAdministrator); } }
+            get { return _IsAdmin; }
+            set { if (OnPropertyChanging(__.IsAdmin, value)) { _IsAdmin = value; OnPropertyChanged(__.IsAdmin); } }
         }
 
         private Int32 _CreateUserID;
@@ -155,7 +155,7 @@ namespace NewLife.GitCandy.Entity
                     case __.ID : return _ID;
                     case __.UserID : return _UserID;
                     case __.TeamID : return _TeamID;
-                    case __.IsAdministrator : return _IsAdministrator;
+                    case __.IsAdmin : return _IsAdmin;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.CreateIP : return _CreateIP;
@@ -172,7 +172,7 @@ namespace NewLife.GitCandy.Entity
                     case __.ID : _ID = Convert.ToInt32(value); break;
                     case __.UserID : _UserID = Convert.ToInt32(value); break;
                     case __.TeamID : _TeamID = Convert.ToInt32(value); break;
-                    case __.IsAdministrator : _IsAdministrator = Convert.ToBoolean(value); break;
+                    case __.IsAdmin : _IsAdmin = Convert.ToBoolean(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.CreateIP : _CreateIP = Convert.ToString(value); break;
@@ -199,7 +199,7 @@ namespace NewLife.GitCandy.Entity
             public static readonly Field TeamID = FindByName(__.TeamID);
 
             ///<summary>管理员</summary>
-            public static readonly Field IsAdministrator = FindByName(__.IsAdministrator);
+            public static readonly Field IsAdmin = FindByName(__.IsAdmin);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -235,7 +235,7 @@ namespace NewLife.GitCandy.Entity
             public const String TeamID = "TeamID";
 
             ///<summary>管理员</summary>
-            public const String IsAdministrator = "IsAdministrator";
+            public const String IsAdmin = "IsAdmin";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -273,7 +273,7 @@ namespace NewLife.GitCandy.Entity
         Int32 TeamID { get; set; }
 
         /// <summary>管理员</summary>
-        Boolean IsAdministrator { get; set; }
+        Boolean IsAdmin { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }

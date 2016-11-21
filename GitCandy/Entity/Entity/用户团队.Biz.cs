@@ -139,7 +139,7 @@ namespace NewLife.GitCandy.Entity
             if (ut == null) ut = new UserTeam();
             ut.UserID = userid;
             ut.TeamID = teamid;
-            ut.IsAdministrator = isadmin;
+            ut.IsAdmin = isadmin;
             ut.Save();
 
             return ut;

@@ -61,14 +61,24 @@ namespace NewLife.GitCandy.Entity
                 return Meta.Cache.Entities.Find(e => e.TeamID == teamid && e.RepositoryID == repositoryid);
         }
 
-        public static EntityList<TeamRepository> FindAllByUserID(Int32 userid)
+        public static EntityList<TeamRepository> FindAllByRepositoryID(Int32 repid)
         {
-            if (userid <= 0) return new EntityList<TeamRepository>();
+            if (repid <= 0) return new EntityList<TeamRepository>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(__.RepositoryID, repid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+                return Meta.Cache.Entities.FindAll(e => e.RepositoryID == repid);
+        }
+
+        public static EntityList<TeamRepository> FindAllByTeamID(Int32 teamid)
+        {
+            if (teamid <= 0) return new EntityList<TeamRepository>();
+
+            if (Meta.Count >= 1000)
+                return FindAll(__.TeamID, teamid);
+            else
+                return Meta.Cache.Entities.FindAll(e => e.TeamID == teamid);
         }
         #endregion
 

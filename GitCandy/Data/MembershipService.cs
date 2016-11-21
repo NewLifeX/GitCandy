@@ -437,7 +437,7 @@ namespace GitCandy.Data
                     .Select(s => new TeamModel.UserRole
                     {
                         Name = s.User.Name,
-                        IsAdministrator = s.IsAdministrator
+                        IsAdministrator = s.IsAdmin
                     })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray();
@@ -445,25 +445,18 @@ namespace GitCandy.Data
                     .Select(s => s.Name)
                     .ToArray();
 
-                model.RepositoriesRole = team.Repositories
-                    // belong team
-                    .Where(s => s.TeamID == team.ID)
-                    // can view for viewUser
-                    .Where(s => !s.Repository.IsPrivate
-                        || viewUser != null &&
-                            (ctx.Users.Any(t => t.Name == viewUser && t.IsSystemAdministrator)
-                            || ctx.UserRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                                && t.User.Name == viewUser
-                                && t.AllowRead)
-                            || ctx.TeamRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                                && t.Team.UserTeamRoles.Any(r => r.User.Name == viewUser)
-                                && t.AllowRead)))
-                    .Select(s => new TeamModel.RepositoryRole
-                    {
-                        Name = s.Repository.Name,
-                        AllowRead = s.AllowRead,
-                        AllowWrite = s.AllowWrite,
-                    })
+                var rs = team.Repositories.AsEnumerable();
+                if (!viewUser.IsNullOrEmpty())
+                {
+                    var vu = User.FindByName(viewUser);
+                    rs = rs.Where(e => e.Repository != null && e.Repository.CanViewFor(vu));
+                }
+                model.RepositoriesRole = rs.Select(s => new TeamModel.RepositoryRole
+                {
+                    Name = s.Repository.Name,
+                    AllowRead = s.AllowRead,
+                    AllowWrite = s.AllowWrite,
+                })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray();
                 model.Repositories = model.RepositoriesRole
@@ -475,119 +468,106 @@ namespace GitCandy.Data
 
         public bool TeamAddUser(string teamname, string username)
         {
-            using (var ctx = new GitCandyContext())
+            var team = Team.FindByName(teamname);
+            if (team == null) return false;
+
+            var user = User.FindByName(username);
+            if (user == null) return false;
+
+            var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
+            if (tu == null)
             {
-                var pair = (from t in ctx.Teams
-                            from u in ctx.Users
-                            where t.Name == teamname && u.Name == username
-                                && t.UserTeamRoles.All(r => r.UserID != u.ID)
-                            select new { TeamID = t.ID, UserID = u.ID })
-                            .FirstOrDefault();
-                if (pair == null)
-                    return false;
-
-                ctx.UserTeamRoles.Add(new UserTeamRole { TeamID = pair.TeamID, UserID = pair.UserID, IsAdministrator = false });
-
-                ctx.SaveChanges();
-                return true;
+                tu = new NewLife.GitCandy.Entity.UserTeam();
+                tu.UserID = user.ID;
+                tu.TeamID = team.ID;
+                tu.Save();
             }
+
+            return true;
         }
 
         public bool TeamRemoveUser(string teamname, string username)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var role = ctx.UserTeamRoles.FirstOrDefault(s => s.Team.Name == teamname && s.User.Name == username);
-                if (role == null)
-                    return false;
+            var team = Team.FindByName(teamname);
+            if (team == null) return false;
 
-                ctx.UserTeamRoles.Remove(role);
+            var user = User.FindByName(username);
+            if (user == null) return false;
 
-                ctx.SaveChanges();
-                return true;
-            }
+            var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
+            if (tu == null) return false;
+
+            tu.Delete();
+
+            return true;
         }
 
         public bool TeamUserSetAdministrator(string teamname, string username, bool isAdmin)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var role = ctx.UserTeamRoles.FirstOrDefault(s => s.Team.Name == teamname && s.User.Name == username);
-                if (role == null)
-                    return false;
+            var team = Team.FindByName(teamname);
+            if (team == null) return false;
 
-                role.IsAdministrator = isAdmin;
+            var user = User.FindByName(username);
+            if (user == null) return false;
 
-                ctx.SaveChanges();
-                return true;
-            }
+            var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
+            if (tu == null) return false;
+
+            tu.IsAdmin = true;
+            tu.Save();
+
+            return true;
         }
 
         public string[] SearchTeam(string query)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var length = query.Length + 0.5;
-                return ctx.Teams
-                    .Where(s => s.Name.Contains(query))
-                    .OrderByDescending(s => length / s.Name.Length)
-                    .ThenBy(s => s.Name)
-                    .Take(10)
-                    .Select(s => s.Name)
-                    .ToArray();
-            }
+            var list = Team.FindAll(Team._.Name.Contains(query), null, null, 0, 10);
+            return list.ToList().Select(e => e.Name).ToArray();
         }
 
         public bool IsTeamAdministrator(string teamname, string username)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var role = ctx.UserTeamRoles.FirstOrDefault(s => s.Team.Name == teamname && s.User.Name == username);
-                return role != null && role.IsAdministrator;
-            }
+            var team = Team.FindByName(teamname);
+            if (team == null) return false;
+
+            var user = User.FindByName(username);
+            if (user == null) return false;
+
+            var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
+            if (tu == null) return false;
+
+            return tu.IsAdmin;
         }
 
-        public void DeleteTeam(string name)
+        public Boolean DeleteTeam(string name)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var team = ctx.Teams.FirstOrDefault(s => s.Name == name);
-                if (team != null)
-                {
-                    team.UserTeamRoles.Clear();
-                    team.TeamRepositoryRoles.Clear();
-                    ctx.Teams.Remove(team);
-                    ctx.SaveChanges();
-                }
-            }
+            var team = Team.FindByName(name);
+            if (team == null) return false;
+
+            team.Delete();
+
+            return true;
         }
 
         public TeamListModel GetTeamList(string keyword, int page, int pagesize = 20)
         {
-            using (var ctx = new GitCandyContext())
-            {
-                var query = ctx.Teams.AsQueryable();
-                if (!string.IsNullOrEmpty(keyword))
-                    query = query.Where(s => s.Name.Contains(keyword)
-                        || s.Description.Contains(keyword));
-                query = query.OrderBy(s => s.Name);
+            var p = new PageParameter();
+            p.PageIndex = page;
+            p.PageSize = pagesize;
+            var list = Team.Search(keyword, p);
 
-                var model = new TeamListModel
+            var model = new TeamListModel
+            {
+                Teams = list.ToList().Select(s => new TeamModel
                 {
-                    Teams = query
-                        .Skip((page - 1) * pagesize)
-                        .Take(pagesize)
-                        .Select(s => new TeamModel
-                        {
-                            Name = s.Name,
-                            Description = s.Description,
-                        })
-                        .ToArray(),
-                    CurrentPage = page,
-                    ItemCount = query.Count(),
-                };
-                return model;
-            }
+                    Name = s.Name,
+                    Description = s.Description,
+                })
+                    .ToArray(),
+                CurrentPage = page,
+                ItemCount = p.TotalCount,
+            };
+            return model;
         }
         #endregion
     }
