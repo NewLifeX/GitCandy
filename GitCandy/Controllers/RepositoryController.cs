@@ -26,10 +26,10 @@ namespace GitCandy.Controllers
         public ActionResult Index()
         {
             var username = Token == null ? null : Token.Username;
-            var model = RepositoryService.GetRepositories(username, Token != null && Token.IsSystemAdministrator);
-            model.CanCreateRepository = Token != null
-                && (UserConfiguration.Current.AllowRepositoryCreation
-                    || Token.IsSystemAdministrator);
+            var p = new NewLife.Web.Pager();
+            p.PageSize = 20;
+            var model = RepositoryService.GetRepositories(username, Token != null && Token.IsSystemAdministrator, p);
+            model.CanCreateRepository = Token != null && (UserConfiguration.Current.AllowRepositoryCreation || Token.IsSystemAdministrator);
             return View(model);
         }
 

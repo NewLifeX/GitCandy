@@ -74,6 +74,11 @@ namespace NewLife.GitCandy.Entity
             else
                 return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
         }
+
+        public static SshKey FindByFingerprint(String fingerprint)
+        {
+            return Find(__.Fingerprint, fingerprint);
+        }
         #endregion
 
         #region 高级查询

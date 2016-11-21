@@ -93,6 +93,15 @@ namespace NewLife.GitCandy.Entity
                 return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
         }
 
+        public static EntityList<UserRepository> FindAllByRepositoryID(Int32 repid)
+        {
+            if (repid <= 0) return new EntityList<UserRepository>();
+
+            if (Meta.Count >= 1000)
+                return FindAll(__.RepositoryID, repid);
+            else
+                return Meta.Cache.Entities.FindAll(e => e.RepositoryID == repid);
+        }
         #endregion
 
         #region 高级查询

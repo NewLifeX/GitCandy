@@ -22,6 +22,13 @@ namespace NewLife.GitCandy.Entity
     public partial class Repository : Entity<Repository>
     {
         #region 对象操作
+        protected override Int32 OnDelete()
+        {
+            UserRepository.FindAllByRepositoryID(ID).Delete();
+            TeamRepository.FindAllByRepositoryID(ID).Delete();
+
+            return base.OnDelete();
+        }
         #endregion
 
         #region 扩展属性
@@ -78,6 +85,13 @@ namespace NewLife.GitCandy.Entity
             //exp &= _.OccurTime.Between(start, end); // 大于等于start，小于end，当start/end大于MinValue时有效
 
             return FindAll(exp, param);
+        }
+
+        public static EntityList<Repository> GetPublics(PageParameter param = null)
+        {
+            if (param == null) param = new PageParameter { PageSize = 20 };
+
+            return FindAll(_.IsPrivate.IsTrue(false), param);
         }
         #endregion
 

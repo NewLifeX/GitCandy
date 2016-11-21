@@ -25,6 +25,27 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
+        private Team _Team;
+        /// <summary>团队</summary>
+        public Team Team
+        {
+            get
+            {
+                //if (_Team == null && GatewayID > 0 && !Dirtys.ContainsKey("Team"))
+                {
+                    _Team = Team.FindByID(TeamID);
+                    //Dirtys["Team"] = true;
+                }
+                return _Team;
+            }
+            set { _Team = value; }
+        }
+
+        /// <summary>团队名称</summary>
+        [DisplayName("团队")]
+        [Map(__.TeamID, typeof(Team), "ID")]
+        public String TeamName { get { return Team + ""; } }
+
         private Repository _Repository;
         /// <summary>仓库</summary>
         public Repository Repository
