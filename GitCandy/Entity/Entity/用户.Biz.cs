@@ -11,6 +11,7 @@ using System.Linq;
 using GitCandy.Security;
 using NewLife.Data;
 using NewLife.Log;
+using NewLife.Web;
 using XCode;
 
 namespace NewLife.GitCandy.Entity
@@ -35,16 +36,10 @@ namespace NewLife.GitCandy.Entity
             var entity = new User();
             entity.Name = "admin";
             entity.Nickname = "管理员";
-            //entity.Password = "abc";
+            entity.Password = "admin".MD5();
             entity.Enable = true;
             entity.IsAdmin = true;
             entity.RegisterTime = DateTime.Now;
-
-            using (var pp = PasswordProviderPool.Take())
-            {
-                entity.PasswordVersion = pp.Version;
-                entity.Password = pp.Compute(entity.ID, entity.Name, "admin");
-            }
 
             entity.Insert();
 
@@ -188,6 +183,18 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 业务
+        public Boolean Login(String password)
+        {
+            var user = this;
+            if (user.Password != password.MD5()) return false;
+
+            user.Logins++;
+            user.LastLogin = DateTime.Now;
+            user.LastLoginIP = WebHelper.UserHost;
+            user.Save();
+
+            return true;
+        }
         #endregion
     }
 }

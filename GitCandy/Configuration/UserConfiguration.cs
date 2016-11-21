@@ -3,7 +3,7 @@ using NewLife.Xml;
 
 namespace GitCandy.Configuration
 {
-    [XmlConfigFile("Config\\UserConfiguration.xml", 15000)]
+    [XmlConfigFile("Config\\Git.Config", 15000)]
     public class UserConfiguration : XmlConfig<UserConfiguration>
     {
         public UserConfiguration()

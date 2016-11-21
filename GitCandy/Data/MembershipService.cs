@@ -41,18 +41,10 @@ namespace GitCandy.Data
                 Nickname = nickname,
                 Email = email,
                 PasswordVersion = -1,
-                Password = "",
+                Password = password.MD5(),
                 Description = description,
                 CreateTime = DateTime.Now,
             };
-
-            user.Save();
-
-            using (var pp = PasswordProviderPool.Take())
-            {
-                user.PasswordVersion = pp.Version;
-                user.Password = pp.Compute(user.ID, name, password);
-            }
 
             user.Save();
 
@@ -106,24 +98,8 @@ namespace GitCandy.Data
         public User Login(string id, string password)
         {
             var user = User.FindByName(id) ?? User.FindByEmail(id);
-            if (user != null)
-            {
-                using (var pp1 = PasswordProviderPool.Take(user.PasswordVersion))
-                    if (user.Password == pp1.Compute(user.ID, user.Name, password))
-                    {
-                        if (user.PasswordVersion != PasswordProviderPool.LastVersion)
-                            using (var pp2 = PasswordProviderPool.Take())
-                            {
-                                user.Password = pp2.Compute(user.ID, user.Name, password);
-                                user.PasswordVersion = pp2.Version;
-                                user.Logins++;
-                                user.LastLogin = DateTime.Now;
-                                user.LastLoginIP = WebHelper.UserHost;
-                                user.Save();
-                            }
-                        return user;
-                    }
-            }
+            if (user != null && user.Login(password)) return user;
+
             return null;
         }
 
@@ -132,11 +108,7 @@ namespace GitCandy.Data
             var user = User.FindByName(name);
             if (user != null)
             {
-                using (var pp = PasswordProviderPool.Take())
-                {
-                    user.Password = pp.Compute(user.ID, user.Name, newPassword);
-                    user.PasswordVersion = pp.Version;
-                }
+                user.Password = newPassword.MD5();
 
                 var auths = AuthorizationLog.FindAllByUserID(user.ID);
                 foreach (var auth in auths)

@@ -400,11 +400,6 @@
     <Compile Include="Schedules\Runner.cs" />
     <Compile Include="Schedules\Scheduler.cs" />
     <Compile Include="Schedules\SingleJob.cs" />
-    <Compile Include="Security\PasswordProvider.cs" />
-    <Compile Include="Security\PasswordProviderPool.cs" />
-    <Compile Include="Security\PasswordProviderV1.cs" />
-    <Compile Include="Security\PasswordProviderV2.cs" />
-    <Compile Include="Security\PasswordProviderVersionAttribute.cs" />
     <Compile Include="Security\Token.cs" />
     <Compile Include="Ssh\Algorithms\CipherInfo.cs" />
     <Compile Include="Ssh\Algorithms\CipherModeEx.cs" />
