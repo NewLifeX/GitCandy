@@ -46,6 +46,8 @@ namespace GitCandy.Data
                 CreateTime = DateTime.Now,
             };
 
+            user.Save();
+
             using (var pp = PasswordProviderPool.Take())
             {
                 user.PasswordVersion = pp.Version;

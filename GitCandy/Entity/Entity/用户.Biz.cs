@@ -7,15 +7,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Xml.Serialization;
-using NewLife.Log;
-using NewLife.Web;
-using NewLife.Data;
-using XCode;
-using XCode.Configuration;
-using XCode.Membership;
 using System.Linq;
+using GitCandy.Security;
+using NewLife.Data;
+using NewLife.Log;
+using XCode;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -23,6 +19,38 @@ namespace NewLife.GitCandy.Entity
     public partial class User : Entity<User>
     {
         #region 对象操作
+        /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override void InitData()
+        {
+            base.InitData();
+
+            // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
+            // Meta.Count是快速取得表记录数
+            if (Meta.Count > 0) return;
+
+            // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
+            if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(User).Name, Meta.Table.DataTable.DisplayName);
+
+            var entity = new User();
+            entity.Name = "admin";
+            entity.Nickname = "管理员";
+            //entity.Password = "abc";
+            entity.Enable = true;
+            entity.IsAdmin = true;
+            entity.RegisterTime = DateTime.Now;
+
+            using (var pp = PasswordProviderPool.Take())
+            {
+                entity.PasswordVersion = pp.Version;
+                entity.Password = pp.Compute(entity.ID, entity.Name, "admin");
+            }
+
+            entity.Insert();
+
+            if (XTrace.Debug) XTrace.WriteLine("完成初始化{0}[{1}]数据！", typeof(User).Name, Meta.Table.DataTable.DisplayName);
+        }
+
         protected override Int32 OnDelete()
         {
             UserTeam.FindAllByUserID(ID).Delete();

@@ -24,7 +24,8 @@ namespace GitCandy
             HidingRequestResponse = HttpRuntime.UsingIntegratedPipeline;
 
             //Logger.SetLogPath();
-            XTrace.WriteLine(AppInfomation.GetAppStartingInfo());
+            //XTrace.WriteLine(AppInfomation.GetAppStartingInfo());
+            XTrace.WriteVersion(this.GetType().Assembly);
 
             AreaRegistration.RegisterAllAreas();
 
@@ -38,7 +39,7 @@ namespace GitCandy
             GitCacheAccessor.Initialize();
             SshServerConfig.StartSshServer();
 
-            XTrace.WriteLine(AppInfomation.GetAppStartedInfo());
+            //XTrace.WriteLine(AppInfomation.GetAppStartedInfo());
 
             HidingRequestResponse = false;
         }
@@ -47,7 +48,7 @@ namespace GitCandy
         {
             SshServerConfig.StopSshServer();
             ScheduleConfig.StopAndWait();
-            XTrace.WriteLine(AppInfomation.GetAppEndInfo());
+            //XTrace.WriteLine(AppInfomation.GetAppEndInfo());
 
             Process.GetCurrentProcess().Kill();
         }
