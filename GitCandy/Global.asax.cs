@@ -44,14 +44,14 @@ namespace GitCandy
             HidingRequestResponse = false;
         }
 
-        protected void Application_End()
-        {
-            SshServerConfig.StopSshServer();
-            ScheduleConfig.StopAndWait();
-            //XTrace.WriteLine(AppInfomation.GetAppEndInfo());
+        //protected void Application_End()
+        //{
+        //    SshServerConfig.StopSshServer();
+        //    ScheduleConfig.StopAndWait();
+        //    //XTrace.WriteLine(AppInfomation.GetAppEndInfo());
 
-            Process.GetCurrentProcess().Kill();
-        }
+        //    Process.GetCurrentProcess().Kill();
+        //}
 
         protected void Application_Error()
         {

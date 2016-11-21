@@ -8755,10 +8755,11 @@
             <param name="destFileName">目标文件</param>
             <returns></returns>
         </member>
-        <member name="M:System.IO.PathHelper.Extract(System.IO.FileInfo,System.String)">
+        <member name="M:System.IO.PathHelper.Extract(System.IO.FileInfo,System.String,System.Boolean)">
             <summary>解压缩</summary>
             <param name="fi"></param>
             <param name="destDir"></param>
+            <param name="overwrite">是否覆盖目标同名文件</param>
         </member>
         <member name="M:System.IO.PathHelper.Compress(System.IO.FileInfo,System.String)">
             <summary>压缩文件</summary>
