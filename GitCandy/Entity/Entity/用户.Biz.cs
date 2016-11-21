@@ -134,6 +134,23 @@ namespace NewLife.GitCandy.Entity
         }
 
         public String[] RepositoryNames { get { return Repositories?.Select(e => e.RepositoryName).ToArray(); } }
+
+        private List<SshKey> _SshKeys;
+        /// <summary>绑定信息</summary>
+        public List<SshKey> SshKeys
+        {
+            get
+            {
+                if (_SshKeys == null && !Dirtys.ContainsKey("SshKeys"))
+                {
+                    _SshKeys = SshKey.FindAllByUserID(ID);
+
+                    Dirtys["SshKeys"] = true;
+                }
+                return _SshKeys;
+            }
+            set { _SshKeys = value; }
+        }
         #endregion
 
         #region 扩展查询

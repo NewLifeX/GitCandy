@@ -53,7 +53,7 @@ namespace GitCandy.Controllers
                         return RedirectToAction("Detail", "Account", new { name = user.Name });
                     }
                     var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                    Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsSystemAdministrator);
+                    Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
                     return RedirectToStartPage();
                 }
                 if (badName)
@@ -101,7 +101,7 @@ namespace GitCandy.Controllers
             if (user != null)
             {
                 var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsSystemAdministrator);
+                Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
 
                 return RedirectToStartPage(returnUrl);
             }
@@ -135,7 +135,7 @@ namespace GitCandy.Controllers
                     if (!isAdmin)
                     {
                         var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsSystemAdministrator);
+                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
                     }
 
                     return RedirectToAction("Detail", "Account", new { name });

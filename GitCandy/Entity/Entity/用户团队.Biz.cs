@@ -4,14 +4,14 @@
  * 时间：2016-11-21 15:48:51
  * 版权：版权所有 (C) 新生命开发团队 2002~2016
 */
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
 using NewLife.Log;
 using NewLife.Web;
-﻿using NewLife.Data;
+using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
@@ -22,14 +22,14 @@ namespace NewLife.GitCandy.Entity
     public partial class UserTeam : Entity<UserTeam>
     {
         #region 对象操作
-            ﻿
+
 
         /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
         /// <param name="isNew"></param>
         public override void Valid(Boolean isNew)
         {
-			// 如果没有脏数据，则不需要进行任何处理
-			if (!HasDirty) return;
+            // 如果没有脏数据，则不需要进行任何处理
+            if (!HasDirty) return;
 
             // 这里验证参数范围，建议抛出参数异常，指定参数名，前端用户界面可以捕获参数异常并聚焦到对应的参数输入框
             //if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "无效！");
@@ -40,7 +40,7 @@ namespace NewLife.GitCandy.Entity
 
             // 在新插入数据或者修改了指定字段时进行唯一性验证，CheckExist内部抛出参数异常
             //if (isNew || Dirtys[__.Name]) CheckExist(__.Name);
-            
+
             // 处理当前已登录用户信息
             if (!Dirtys[__.UserID] && ManageProvider.Provider.Current != null) UserID = (Int32)ManageProvider.Provider.Current.ID;
             if (isNew && !Dirtys[__.CreateTime]) CreateTime = DateTime.Now;
@@ -170,6 +170,17 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 业务
+        public static UserTeam Add(Int32 userid, Int32 teamid, Boolean isadmin)
+        {
+            var ut = FindByUserIDAndTeamID(userid, teamid);
+            if (ut == null) ut = new UserTeam();
+            ut.UserID = userid;
+            ut.TeamID = teamid;
+            ut.IsAdministrator = isadmin;
+            ut.Save();
+
+            return ut;
+        }
         #endregion
     }
 }

@@ -161,6 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Entity\GitCandy数据字典.htm" />
     <Content Include="Entity\XCoder.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,7 +188,7 @@
     <Content Include="CustomErrors\401.html" />
     <Content Include="CustomErrors\404.html" />
     <Content Include="CustomErrors\500.html" />
-    <Content Include="Entity\GitCandy.xml" />
+    <Content Include="Entity\NewLife.GitCandy.xml" />
     <Content Include="Entity\XCoder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>XCoder.log</LastGenOutput>
@@ -301,25 +302,24 @@
     <Compile Include="Controllers\RepositoryController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="DAL\AuthorizationLog.cs" />
-    <Compile Include="DAL\GitCandyContext.cs" />
-    <Compile Include="DAL\Mapping\AuthorizationLogMap.cs" />
-    <Compile Include="DAL\Mapping\RepositoryMap.cs" />
-    <Compile Include="DAL\Mapping\SshKeyMap.cs" />
-    <Compile Include="DAL\Mapping\TeamMap.cs" />
-    <Compile Include="DAL\Mapping\TeamRepositoryRoleMap.cs" />
-    <Compile Include="DAL\Mapping\UserMap.cs" />
-    <Compile Include="DAL\Mapping\UserRepositoryRoleMap.cs" />
-    <Compile Include="DAL\Mapping\UserTeamRoleMap.cs" />
-    <Compile Include="DAL\Repository.cs" />
-    <Compile Include="DAL\SshKey.cs" />
-    <Compile Include="DAL\Team.cs" />
-    <Compile Include="DAL\TeamRepositoryRole.cs" />
-    <Compile Include="DAL\User.cs" />
-    <Compile Include="DAL\UserRepositoryRole.cs" />
-    <Compile Include="DAL\UserTeamRole.cs" />
     <Compile Include="Data\MembershipService.cs" />
     <Compile Include="Data\RepositoryService.cs" />
+    <Compile Include="Entity\Entity\SSH密钥.Biz.cs" />
+    <Compile Include="Entity\Entity\SSH密钥.cs" />
+    <Compile Include="Entity\Entity\仓库.Biz.cs" />
+    <Compile Include="Entity\Entity\仓库.cs" />
+    <Compile Include="Entity\Entity\团队.Biz.cs" />
+    <Compile Include="Entity\Entity\团队.cs" />
+    <Compile Include="Entity\Entity\团队仓库.Biz.cs" />
+    <Compile Include="Entity\Entity\团队仓库.cs" />
+    <Compile Include="Entity\Entity\用户.Biz.cs" />
+    <Compile Include="Entity\Entity\用户.cs" />
+    <Compile Include="Entity\Entity\用户仓库.Biz.cs" />
+    <Compile Include="Entity\Entity\用户仓库.cs" />
+    <Compile Include="Entity\Entity\用户团队.Biz.cs" />
+    <Compile Include="Entity\Entity\用户团队.cs" />
+    <Compile Include="Entity\Entity\认证日志.Biz.cs" />
+    <Compile Include="Entity\Entity\认证日志.cs" />
     <Compile Include="Extensions\CommitLogExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtension.cs" />
     <Compile Include="Extensions\MetadataExtension.cs" />

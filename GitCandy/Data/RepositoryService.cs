@@ -1,10 +1,10 @@
-﻿using GitCandy.Base;
-using GitCandy.DAL;
-using GitCandy.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.Linq;
+using GitCandy.Base;
+using GitCandy.Models;
+using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Data
 {
@@ -13,41 +13,39 @@ namespace GitCandy.Data
     {
         public Repository Create(RepositoryModel model, long managerID, out bool badName)
         {
-            using (var ctx = new GitCandyContext())
-            //using (TransactionScope transaction = new TransactionScope())
+            badName = false;
+            var rp = Repository.FindByName(model.Name);
+            if (rp != null)
             {
-                badName = ctx.Repositories.Any(s => s.Name == model.Name);
-                if (badName)
-                    return null;
-
-                var repo = new Repository
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    CreationDate = DateTime.UtcNow,
-                    IsPrivate = model.IsPrivate,
-                    AllowAnonymousRead = model.AllowAnonymousRead,
-                    AllowAnonymousWrite = model.AllowAnonymousWrite,
-                };
-                ctx.Repositories.Add(repo);
-                ctx.SaveChanges();
-
-                if (managerID > 0)
-                {
-                    repo.UserRepositoryRoles.Add(new UserRepositoryRole
-                    {
-                        Repository = repo,
-                        UserID = managerID,
-                        IsOwner = true,
-                        AllowRead = true,
-                        AllowWrite = true
-                    });
-                }
-                ctx.SaveChanges();
-
-                //transaction.Complete();
-                return repo;
+                badName = true;
+                return null;
             }
+
+            rp = new Repository
+            {
+                Name = model.Name,
+                Description = model.Description,
+                CreateTime = DateTime.UtcNow,
+                IsPrivate = model.IsPrivate,
+                AllowAnonymousRead = model.AllowAnonymousRead,
+                AllowAnonymousWrite = model.AllowAnonymousWrite,
+            };
+            rp.Save();
+
+            if (managerID > 0)
+            {
+                var ur = new UserRepository
+                {
+                    RepositoryID = rp.ID,
+                    UserID = (Int32)managerID,
+                    IsOwner = true,
+                    AllowRead = true,
+                    AllowWrite = true
+                };
+                ur.Save();
+            }
+
+            return rp;
         }
 
         public RepositoryModel GetRepositoryModel(string reponame, bool withShipment = false, string username = null)
@@ -153,7 +151,7 @@ namespace GitCandy.Data
             }
         }
 
-        public UserRepositoryRole RepositoryAddUser(string reponame, string username)
+        public UserRepository RepositoryAddUser(string reponame, string username)
         {
             using (var ctx = new GitCandyContext())
             {
@@ -166,7 +164,7 @@ namespace GitCandy.Data
                 if (pair == null)
                     return null;
 
-                var role = new UserRepositoryRole
+                var role = new UserRepository
                 {
                     RepositoryID = pair.RepoID,
                     UserID = pair.UserID,
@@ -216,7 +214,7 @@ namespace GitCandy.Data
             }
         }
 
-        public TeamRepositoryRole RepositoryAddTeam(string reponame, string teamname)
+        public TeamRepository RepositoryAddTeam(string reponame, string teamname)
         {
             using (var ctx = new GitCandyContext())
             {
@@ -229,7 +227,7 @@ namespace GitCandy.Data
                 if (pair == null)
                     return null;
 
-                var role = new TeamRepositoryRole
+                var role = new TeamRepository
                 {
                     RepositoryID = pair.RepoID,
                     TeamID = pair.TeamID,
@@ -396,10 +394,10 @@ namespace GitCandy.Data
         private RepositoryModel[] ToRepositoryArray(IEnumerable<Repository> source)
         {
             return source.Select(s => new RepositoryModel
-                    {
-                        Name = s.Name,
-                        Description = s.Description,
-                    })
+            {
+                Name = s.Name,
+                Description = s.Description,
+            })
                     .ToArray();
         }
     }

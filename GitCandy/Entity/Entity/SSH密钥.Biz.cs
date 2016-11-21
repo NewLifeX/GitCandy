@@ -106,7 +106,7 @@ namespace NewLife.GitCandy.Entity
         /// <param name="userid">用户</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static SshKey FindByUserID(Boolean userid)
+        public static SshKey FindByUserID(Int32 userid)
         {
             if (Meta.Count >= 1000)
                 return Find(__.UserID, userid);

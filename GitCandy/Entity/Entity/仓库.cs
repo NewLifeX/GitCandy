@@ -89,12 +89,24 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.AllowAnonymousWrite, value)) { _AllowAnonymousWrite = value; OnPropertyChanged(__.AllowAnonymousWrite); } }
         }
 
+        private String _Description;
+        /// <summary>描述</summary>
+        [DisplayName("描述")]
+        [Description("描述")]
+        [DataObjectField(false, false, true, 500)]
+        [BindColumn(7, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        public virtual String Description
+        {
+            get { return _Description; }
+            set { if (OnPropertyChanging(__.Description, value)) { _Description = value; OnPropertyChanged(__.Description); } }
+        }
+
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(7, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(8, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -106,7 +118,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(8, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(9, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -118,7 +130,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(9, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(10, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -130,7 +142,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(10, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(11, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -142,7 +154,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(11, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(12, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -154,7 +166,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(12, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(13, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
@@ -182,6 +194,7 @@ namespace NewLife.GitCandy.Entity
                     case __.IsPrivate : return _IsPrivate;
                     case __.AllowAnonymousRead : return _AllowAnonymousRead;
                     case __.AllowAnonymousWrite : return _AllowAnonymousWrite;
+                    case __.Description : return _Description;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.CreateIP : return _CreateIP;
@@ -201,6 +214,7 @@ namespace NewLife.GitCandy.Entity
                     case __.IsPrivate : _IsPrivate = Convert.ToBoolean(value); break;
                     case __.AllowAnonymousRead : _AllowAnonymousRead = Convert.ToBoolean(value); break;
                     case __.AllowAnonymousWrite : _AllowAnonymousWrite = Convert.ToBoolean(value); break;
+                    case __.Description : _Description = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.CreateIP : _CreateIP = Convert.ToString(value); break;
@@ -234,6 +248,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>匿名写</summary>
             public static readonly Field AllowAnonymousWrite = FindByName(__.AllowAnonymousWrite);
+
+            ///<summary>描述</summary>
+            public static readonly Field Description = FindByName(__.Description);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -276,6 +293,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>匿名写</summary>
             public const String AllowAnonymousWrite = "AllowAnonymousWrite";
+
+            ///<summary>描述</summary>
+            public const String Description = "Description";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -320,6 +340,9 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>匿名写</summary>
         Boolean AllowAnonymousWrite { get; set; }
+
+        /// <summary>描述</summary>
+        String Description { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }

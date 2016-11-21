@@ -11,9 +11,9 @@ namespace GitCandy.Security
 
         private Token() { }
 
-        public Token(Guid authCode, long userID, string username, string nickname, bool isSystemAdministrator, DateTime? expires = null)
+        public Token(String authCode, long userID, string username, string nickname, bool isSystemAdministrator, DateTime? expires = null)
         {
-            AuthCode = authCode;
+            AuthCode = new Guid(authCode);
             UserID = userID;
             Username = username;
             Nickname = nickname;

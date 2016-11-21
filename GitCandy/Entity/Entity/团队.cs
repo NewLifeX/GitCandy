@@ -41,16 +41,16 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.Name, value)) { _Name = value; OnPropertyChanged(__.Name); } }
         }
 
-        private String _Remark;
-        /// <summary>备注</summary>
-        [DisplayName("备注")]
-        [Description("备注")]
-        [DataObjectField(false, false, true, 50)]
-        [BindColumn(3, "Remark", "备注", null, "nvarchar(50)", 0, 0, true)]
-        public virtual String Remark
+        private String _Description;
+        /// <summary>描述</summary>
+        [DisplayName("描述")]
+        [Description("描述")]
+        [DataObjectField(false, false, true, 500)]
+        [BindColumn(3, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        public virtual String Description
         {
-            get { return _Remark; }
-            set { if (OnPropertyChanging(__.Remark, value)) { _Remark = value; OnPropertyChanged(__.Remark); } }
+            get { return _Description; }
+            set { if (OnPropertyChanging(__.Description, value)) { _Description = value; OnPropertyChanged(__.Description); } }
         }
 
         private Int32 _CreateUserID;
@@ -142,7 +142,7 @@ namespace NewLife.GitCandy.Entity
                 {
                     case __.ID : return _ID;
                     case __.Name : return _Name;
-                    case __.Remark : return _Remark;
+                    case __.Description : return _Description;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.CreateIP : return _CreateIP;
@@ -158,7 +158,7 @@ namespace NewLife.GitCandy.Entity
                 {
                     case __.ID : _ID = Convert.ToInt32(value); break;
                     case __.Name : _Name = Convert.ToString(value); break;
-                    case __.Remark : _Remark = Convert.ToString(value); break;
+                    case __.Description : _Description = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.CreateIP : _CreateIP = Convert.ToString(value); break;
@@ -181,8 +181,8 @@ namespace NewLife.GitCandy.Entity
             ///<summary>名称</summary>
             public static readonly Field Name = FindByName(__.Name);
 
-            ///<summary>备注</summary>
-            public static readonly Field Remark = FindByName(__.Remark);
+            ///<summary>描述</summary>
+            public static readonly Field Description = FindByName(__.Description);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -214,8 +214,8 @@ namespace NewLife.GitCandy.Entity
             ///<summary>名称</summary>
             public const String Name = "Name";
 
-            ///<summary>备注</summary>
-            public const String Remark = "Remark";
+            ///<summary>描述</summary>
+            public const String Description = "Description";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -249,8 +249,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>名称</summary>
         String Name { get; set; }
 
-        /// <summary>备注</summary>
-        String Remark { get; set; }
+        /// <summary>描述</summary>
+        String Description { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }

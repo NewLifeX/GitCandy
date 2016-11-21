@@ -30,7 +30,7 @@
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Description="名称" />
-      <Column Name="Remark" DataType="String" Description="备注" />
+      <Column Name="Description" DataType="String" Length="500" Description="描述" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" />
@@ -50,6 +50,7 @@
       <Column Name="IsPrivate" DataType="Boolean" Description="私有" />
       <Column Name="AllowAnonymousRead" DataType="Boolean" Description="匿名读" />
       <Column Name="AllowAnonymousWrite" DataType="Boolean" Description="匿名写" />
+      <Column Name="Description" DataType="String" Length="500" Description="描述" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" />
@@ -155,6 +156,7 @@
     </Columns>
     <Indexes>
       <Index Columns="UserID" Unique="True" />
+      <Index Columns="Fingerprint" />
     </Indexes>
   </Table>
 </Tables>
