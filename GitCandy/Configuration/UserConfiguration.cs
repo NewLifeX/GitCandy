@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using NewLife.Xml;
 
 namespace GitCandy.Configuration
 {
-    [ConfigurationKey("UserConfiguration")]
-    public class UserConfiguration : ConfigurationEntry<UserConfiguration>
+    [XmlConfigFile("Config\\UserConfiguration.xml", 15000)]
+    public class UserConfiguration : XmlConfig<UserConfiguration>
     {
         public UserConfiguration()
         {

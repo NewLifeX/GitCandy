@@ -16,7 +16,7 @@
     <AssemblyName>GitCandy</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -285,8 +285,6 @@
     <Compile Include="Base\RawResult.cs" />
     <Compile Include="Base\RegularExpression.cs" />
     <Compile Include="Base\StringLogicalComparer.cs" />
-    <Compile Include="Configuration\ConfigurationEntry.cs" />
-    <Compile Include="Configuration\ConfigurationKeyAttribute.cs" />
     <Compile Include="Configuration\GitCoreResloverAttribute.cs" />
     <Compile Include="Configuration\HostKey.cs" />
     <Compile Include="Configuration\HostKeyResloverAttribute.cs" />
@@ -499,7 +497,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>11422</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/GitCandy</IISUrl>
+          <IISUrl>http://localhost:11422/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
