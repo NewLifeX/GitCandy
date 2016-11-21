@@ -94,9 +94,9 @@ namespace GitCandy.Git
 
         private void StartProcess(string command, string project)
         {
-            var args = Path.Combine(UserConfiguration.Current.RepositoryPath, project);
+            var args = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project);
 
-            var info = new ProcessStartInfo(Path.Combine(UserConfiguration.Current.GitCorePath, command + ".exe"), args)
+            var info = new ProcessStartInfo(Path.Combine(UserConfiguration.Current.GitCorePath.GetFullPath(), command + ".exe"), args)
             {
                 CreateNoWindow = true,
                 RedirectStandardError = true,

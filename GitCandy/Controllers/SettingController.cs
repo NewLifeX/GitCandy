@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Composition;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using GitCandy.Configuration;
@@ -27,12 +28,12 @@ namespace GitCandy.Controllers
                 LocalSkipCustomError = config.LocalSkipCustomError,
                 AllowRegisterUser = config.AllowRegisterUser,
                 AllowRepositoryCreation = config.AllowRepositoryCreation,
-                RepositoryPath = config.RepositoryPath,
-                CachePath = config.CachePath,
-                GitCorePath = config.GitCorePath,
-                NumberOfCommitsPerPage = config.NumberOfCommitsPerPage,
-                NumberOfItemsPerList = config.NumberOfItemsPerList,
-                NumberOfRepositoryContributors = config.NumberOfRepositoryContributors,
+                RepositoryPath = config.RepositoryPath.GetFullPath(),
+                CachePath = config.CachePath.GetFullPath(),
+                GitCorePath = config.GitCorePath.GetFullPath(),
+                NumberOfCommitsPerPage = config.Commits,
+                NumberOfItemsPerList = config.PageSize,
+                NumberOfRepositoryContributors = config.Contributors,
             };
             return View(model);
         }
@@ -61,9 +62,9 @@ namespace GitCandy.Controllers
                 config.RepositoryPath = model.RepositoryPath;
                 config.CachePath = model.CachePath;
                 config.GitCorePath = model.GitCorePath;
-                config.NumberOfCommitsPerPage = model.NumberOfCommitsPerPage;
-                config.NumberOfItemsPerList = model.NumberOfItemsPerList;
-                config.NumberOfRepositoryContributors = model.NumberOfRepositoryContributors;
+                config.Commits = model.NumberOfCommitsPerPage;
+                config.PageSize = model.NumberOfItemsPerList;
+                config.Contributors = model.NumberOfRepositoryContributors;
                 config.Save();
                 ModelState.Clear();
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -53,58 +52,58 @@ namespace GitCandy
         //    Process.GetCurrentProcess().Kill();
         //}
 
-        protected void Application_Error()
-        {
-            var context = this.Context;
-            var server = context.Server;
-            var ex = server.GetLastError();
-            var statusCode = new HttpException(null, ex).GetHttpCode();
+        //protected void Application_Error()
+        //{
+        //    var context = this.Context;
+        //    var server = context.Server;
+        //    var ex = server.GetLastError();
+        //    var statusCode = new HttpException(null, ex).GetHttpCode();
 
-            var sb = new StringBuilder();
-            if (HidingRequestResponse)
-                sb.AppendLine(statusCode + ", Unknow, First request on integrated mode");
-            else
-                sb.AppendLine(statusCode + ", " + context.Request.HttpMethod + ", " + context.Request.Url.ToString());
-            if (statusCode == 500)
-            {
-                sb.AppendLine(ex.ToString());
-                XTrace.Log.Error(sb.ToString());
-            }
-            else
-            {
-                XTrace.Log.Warn(sb.ToString());
-            }
+        //    var sb = new StringBuilder();
+        //    if (HidingRequestResponse)
+        //        sb.AppendLine(statusCode + ", Unknow, First request on integrated mode");
+        //    else
+        //        sb.AppendLine(statusCode + ", " + context.Request.HttpMethod + ", " + context.Request.Url.ToString());
+        //    if (statusCode == 500)
+        //    {
+        //        sb.AppendLine(ex.ToString());
+        //        XTrace.Log.Error(sb.ToString());
+        //    }
+        //    else
+        //    {
+        //        XTrace.Log.Warn(sb.ToString());
+        //    }
 
-            if (!HidingRequestResponse && UserConfiguration.Current.LocalSkipCustomError && context.Request.IsLocal)
-                return;
+        //    if (!HidingRequestResponse && UserConfiguration.Current.LocalSkipCustomError && context.Request.IsLocal)
+        //        return;
 
-            if (!HidingRequestResponse)
-            {
-                var response = context.Response;
-                response.Clear();
-                response.StatusCode = statusCode;
-                response.TrySkipIisCustomErrors = true;
-                response.ContentType = @"text/html; charset=utf-8";
+        //    if (!HidingRequestResponse)
+        //    {
+        //        var response = context.Response;
+        //        response.Clear();
+        //        response.StatusCode = statusCode;
+        //        response.TrySkipIisCustomErrors = true;
+        //        response.ContentType = @"text/html; charset=utf-8";
 
-                var path = server.MapPath("~/CustomErrors/");
-                var filename = Path.Combine(path, statusCode + ".html");
-                if (File.Exists(filename))
-                {
-                    response.WriteFile(filename);
-                }
-                else
-                {
-                    filename = Path.Combine(path, "000.html");
-                    if (File.Exists(filename))
-                    {
-                        var content = File.ReadAllText(filename);
-                        response.Write(string.Format(content, statusCode));
-                    }
-                }
-            }
+        //        var path = server.MapPath("~/CustomErrors/");
+        //        var filename = Path.Combine(path, statusCode + ".html");
+        //        if (File.Exists(filename))
+        //        {
+        //            response.WriteFile(filename);
+        //        }
+        //        else
+        //        {
+        //            filename = Path.Combine(path, "000.html");
+        //            if (File.Exists(filename))
+        //            {
+        //                var content = File.ReadAllText(filename);
+        //                response.Write(string.Format(content, statusCode));
+        //            }
+        //        }
+        //    }
 
-            server.ClearError();
-        }
+        //    server.ClearError();
+        //}
 
         protected void Application_AcquireRequestState()
         {

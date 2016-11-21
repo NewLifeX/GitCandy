@@ -37,7 +37,7 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath, GetCacheFile()));
+            var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
             if (!info.Directory.Exists)
                 info.Directory.Create();
 

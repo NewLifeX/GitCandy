@@ -463,7 +463,7 @@ namespace GitCandy.Git
             var contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, commit));
             var contributors = contributorsAccessor.Result.Value;
             contributors.OrderedCommits = contributors.OrderedCommits
-                .Take(UserConfiguration.Current.NumberOfRepositoryContributors)
+                .Take(UserConfiguration.Current.Contributors)
                 .ToArray();
             var statistics = new RepositoryStatisticsModel();
             statistics.Current = contributors;
@@ -673,7 +673,7 @@ namespace GitCandy.Git
         #region Static Methods
         public static bool CreateRepository(string name)
         {
-            var path = Path.Combine(UserConfiguration.Current.RepositoryPath, name);
+            var path = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name);
             try
             {
                 using (var repo = new Repository(Repository.Init(path, true)))
@@ -695,8 +695,8 @@ namespace GitCandy.Git
 
         public static bool DeleteRepository(string name)
         {
-            var path = Path.Combine(UserConfiguration.Current.RepositoryPath, name);
-            var temp = Path.Combine(UserConfiguration.Current.RepositoryPath, name + "." + DateTime.Now.Ticks + ".del");
+            var path = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name);
+            var temp = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name + "." + DateTime.Now.Ticks + ".del");
 
             var retry = 3;
             for (; retry > 0; retry--)
@@ -741,7 +741,7 @@ namespace GitCandy.Git
 
         private static DirectoryInfo GetDirectoryInfo(string project)
         {
-            return new DirectoryInfo(Path.Combine(UserConfiguration.Current.RepositoryPath, project));
+            return new DirectoryInfo(Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project));
         }
         #endregion
 
@@ -754,14 +754,14 @@ namespace GitCandy.Git
                 args += " --advertise-refs";
             args += " \"" + _repositoryPath + "\"";
 
-            var info = new System.Diagnostics.ProcessStartInfo(Path.Combine(UserConfiguration.Current.GitCorePath, "git.exe"), args)
+            var info = new System.Diagnostics.ProcessStartInfo(Path.Combine(UserConfiguration.Current.GitCorePath.GetFullPath(), "git.exe"), args)
             {
                 CreateNoWindow = true,
                 RedirectStandardError = true,
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(UserConfiguration.Current.RepositoryPath),
+                WorkingDirectory = Path.GetDirectoryName(UserConfiguration.Current.RepositoryPath.GetFullPath()),
             };
 
             using (var process = System.Diagnostics.Process.Start(info))

@@ -316,12 +316,12 @@ namespace GitCandy.Controllers
         {
             using (var git = new GitService(name))
             {
-                var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.NumberOfCommitsPerPage);
+                var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
 
                 ViewBag.Pager = Pager.Items(model.ItemCount)
-                    .PerPage(UserConfiguration.Current.NumberOfCommitsPerPage)
+                    .PerPage(UserConfiguration.Current.Commits)
                     .Move(model.CurrentPage)
                     .Segment(5)
                     .Center();

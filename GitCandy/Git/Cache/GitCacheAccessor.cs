@@ -62,12 +62,10 @@ namespace GitCandy.Git.Cache
         {
             enabled = false;
 
-            var cachePath = UserConfiguration.Current.CachePath;
-            if (string.IsNullOrEmpty(cachePath))
-                return;
+            var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
+            if (string.IsNullOrEmpty(cachePath)) return;
 
-            if (!Directory.Exists(cachePath))
-                Directory.CreateDirectory(cachePath);
+            cachePath.EnsureDirectory(false);
 
             var expectation = GetExpectation();
             var reality = new string[accessors.Length];
@@ -121,7 +119,7 @@ namespace GitCandy.Git.Cache
         {
             Scheduler.Instance.AddJob(new SingleJob(() =>
             {
-                var cachePath = UserConfiguration.Current.CachePath;
+                var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
                 for (int i = 0; i < accessors.Length; i++)
                 {
                     var path = Path.Combine(cachePath, (i + 1).ToString(), project);
@@ -287,7 +285,7 @@ namespace GitCandy.Git.Cache
 
         protected override bool Load()
         {
-            var filename = Path.Combine(UserConfiguration.Current.CachePath, GetCacheFile());
+            var filename = Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile());
             if (File.Exists(filename))
             {
                 try
@@ -314,7 +312,7 @@ namespace GitCandy.Git.Cache
             if (!resultDone)
                 return;
 
-            var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath, GetCacheFile()));
+            var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
             if (!info.Directory.Exists)
                 info.Directory.Create();
 

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using NewLife.Xml;
 
 namespace GitCandy.Configuration
@@ -6,54 +9,97 @@ namespace GitCandy.Configuration
     [XmlConfigFile("Config\\Git.Config", 15000)]
     public class UserConfiguration : XmlConfig<UserConfiguration>
     {
-        public UserConfiguration()
-        {
-            HostKeys = new List<HostKey>();
-        }
+        #region 属性
+        public bool IsPublicServer { get; set; } = true;
 
-        [RecommendedValue(true)]
-        public bool IsPublicServer { get; set; }
-
-        [RecommendedValue(true, defaultValue: false)]
         public bool ForceSsl { get; set; }
 
-        [RecommendedValue(443)]
-        public int SslPort { get; set; }
+        public int SslPort { get; set; } = 443;
 
-        [RecommendedValue(true)]
         public bool LocalSkipCustomError { get; set; }
 
-        [RecommendedValue(true)]
-        public bool AllowRegisterUser { get; set; }
+        public bool AllowRegisterUser { get; set; } = true;
 
-        [RecommendedValue(true)]
-        public bool AllowRepositoryCreation { get; set; }
+        public bool AllowRepositoryCreation { get; set; } = true;
 
-        [StoragePathReslover(StoragePathType.Repository)]
-        public string RepositoryPath { get; set; }
+        public string RepositoryPath { get; set; } = "..\\Repos";
 
-        [StoragePathReslover(StoragePathType.Cache)]
-        public string CachePath { get; set; }
+        public string CachePath { get; set; } = "..\\Cache";
 
-        [GitCoreReslover]
         public string GitCorePath { get; set; }
 
-        [RecommendedValue(30)]
-        public int NumberOfCommitsPerPage { get; set; }
+        public int Commits { get; set; } = 30;
 
-        [RecommendedValue(30)]
-        public int NumberOfItemsPerList { get; set; }
+        public int PageSize { get; set; } = 30;
 
-        [RecommendedValue(50)]
-        public int NumberOfRepositoryContributors { get; set; }
+        public int Contributors { get; set; } = 50;
 
-        [RecommendedValue(22)]
-        public int SshPort { get; set; }
+        public int SshPort { get; set; } = 22;
 
-        [RecommendedValue(true)]
-        public bool EnableSsh { get; set; }
+        public bool EnableSsh { get; set; } = true;
 
-        [HostKeyReslover]
-        public List<HostKey> HostKeys { get; set; }
+        public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
+        #endregion
+
+        public UserConfiguration()
+        {
+        }
+
+        protected override void OnNew()
+        {
+            GitCorePath = GetGitCore();
+
+            base.OnNew();
+        }
+
+        private String GetGitCore()
+        {
+            var list = new List<string>();
+            var variable = Environment.GetEnvironmentVariable("path");
+            if (variable != null)
+                list.AddRange(variable.Split(';'));
+
+            list.Add(Environment.GetEnvironmentVariable("ProgramW6432"));
+            list.Add(Environment.GetEnvironmentVariable("ProgramFiles"));
+
+            foreach (var drive in Environment.GetLogicalDrives())
+            {
+                list.Add(drive + @"Program Files\Git");
+                list.Add(drive + @"Program Files (x86)\Git");
+                list.Add(drive + @"Program Files\PortableGit");
+                list.Add(drive + @"Program Files (x86)\PortableGit");
+                list.Add(drive + @"PortableGit");
+            }
+
+            list = list.Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+            foreach (var path in list)
+            {
+                var ret = SearchPath(path);
+                if (ret != null)
+                    return ret;
+            }
+
+            return "";
+        }
+
+        private string SearchPath(string path)
+        {
+            var patterns = new[] {
+                @"..\libexec\git-core", // git 1.x
+                @"libexec\git-core", // git 1.x
+                @"..\mingw64\libexec\git-core", // git 2.x
+                @"mingw64\libexec\git-core", // git 2.x
+            };
+            foreach (var pattern in patterns)
+            {
+                var fullpath = new DirectoryInfo(Path.Combine(path, pattern)).FullName;
+                if (File.Exists(Path.Combine(fullpath, "git.exe"))
+                    && File.Exists(Path.Combine(fullpath, "git-receive-pack.exe"))
+                    && File.Exists(Path.Combine(fullpath, "git-upload-archive.exe"))
+                    && File.Exists(Path.Combine(fullpath, "git-upload-pack.exe")))
+                    return fullpath;
+            }
+            return null;
+        }
     }
 }

@@ -18,10 +18,10 @@ namespace GitCandy.Controllers
         [Administrator]
         public ActionResult Index(string query, int? page)
         {
-            var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.NumberOfItemsPerList);
+            var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
             ViewBag.Pager = Pager.Items(model.ItemCount)
-                .PerPage(UserConfiguration.Current.NumberOfItemsPerList)
+                .PerPage(UserConfiguration.Current.PageSize)
                 .Move(model.CurrentPage)
                 .Segment(5)
                 .Center();
