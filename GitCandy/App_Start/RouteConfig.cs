@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using GitCandy.Controllers;
 
 namespace GitCandy
 {
@@ -13,12 +14,14 @@ namespace GitCandy
             routes.MapRoute(
                 name: "Git.git",
                 url: "git/{project}.git/{*verb}",
-                defaults: new { controller = "Git", action = "Smart" }
+                defaults: new { controller = "Git", action = "Smart" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             routes.MapRoute(
                 name: "Git",
                 url: "git/{project}/{*verb}",
-                defaults: new { controller = "Git", action = "Smart" }
+                defaults: new { controller = "Git", action = "Smart" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
 
@@ -26,7 +29,8 @@ namespace GitCandy
             routes.MapRoute(
                 name: "Account",
                 url: "Account/{action}/{name}",
-                defaults: new { controller = "Account" }
+                defaults: new { controller = "Account" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
 
@@ -34,7 +38,8 @@ namespace GitCandy
             routes.MapRoute(
                 name: "Team",
                 url: "Team/{action}/{name}",
-                defaults: new { controller = "Team" }
+                defaults: new { controller = "Team" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
 
@@ -42,7 +47,8 @@ namespace GitCandy
             routes.MapRoute(
                 name: "Repository",
                 url: "Repository/{action}/{name}/{*path}",
-                defaults: new { controller = "Repository", path = "" }
+                defaults: new { controller = "Repository", path = "" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
 
@@ -50,7 +56,8 @@ namespace GitCandy
             routes.MapRoute(
                 name: "Setting",
                 url: "Setting/{action}",
-                defaults: new { controller = "Setting", action = "Edit" }
+                defaults: new { controller = "Setting", action = "Edit" },
+                namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
 
