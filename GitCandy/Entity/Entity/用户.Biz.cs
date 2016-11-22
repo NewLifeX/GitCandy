@@ -13,11 +13,12 @@ using NewLife.Data;
 using NewLife.Log;
 using NewLife.Web;
 using XCode;
+using XCode.Membership;
 
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>用户</summary>
-    public partial class User : Entity<User>
+    public partial class User : LogEntity<User>
     {
         #region 对象操作
         /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -187,7 +188,15 @@ namespace NewLife.GitCandy.Entity
         public Boolean Login(String password)
         {
             var user = this;
-            if (user.Password != password.MD5()) return false;
+            if (!user.Enable) return false;
+
+            // 清空密码后，任意密码可以登录，并成为新密码
+            if (user.Password.IsNullOrEmpty())
+                user.Password = password.MD5();
+            else
+            {
+                if (user.Password != password.MD5()) return false;
+            }
 
             user.Logins++;
             user.LastLogin = DateTime.Now;
@@ -195,6 +204,17 @@ namespace NewLife.GitCandy.Entity
             user.Save();
 
             return true;
+        }
+
+        public static User Check(String name, String pass)
+        {
+            var user = User.FindByName(name) ?? User.FindByEmail(name);
+            if (user == null) return null;
+
+            if (!user.Enable) return null;
+            if (user.Password != pass.MD5()) return null;
+
+            return user;
         }
         #endregion
     }

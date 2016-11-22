@@ -19,7 +19,7 @@ using XCode.Membership;
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>SSH密钥</summary>
-    public partial class SshKey : Entity<SshKey>
+    public partial class SshKey : LogEntity<SshKey>
     {
         #region 对象操作
         #endregion

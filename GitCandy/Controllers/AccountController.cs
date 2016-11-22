@@ -10,6 +10,7 @@ using GitCandy.Filters;
 using GitCandy.Models;
 using GitCandy.Security;
 using NewLife.Log;
+using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
@@ -121,14 +122,12 @@ namespace GitCandy.Controllers
         [CurrentUserOrAdministrator]
         public ActionResult Change(ChangePasswordModel model, string name)
         {
-            if (string.IsNullOrEmpty(name))
-                name = Token.Username;
+            if (string.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator
-                && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            var isAdmin = Token.IsSystemAdministrator && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
             if (ModelState.IsValid)
             {
-                var user = MembershipService.Login(isAdmin ? Token.Username : name, model.OldPassword);
+                var user = UserX.Check(isAdmin ? Token.Username : name, model.OldPassword);
                 if (user != null)
                 {
                     MembershipService.SetPassword(name, model.NewPassword);
@@ -176,7 +175,7 @@ namespace GitCandy.Controllers
             ModelState.Remove("ConformPassword");
             if (ModelState.IsValid)
             {
-                var user = MembershipService.Login(isAdmin ? Token.Username : name, model.Password);
+                var user = UserX.Check(isAdmin ? Token.Username : name, model.Password);
                 if (user != null)
                 {
                     model.IsSystemAdministrator = Token.IsSystemAdministrator && model.IsSystemAdministrator;

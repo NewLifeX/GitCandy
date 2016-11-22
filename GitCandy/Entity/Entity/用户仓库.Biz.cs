@@ -19,7 +19,7 @@ using XCode.Membership;
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>用户仓库</summary>
-    public partial class UserRepository : Entity<UserRepository>
+    public partial class UserRepository : LogEntity<UserRepository>
     {
         #region 对象操作
         #endregion

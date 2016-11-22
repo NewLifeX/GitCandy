@@ -19,7 +19,7 @@ using XCode.Membership;
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>团队</summary>
-    public partial class Team : Entity<Team>
+    public partial class Team : LogEntity<Team>
     {
         #region 对象操作    
         protected override Int32 OnDelete()

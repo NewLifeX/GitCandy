@@ -19,7 +19,7 @@ using XCode.Membership;
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>用户团队</summary>
-    public partial class UserTeam : Entity<UserTeam>
+    public partial class UserTeam : LogEntity<UserTeam>
     {
         #region 对象操作
         #endregion

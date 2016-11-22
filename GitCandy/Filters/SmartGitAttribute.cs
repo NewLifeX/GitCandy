@@ -1,8 +1,9 @@
-﻿using GitCandy.Configuration;
-using GitCandy.Controllers;
-using System;
+﻿using System;
 using System.Text;
 using System.Web.Mvc;
+using GitCandy.Configuration;
+using GitCandy.Controllers;
+using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Filters
 {
@@ -40,7 +41,7 @@ namespace GitCandy.Filters
                     var password = certificate.Substring(index + 1);
                     username = certificate.Substring(0, index);
 
-                    var user = controller.MembershipService.Login(username, password);
+                    var user = UserX.Check(username, password);
                     username = user != null ? user.Name : null;
                 }
             }

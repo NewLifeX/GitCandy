@@ -41,8 +41,10 @@ namespace GitCandy.Data
                 Nickname = nickname,
                 Email = email,
                 Password = password.MD5(),
+                Enable = true,
                 Description = description,
                 CreateTime = DateTime.Now,
+                RegisterTime = DateTime.Now
             };
 
             user.Save();
