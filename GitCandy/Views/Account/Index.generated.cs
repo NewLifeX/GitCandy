@@ -33,6 +33,13 @@ namespace ASP
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using NewLife;
+    using NewLife.Cube;
+    using NewLife.Reflection;
+    using NewLife.Serialization;
+    using NewLife.Web;
+    using XCode;
+    using XCode.Membership;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/Index.cshtml")]
@@ -249,7 +256,7 @@ WriteLiteral("    </tbody>\r\n</table>\r\n");
 
             
             #line 48 "..\..\Views\Account\Index.cshtml"
-Write(Html.Partial("../Shared/_Pager"));
+Write(Html.Partial("_Pager"));
 
             
             #line default
