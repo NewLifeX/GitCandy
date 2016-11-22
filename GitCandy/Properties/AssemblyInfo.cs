@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GitCandy")]
+[assembly: AssemblyTitle("糖果仓库")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GitCandy")]
-[assembly: AssemblyCopyright("Copyright © 2013-2016")]
+[assembly: AssemblyCopyright("Copyright © 新生命开发团队 2002-2016")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
@@ -34,5 +34,9 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyFileVersion("1.0.2016.1122")]
+
+/*
+ * v1.0.2016.1122   迁移到XCode，合并魔方
+ */

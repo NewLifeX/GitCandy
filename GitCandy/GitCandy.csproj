@@ -179,53 +179,191 @@
     <Content Include="Scripts\highlight.pack.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\marked.js" />
-    <Content Include="Views\Account\Change.cshtml" />
-    <Content Include="Views\Account\Create.cshtml" />
-    <Content Include="Views\Account\Delete.cshtml" />
-    <Content Include="Views\Account\Detail.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\Account\Forgot.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Ssh.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Repository\Blame.cshtml" />
-    <Content Include="Views\Repository\Blob.cshtml" />
-    <Content Include="Views\Repository\Branches.cshtml" />
-    <Content Include="Views\Repository\Commit.cshtml" />
-    <Content Include="Views\Repository\Commits.cshtml" />
-    <Content Include="Views\Repository\Compare.cshtml" />
-    <Content Include="Views\Repository\Contributors.cshtml" />
-    <Content Include="Views\Repository\Coop.cshtml" />
-    <Content Include="Views\Repository\Create.cshtml" />
-    <Content Include="Views\Repository\Delete.cshtml" />
-    <Content Include="Views\Repository\Detail.cshtml" />
-    <Content Include="Views\Repository\Edit.cshtml" />
-    <Content Include="Views\Repository\Index.cshtml" />
-    <Content Include="Views\Repository\Tags.cshtml" />
-    <Content Include="Views\Repository\Tree.cshtml" />
-    <Content Include="Views\Repository\_BlobPreview.cshtml" />
-    <Content Include="Views\Repository\_BranchSelector.cshtml" />
-    <Content Include="Views\Repository\_Diff.cshtml" />
-    <Content Include="Views\Repository\_GitUrlButton.cshtml" />
-    <Content Include="Views\Repository\_PathBar.cshtml" />
-    <Content Include="Views\Repository\_ZipButton.cshtml" />
-    <Content Include="Views\Setting\Edit.cshtml" />
-    <Content Include="Views\Setting\ReGenSsh.cshtml" />
-    <Content Include="Views\Setting\Restart.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Members.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Pager.cshtml" />
-    <Content Include="Views\Team\Create.cshtml" />
-    <Content Include="Views\Team\Delete.cshtml" />
-    <Content Include="Views\Team\Detail.cshtml" />
-    <Content Include="Views\Team\Edit.cshtml" />
-    <Content Include="Views\Team\Index.cshtml" />
-    <Content Include="Views\Team\Users.cshtml" />
+    <Content Include="Views\Account\Change.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Change.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Detail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Detail.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Forgot.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Forgot.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Login.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Login.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Ssh.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Ssh.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Home\About.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>About.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Blame.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Blame.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Blob.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Blob.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Branches.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Branches.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Commit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Commit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Commits.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Commits.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Compare.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Compare.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Contributors.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contributors.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Coop.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Coop.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Detail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Detail.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Tags.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Tags.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\Tree.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Tree.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_BlobPreview.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_BlobPreview.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_BranchSelector.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_BranchSelector.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_Diff.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Diff.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_GitUrlButton.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_GitUrlButton.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_PathBar.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_PathBar.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Repository\_ZipButton.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ZipButton.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Setting\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Setting\ReGenSsh.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReGenSsh.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Setting\Restart.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Restart.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Members.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Members.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>YesNo.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Error.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\_Pager.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Pager.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Detail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Detail.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Team\Users.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Users.generated.cs</LastGenOutput>
+    </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +566,236 @@
     <Compile Include="Ssh\SshDataWorker.cs" />
     <Compile Include="Ssh\SshServer.cs" />
     <Compile Include="Ssh\StartingInfo.cs" />
+    <Compile Include="Views\Account\Change.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Change.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Detail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Detail.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Forgot.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Forgot.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Login.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Ssh.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ssh.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\About.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>About.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Blame.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Blame.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Blob.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Blob.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Branches.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Branches.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Commit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Commit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Commits.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Commits.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Compare.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Compare.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Contributors.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contributors.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Coop.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Coop.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Detail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Detail.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Tags.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tags.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\Tree.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tree.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_BlobPreview.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_BlobPreview.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_BranchSelector.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_BranchSelector.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_Diff.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Diff.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_GitUrlButton.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_GitUrlButton.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_PathBar.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_PathBar.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repository\_ZipButton.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ZipButton.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setting\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setting\ReGenSsh.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReGenSsh.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setting\Restart.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Restart.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\Members.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Members.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\YesNo.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YesNo.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Error.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Error.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Layout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Pager.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Pager.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Detail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Detail.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\Users.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Users.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\_ViewStart.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ViewStart.cshtml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\SR.resx">
