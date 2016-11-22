@@ -16,12 +16,12 @@
                 <div title="@commit.CommitMessageShort">@Html.ActionLink(commit.CommitMessageShort.ShortString(100), "Commit", Html.OverRoute(new { path = commit.Sha + "/" + Model.Path }))</div>
                 <strong title="@commit.Author">@commit.Author.Name</strong>
                 <span>@SR.Repository_AuthoredAt</span>
-                <span title="@commit.Author.When">@commit.Author.When.LocalDateTime</span>
+                <span title="@commit.Author.When">@commit.Author.When.LocalDateTime.ToFullString()</span>
                 @if (commit.Author != commit.Committer)
                 {
                     <strong title="@commit.Committer">@commit.Committer.Name</strong>
                     <span>@SR.Repository_CommittedAt</span>
-                    <span title="@commit.Committer.When">@commit.Committer.When.LocalDateTime</span>
+                    <span title="@commit.Committer.When">@commit.Committer.When.LocalDateTime.ToFullString()</span>
                 }
             </div>
             <div class="col-md-3">

@@ -31,7 +31,7 @@ else
                 {
                     <tr>
                         <td><span title="@commit.Committer">@commit.Committer.Name.ShortString(20)</span></td>
-                        <td><span title="@commit.Committer.When">@commit.Committer.When.LocalDateTime</span></td>
+                        <td><span title="@commit.Committer.When">@commit.Committer.When.LocalDateTime.ToFullString()</span></td>
                         <td>@Html.ActionLink(commit.CommitMessageShort.ShortString(80), "Commit", Html.OverRoute(new { path = commit.Sha }))</td>
                     </tr>
                 }

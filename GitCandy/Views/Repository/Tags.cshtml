@@ -18,7 +18,7 @@
                     { <a class="btn btn-default" data-tag="@tag.ReferenceName" href="#">@SR.Shared_Delete</a>}
                 </div>
                 <div>@Html.ActionLink(tag.ReferenceName, "Tree", Html.OverRoute(new { path = tag.ReferenceName ?? tag.Sha }))</div>
-                <div title="@tag.When">@tag.When.LocalDateTime.ToShortDateString()</div>
+                <div title="@tag.When">@tag.When.LocalDateTime.ToFullString()</div>
                 <div>@tag.MessageShort</div>
                 <div>@Html.ActionLink(tag.Sha, "Commit", Html.OverRoute(new { path = tag.ReferenceName ?? tag.Sha }))</div>
             </div>

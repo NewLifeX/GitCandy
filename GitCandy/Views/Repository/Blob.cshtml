@@ -14,12 +14,12 @@
     <div class="col-md-12">
         <strong title="@Model.Commit.Author">@Model.Commit.Author.Name</strong>
         <span>@SR.Repository_AuthoredAt</span>
-        <span title="@Model.Commit.Author.When">@Model.Commit.Author.When.LocalDateTime</span>
+        <span title="@Model.Commit.Author.When">@Model.Commit.Author.When.LocalDateTime.ToFullString()</span>
         @if (Model.Commit.Author != Model.Commit.Committer)
         {
             <strong title="@Model.Commit.Committer">@Model.Commit.Committer.Name</strong>
             <span>@SR.Repository_CommittedAt</span>
-            <span title="@Model.Commit.Committer.When">@Model.Commit.Committer.When.LocalDateTime</span>
+            <span title="@Model.Commit.Committer.When">@Model.Commit.Committer.When.LocalDateTime.ToFullString()</span>
         }
     </div>
 </div>

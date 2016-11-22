@@ -57,12 +57,12 @@ else
                     <div class="clearfix">
                         <strong title="@Model.Commit.Author">@Model.Commit.Author.Name</strong>
                         <span>@SR.Repository_AuthoredAt</span>
-                        <span title="@Model.Commit.Author.When">@Model.Commit.Author.When.LocalDateTime</span>
+                        <span title="@Model.Commit.Author.When">@Model.Commit.Author.When.LocalDateTime.ToFullString()</span>
                         @if (Model.Commit.Author != Model.Commit.Committer)
                         {
                             <strong title="@Model.Commit.Committer">@Model.Commit.Committer.Name</strong>
                             <span>@SR.Repository_CommittedAt</span>
-                            <span title="@Model.Commit.Committer.When">@Model.Commit.Committer.When.LocalDateTime</span>
+                            <span title="@Model.Commit.Committer.When">@Model.Commit.Committer.When.LocalDateTime.ToFullString()</span>
                         }
                         <div class="pull-right">@Model.Commit.Sha.ToShortSha()</div>
                     </div>
@@ -89,7 +89,7 @@ else
                             </td>
                             <td><span title="@entry.Commit.CommitMessageShort">@(entry.Commit.Sha == null ? Html.Raw(entry.Commit.CommitMessageShort) : Html.ActionLink(entry.Commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = entry.Commit.Sha })))</span></td>
                             <td title="@entry.Commit.Author">@entry.Commit.Author.Name.ShortString(20)</td>
-                            <td title="@entry.Commit.Author.When">@entry.Commit.Author.When.LocalDateTime.ToShortDateString()</td>
+                            <td title="@entry.Commit.Author.When">@entry.Commit.Author.When.LocalDateTime.ToFullString()</td>
                         </tr>
                     }
                 </tbody>
