@@ -55,7 +55,7 @@ else
                         <div title="@Model.Commit.CommitMessageShort" class="pull-left">@Html.ActionLink(Model.Commit.CommitMessageShort.ShortString(80), "Commit", Html.OverRoute(new { path = Model.Commit.Sha }))</div>
                     </div>
                     <div class="clearfix">
-                        <strong title="@Model.Commit.Author">@Model.Commit.Author.Name</strong>
+                        <strong title="@Model.Commit.Author">@Html.Link(Model.Commit.Author)</strong>
                         <span>@SR.Repository_AuthoredAt</span>
                         <span title="@Model.Commit.Author.When">@Model.Commit.Author.When.LocalDateTime.ToFullString()</span>
                         @if (Model.Commit.Author != Model.Commit.Committer)

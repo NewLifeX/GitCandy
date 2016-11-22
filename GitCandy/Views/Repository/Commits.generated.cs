@@ -143,7 +143,7 @@ WriteLiteral(">");
 
             
             #line 17 "..\..\Views\Repository\Commits.cshtml"
-                                          Write(commit.Author.Name);
+                                          Write(Html.Link(commit.Author));
 
             
             #line default
@@ -159,14 +159,14 @@ WriteLiteral("</strong>\r\n                <span>");
             #line hidden
 WriteLiteral("</span>\r\n                <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 861), Tuple.Create("\"", 888)
+WriteAttribute("title", Tuple.Create(" title=\"", 867), Tuple.Create("\"", 894)
             
             #line 19 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 869), Tuple.Create<System.Object, System.Int32>(commit.Author.When
+, Tuple.Create(Tuple.Create("", 875), Tuple.Create<System.Object, System.Int32>(commit.Author.When
             
             #line default
             #line hidden
-, 869), false)
+, 875), false)
 );
 
 WriteLiteral(">");
@@ -196,21 +196,21 @@ WriteLiteral("</span>\r\n");
             #line hidden
 WriteLiteral("                    <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1050), Tuple.Create("\"", 1075)
+WriteAttribute("title", Tuple.Create(" title=\"", 1056), Tuple.Create("\"", 1081)
             
             #line 22 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 1058), Tuple.Create<System.Object, System.Int32>(commit.Committer
+, Tuple.Create(Tuple.Create("", 1064), Tuple.Create<System.Object, System.Int32>(commit.Committer
             
             #line default
             #line hidden
-, 1058), false)
+, 1064), false)
 );
 
 WriteLiteral(">");
 
             
             #line 22 "..\..\Views\Repository\Commits.cshtml"
-                                                 Write(commit.Committer.Name);
+                                                 Write(Html.Link(commit.Committer));
 
             
             #line default
@@ -230,14 +230,14 @@ WriteLiteral("</span>\r\n");
 
 WriteLiteral("                    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1196), Tuple.Create("\"", 1226)
+WriteAttribute("title", Tuple.Create(" title=\"", 1208), Tuple.Create("\"", 1238)
             
             #line 24 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 1204), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
+, Tuple.Create(Tuple.Create("", 1216), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
             
             #line default
             #line hidden
-, 1204), false)
+, 1216), false)
 );
 
 WriteLiteral(">");

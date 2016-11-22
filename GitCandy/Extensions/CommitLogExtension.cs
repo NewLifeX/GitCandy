@@ -1,6 +1,10 @@
-﻿using LibGit2Sharp;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using LibGit2Sharp;
+using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Extensions
 {
@@ -25,6 +29,15 @@ namespace GitCandy.Extensions
                     return pathEntry.Target.Sha != parentPathEntry.Target.Sha;
                 return true;
             });
+        }
+
+        public static MvcHtmlString Link(this HtmlHelper html, Signature sign)
+        {
+            var user = User.FindByName(sign.Name) ?? User.FindByMail(sign.Email);
+            if (user != null)
+                return html.ActionLink(user.FriendName, "Detail", "Account", new { name = user.Name }, new { target = "_blank" });
+            else
+                return new MvcHtmlString(sign.Name);
         }
     }
 }
