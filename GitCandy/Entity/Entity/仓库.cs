@@ -89,12 +89,96 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.AllowAnonymousWrite, value)) { _AllowAnonymousWrite = value; OnPropertyChanged(__.AllowAnonymousWrite); } }
         }
 
+        private Int32 _Commits;
+        /// <summary>提交数</summary>
+        [DisplayName("提交数")]
+        [Description("提交数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(7, "Commits", "提交数", null, "int", 10, 0, false)]
+        public virtual Int32 Commits
+        {
+            get { return _Commits; }
+            set { if (OnPropertyChanging(__.Commits, value)) { _Commits = value; OnPropertyChanged(__.Commits); } }
+        }
+
+        private Int32 _Branches;
+        /// <summary>分支数</summary>
+        [DisplayName("分支数")]
+        [Description("分支数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(8, "Branches", "分支数", null, "int", 10, 0, false)]
+        public virtual Int32 Branches
+        {
+            get { return _Branches; }
+            set { if (OnPropertyChanging(__.Branches, value)) { _Branches = value; OnPropertyChanged(__.Branches); } }
+        }
+
+        private Int32 _Contributors;
+        /// <summary>参与者</summary>
+        [DisplayName("参与者")]
+        [Description("参与者")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(9, "Contributors", "参与者", null, "int", 10, 0, false)]
+        public virtual Int32 Contributors
+        {
+            get { return _Contributors; }
+            set { if (OnPropertyChanging(__.Contributors, value)) { _Contributors = value; OnPropertyChanged(__.Contributors); } }
+        }
+
+        private Int32 _Files;
+        /// <summary>文件数</summary>
+        [DisplayName("文件数")]
+        [Description("文件数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(10, "Files", "文件数", null, "int", 10, 0, false)]
+        public virtual Int32 Files
+        {
+            get { return _Files; }
+            set { if (OnPropertyChanging(__.Files, value)) { _Files = value; OnPropertyChanged(__.Files); } }
+        }
+
+        private DateTime _LastCommit;
+        /// <summary>最后提交</summary>
+        [DisplayName("最后提交")]
+        [Description("最后提交")]
+        [DataObjectField(false, false, true, 3)]
+        [BindColumn(11, "LastCommit", "最后提交", null, "datetime", 3, 0, false)]
+        public virtual DateTime LastCommit
+        {
+            get { return _LastCommit; }
+            set { if (OnPropertyChanging(__.LastCommit, value)) { _LastCommit = value; OnPropertyChanged(__.LastCommit); } }
+        }
+
+        private Int32 _Views;
+        /// <summary>浏览数</summary>
+        [DisplayName("浏览数")]
+        [Description("浏览数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(12, "Views", "浏览数", null, "int", 10, 0, false)]
+        public virtual Int32 Views
+        {
+            get { return _Views; }
+            set { if (OnPropertyChanging(__.Views, value)) { _Views = value; OnPropertyChanged(__.Views); } }
+        }
+
+        private DateTime _LastView;
+        /// <summary>最后浏览</summary>
+        [DisplayName("最后浏览")]
+        [Description("最后浏览")]
+        [DataObjectField(false, false, true, 3)]
+        [BindColumn(13, "LastView", "最后浏览", null, "datetime", 3, 0, false)]
+        public virtual DateTime LastView
+        {
+            get { return _LastView; }
+            set { if (OnPropertyChanging(__.LastView, value)) { _LastView = value; OnPropertyChanged(__.LastView); } }
+        }
+
         private String _Description;
         /// <summary>描述</summary>
         [DisplayName("描述")]
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(7, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(14, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Description
         {
             get { return _Description; }
@@ -106,7 +190,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(8, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(15, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -118,7 +202,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(9, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(16, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -130,7 +214,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(10, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(17, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -142,7 +226,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(11, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(18, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -154,7 +238,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(12, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(19, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -166,7 +250,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(13, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(20, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
@@ -194,6 +278,13 @@ namespace NewLife.GitCandy.Entity
                     case __.IsPrivate : return _IsPrivate;
                     case __.AllowAnonymousRead : return _AllowAnonymousRead;
                     case __.AllowAnonymousWrite : return _AllowAnonymousWrite;
+                    case __.Commits : return _Commits;
+                    case __.Branches : return _Branches;
+                    case __.Contributors : return _Contributors;
+                    case __.Files : return _Files;
+                    case __.LastCommit : return _LastCommit;
+                    case __.Views : return _Views;
+                    case __.LastView : return _LastView;
                     case __.Description : return _Description;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
@@ -214,6 +305,13 @@ namespace NewLife.GitCandy.Entity
                     case __.IsPrivate : _IsPrivate = Convert.ToBoolean(value); break;
                     case __.AllowAnonymousRead : _AllowAnonymousRead = Convert.ToBoolean(value); break;
                     case __.AllowAnonymousWrite : _AllowAnonymousWrite = Convert.ToBoolean(value); break;
+                    case __.Commits : _Commits = Convert.ToInt32(value); break;
+                    case __.Branches : _Branches = Convert.ToInt32(value); break;
+                    case __.Contributors : _Contributors = Convert.ToInt32(value); break;
+                    case __.Files : _Files = Convert.ToInt32(value); break;
+                    case __.LastCommit : _LastCommit = Convert.ToDateTime(value); break;
+                    case __.Views : _Views = Convert.ToInt32(value); break;
+                    case __.LastView : _LastView = Convert.ToDateTime(value); break;
                     case __.Description : _Description = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
@@ -248,6 +346,27 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>匿名写</summary>
             public static readonly Field AllowAnonymousWrite = FindByName(__.AllowAnonymousWrite);
+
+            ///<summary>提交数</summary>
+            public static readonly Field Commits = FindByName(__.Commits);
+
+            ///<summary>分支数</summary>
+            public static readonly Field Branches = FindByName(__.Branches);
+
+            ///<summary>参与者</summary>
+            public static readonly Field Contributors = FindByName(__.Contributors);
+
+            ///<summary>文件数</summary>
+            public static readonly Field Files = FindByName(__.Files);
+
+            ///<summary>最后提交</summary>
+            public static readonly Field LastCommit = FindByName(__.LastCommit);
+
+            ///<summary>浏览数</summary>
+            public static readonly Field Views = FindByName(__.Views);
+
+            ///<summary>最后浏览</summary>
+            public static readonly Field LastView = FindByName(__.LastView);
 
             ///<summary>描述</summary>
             public static readonly Field Description = FindByName(__.Description);
@@ -293,6 +412,27 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>匿名写</summary>
             public const String AllowAnonymousWrite = "AllowAnonymousWrite";
+
+            ///<summary>提交数</summary>
+            public const String Commits = "Commits";
+
+            ///<summary>分支数</summary>
+            public const String Branches = "Branches";
+
+            ///<summary>参与者</summary>
+            public const String Contributors = "Contributors";
+
+            ///<summary>文件数</summary>
+            public const String Files = "Files";
+
+            ///<summary>最后提交</summary>
+            public const String LastCommit = "LastCommit";
+
+            ///<summary>浏览数</summary>
+            public const String Views = "Views";
+
+            ///<summary>最后浏览</summary>
+            public const String LastView = "LastView";
 
             ///<summary>描述</summary>
             public const String Description = "Description";
@@ -340,6 +480,27 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>匿名写</summary>
         Boolean AllowAnonymousWrite { get; set; }
+
+        /// <summary>提交数</summary>
+        Int32 Commits { get; set; }
+
+        /// <summary>分支数</summary>
+        Int32 Branches { get; set; }
+
+        /// <summary>参与者</summary>
+        Int32 Contributors { get; set; }
+
+        /// <summary>文件数</summary>
+        Int32 Files { get; set; }
+
+        /// <summary>最后提交</summary>
+        DateTime LastCommit { get; set; }
+
+        /// <summary>浏览数</summary>
+        Int32 Views { get; set; }
+
+        /// <summary>最后浏览</summary>
+        DateTime LastView { get; set; }
 
         /// <summary>描述</summary>
         String Description { get; set; }

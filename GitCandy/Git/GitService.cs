@@ -29,7 +29,8 @@ namespace GitCandy.Git
 
         public GitService(string name)
         {
-            var info = GetDirectoryInfo(name);
+            //var info = GetDirectoryInfo(name);
+            var info = UserConfiguration.Current.RepositoryPath.CombinePath(name).GetFullPath().AsDirectory();
             _repositoryPath = info.FullName;
             _repoId = Name = info.Name;
 
@@ -738,10 +739,10 @@ namespace GitCandy.Git
             return retry > 0;
         }
 
-        private static DirectoryInfo GetDirectoryInfo(string project)
-        {
-            return new DirectoryInfo(Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project));
-        }
+        //private static DirectoryInfo GetDirectoryInfo(string project)
+        //{
+        //    return new DirectoryInfo(Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project));
+        //}
         #endregion
 
         #region RunGitCmd

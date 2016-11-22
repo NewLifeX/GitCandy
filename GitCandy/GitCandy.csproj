@@ -109,6 +109,11 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\GitCandy\Views\web.config" />
+    <Content Include="Entity\XCoder.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCoder.tt</DependentUpon>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="9.1.6160.27602">
+<Tables Version="9.1.6159.30117">
   <Table Name="User" Description="用户" DbType="SqlServer">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
@@ -49,6 +49,13 @@
       <Column Name="IsPrivate" DataType="Boolean" Description="私有" />
       <Column Name="AllowAnonymousRead" DataType="Boolean" Description="匿名读" />
       <Column Name="AllowAnonymousWrite" DataType="Boolean" Description="匿名写" />
+      <Column Name="Commits" DataType="Int32" Description="提交数" />
+      <Column Name="Branches" DataType="Int32" Description="分支数" />
+      <Column Name="Contributors" DataType="Int32" Description="参与者" />
+      <Column Name="Files" DataType="Int32" Description="文件数" />
+      <Column Name="LastCommit" DataType="DateTime" Description="最后提交" />
+      <Column Name="Views" DataType="Int32" Description="浏览数" />
+      <Column Name="LastView" DataType="DateTime" Description="最后浏览" />
       <Column Name="Description" DataType="String" Length="500" Description="描述" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />

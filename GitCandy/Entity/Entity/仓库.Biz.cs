@@ -22,6 +22,12 @@ namespace NewLife.GitCandy.Entity
     public partial class Repository : LogEntity<Repository>
     {
         #region 对象操作
+        static Repository()
+        {
+            var df = Meta.Factory.AdditionalFields;
+            df.Add(__.Views);
+        }
+
         protected override Int32 OnDelete()
         {
             UserRepository.FindAllByRepositoryID(ID).Delete();

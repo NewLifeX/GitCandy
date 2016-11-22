@@ -12,6 +12,7 @@ using GitCandy.Git;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
 using GitCandy.Ssh;
+using NewLife.GitCandy.Entity;
 using NewLife.Log;
 
 namespace GitCandy.Controllers
@@ -209,8 +210,8 @@ namespace GitCandy.Controllers
             using (var git = new GitService(name))
             {
                 var model = git.GetTree(path);
-                if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+
                 if (model.Entries == null && model.ReferenceName != "HEAD")
                     return RedirectToAction("Tree", new { path = model.ReferenceName });
 
@@ -220,6 +221,22 @@ namespace GitCandy.Controllers
                 {
                     var m = RepositoryService.GetRepositoryModel(name);
                     model.Description = m.Description;
+
+                    // 修正提交数、分支、参与人等
+                    var repo = Repository.FindByName(name);
+                    if (repo != null)
+                    {
+                        repo.Commits = model.Scope.Commits;
+                        repo.Branches = model.Scope.Branches;
+                        repo.Contributors = model.Scope.Contributors;
+                        repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
+
+                        repo.Views++;
+                        repo.LastView = DateTime.Now;
+                        repo.SaveAsync();
+
+                        model.Description = repo.Description;
+                    }
                 }
                 return View(model);
             }
@@ -422,6 +439,15 @@ namespace GitCandy.Controllers
                 var model = git.GetContributors(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+
+                // 修正文件数
+                var repo = Repository.FindByName(name);
+                if (repo != null)
+                {
+                    repo.Files = model.Statistics.Current.NumberOfFiles;
+                    repo.SaveAsync();
+                }
+
                 return View(model);
             }
         }
