@@ -1,15 +1,13 @@
-﻿using GitCandy.Configuration;
-using GitCandy.Data;
-using GitCandy.Ssh;
-using GitCandy.Ssh.Services;
-using System;
-using System.Composition;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
+using GitCandy.Configuration;
+using GitCandy.Data;
+using GitCandy.Ssh;
+using GitCandy.Ssh.Services;
 
 namespace GitCandy.Git
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Composition;
 using System.Linq;
 using GitCandy.Base;
 using GitCandy.Models;
@@ -7,11 +6,9 @@ using GitCandy.Security;
 using GitCandy.Ssh;
 using NewLife.Data;
 using NewLife.GitCandy.Entity;
-using NewLife.Web;
 
 namespace GitCandy.Data
 {
-    [Export(typeof(MembershipService))]
     public class MembershipService
     {
         #region Account part

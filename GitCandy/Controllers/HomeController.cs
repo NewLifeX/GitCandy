@@ -1,10 +1,8 @@
-﻿using System.Composition;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace GitCandy.Controllers
 {
-    [Export(typeof(HomeController))]
     public class HomeController : CandyControllerBase
     {
         public ActionResult Index()

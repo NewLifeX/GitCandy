@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Composition;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +11,6 @@ using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
-    [Export(typeof(TeamController))]
     public class TeamController : CandyControllerBase
     {
         [Administrator]
