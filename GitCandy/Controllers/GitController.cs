@@ -1,8 +1,4 @@
-﻿using GitCandy.Data;
-using GitCandy.Filters;
-using GitCandy.Git;
-using LibGit2Sharp;
-using System;
+﻿using System;
 using System.Composition;
 using System.Globalization;
 using System.IO;
@@ -10,6 +6,10 @@ using System.IO.Compression;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GitCandy.Data;
+using GitCandy.Filters;
+using GitCandy.Git;
+using LibGit2Sharp;
 
 namespace GitCandy.Controllers
 {

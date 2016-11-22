@@ -57,6 +57,9 @@
     <Reference Include="NewLife.Core">
       <HintPath>..\DLL\NewLife.Core.dll</HintPath>
     </Reference>
+    <Reference Include="NewLife.Cube">
+      <HintPath>..\DLL\NewLife.Cube.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -145,6 +148,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\GitCandy\Views\web.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -247,6 +251,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ScheduleConfig.cs" />
     <Compile Include="App_Start\SshServerConfig.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\TeamController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\RepositoryController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\TeamRepositoryController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\SshKeyController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\UserRepositoryController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\UserController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\GitController.cs" />
+    <Compile Include="Areas\GitCandy\GitCandyAreaRegistration.cs" />
     <Compile Include="Base\FileHelper.cs" />
     <Compile Include="Base\MefDependencyResolver.cs" />
     <Compile Include="Base\Pager.cs" />
@@ -436,6 +450,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\GitCandy\Models\" />
+    <Folder Include="Areas\GitCandy\Views\Shared\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

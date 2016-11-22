@@ -11,6 +11,7 @@ using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
+    [AllowAnonymous]
     public abstract class CandyControllerBase : Controller
     {
         private const string AuthKey = "_gc_auth";
