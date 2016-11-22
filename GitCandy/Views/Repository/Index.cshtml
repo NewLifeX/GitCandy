@@ -22,6 +22,7 @@
                     <td>
                         <div>@Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))</div>
                         <div>@repo.Description</div>
+                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
                     </td>
                 </tr>
             }
@@ -37,6 +38,7 @@
                     <td>
                         <div>@Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))</div>
                         <div>@repo.Description</div>
+                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
                     </td>
                 </tr>
             }

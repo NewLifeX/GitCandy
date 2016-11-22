@@ -2,6 +2,7 @@
 using GitCandy.Base;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System;
 
 namespace GitCandy.Models
 {
@@ -46,5 +47,12 @@ namespace GitCandy.Models
         public string[] LocalBranches { get; set; }
 
         public bool CurrentUserIsOwner { get; set; }
+
+        public Int32 Commits { get; set; }
+        public Int32 Branches { get; set; }
+        public Int32 Contributors { get; set; }
+        public DateTime LastCommit { get; set; }
+        public Int32 Views { get; set; }
+        public DateTime LastView { get; set; }
     }
 }

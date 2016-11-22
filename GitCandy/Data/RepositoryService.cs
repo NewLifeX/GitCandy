@@ -406,6 +406,13 @@ namespace GitCandy.Data
         {
             var model = new RepositoryListModel();
 
+            // 默认按照最后更新时间降序
+            if (param.Sort.IsNullOrEmpty())
+            {
+                param.Sort = "LastCommit";
+                param.Desc = true;
+            }
+
             if (string.IsNullOrEmpty(username))
             {
                 model.Collaborations = new RepositoryModel[0];
@@ -435,6 +442,12 @@ namespace GitCandy.Data
             {
                 Name = s.Name,
                 Description = s.Description,
+                Commits = s.Commits,
+                Branches = s.Branches,
+                Contributors = s.Contributors,
+                LastCommit = s.LastCommit,
+                Views = s.Views,
+                LastView = s.LastView,
             }).ToArray();
         }
     }

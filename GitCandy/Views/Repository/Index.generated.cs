@@ -163,10 +163,55 @@ WriteLiteral("</div>\r\n                        <div>");
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                    </td>\r\n                </tr>\r\n");
+WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 27 "..\..\Views\Repository\Index.cshtml"
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                        Write(repo.Commits);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 提交，");
+
+            
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                                         Write(repo.Branches);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 分支，");
+
+            
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                                                           Write(repo.Contributors);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 参与，");
+
+            
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                                                                                 Write(repo.Views);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 浏览，");
+
+            
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                                                                                                Write(repo.LastCommit.ToFullString());
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
+
+            
+            #line 28 "..\..\Views\Repository\Index.cshtml"
             }
 
             
@@ -183,7 +228,7 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n            <thead>");
 
             
-            #line 33 "..\..\Views\Repository\Index.cshtml"
+            #line 34 "..\..\Views\Repository\Index.cshtml"
               Write(SR.Repository_PopularRepositories);
 
             
@@ -192,13 +237,13 @@ WriteLiteral(">\r\n            <thead>");
 WriteLiteral("</thead>\r\n");
 
             
-            #line 34 "..\..\Views\Repository\Index.cshtml"
+            #line 35 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Repository\Index.cshtml"
+            #line 35 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Repositories)
             {
 
@@ -208,7 +253,7 @@ WriteLiteral("</thead>\r\n");
 WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div>");
 
             
-            #line 38 "..\..\Views\Repository\Index.cshtml"
+            #line 39 "..\..\Views\Repository\Index.cshtml"
                         Write(Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name })));
 
             
@@ -217,16 +262,61 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
 WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 39 "..\..\Views\Repository\Index.cshtml"
+            #line 40 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                    </td>\r\n                </tr>\r\n");
+WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 42 "..\..\Views\Repository\Index.cshtml"
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                        Write(repo.Commits);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 提交，");
+
+            
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                                         Write(repo.Branches);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 分支，");
+
+            
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                                                           Write(repo.Contributors);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 参与，");
+
+            
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                                                                                 Write(repo.Views);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 浏览，");
+
+            
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                                                                                                Write(repo.LastCommit.ToFullString());
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
+
+            
+            #line 44 "..\..\Views\Repository\Index.cshtml"
             }
 
             
