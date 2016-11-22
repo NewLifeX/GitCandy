@@ -7,9 +7,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using GitCandy.Configuration;
 using GitCandy.Extensions;
-using GitCandy.Schedules;
 using LibGit2Sharp;
 using NewLife.Log;
+using NewLife.Threading;
 
 namespace GitCandy.Git.Cache
 {
@@ -39,8 +39,7 @@ namespace GitCandy.Git.Cache
             };
         }
 
-        public static T Singleton<T>(T accessor)
-            where T : GitCacheAccessor
+        public static T Singleton<T>(T accessor) where T : GitCacheAccessor
         {
             Contract.Requires(accessor != null);
 
@@ -91,7 +90,7 @@ namespace GitCandy.Git.Cache
 
             File.WriteAllLines(filename, expectation);
 
-            Scheduler.Instance.AddJob(new SingleJob(() =>
+            new TimerX(s =>
             {
                 var dirs = Directory.GetDirectories(cachePath, "*.del");
                 foreach (var dir in dirs)
@@ -99,7 +98,7 @@ namespace GitCandy.Git.Cache
                     XTrace.WriteLine("Delete cache directory {0}", dir);
                     Directory.Delete(dir, true);
                 }
-            }, JobType.LongRunning));
+            }, null, 10000, 10 * 60 * 1000);
 
             enabled = true;
         }
@@ -117,17 +116,12 @@ namespace GitCandy.Git.Cache
 
         public static void Delete(string project)
         {
-            Scheduler.Instance.AddJob(new SingleJob(() =>
+            var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
+            for (int i = 0; i < accessors.Length; i++)
             {
-                var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
-                for (int i = 0; i < accessors.Length; i++)
-                {
-                    var path = Path.Combine(cachePath, (i + 1).ToString(), project);
-                    if (Directory.Exists(path))
-                        Directory.Delete(path, true);
-                }
-
-            }, JobType.LongRunning));
+                var path = Path.Combine(cachePath, (i + 1).ToString(), project);
+                if (Directory.Exists(path)) Directory.Delete(path, true);
+            }
         }
 
         protected void RemoveFromRunningPool()
@@ -150,8 +144,7 @@ namespace GitCandy.Git.Cache
                     try
                     {
                         Calculate();
-                        if (enabled)
-                            Save();
+                        if (enabled) Save();
                     }
                     catch (Exception ex)
                     {
@@ -171,7 +164,8 @@ namespace GitCandy.Git.Cache
             }
             else if (IsAsync)
             {
-                Scheduler.Instance.AddJob(new SingleJob(task));
+                //Scheduler.Instance.AddJob(new SingleJob(task));
+                Task.Run(() => task.Start());
             }
             else
             {

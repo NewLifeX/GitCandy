@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Composition;
 using System.Linq;
 using GitCandy.Base;
 using GitCandy.Models;
 using NewLife.Data;
 using NewLife.GitCandy.Entity;
-using XCode;
 
 namespace GitCandy.Data
 {
-    [Export(typeof(RepositoryService))]
     public class RepositoryService
     {
         public Repository Create(RepositoryModel model, long managerID, out bool badName)

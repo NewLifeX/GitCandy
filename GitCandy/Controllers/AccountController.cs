@@ -14,7 +14,6 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
-    [Export(typeof(AccountController))]
     public class AccountController : CandyControllerBase
     {
         [Administrator]

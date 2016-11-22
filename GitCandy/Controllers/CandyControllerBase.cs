@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Composition;
 using System.Threading;
 using System.Web;
 using System.Web.Caching;
@@ -18,8 +17,7 @@ namespace GitCandy.Controllers
 
         private Token _token;
 
-        [Import]
-        public MembershipService MembershipService { get; set; }
+        public MembershipService MembershipService { get; set; } = new MembershipService();
 
         public Token Token
         {

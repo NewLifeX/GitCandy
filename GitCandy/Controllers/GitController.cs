@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Composition;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -13,11 +12,9 @@ using LibGit2Sharp;
 
 namespace GitCandy.Controllers
 {
-    [Export(typeof(GitController))]
     public class GitController : CandyControllerBase
     {
-        [Import]
-        public RepositoryService RepositoryService { get; set; }
+        public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
         [SmartGit]
         public ActionResult Smart(string project, string service, string verb)

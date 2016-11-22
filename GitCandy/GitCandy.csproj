@@ -381,9 +381,7 @@
     <Compile Include="App_Start\AppInfomation.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\MefConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\ScheduleConfig.cs" />
     <Compile Include="App_Start\SshServerConfig.cs" />
     <Compile Include="Areas\GitCandy\Controllers\TeamController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\RepositoryController.cs" />
@@ -489,12 +487,6 @@
     <Compile Include="Models\UserListModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schedules\IJob.cs" />
-    <Compile Include="Schedules\JobContext.cs" />
-    <Compile Include="Schedules\JobType.cs" />
-    <Compile Include="Schedules\Runner.cs" />
-    <Compile Include="Schedules\Scheduler.cs" />
-    <Compile Include="Schedules\SingleJob.cs" />
     <Compile Include="Security\Token.cs" />
     <Compile Include="Ssh\Algorithms\CipherInfo.cs" />
     <Compile Include="Ssh\Algorithms\CipherModeEx.cs" />

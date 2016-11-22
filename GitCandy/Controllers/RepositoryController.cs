@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Composition;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -17,11 +16,9 @@ using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
-    [Export(typeof(RepositoryController))]
     public class RepositoryController : CandyControllerBase
     {
-        [Import]
-        public RepositoryService RepositoryService { get; set; }
+        public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
         public ActionResult Index()
         {

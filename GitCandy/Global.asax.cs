@@ -29,8 +29,8 @@ namespace GitCandy
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            MefConfig.RegisterMef();
-            ScheduleConfig.RegisterScheduler();
+            //MefConfig.RegisterMef();
+            //ScheduleConfig.RegisterScheduler();
 
             GitCacheAccessor.Initialize();
             SshServerConfig.StartSshServer();

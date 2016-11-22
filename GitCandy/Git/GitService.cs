@@ -1,15 +1,16 @@
-﻿using GitCandy.Base;
-using GitCandy.Configuration;
-using GitCandy.Extensions;
-using GitCandy.Git.Cache;
-using GitCandy.Models;
-using LibGit2Sharp;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GitCandy.Base;
+using GitCandy.Configuration;
+using GitCandy.Extensions;
+using GitCandy.Git.Cache;
+using GitCandy.Models;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
@@ -385,11 +386,9 @@ namespace GitCandy.Git
         public string GetArchiveFilename(string path, string newline, out string referenceName)
         {
             var commit = GetCommitByPath(ref path, out referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
-            if (referenceName == null)
-                referenceName = commit.Sha;
+            if (referenceName == null) referenceName = commit.Sha;
 
             var accessor = GitCacheAccessor.Singleton(new ArchiverAccessor(_repoId, _repository, commit, newline, CpToEncoding(commit.Encoding), _i18n.Value));
 
@@ -754,17 +753,18 @@ namespace GitCandy.Git
                 args += " --advertise-refs";
             args += " \"" + _repositoryPath + "\"";
 
-            var info = new System.Diagnostics.ProcessStartInfo(Path.Combine(UserConfiguration.Current.GitCorePath.GetFullPath(), "git.exe"), args)
+            var cfg = UserConfiguration.Current;
+            var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
             {
                 CreateNoWindow = true,
                 RedirectStandardError = true,
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(UserConfiguration.Current.RepositoryPath.GetFullPath()),
+                WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()),
             };
 
-            using (var process = System.Diagnostics.Process.Start(info))
+            using (var process = Process.Start(info))
             {
                 inStream.CopyTo(process.StandardInput.BaseStream);
                 process.StandardInput.Close();
