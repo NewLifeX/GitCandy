@@ -392,7 +392,6 @@
     <Compile Include="Areas\GitCandy\Controllers\SshKeyController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserRepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
-    <Compile Include="Areas\GitCandy\Controllers\UserController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\GitController.cs" />
     <Compile Include="Areas\GitCandy\GitCandyAreaRegistration.cs" />
     <Compile Include="Base\FileHelper.cs" />
@@ -435,7 +434,6 @@
     <Compile Include="Filters\AllowRegisterUserAttribute.cs" />
     <Compile Include="Filters\AllowRepositoryCreationAttribute.cs" />
     <Compile Include="Filters\CurrentUserOrAdministratorAttribute.cs" />
-    <Compile Include="Filters\CustomErrorAttribute.cs" />
     <Compile Include="Filters\PublicServerAttribute.cs" />
     <Compile Include="Filters\ReadRepositoryAttribute.cs" />
     <Compile Include="Filters\RepositoryOwnerOrSystemAdministratorAttribute.cs" />

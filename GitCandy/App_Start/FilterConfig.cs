@@ -8,7 +8,7 @@ namespace GitCandy
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new PublicServerAttribute());
-            filters.Add(new CustomErrorAttribute());
+            //filters.Add(new CustomErrorAttribute());
         }
     }
 }
