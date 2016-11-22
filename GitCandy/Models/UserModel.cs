@@ -25,13 +25,13 @@ namespace GitCandy.Models
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
-        [StringLength(100, MinimumLength = 6, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
+        [StringLength(20, MinimumLength = 6, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(SR), Name = "Account_Password")]
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
-        [StringLength(100, MinimumLength = 6, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
+        [StringLength(20, MinimumLength = 6, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
         [Compare("Password", ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Compare")]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(SR), Name = "Account_ConformPassword")]

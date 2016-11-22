@@ -169,11 +169,9 @@ namespace GitCandy.Controllers
         [CurrentUserOrAdministrator]
         public ActionResult Edit(string name, UserModel model)
         {
-            if (string.IsNullOrEmpty(name))
-                name = Token.Username;
+            if (string.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator
-                && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            var isAdmin = Token.IsSystemAdministrator && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
 
             ModelState.Remove("ConformPassword");
             if (ModelState.IsValid)

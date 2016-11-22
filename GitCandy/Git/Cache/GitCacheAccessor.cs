@@ -76,7 +76,7 @@ namespace GitCandy.Git.Cache
                 Array.Copy(lines, reality, Math.Min(lines.Length, reality.Length));
             }
 
-            for (int i = 0; i < accessors.Length; i++)
+            for (int i = 0; i < reality.Length && i < expectation.Length; i++)
             {
                 if (reality[i] != expectation[i])
                 {

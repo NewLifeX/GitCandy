@@ -36,7 +36,8 @@ namespace NewLife.GitCandy.Entity
             var entity = new User();
             entity.Name = "admin";
             entity.Nickname = "管理员";
-            entity.Password = "admin".MD5();
+            entity.Password = "gitadmin".MD5();
+            entity.Email = "admin@newlifex.com";
             entity.Enable = true;
             entity.IsAdmin = true;
             entity.RegisterTime = DateTime.Now;

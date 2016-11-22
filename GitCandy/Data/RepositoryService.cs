@@ -423,7 +423,7 @@ namespace GitCandy.Data
 
                 model.Collaborations = ToRepositoryArray(q3);
                 //model.Repositories = ToRepositoryArray(ctx.Repositories.Where(s => showAll || (!s.IsPrivate)).Except(q3).OrderBy(s => s.Name));
-                var exp = Repository._.ID.In(q3.Select(e => e.ID));
+                var exp = Repository._.ID.NotIn(q3.Select(e => e.ID));
                 if (!showAll) exp &= Repository._.IsPrivate.IsTrue(false);
                 var list = Repository.FindAll(exp, param).ToList();
                 model.Repositories = ToRepositoryArray(list.ToList());

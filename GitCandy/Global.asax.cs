@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Globalization;
-using System.IO;
-using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using GitCandy.Base;
-using GitCandy.Configuration;
 using GitCandy.Git.Cache;
 using NewLife.Log;
 
