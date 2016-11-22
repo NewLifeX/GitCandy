@@ -137,12 +137,24 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.Files, value)) { _Files = value; OnPropertyChanged(__.Files); } }
         }
 
+        private Int64 _Size;
+        /// <summary>源码大小</summary>
+        [DisplayName("源码大小")]
+        [Description("源码大小")]
+        [DataObjectField(false, false, true, 19)]
+        [BindColumn(11, "Size", "源码大小", null, "bigint", 20, 0, false)]
+        public virtual Int64 Size
+        {
+            get { return _Size; }
+            set { if (OnPropertyChanging(__.Size, value)) { _Size = value; OnPropertyChanged(__.Size); } }
+        }
+
         private DateTime _LastCommit;
         /// <summary>最后提交</summary>
         [DisplayName("最后提交")]
         [Description("最后提交")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(11, "LastCommit", "最后提交", null, "datetime", 3, 0, false)]
+        [BindColumn(12, "LastCommit", "最后提交", null, "datetime", 3, 0, false)]
         public virtual DateTime LastCommit
         {
             get { return _LastCommit; }
@@ -154,7 +166,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("浏览数")]
         [Description("浏览数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(12, "Views", "浏览数", null, "int", 10, 0, false)]
+        [BindColumn(13, "Views", "浏览数", null, "int", 10, 0, false)]
         public virtual Int32 Views
         {
             get { return _Views; }
@@ -166,7 +178,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("最后浏览")]
         [Description("最后浏览")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(13, "LastView", "最后浏览", null, "datetime", 3, 0, false)]
+        [BindColumn(14, "LastView", "最后浏览", null, "datetime", 3, 0, false)]
         public virtual DateTime LastView
         {
             get { return _LastView; }
@@ -178,7 +190,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("描述")]
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(14, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(15, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Description
         {
             get { return _Description; }
@@ -190,7 +202,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(15, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(16, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -202,7 +214,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(16, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(17, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -214,7 +226,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(17, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(18, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -226,7 +238,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(18, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(19, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -238,7 +250,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(19, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(20, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -250,7 +262,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(20, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(21, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
@@ -282,6 +294,7 @@ namespace NewLife.GitCandy.Entity
                     case __.Branches : return _Branches;
                     case __.Contributors : return _Contributors;
                     case __.Files : return _Files;
+                    case __.Size : return _Size;
                     case __.LastCommit : return _LastCommit;
                     case __.Views : return _Views;
                     case __.LastView : return _LastView;
@@ -309,6 +322,7 @@ namespace NewLife.GitCandy.Entity
                     case __.Branches : _Branches = Convert.ToInt32(value); break;
                     case __.Contributors : _Contributors = Convert.ToInt32(value); break;
                     case __.Files : _Files = Convert.ToInt32(value); break;
+                    case __.Size : _Size = Convert.ToInt64(value); break;
                     case __.LastCommit : _LastCommit = Convert.ToDateTime(value); break;
                     case __.Views : _Views = Convert.ToInt32(value); break;
                     case __.LastView : _LastView = Convert.ToDateTime(value); break;
@@ -358,6 +372,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>文件数</summary>
             public static readonly Field Files = FindByName(__.Files);
+
+            ///<summary>源码大小</summary>
+            public static readonly Field Size = FindByName(__.Size);
 
             ///<summary>最后提交</summary>
             public static readonly Field LastCommit = FindByName(__.LastCommit);
@@ -424,6 +441,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>文件数</summary>
             public const String Files = "Files";
+
+            ///<summary>源码大小</summary>
+            public const String Size = "Size";
 
             ///<summary>最后提交</summary>
             public const String LastCommit = "LastCommit";
@@ -492,6 +512,9 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>文件数</summary>
         Int32 Files { get; set; }
+
+        /// <summary>源码大小</summary>
+        Int64 Size { get; set; }
 
         /// <summary>最后提交</summary>
         DateTime LastCommit { get; set; }

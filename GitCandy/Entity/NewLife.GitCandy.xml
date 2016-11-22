@@ -53,6 +53,7 @@
       <Column Name="Branches" DataType="Int32" Description="分支数" />
       <Column Name="Contributors" DataType="Int32" Description="参与者" />
       <Column Name="Files" DataType="Int32" Description="文件数" />
+      <Column Name="Size" DataType="Int64" Description="源码大小" />
       <Column Name="LastCommit" DataType="DateTime" Description="最后提交" />
       <Column Name="Views" DataType="Int32" Description="浏览数" />
       <Column Name="LastView" DataType="DateTime" Description="最后浏览" />

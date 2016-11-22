@@ -26,6 +26,7 @@ namespace GitCandy.Git
 
         public Encoding I18n { get { return _i18n.Value; } }
         public string Name { get; private set; }
+        public Repository Repository { get { return _repository; } }
 
         public GitService(string name)
         {

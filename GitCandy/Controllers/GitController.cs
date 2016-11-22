@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using GitCandy.Data;
@@ -73,25 +76,7 @@ namespace GitCandy.Controllers
                     git.ExecutePack(svc, GetInputStream(), Response.OutputStream);
 
                     // 拦截提交
-                    if (svc == "receive-pack")
-                    {
-                        // 修正提交数、分支、参与人等
-                        var model = git.GetTree("");
-                        var repo = NewLife.GitCandy.Entity.Repository.FindByName(project);
-                        if (repo != null)
-                        {
-                            repo.Commits = model.Scope.Commits;
-                            repo.Branches = model.Scope.Branches;
-                            repo.Contributors = model.Scope.Contributors;
-                            repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
-
-                            repo.Views++;
-                            repo.LastView = DateTime.Now;
-                            repo.SaveAsync();
-
-                            model.Description = repo.Description;
-                        }
-                    }
+                    if (svc == "receive-pack") Task.Run(() => UpdateRepo(project));
                 }
                 return new EmptyResult();
             }
@@ -103,6 +88,69 @@ namespace GitCandy.Controllers
             {
                 throw new HttpException((int)HttpStatusCode.InternalServerError, string.Empty, e);
             }
+        }
+
+        /// <summary>更新仓库统计信息</summary>
+        /// <param name="project"></param>
+        private void UpdateRepo(String project)
+        {
+            using (var git = new GitService(project))
+            {
+                // 修正提交数、分支、参与人等
+                var commit = git.Repository.Head.Tip;
+                var ancestors = git.Repository.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = commit });
+
+                var set = new HashSet<String>();
+                var cms = 0;
+                var cts = 0;
+                foreach (var ancestor in ancestors)
+                {
+                    cms++;
+                    if (set.Add(ancestor.Author.ToString()))
+                        cts++;
+                }
+
+                var repo = NewLife.GitCandy.Entity.Repository.FindByName(project);
+                if (repo != null)
+                {
+                    if (cms > 0) repo.Commits = cms;
+                    repo.Branches = git.Repository.Branches.Count();
+                    if (cts > 0) repo.Contributors = cts;
+                    var size = 0L;
+                    repo.Files = FilesInCommit(commit, out size);
+                    repo.Size = size;
+                    repo.LastCommit = commit.Committer.When.LocalDateTime;
+
+                    repo.SaveAsync();
+                }
+            }
+        }
+
+        private int FilesInCommit(Commit commit, out long sourceSize)
+        {
+            var count = 0;
+            var stack = new Stack<Tree>();
+            sourceSize = 0;
+
+            var repo = ((IBelongToARepository)commit).Repository;
+
+            stack.Push(commit.Tree);
+            while (stack.Count != 0)
+            {
+                var tree = stack.Pop();
+                foreach (var entry in tree)
+                    switch (entry.TargetType)
+                    {
+                        case TreeEntryTargetType.Blob:
+                            count++;
+                            sourceSize += repo.ObjectDatabase.RetrieveObjectMetadata(entry.Target.Id).Size;
+                            break;
+                        case TreeEntryTargetType.Tree:
+                            stack.Push((Tree)entry.Target);
+                            break;
+                    }
+            }
+            return count;
         }
 
         #region GitController Extension
