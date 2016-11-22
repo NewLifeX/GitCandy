@@ -359,7 +359,6 @@
       <DependentUpon>SR.zh-Hans.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AppInfomation.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SshServerConfig.cs" />

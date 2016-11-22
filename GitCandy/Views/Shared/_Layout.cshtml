@@ -7,7 +7,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/bundles/css")
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-switch.css" />
+    <link rel="stylesheet" href="~/Content/highlight.css" />
+    <link rel="stylesheet" href="~/Content/site.css" />
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -67,7 +70,13 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/js")
+    <script src="~/Scripts/jquery-2.0.3.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap-switch.js"></script>
+    <script src="~/Scripts/bootstrap3-typeahead.js"></script>
+    <script src="~/Scripts/highlight.pack.js"></script>
+    <script src="~/Scripts/marked.js"></script>
+    <script src="~/Scripts/common.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
