@@ -1,6 +1,6 @@
 ﻿@{
     var action = ViewContext.RouteData.Values["Action"] as string;
-    Pager pager = ViewBag.Pager;
+    var pager = ViewBag.Pager as GitCandy.Base.Pager;
 }
 <div class="text-center">
     <ul class="pagination">

@@ -33,6 +33,18 @@ namespace ASP
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using NewLife;
+    using NewLife.Cube;
+    using NewLife.Reflection;
+    
+    #line 2 "..\..\Views\Account\Ssh.cshtml"
+    using NewLife.Serialization;
+    
+    #line default
+    #line hidden
+    using NewLife.Web;
+    using XCode;
+    using XCode.Membership;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/Ssh.cshtml")]
@@ -43,8 +55,10 @@ namespace ASP
         }
         public override void Execute()
         {
+WriteLiteral("\r\n");
+
             
-            #line 3 "..\..\Views\Account\Ssh.cshtml"
+            #line 4 "..\..\Views\Account\Ssh.cshtml"
   
     ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Account_SshKeys);
 
@@ -54,7 +68,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h4>");
 
             
-            #line 7 "..\..\Views\Account\Ssh.cshtml"
+            #line 8 "..\..\Views\Account\Ssh.cshtml"
 Write(SR.Account_SshKeys);
 
             
@@ -63,7 +77,7 @@ Write(SR.Account_SshKeys);
 WriteLiteral("</h4>\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Account\Ssh.cshtml"
+            #line 10 "..\..\Views\Account\Ssh.cshtml"
  if (Model != null)
 {
 
@@ -73,7 +87,7 @@ WriteLiteral("</h4>\r\n\r\n");
 WriteLiteral("    <span>");
 
             
-            #line 11 "..\..\Views\Account\Ssh.cshtml"
+            #line 12 "..\..\Views\Account\Ssh.cshtml"
      Write(SR.Account_SSH);
 
             
@@ -88,7 +102,7 @@ WriteLiteral(" id=\"choose_ssh\"");
 WriteLiteral("></div>\r\n");
 
             
-            #line 13 "..\..\Views\Account\Ssh.cshtml"
+            #line 14 "..\..\Views\Account\Ssh.cshtml"
 
 
             
@@ -101,7 +115,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        var user = \"");
 
             
-            #line 15 "..\..\Views\Account\Ssh.cshtml"
+            #line 16 "..\..\Views\Account\Ssh.cshtml"
                Write(Model.Username);
 
             
@@ -111,8 +125,8 @@ WriteLiteral("\";\r\n        var chooser_params = [];\r\n        chooser_params.
 "\r\n                data: ");
 
             
-            #line 19 "..\..\Views\Account\Ssh.cshtml"
-                 Write(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.SshKeys)));
+            #line 20 "..\..\Views\Account\Ssh.cshtml"
+                 Write(Html.Raw(Model.SshKeys.ToJson()));
 
             
             #line default
@@ -120,7 +134,7 @@ WriteLiteral("\";\r\n        var chooser_params = [];\r\n        chooser_params.
 WriteLiteral(",\r\n                container: \"#choose_ssh\",\r\n                add_label: \"");
 
             
-            #line 21 "..\..\Views\Account\Ssh.cshtml"
+            #line 22 "..\..\Views\Account\Ssh.cshtml"
                        Write(SR.Shared_Add);
 
             
@@ -129,7 +143,7 @@ WriteLiteral(",\r\n                container: \"#choose_ssh\",\r\n              
 WriteLiteral("\",\r\n                del_label: \"");
 
             
-            #line 22 "..\..\Views\Account\Ssh.cshtml"
+            #line 23 "..\..\Views\Account\Ssh.cshtml"
                        Write(SR.Shared_Remove);
 
             
@@ -139,7 +153,7 @@ WriteLiteral("\",\r\n                use_ret_val: true,\r\n                first
 "        add_action: { url: \"");
 
             
-            #line 25 "..\..\Views\Account\Ssh.cshtml"
+            #line 26 "..\..\Views\Account\Ssh.cshtml"
                                Write(Url.Action("ChooseSsh", "Account"));
 
             
@@ -149,7 +163,7 @@ WriteLiteral("\", query: function (item) { return { user: user, sshkey: item, ac
 "\r\n                del_action: { url: \"");
 
             
-            #line 26 "..\..\Views\Account\Ssh.cshtml"
+            #line 27 "..\..\Views\Account\Ssh.cshtml"
                                Write(Url.Action("ChooseSsh", "Account"));
 
             
@@ -159,14 +173,14 @@ WriteLiteral("\", query: function (item) { return { user: user, sshkey: item, ac
 "\r\n                action_array: []\r\n            });\r\n    </script>\r\n");
 
             
-            #line 30 "..\..\Views\Account\Ssh.cshtml"
+            #line 31 "..\..\Views\Account\Ssh.cshtml"
 }
 
             
             #line default
             #line hidden
             
-            #line 31 "..\..\Views\Account\Ssh.cshtml"
+            #line 32 "..\..\Views\Account\Ssh.cshtml"
 Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.Username }, new { @class = "btn btn-default" }));
 
             

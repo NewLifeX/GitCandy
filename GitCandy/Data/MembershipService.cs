@@ -40,7 +40,6 @@ namespace GitCandy.Data
                 Name = name,
                 Nickname = nickname,
                 Email = email,
-                PasswordVersion = -1,
                 Password = password.MD5(),
                 Description = description,
                 CreateTime = DateTime.Now,

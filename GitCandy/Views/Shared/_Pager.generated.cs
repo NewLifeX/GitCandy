@@ -33,6 +33,13 @@ namespace ASP
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using NewLife;
+    using NewLife.Cube;
+    using NewLife.Reflection;
+    using NewLife.Serialization;
+    using NewLife.Web;
+    using XCode;
+    using XCode.Membership;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_Pager.cshtml")]
@@ -47,7 +54,7 @@ namespace ASP
             #line 1 "..\..\Views\Shared\_Pager.cshtml"
   
     var action = ViewContext.RouteData.Values["Action"] as string;
-    Pager pager = ViewBag.Pager;
+    var pager = ViewBag.Pager as GitCandy.Base.Pager;
 
             
             #line default

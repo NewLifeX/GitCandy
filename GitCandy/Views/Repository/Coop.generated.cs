@@ -33,6 +33,18 @@ namespace ASP
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using NewLife;
+    using NewLife.Cube;
+    using NewLife.Reflection;
+    
+    #line 2 "..\..\Views\Repository\Coop.cshtml"
+    using NewLife.Serialization;
+    
+    #line default
+    #line hidden
+    using NewLife.Web;
+    using XCode;
+    using XCode.Membership;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Repository/Coop.cshtml")]
@@ -43,8 +55,10 @@ namespace ASP
         }
         public override void Execute()
         {
+WriteLiteral("\r\n");
+
             
-            #line 3 "..\..\Views\Repository\Coop.cshtml"
+            #line 4 "..\..\Views\Repository\Coop.cshtml"
   
     ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
 
@@ -54,7 +68,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h4>");
 
             
-            #line 7 "..\..\Views\Repository\Coop.cshtml"
+            #line 8 "..\..\Views\Repository\Coop.cshtml"
 Write(string.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
 
             
@@ -63,7 +77,7 @@ Write(string.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
 WriteLiteral("</h4>\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Repository\Coop.cshtml"
+            #line 10 "..\..\Views\Repository\Coop.cshtml"
  if (Model != null)
 {
 
@@ -81,7 +95,7 @@ WriteLiteral(" class=\"col-md-6\"");
 WriteLiteral(">\r\n            <span>");
 
             
-            #line 13 "..\..\Views\Repository\Coop.cshtml"
+            #line 14 "..\..\Views\Repository\Coop.cshtml"
              Write(SR.Shared_Users);
 
             
@@ -98,7 +112,7 @@ WriteLiteral(" class=\"col-md-6\"");
 WriteLiteral(">\r\n            <span>");
 
             
-            #line 17 "..\..\Views\Repository\Coop.cshtml"
+            #line 18 "..\..\Views\Repository\Coop.cshtml"
              Write(SR.Shared_Teams);
 
             
@@ -111,7 +125,7 @@ WriteLiteral(" id=\"choose_team\"");
 WriteLiteral("></div>\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 21 "..\..\Views\Repository\Coop.cshtml"
+            #line 22 "..\..\Views\Repository\Coop.cshtml"
 
 
             
@@ -124,7 +138,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        var repo = \"");
 
             
-            #line 23 "..\..\Views\Repository\Coop.cshtml"
+            #line 24 "..\..\Views\Repository\Coop.cshtml"
                Write(Model.RepositoryName);
 
             
@@ -134,8 +148,8 @@ WriteLiteral("\";\r\n        var chooser_params = [];\r\n        chooser_params.
 "\r\n                data: ");
 
             
-            #line 27 "..\..\Views\Repository\Coop.cshtml"
-                 Write(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Users)));
+            #line 28 "..\..\Views\Repository\Coop.cshtml"
+                 Write(Html.Raw(Model.Users.ToJson()));
 
             
             #line default
@@ -144,7 +158,7 @@ WriteLiteral(",\r\n                controller: \"Account\",\r\n                c
 "er\",\r\n                add_label: \"");
 
             
-            #line 30 "..\..\Views\Repository\Coop.cshtml"
+            #line 31 "..\..\Views\Repository\Coop.cshtml"
                        Write(SR.Shared_Add);
 
             
@@ -153,7 +167,7 @@ WriteLiteral(",\r\n                controller: \"Account\",\r\n                c
 WriteLiteral("\",\r\n                del_label: \"");
 
             
-            #line 31 "..\..\Views\Repository\Coop.cshtml"
+            #line 32 "..\..\Views\Repository\Coop.cshtml"
                        Write(SR.Shared_Remove);
 
             
@@ -162,7 +176,7 @@ WriteLiteral("\",\r\n                del_label: \"");
 WriteLiteral("\",\r\n                add_action: { url: \"");
 
             
-            #line 32 "..\..\Views\Repository\Coop.cshtml"
+            #line 33 "..\..\Views\Repository\Coop.cshtml"
                                Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -172,7 +186,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "                del_action: { url: \"");
 
             
-            #line 33 "..\..\Views\Repository\Coop.cshtml"
+            #line 34 "..\..\Views\Repository\Coop.cshtml"
                                Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -183,7 +197,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "key: \"AllowRead\",\r\n                        on_label: \"");
 
             
-            #line 37 "..\..\Views\Repository\Coop.cshtml"
+            #line 38 "..\..\Views\Repository\Coop.cshtml"
                               Write(SR.Repository_ShortAllowRead);
 
             
@@ -192,7 +206,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 38 "..\..\Views\Repository\Coop.cshtml"
+            #line 39 "..\..\Views\Repository\Coop.cshtml"
                                Write(SR.Repository_ShortNonAllowRead);
 
             
@@ -201,7 +215,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 39 "..\..\Views\Repository\Coop.cshtml"
+            #line 40 "..\..\Views\Repository\Coop.cshtml"
                                     Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -211,7 +225,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "true }; } },\r\n                        unchecked: { url: \"");
 
             
-            #line 40 "..\..\Views\Repository\Coop.cshtml"
+            #line 41 "..\..\Views\Repository\Coop.cshtml"
                                       Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -222,7 +236,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "      key: \"AllowWrite\",\r\n                        on_label: \"");
 
             
-            #line 44 "..\..\Views\Repository\Coop.cshtml"
+            #line 45 "..\..\Views\Repository\Coop.cshtml"
                               Write(SR.Repository_ShortAllowWrite);
 
             
@@ -231,7 +245,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 45 "..\..\Views\Repository\Coop.cshtml"
+            #line 46 "..\..\Views\Repository\Coop.cshtml"
                                Write(SR.Repository_ShortNonAllowWrite);
 
             
@@ -240,7 +254,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 46 "..\..\Views\Repository\Coop.cshtml"
+            #line 47 "..\..\Views\Repository\Coop.cshtml"
                                     Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -250,7 +264,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 " true }; } },\r\n                        unchecked: { url: \"");
 
             
-            #line 47 "..\..\Views\Repository\Coop.cshtml"
+            #line 48 "..\..\Views\Repository\Coop.cshtml"
                                       Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -261,7 +275,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "       key: \"IsOwner\",\r\n                        on_label: \"");
 
             
-            #line 51 "..\..\Views\Repository\Coop.cshtml"
+            #line 52 "..\..\Views\Repository\Coop.cshtml"
                               Write(SR.Repository_ShortIsOwner);
 
             
@@ -270,7 +284,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 52 "..\..\Views\Repository\Coop.cshtml"
+            #line 53 "..\..\Views\Repository\Coop.cshtml"
                                Write(SR.Repository_ShortNotOwner);
 
             
@@ -279,7 +293,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 53 "..\..\Views\Repository\Coop.cshtml"
+            #line 54 "..\..\Views\Repository\Coop.cshtml"
                                     Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -289,7 +303,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 " true }; } },\r\n                        unchecked: { url: \"");
 
             
-            #line 54 "..\..\Views\Repository\Coop.cshtml"
+            #line 55 "..\..\Views\Repository\Coop.cshtml"
                                       Write(Url.Action("ChooseUser", "Repository"));
 
             
@@ -300,8 +314,8 @@ WriteLiteral("\", query: function (item) { return { name: repo, user: item, act:
 "      chooser_params.push(\r\n            {\r\n                data: ");
 
             
-            #line 61 "..\..\Views\Repository\Coop.cshtml"
-                 Write(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Teams)));
+            #line 62 "..\..\Views\Repository\Coop.cshtml"
+                 Write(Html.Raw(Model.Teams.ToJson()));
 
             
             #line default
@@ -310,7 +324,7 @@ WriteLiteral(",\r\n                controller: \"Team\",\r\n                cont
 ",\r\n                add_label: \"");
 
             
-            #line 64 "..\..\Views\Repository\Coop.cshtml"
+            #line 65 "..\..\Views\Repository\Coop.cshtml"
                        Write(SR.Shared_Add);
 
             
@@ -319,7 +333,7 @@ WriteLiteral(",\r\n                controller: \"Team\",\r\n                cont
 WriteLiteral("\",\r\n                del_label: \"");
 
             
-            #line 65 "..\..\Views\Repository\Coop.cshtml"
+            #line 66 "..\..\Views\Repository\Coop.cshtml"
                        Write(SR.Shared_Remove);
 
             
@@ -328,7 +342,7 @@ WriteLiteral("\",\r\n                del_label: \"");
 WriteLiteral("\",\r\n                add_action: { url: \"");
 
             
-            #line 66 "..\..\Views\Repository\Coop.cshtml"
+            #line 67 "..\..\Views\Repository\Coop.cshtml"
                                Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -338,7 +352,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 "                del_action: { url: \"");
 
             
-            #line 67 "..\..\Views\Repository\Coop.cshtml"
+            #line 68 "..\..\Views\Repository\Coop.cshtml"
                                Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -349,7 +363,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 "key: \"AllowRead\",\r\n                        on_label: \"");
 
             
-            #line 71 "..\..\Views\Repository\Coop.cshtml"
+            #line 72 "..\..\Views\Repository\Coop.cshtml"
                               Write(SR.Repository_ShortAllowRead);
 
             
@@ -358,7 +372,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 72 "..\..\Views\Repository\Coop.cshtml"
+            #line 73 "..\..\Views\Repository\Coop.cshtml"
                                Write(SR.Repository_ShortNonAllowRead);
 
             
@@ -367,7 +381,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 73 "..\..\Views\Repository\Coop.cshtml"
+            #line 74 "..\..\Views\Repository\Coop.cshtml"
                                     Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -377,7 +391,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 "true }; } },\r\n                        unchecked: { url: \"");
 
             
-            #line 74 "..\..\Views\Repository\Coop.cshtml"
+            #line 75 "..\..\Views\Repository\Coop.cshtml"
                                       Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -388,7 +402,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 "      key: \"AllowWrite\",\r\n                        on_label: \"");
 
             
-            #line 78 "..\..\Views\Repository\Coop.cshtml"
+            #line 79 "..\..\Views\Repository\Coop.cshtml"
                               Write(SR.Repository_ShortAllowWrite);
 
             
@@ -397,7 +411,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 79 "..\..\Views\Repository\Coop.cshtml"
+            #line 80 "..\..\Views\Repository\Coop.cshtml"
                                Write(SR.Repository_ShortNonAllowWrite);
 
             
@@ -406,7 +420,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 80 "..\..\Views\Repository\Coop.cshtml"
+            #line 81 "..\..\Views\Repository\Coop.cshtml"
                                     Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -416,7 +430,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 " true }; } },\r\n                        unchecked: { url: \"");
 
             
-            #line 81 "..\..\Views\Repository\Coop.cshtml"
+            #line 82 "..\..\Views\Repository\Coop.cshtml"
                                       Write(Url.Action("ChooseTeam", "Repository"));
 
             
@@ -427,14 +441,14 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
 "</script>\r\n");
 
             
-            #line 86 "..\..\Views\Repository\Coop.cshtml"
+            #line 87 "..\..\Views\Repository\Coop.cshtml"
 }
 
             
             #line default
             #line hidden
             
-            #line 87 "..\..\Views\Repository\Coop.cshtml"
+            #line 88 "..\..\Views\Repository\Coop.cshtml"
 Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.RepositoryName }, new { @class = "btn btn-default" }));
 
             

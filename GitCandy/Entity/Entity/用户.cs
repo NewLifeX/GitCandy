@@ -77,24 +77,12 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.Password, value)) { _Password = value; OnPropertyChanged(__.Password); } }
         }
 
-        private Int32 _PasswordVersion;
-        /// <summary>密码版本</summary>
-        [DisplayName("密码版本")]
-        [Description("密码版本")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(6, "PasswordVersion", "密码版本", null, "int", 10, 0, false)]
-        public virtual Int32 PasswordVersion
-        {
-            get { return _PasswordVersion; }
-            set { if (OnPropertyChanging(__.PasswordVersion, value)) { _PasswordVersion = value; OnPropertyChanged(__.PasswordVersion); } }
-        }
-
         private Boolean _Enable;
         /// <summary>启用</summary>
         [DisplayName("启用")]
         [Description("启用")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(7, "Enable", "启用", null, "bit", 0, 0, false)]
+        [BindColumn(6, "Enable", "启用", null, "bit", 0, 0, false)]
         public virtual Boolean Enable
         {
             get { return _Enable; }
@@ -106,7 +94,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("系统管理员")]
         [Description("系统管理员")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(8, "IsAdmin", "系统管理员", null, "bit", 0, 0, false)]
+        [BindColumn(7, "IsAdmin", "系统管理员", null, "bit", 0, 0, false)]
         public virtual Boolean IsAdmin
         {
             get { return _IsAdmin; }
@@ -118,7 +106,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("注册时间")]
         [Description("注册时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(9, "RegisterTime", "注册时间", null, "datetime", 3, 0, false)]
+        [BindColumn(8, "RegisterTime", "注册时间", null, "datetime", 3, 0, false)]
         public virtual DateTime RegisterTime
         {
             get { return _RegisterTime; }
@@ -130,7 +118,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("登录")]
         [Description("登录")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(10, "Logins", "登录", null, "int", 10, 0, false)]
+        [BindColumn(9, "Logins", "登录", null, "int", 10, 0, false)]
         public virtual Int32 Logins
         {
             get { return _Logins; }
@@ -142,7 +130,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("最后登录")]
         [Description("最后登录")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(11, "LastLogin", "最后登录", null, "datetime", 3, 0, false)]
+        [BindColumn(10, "LastLogin", "最后登录", null, "datetime", 3, 0, false)]
         public virtual DateTime LastLogin
         {
             get { return _LastLogin; }
@@ -154,7 +142,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("最后登录IP")]
         [Description("最后登录IP")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(12, "LastLoginIP", "最后登录IP", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(11, "LastLoginIP", "最后登录IP", null, "nvarchar(50)", 0, 0, true)]
         public virtual String LastLoginIP
         {
             get { return _LastLoginIP; }
@@ -166,7 +154,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("描述")]
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(13, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(12, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Description
         {
             get { return _Description; }
@@ -178,7 +166,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(14, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(13, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -190,7 +178,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(15, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(14, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -202,7 +190,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(16, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(15, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -214,7 +202,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(17, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(16, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -226,7 +214,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(18, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(17, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -238,7 +226,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(19, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(18, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
@@ -265,7 +253,6 @@ namespace NewLife.GitCandy.Entity
                     case __.Nickname : return _Nickname;
                     case __.Email : return _Email;
                     case __.Password : return _Password;
-                    case __.PasswordVersion : return _PasswordVersion;
                     case __.Enable : return _Enable;
                     case __.IsAdmin : return _IsAdmin;
                     case __.RegisterTime : return _RegisterTime;
@@ -291,7 +278,6 @@ namespace NewLife.GitCandy.Entity
                     case __.Nickname : _Nickname = Convert.ToString(value); break;
                     case __.Email : _Email = Convert.ToString(value); break;
                     case __.Password : _Password = Convert.ToString(value); break;
-                    case __.PasswordVersion : _PasswordVersion = Convert.ToInt32(value); break;
                     case __.Enable : _Enable = Convert.ToBoolean(value); break;
                     case __.IsAdmin : _IsAdmin = Convert.ToBoolean(value); break;
                     case __.RegisterTime : _RegisterTime = Convert.ToDateTime(value); break;
@@ -329,9 +315,6 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>密码</summary>
             public static readonly Field Password = FindByName(__.Password);
-
-            ///<summary>密码版本</summary>
-            public static readonly Field PasswordVersion = FindByName(__.PasswordVersion);
 
             ///<summary>启用</summary>
             public static readonly Field Enable = FindByName(__.Enable);
@@ -392,9 +375,6 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>密码</summary>
             public const String Password = "Password";
-
-            ///<summary>密码版本</summary>
-            public const String PasswordVersion = "PasswordVersion";
 
             ///<summary>启用</summary>
             public const String Enable = "Enable";
@@ -457,9 +437,6 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>密码</summary>
         String Password { get; set; }
-
-        /// <summary>密码版本</summary>
-        Int32 PasswordVersion { get; set; }
 
         /// <summary>启用</summary>
         Boolean Enable { get; set; }
