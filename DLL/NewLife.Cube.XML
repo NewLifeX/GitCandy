@@ -163,6 +163,11 @@
             <param name="password2"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.UserController.ClearPassword(System.Int32)">
+            <summary>清空密码</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Cube.Admin.Controllers.IndexController">
             <summary>首页</summary>
         </member>

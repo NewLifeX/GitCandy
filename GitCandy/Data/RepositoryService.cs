@@ -424,6 +424,7 @@ namespace GitCandy.Data
                 var q1 = UserRepository.FindAllByUserID(user.ID).ToList().Where(s => s.AllowRead && s.AllowWrite).Select(s => s.Repository);
                 var q2 = user.Teams.SelectMany(s => TeamRepository.FindAllByTeamID(s.ID).ToList().Where(t => t.AllowRead && t.AllowWrite).Select(t => t.Repository));
                 var q3 = q1.Union(q2);
+                q3 = q3.OrderByDescending(e => e.LastCommit);
 
                 model.Collaborations = ToRepositoryArray(q3);
                 //model.Repositories = ToRepositoryArray(ctx.Repositories.Where(s => showAll || (!s.IsPrivate)).Except(q3).OrderBy(s => s.Name));

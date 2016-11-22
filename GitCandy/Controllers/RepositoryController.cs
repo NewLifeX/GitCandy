@@ -226,10 +226,13 @@ namespace GitCandy.Controllers
                     var repo = Repository.FindByName(name);
                     if (repo != null)
                     {
-                        repo.Commits = model.Scope.Commits;
-                        repo.Branches = model.Scope.Branches;
-                        repo.Contributors = model.Scope.Contributors;
-                        repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
+                        if (model.Scope != null)
+                        {
+                            repo.Commits = model.Scope.Commits;
+                            repo.Branches = model.Scope.Branches;
+                            repo.Contributors = model.Scope.Contributors;
+                        }
+                        if (model.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
 
                         repo.Views++;
                         repo.LastView = DateTime.Now;
