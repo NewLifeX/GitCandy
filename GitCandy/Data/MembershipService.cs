@@ -42,8 +42,7 @@ namespace GitCandy.Data
                 Email = email,
                 Password = password.MD5(),
                 Enable = true,
-                Description = description,
-                CreateTime = DateTime.Now,
+                Profile = description,
                 RegisterTime = DateTime.Now
             };
 
@@ -62,7 +61,7 @@ namespace GitCandy.Data
                 Name = user.Name,
                 Nickname = user.Nickname,
                 Email = user.Email,
-                Description = user.Description,
+                Description = user.Profile,
                 IsSystemAdministrator = user.IsAdmin,
             };
             if (withMembers)
@@ -128,8 +127,8 @@ namespace GitCandy.Data
             {
                 user.Nickname = model.Nickname;
                 user.Email = model.Email;
-                user.Description = model.Description;
-                user.IsAdmin = model.IsSystemAdministrator;
+                user.Profile = model.Description;
+                //user.IsAdmin = model.IsSystemAdministrator;
 
                 user.Save();
                 return true;
@@ -215,7 +214,7 @@ namespace GitCandy.Data
                     Name = e.Name,
                     Nickname = e.Nickname,
                     Email = e.Email,
-                    Description = e.Description,
+                    Description = e.Profile,
                     IsSystemAdministrator = e.IsAdmin,
                 }).ToArray(),
                 CurrentPage = page,
@@ -255,7 +254,10 @@ namespace GitCandy.Data
 
         public string[] SearchUsers(string query)
         {
-            var list = User.FindAll(User._.Name.Contains(query), null, null, 0, 10);
+            var p = new PageParameter();
+            p.PageSize = 20;
+
+            var list = User.Search(query, p);
             return list.ToList().Select(e => e.Name).ToArray();
 
             //using (var ctx = new GitCandyContext())

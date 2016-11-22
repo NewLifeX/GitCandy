@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using GitCandy.Security;
 using NewLife.Data;
 using NewLife.Log;
 using NewLife.Web;
@@ -17,36 +16,38 @@ using XCode.Membership;
 
 namespace NewLife.GitCandy.Entity
 {
+    public class MyManageProvider : ManageProvider<User> { }
+
     /// <summary>用户</summary>
-    public partial class User : LogEntity<User>
+    public partial class User : User<User>
     {
         #region 对象操作
-        /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected override void InitData()
-        {
-            base.InitData();
+        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+        //[EditorBrowsable(EditorBrowsableState.Never)]
+        //protected override void InitData()
+        //{
+        //    base.InitData();
 
-            // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-            // Meta.Count是快速取得表记录数
-            if (Meta.Count > 0) return;
+        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
+        //    // Meta.Count是快速取得表记录数
+        //    if (Meta.Count > 0) return;
 
-            // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
-            if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(User).Name, Meta.Table.DataTable.DisplayName);
+        //    // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
+        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(User).Name, Meta.Table.DataTable.DisplayName);
 
-            var entity = new User();
-            entity.Name = "admin";
-            entity.Nickname = "管理员";
-            entity.Password = "gitadmin".MD5();
-            entity.Email = "admin@newlifex.com";
-            entity.Enable = true;
-            entity.IsAdmin = true;
-            entity.RegisterTime = DateTime.Now;
+        //    var entity = new User();
+        //    entity.Name = "admin";
+        //    entity.Nickname = "管理员";
+        //    entity.Password = "gitadmin".MD5();
+        //    entity.Email = "admin@newlifex.com";
+        //    entity.Enable = true;
+        //    entity.IsAdmin = true;
+        //    entity.RegisterTime = DateTime.Now;
 
-            entity.Insert();
+        //    entity.Insert();
 
-            if (XTrace.Debug) XTrace.WriteLine("完成初始化{0}[{1}]数据！", typeof(User).Name, Meta.Table.DataTable.DisplayName);
-        }
+        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化{0}[{1}]数据！", typeof(User).Name, Meta.Table.DataTable.DisplayName);
+        //}
 
         protected override Int32 OnDelete()
         {
@@ -60,6 +61,22 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
+        /// <summary>是否系统管理员</summary>
+        public Boolean IsAdmin
+        {
+            get
+            {
+                if (Role == null) return false;
+                return Role.Name == "管理员";
+            }
+        }
+
+        /// <summary>昵称</summary>
+        public String Nickname { get { return DisplayName; } set { DisplayName = value; } }
+
+        /// <summary>邮箱</summary>
+        public String Email { get { return Mail; } set { Mail = value; } }
+
         private List<UserTeam> _Teams;
         /// <summary>绑定信息</summary>
         public List<UserTeam> Teams
@@ -117,47 +134,51 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展查询
-        public static User FindByID(Int32 id)
-        {
-            if (id <= 0) return null;
+        //public static User FindByID(Int32 id)
+        //{
+        //    if (id <= 0) return null;
 
-            if (Meta.Count >= 1000)
-                return Find(__.ID, id);
-            else // 实体缓存
-                return Meta.Cache.Entities.Find(__.ID, id);
-        }
+        //    if (Meta.Count >= 1000)
+        //        return Find(__.ID, id);
+        //    else // 实体缓存
+        //        return Meta.Cache.Entities.Find(__.ID, id);
+        //}
 
-        /// <summary>根据名称。登录用户名查找</summary>
-        /// <param name="name">名称。登录用户名</param>
-        /// <returns></returns>
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static User FindByName(String name)
-        {
-            if (name.IsNullOrEmpty()) return null;
+        ///// <summary>根据名称。登录用户名查找</summary>
+        ///// <param name="name">名称。登录用户名</param>
+        ///// <returns></returns>
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public static User FindByName(String name)
+        //{
+        //    if (name.IsNullOrEmpty()) return null;
 
-            if (Meta.Count >= 1000)
-                return Find(__.Name, name);
-            else // 实体缓存
-                return Meta.Cache.Entities.Find(__.Name, name);
-            // 单对象缓存
-            //return Meta.SingleCache[name];
-        }
+        //    if (Meta.Count >= 1000)
+        //        return Find(__.Name, name);
+        //    else // 实体缓存
+        //        return Meta.Cache.Entities.Find(__.Name, name);
+        //    // 单对象缓存
+        //    //return Meta.SingleCache[name];
+        //}
 
         public static User FindByEmail(String email)
         {
             if (email.IsNullOrEmpty()) return null;
 
             if (Meta.Count >= 1000)
-                return Find(__.Email, email);
+                return Find("Mail", email);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.Email, email);
+                return Meta.Cache.Entities.Find("Mail", email);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
         #endregion
 
         #region 高级查询
-        // 以下为自定义高级查询的例子
+        public static EntityList<User> SearchByName(String name, PageParameter param)
+        {
+            var fi = Meta.Table.FindByName("Name");
+            return FindAll(fi.Contains(name), param);
+        }
 
         /// <summary>查询满足条件的记录集，分页、排序</summary>
         /// <param name="userid">用户编号</param>
