@@ -219,8 +219,8 @@ namespace GitCandy.Controllers
                 model.RepositoryName = name;
                 if (model.IsRoot)
                 {
-                    var m = RepositoryService.GetRepositoryModel(name);
-                    model.Description = m.Description;
+                    //var m = RepositoryService.GetRepositoryModel(name);
+                    //model.Description = m.Description;
 
                     // 修正提交数、分支、参与人等
                     var repo = Repository.FindByName(name);

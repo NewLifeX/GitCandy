@@ -71,6 +71,27 @@ namespace GitCandy.Controllers
                 {
                     var svc = service.Substring(4);
                     git.ExecutePack(svc, GetInputStream(), Response.OutputStream);
+
+                    // 拦截提交
+                    if (svc == "receive-pack")
+                    {
+                        // 修正提交数、分支、参与人等
+                        var model = git.GetTree("");
+                        var repo = NewLife.GitCandy.Entity.Repository.FindByName(project);
+                        if (repo != null)
+                        {
+                            repo.Commits = model.Scope.Commits;
+                            repo.Branches = model.Scope.Branches;
+                            repo.Contributors = model.Scope.Contributors;
+                            repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
+
+                            repo.Views++;
+                            repo.LastView = DateTime.Now;
+                            repo.SaveAsync();
+
+                            model.Description = repo.Description;
+                        }
+                    }
                 }
                 return new EmptyResult();
             }
