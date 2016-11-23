@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using GitCandy.App_GlobalResources;
 using GitCandy.Base;
@@ -48,9 +49,9 @@ namespace GitCandy.Models
         public bool IsSystemAdministrator { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Teams")]
-        [UIHint("Members")]
+        [UIHint("Maps")]
         [System.Web.Mvc.AdditionalMetadata("Controller", "Team")]
-        public String[] Teams { get; set; }
+        public IDictionary<String, String> Teams { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Repositories")]
         [UIHint("Members")]

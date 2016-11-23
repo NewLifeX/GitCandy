@@ -3,6 +3,7 @@ using GitCandy.Base;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace GitCandy.Models
 {
@@ -25,9 +26,9 @@ namespace GitCandy.Models
         public String Description { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Team_Members")]
-        [UIHint("Members")]
+        [UIHint("Maps")]
         [AdditionalMetadata("Controller", "Account")]
-        public String[] Members { get; set; }
+        public IDictionary<String, String> Members { get; set; }
 
         public UserRole[] MembersRole { get; set; }
 

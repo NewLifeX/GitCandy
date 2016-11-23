@@ -95,7 +95,7 @@ namespace NewLife.GitCandy.Entity
             set { _Teams = value; }
         }
 
-        public String[] TeamNames { get { return Teams?.Select(e => e.TeamName).OrderBy(e => e).ToArray(); } }
+        public String[] TeamNames { get { return Teams?.Select(e => e.Team?.Name).OrderBy(e => e).ToArray(); } }
 
         private List<UserRepository> _Repositories;
         /// <summary>仓库关系</summary>

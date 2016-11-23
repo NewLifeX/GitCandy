@@ -3,6 +3,7 @@ using GitCandy.Base;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace GitCandy.Models
 {
@@ -32,14 +33,14 @@ namespace GitCandy.Models
         public bool AllowAnonymousWrite { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_Collaborators")]
-        [UIHint("Members")]
+        [UIHint("Maps")]
         [AdditionalMetadata("Controller", "Account")]
-        public String[] Collaborators { get; set; }
+        public IDictionary<String, String> Collaborators { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_Teams")]
-        [UIHint("Members")]
+        [UIHint("Maps")]
         [AdditionalMetadata("Controller", "Team")]
-        public String[] Teams { get; set; }
+        public IDictionary<String, String> Teams { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_DefaultBranch")]
         public String DefaultBranch { get; set; }

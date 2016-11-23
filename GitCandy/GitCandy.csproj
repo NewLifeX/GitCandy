@@ -120,6 +120,10 @@
     <None Include="Properties\PublishProfiles\GitCandy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\DisplayTemplates\Maps.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Maps.generated.cs</LastGenOutput>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -684,6 +688,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Restart.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\Maps.generated.cs">
+      <DependentUpon>Maps.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Shared\DisplayTemplates\Members.generated.cs">
       <AutoGen>True</AutoGen>

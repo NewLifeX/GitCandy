@@ -56,27 +56,23 @@ namespace GitCandy.Data
             };
             if (withShipment || username != null)
             {
-                var tempList = UserRepository.FindAllByRepositoryID(repo.ID).ToList()
-                    .Select(s => new { s.User.Name, s.IsOwner, Kind = !s.User.IsTeam })
-                    .ToList();
+                var tempList = UserRepository.FindAllByRepositoryID(repo.ID).ToList().Where(e => e.User != null);
 
                 if (withShipment)
                 {
                     model.Collaborators = tempList
-                        .Where(s => s.Kind)
-                        .Select(s => s.Name)
-                        .OrderBy(s => s, new StringLogicalComparer())
-                        .ToArray();
+                        .Where(s => !s.User.IsTeam)
+                        .OrderBy(s => s.User.Name)
+                        .ToDictionary(e => e.User.Name, e => e.User.Nickname);
                     model.Teams = tempList
-                        .Where(s => !s.Kind)
-                        .Select(s => s.Name)
-                        .OrderBy(s => s, new StringLogicalComparer())
-                        .ToArray();
+                        .Where(s => s.User.IsTeam)
+                        .OrderBy(s => s.User.Name)
+                        .ToDictionary(e => e.User.Name, e => e.User.Nickname);
                 }
                 if (username != null)
                 {
                     model.CurrentUserIsOwner = tempList
-                        .Any(s => s.Kind && s.IsOwner && s.Name == username);
+                        .Any(s => !s.User.IsTeam && s.IsOwner && s.User.Name == username);
                 }
             }
             return model;

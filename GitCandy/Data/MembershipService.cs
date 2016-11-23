@@ -27,7 +27,7 @@ namespace GitCandy.Data
             };
             if (withMembers)
             {
-                model.Teams = user.TeamNames;
+                model.Teams = user.Teams.ToDictionary(e => e.Team.Name, e => e.Team.Nickname);
                 var rs = user.Repositories.Select(e => e.Repository).Where(e => e.Enable);
                 if (!viewUser.IsNullOrEmpty())
                 {
@@ -238,8 +238,8 @@ namespace GitCandy.Data
             };
             if (withMembers)
             {
-                model.MembersRole = UserTeam.FindAllByTeamID(team.ID).ToList()
-                    .Where(e => e.User != null)
+                var list = UserTeam.FindAllByTeamID(team.ID).ToList().Where(e => e.User != null);
+                model.MembersRole = list
                     .Select(s => new TeamModel.UserRole
                     {
                         Name = s.User.Name,
@@ -247,9 +247,7 @@ namespace GitCandy.Data
                     })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray();
-                model.Members = model.MembersRole
-                    .Select(s => s.Name)
-                    .ToArray();
+                model.Members = list.ToDictionary(e => e.User.Name, e => e.User.Nickname);
 
                 var rs = team.Repositories.Where(e => e.Repository.Enable);
                 if (!viewUser.IsNullOrEmpty())

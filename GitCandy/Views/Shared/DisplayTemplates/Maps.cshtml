@@ -1,0 +1,13 @@
+﻿@model IDictionary<String, String>
+
+@{
+    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as String;
+    var i = 0;
+}
+
+@foreach (var item in Model)
+{
+    if (i++ != 0)
+    {<text> , </text>}
+    @Html.ActionLink(item.Value ?? item.Key, "Detail", controller, new { name = item.Key }, null)
+}
