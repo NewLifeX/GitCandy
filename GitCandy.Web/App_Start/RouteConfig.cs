@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -30,16 +31,16 @@ namespace GitCandy
             //    namespaces: new[] { typeof(AccountController).Namespace }
             //);
             routes.MapRoute(
-                name: "UserGitAct",
-                url: "{owner}/{name}/{action}/{*path}",
-                defaults: new { controller = "Repository", path = UrlParameter.Optional },
-                constraints: new { owner = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
-            routes.MapRoute(
                 name: "UserGit",
                 url: "{owner}/{project}/{*verb}",
                 defaults: new { controller = "Git", action = "Smart" },
+                constraints: new { owner = new UserUrlConstraint(), verb = new GitUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
+            routes.MapRoute(
+                name: "UserGitAct",
+                url: "{owner}/{name}/{action}/{*path}",
+                defaults: new { controller = "Repository", path = UrlParameter.Optional },
                 constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
@@ -147,6 +148,22 @@ namespace GitCandy
             }
 
             return _cache.GetItem(name, k => User.FindByName(k)?.IsTeam);
+        }
+    }
+
+    class GitUrlConstraint : IRouteConstraint
+    {
+        private static HashSet<String> _cache = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "info/refs","git-upload-pack","git-receive-pack"
+        };
+
+        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            var name = values[parameterName] + "";
+            if (name.IsNullOrEmpty()) return false;
+
+            return _cache.Contains(name);
         }
     }
 
