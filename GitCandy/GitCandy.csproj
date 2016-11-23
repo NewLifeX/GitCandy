@@ -355,6 +355,8 @@
     <Compile Include="Areas\GitCandy\Controllers\RepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\SshKeyController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\UserController.cs" />
+    <Compile Include="Areas\GitCandy\Controllers\UserRepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\GitController.cs" />
     <Compile Include="Areas\GitCandy\GitCandyAreaRegistration.cs" />
@@ -366,7 +368,7 @@
     <Compile Include="Base\StringLogicalComparer.cs" />
     <Compile Include="Configuration\HostKey.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\CandyControllerBase.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

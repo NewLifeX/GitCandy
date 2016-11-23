@@ -20,14 +20,14 @@ namespace GitCandy
                 url: "{user}/{name}/{*path}",
                 defaults: new { controller = "Repository", action = "Tree" },
                 constraints: new { user = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             routes.MapRoute(
                 name: "UserGit",
                 url: "{user}/{project}/{*verb}",
                 defaults: new { controller = "Git", action = "Smart" },
                 constraints: new { user = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             #endregion
 
@@ -36,15 +36,15 @@ namespace GitCandy
             routes.MapRoute(
                 name: "UserIndex",
                 url: "{name}",
-                defaults: new { controller = "Account", action = "Detail" },
+                defaults: new { controller = "User", action = "Detail" },
                 constraints: new { name = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             routes.MapRoute(
-                name: "Account",
-                url: "Account/{action}/{name}",
-                defaults: new { controller = "Account" },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                name: "User",
+                url: "User/{action}/{name}",
+                defaults: new { controller = "User" },
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             #endregion
 
@@ -53,7 +53,7 @@ namespace GitCandy
                 name: "Team",
                 url: "Team/{action}/{name}",
                 defaults: new { controller = "Team" },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             #endregion
 
@@ -62,7 +62,7 @@ namespace GitCandy
                 name: "Repository",
                 url: "Repository/{action}/{name}/{*path}",
                 defaults: new { controller = "Repository", path = "" },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             #endregion
 
@@ -71,7 +71,7 @@ namespace GitCandy
                 name: "Setting",
                 url: "Setting/{action}",
                 defaults: new { controller = "Setting", action = "Edit" },
-                namespaces: new[] { typeof(AccountController).Namespace }
+                namespaces: new[] { typeof(UserController).Namespace }
             );
             #endregion
 

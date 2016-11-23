@@ -13,7 +13,7 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
-    public class AccountController : CandyControllerBase
+    public class UserController : CandyControllerBase
     {
         [Administrator]
         public ActionResult Index(String query, int? page)
