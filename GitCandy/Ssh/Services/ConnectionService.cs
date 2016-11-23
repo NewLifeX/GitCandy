@@ -55,9 +55,9 @@ namespace GitCandy.Ssh.Services
                     {
                         RecipientChannel = message.SenderChannel,
                         ReasonCode = ChannelOpenFailureReason.UnknownChannelType,
-                        Description = string.Format("Unknown channel type: {0}.", message.ChannelType),
+                        Description = String.Format("Unknown channel type: {0}.", message.ChannelType),
                     });
-                    throw new SshConnectionException(string.Format("Unknown channel type: {0}.", message.ChannelType));
+                    throw new SshConnectionException(String.Format("Unknown channel type: {0}.", message.ChannelType));
             }
         }
 
@@ -75,7 +75,7 @@ namespace GitCandy.Ssh.Services
                         {
                             RecipientChannel = FindChannelByServerId<Channel>(message.RecipientChannel).ClientChannelId
                         });
-                    throw new SshConnectionException(string.Format("Unknown request type: {0}.", message.RequestType));
+                    throw new SshConnectionException(String.Format("Unknown request type: {0}.", message.RequestType));
             }
         }
 
@@ -144,7 +144,7 @@ namespace GitCandy.Ssh.Services
             {
                 var channel = _channels.FirstOrDefault(x => x.ClientChannelId == id) as T;
                 if (channel == null)
-                    throw new SshConnectionException(string.Format("Invalid client channel id {0}.", id),
+                    throw new SshConnectionException(String.Format("Invalid client channel id {0}.", id),
                         DisconnectReason.ProtocolError);
 
                 return channel;
@@ -157,7 +157,7 @@ namespace GitCandy.Ssh.Services
             {
                 var channel = _channels.FirstOrDefault(x => x.ServerChannelId == id) as T;
                 if (channel == null)
-                    throw new SshConnectionException(string.Format("Invalid server channel id {0}.", id),
+                    throw new SshConnectionException(String.Format("Invalid server channel id {0}.", id),
                         DisconnectReason.ProtocolError);
 
                 return channel;

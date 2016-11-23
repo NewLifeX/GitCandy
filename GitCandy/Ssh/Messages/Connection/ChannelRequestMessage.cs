@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace GitCandy.Ssh.Messages.Connection
 {
@@ -8,7 +9,7 @@ namespace GitCandy.Ssh.Messages.Connection
         private const byte MessageNumber = 98;
 
         public uint RecipientChannel { get; set; }
-        public string RequestType { get; set; }
+        public String RequestType { get; set; }
         public bool WantReply { get; set; }
 
         public override byte MessageType { get { return MessageNumber; } }

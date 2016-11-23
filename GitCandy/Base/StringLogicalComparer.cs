@@ -11,14 +11,14 @@ using System.Collections.Generic;
 namespace GitCandy.Base
 {
     // emulates StrCmpLogicalW, but not fully
-    public class StringLogicalComparer : IComparer, IComparer<string>
+    public class StringLogicalComparer : IComparer, IComparer<String>
     {
         public int Compare(object s1, object s2)
         {
-            return Compare(s1 as string, s2 as string);
+            return Compare(s1 as String, s2 as String);
         }
 
-        public int Compare(string s1, string s2)
+        public int Compare(String s1, String s2)
         {
             //get rid of special cases
             if (object.ReferenceEquals(s1, s2)) return 0;
@@ -26,9 +26,9 @@ namespace GitCandy.Base
             else if (s1 == null) return -1;
             else if (s2 == null) return 1;
 
-            if ((s1.Equals(string.Empty) && (s2.Equals(string.Empty)))) return 0;
-            else if (s1.Equals(string.Empty)) return -1;
-            else if (s2.Equals(string.Empty)) return -1;
+            if ((s1.Equals(String.Empty) && (s2.Equals(String.Empty)))) return 0;
+            else if (s1.Equals(String.Empty)) return -1;
+            else if (s2.Equals(String.Empty)) return -1;
 
             //WE style, special case
             bool sp1 = Char.IsLetterOrDigit(s1, 0);
@@ -91,7 +91,7 @@ namespace GitCandy.Base
             }
         }
 
-        private int CompareNum(string s1, ref int i1, string s2, ref int i2)
+        private int CompareNum(String s1, ref int i1, String s2, ref int i2)
         {
             int nzStart1 = i1, nzStart2 = i2; // nz = non zero
             int end1 = i1, end2 = i2;
@@ -121,7 +121,7 @@ namespace GitCandy.Base
         }
 
         //lookahead
-        private void ScanNumEnd(string s, int start, ref int end, ref int nzStart)
+        private void ScanNumEnd(String s, int start, ref int end, ref int nzStart)
         {
             nzStart = start;
             end = start;

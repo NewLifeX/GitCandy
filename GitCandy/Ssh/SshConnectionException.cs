@@ -8,7 +8,7 @@ namespace GitCandy.Ssh
         {
         }
 
-        public SshConnectionException(string message, DisconnectReason disconnectReason = DisconnectReason.None)
+        public SshConnectionException(String message, DisconnectReason disconnectReason = DisconnectReason.None)
             : base(message)
         {
             DisconnectReason = disconnectReason;
@@ -16,9 +16,9 @@ namespace GitCandy.Ssh
 
         public DisconnectReason DisconnectReason { get; private set; }
 
-        public override string ToString()
+        public override String ToString()
         {
-            return string.Format("SSH connection disconnected bacause {0}: {1}");
+            return String.Format("SSH connection disconnected bacause {0}: {1}");
         }
     }
 }

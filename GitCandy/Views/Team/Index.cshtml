@@ -1,7 +1,7 @@
 ﻿@model GitCandy.Models.TeamListModel
 
 @{
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Team_ListTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Team_ListTitle);
 }
 
 <h3>@SR.Team_ListTitle</h3>
@@ -21,7 +21,7 @@
 }
 
 <div>
-    <div class="pull-left">@string.Format(SR.Team_TeamsFound, Model.ItemCount)</div>
+    <div class="pull-left">@String.Format(SR.Team_TeamsFound, Model.ItemCount)</div>
     <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" })</div>
 </div>
 <table class="table table-hover table-striped">

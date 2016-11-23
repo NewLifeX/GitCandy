@@ -1,10 +1,11 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace GitCandy.Ssh.Services
 {
     public class SessionRequestedArgs
     {
-        public SessionRequestedArgs(SessionChannel channel, string command, UserauthArgs userauthArgs)
+        public SessionRequestedArgs(SessionChannel channel, String command, UserauthArgs userauthArgs)
         {
             Contract.Requires(channel != null);
             Contract.Requires(command != null);
@@ -16,7 +17,7 @@ namespace GitCandy.Ssh.Services
         }
 
         public SessionChannel Channel { get; private set; }
-        public string CommandText { get; private set; }
+        public String CommandText { get; private set; }
         public UserauthArgs AttachedUserauthArgs { get; private set; }
     }
 }

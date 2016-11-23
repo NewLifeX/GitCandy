@@ -19,7 +19,7 @@ namespace GitCandy.Filters
                 var helper = new UrlHelper(filterContext.RequestContext);
 
                 var retUrl = filterContext.HttpContext.Request.Url.PathAndQuery;
-                var retObj = (string.IsNullOrEmpty(retUrl) || retUrl == "/")
+                var retObj = (String.IsNullOrEmpty(retUrl) || retUrl == "/")
                     ? null
                     : new { ReturnUrl = filterContext.HttpContext.Request.Url.PathAndQuery };
 

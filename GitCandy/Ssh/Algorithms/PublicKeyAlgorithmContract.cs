@@ -11,12 +11,12 @@ namespace GitCandy.Ssh.Algorithms
         {
         }
 
-        public override string Name
+        public override String Name
         {
             get { throw new NotImplementedException(); }
         }
 
-        protected override void ImportKey(string xml)
+        protected override void ImportKey(String xml)
         {
             throw new NotImplementedException();
         }

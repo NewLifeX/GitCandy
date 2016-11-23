@@ -1,9 +1,11 @@
 ﻿
+using System;
+
 namespace GitCandy.Models
 {
     public class GitUrl
     {
-        public string Type { get; set; }
-        public string Url { get; set; }
+        public String Type { get; set; }
+        public String Url { get; set; }
     }
 }

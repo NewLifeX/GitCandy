@@ -53,7 +53,7 @@ namespace GitCandy.Git
             var command = match.Groups["cmd"].Value;
             var project = match.Groups["proj"].Value;
 
-            if (string.IsNullOrWhiteSpace(command) || string.IsNullOrWhiteSpace(project))
+            if (String.IsNullOrWhiteSpace(command) || String.IsNullOrWhiteSpace(project))
                 throw new SshConnectionException("Unexpected command.", DisconnectReason.ByApplication);
 
             var requireWrite = command == "git-receive-pack";
@@ -90,7 +90,7 @@ namespace GitCandy.Git
             _process.StandardInput.BaseStream.Flush();
         }
 
-        private void StartProcess(string command, string project)
+        private void StartProcess(String command, String project)
         {
             var args = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project);
 

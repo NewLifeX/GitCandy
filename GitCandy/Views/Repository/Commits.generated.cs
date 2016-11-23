@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Commits.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_CommitsTitle, Model.RepositoryName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CommitsTitle, Model.RepositoryName ?? Model.Sha.ToShortSha(), Model.Path));
 
             
             #line default

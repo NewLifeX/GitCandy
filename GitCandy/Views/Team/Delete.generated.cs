@@ -52,7 +52,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Team\Delete.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Team_DeleteTitle, Model));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_DeleteTitle, Model));
 
             
             #line default
@@ -88,7 +88,7 @@ WriteLiteral("        ");
 
             
             #line 10 "..\..\Views\Team\Delete.cshtml"
-   Write(string.Format(SR.Team_DeletionWords, Model));
+   Write(String.Format(SR.Team_DeletionWords, Model));
 
             
             #line default

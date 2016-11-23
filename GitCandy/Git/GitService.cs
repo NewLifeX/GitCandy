@@ -16,19 +16,19 @@ namespace GitCandy.Git
 {
     public class GitService : IDisposable
     {
-        public const string UnknowString = "<Unknow>";
+        public const String UnknowString = "<Unknow>";
 
         private readonly Repository _repository;
-        private readonly string _repositoryPath;
-        private readonly string _repoId = null;
+        private readonly String _repositoryPath;
+        private readonly String _repoId = null;
         private readonly Lazy<Encoding> _i18n;
         private bool _disposed;
 
         public Encoding I18n { get { return _i18n.Value; } }
-        public string Name { get; private set; }
+        public String Name { get; private set; }
         public Repository Repository { get { return _repository; } }
 
-        public GitService(string name)
+        public GitService(String name)
         {
             //var info = GetDirectoryInfo(name);
             var info = UserConfiguration.Current.RepositoryPath.CombinePath(name).GetFullPath().AsDirectory();
@@ -43,7 +43,7 @@ namespace GitCandy.Git
             _repository = new Repository(_repositoryPath);
             _i18n = new Lazy<Encoding>(() =>
             {
-                var entry = _repository.Config.Get<string>("i18n.commitEncoding");
+                var entry = _repository.Config.Get<String>("i18n.commitEncoding");
                 return entry == null
                     ? null
                     : CpToEncoding(entry.Value);
@@ -51,13 +51,13 @@ namespace GitCandy.Git
         }
 
         #region Git Smart HTTP Transport
-        public void InfoRefs(string service, Stream inStream, Stream outStream)
+        public void InfoRefs(String service, Stream inStream, Stream outStream)
         {
             Contract.Requires(service == "receive-pack" || service == "upload-pack");
             RunGitCmd(service, true, inStream, outStream);
         }
 
-        public void ExecutePack(string service, Stream inStream, Stream outStream)
+        public void ExecutePack(String service, Stream inStream, Stream outStream)
         {
             Contract.Requires(service == "receive-pack" || service == "upload-pack");
             RunGitCmd(service, false, inStream, outStream);
@@ -65,10 +65,10 @@ namespace GitCandy.Git
         #endregion
 
         #region Repository Browser
-        public TreeModel GetTree(string path)
+        public TreeModel GetTree(String path)
         {
-            var isEmptyPath = string.IsNullOrEmpty(path);
-            string referenceName;
+            var isEmptyPath = String.IsNullOrEmpty(path);
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
             {
@@ -87,7 +87,7 @@ namespace GitCandy.Git
             var model = new TreeModel
             {
                 ReferenceName = referenceName,
-                Path = string.IsNullOrEmpty(path) ? "" : path,
+                Path = String.IsNullOrEmpty(path) ? "" : path,
                 Commit = new CommitModel
                 {
                     Sha = commit.Sha,
@@ -98,7 +98,7 @@ namespace GitCandy.Git
                 },
             };
 
-            var tree = string.IsNullOrEmpty(path)
+            var tree = String.IsNullOrEmpty(path)
                 ? commit.Tree
                 : commit[path] == null
                     ? null
@@ -131,9 +131,9 @@ namespace GitCandy.Git
 
             model.Entries = entries;
             model.Readme = entries.FirstOrDefault(s => s.EntryType == TreeEntryTargetType.Blob
-                && (string.Equals(s.Name, "readme", StringComparison.OrdinalIgnoreCase)
-                    //|| string.Equals(s.Name, "readme.txt", StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(s.Name, "readme.md", StringComparison.OrdinalIgnoreCase)));
+                && (String.Equals(s.Name, "readme", StringComparison.OrdinalIgnoreCase)
+                    //|| String.Equals(s.Name, "readme.txt", StringComparison.OrdinalIgnoreCase)
+                    || String.Equals(s.Name, "readme.md", StringComparison.OrdinalIgnoreCase)));
 
             if (model.Readme != null)
             {
@@ -173,9 +173,9 @@ namespace GitCandy.Git
             return model;
         }
 
-        public TreeEntryModel GetBlob(string path)
+        public TreeEntryModel GetBlob(String path)
         {
-            string referenceName;
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
                 return null;
@@ -199,7 +199,7 @@ namespace GitCandy.Git
                 Name = entry.Name,
                 ReferenceName = referenceName,
                 Sha = commit.Sha,
-                Path = string.IsNullOrEmpty(path) ? "" : path,
+                Path = String.IsNullOrEmpty(path) ? "" : path,
                 Commit = new CommitModel
                 {
                     Sha = commit.Sha,
@@ -241,9 +241,9 @@ namespace GitCandy.Git
             return model;
         }
 
-        public CommitModel GetCommit(string path)
+        public CommitModel GetCommit(String path)
         {
-            string referenceName;
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
                 return null;
@@ -263,9 +263,9 @@ namespace GitCandy.Git
             return model;
         }
 
-        public CompareModel GetCompare(string start, string end)
+        public CompareModel GetCompare(String start, String end)
         {
-            string name1, name2;
+            String name1, name2;
             var commit1 = GetCommitByPath(ref start, out name1);
             var commit2 = GetCommitByPath(ref end, out name2);
             if (commit1 == null)
@@ -306,9 +306,9 @@ namespace GitCandy.Git
             return model;
         }
 
-        public CommitsModel GetCommits(string path, int page = 1, int pagesize = 20)
+        public CommitsModel GetCommits(String path, int page = 1, int pagesize = 20)
         {
-            string referenceName;
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
                 return null;
@@ -331,7 +331,7 @@ namespace GitCandy.Git
                     .ToList(),
                 CurrentPage = page,
                 ItemCount = scopeAccessor.Result.Value.Commits,
-                Path = string.IsNullOrEmpty(path) ? "" : path,
+                Path = String.IsNullOrEmpty(path) ? "" : path,
                 PathBar = new PathBarModel
                 {
                     Name = Name,
@@ -346,9 +346,9 @@ namespace GitCandy.Git
             return model;
         }
 
-        public BlameModel GetBlame(string path)
+        public BlameModel GetBlame(String path)
         {
-            string referenceName;
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
                 return null;
@@ -366,7 +366,7 @@ namespace GitCandy.Git
             {
                 ReferenceName = referenceName,
                 Sha = commit.Sha,
-                Path = string.IsNullOrEmpty(path) ? "" : path,
+                Path = String.IsNullOrEmpty(path) ? "" : path,
                 SizeString = FileHelper.GetSizeString(blob.Size),
                 Brush = FileHelper.GetBrush(path),
                 Hunks = hunks,
@@ -385,7 +385,7 @@ namespace GitCandy.Git
             return model;
         }
 
-        public string GetArchiveFilename(string path, string newline, out string referenceName)
+        public String GetArchiveFilename(String path, String newline, out String referenceName)
         {
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null) return null;
@@ -444,19 +444,19 @@ namespace GitCandy.Git
             return model;
         }
 
-        public void DeleteBranch(string branch)
+        public void DeleteBranch(String branch)
         {
             _repository.Branches.Remove(branch);
         }
 
-        public void DeleteTag(string tag)
+        public void DeleteTag(String tag)
         {
             _repository.Tags.Remove(tag);
         }
 
-        public ContributorsModel GetContributors(string path)
+        public ContributorsModel GetContributors(String path)
         {
-            string referenceName;
+            String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null)
                 return null;
@@ -491,7 +491,7 @@ namespace GitCandy.Git
         #endregion
 
         #region Repository Settings
-        public string GetHeadBranch()
+        public String GetHeadBranch()
         {
             var head = _repository.Head;
             if (head == null)
@@ -499,12 +499,12 @@ namespace GitCandy.Git
             return head.FriendlyName;
         }
 
-        public string[] GetLocalBranches()
+        public String[] GetLocalBranches()
         {
             return _repository.Branches.Select(s => s.FriendlyName).OrderBy(s => s, new StringLogicalComparer()).ToArray();
         }
 
-        public bool SetHeadBranch(string name)
+        public bool SetHeadBranch(String name)
         {
             var refs = _repository.Refs;
             var refer = refs["refs/heads/" + (name ?? "master")];
@@ -516,7 +516,7 @@ namespace GitCandy.Git
         #endregion
 
         #region Private Methods
-        private BranchSelectorModel GetBranchSelectorModel(string referenceName, string refer, string path)
+        private BranchSelectorModel GetBranchSelectorModel(String referenceName, String refer, String path)
         {
             var model = new BranchSelectorModel
             {
@@ -530,11 +530,11 @@ namespace GitCandy.Git
             return model;
         }
 
-        private Commit GetCommitByPath(ref string path, out string referenceName)
+        private Commit GetCommitByPath(ref String path, out String referenceName)
         {
             referenceName = null;
 
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 referenceName = _repository.Head.FriendlyName;
                 path = "";
@@ -565,7 +565,7 @@ namespace GitCandy.Git
             return commit;
         }
 
-        private CommitModel ToCommitModel(Commit commit, string referenceName, bool isTree = true, string detailFilter = null, Tree compareWith = null)
+        private CommitModel ToCommitModel(Commit commit, String referenceName, bool isTree = true, String detailFilter = null, Tree compareWith = null)
         {
             if (commit == null)
                 return null;
@@ -620,7 +620,7 @@ namespace GitCandy.Git
             return model;
         }
 
-        private Encoding CpToEncoding(string encoding)
+        private Encoding CpToEncoding(String encoding)
         {
             try
             {
@@ -635,7 +635,7 @@ namespace GitCandy.Git
             }
         }
 
-        private string CalcBranchesKey(bool includeTags = false)
+        private String CalcBranchesKey(bool includeTags = false)
         {
             var sb = new StringBuilder();
             var head = _repository.Head;
@@ -665,16 +665,16 @@ namespace GitCandy.Git
             return sb.ToString();
         }
 
-        private Signature CreateSafeSignature(string name, string email, DateTimeOffset when)
+        private Signature CreateSafeSignature(String name, String email, DateTimeOffset when)
         {
             return new Signature(name.RepetitionIfEmpty(UnknowString), email, when);
         }
         #endregion
 
         #region Static Methods
-        public static bool CreateRepository(string name)
+        public static bool CreateRepository(String name)
         {
-            var path = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name);
+            var path = UserConfiguration.Current.RepositoryPath.GetFullPath().CombinePath(name);
             try
             {
                 using (var repo = new Repository(Repository.Init(path, true)))
@@ -694,10 +694,10 @@ namespace GitCandy.Git
             }
         }
 
-        public static bool DeleteRepository(string name)
+        public static bool DeleteRepository(String name)
         {
-            var path = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name);
-            var temp = Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), name + "." + DateTime.Now.Ticks + ".del");
+            var path = UserConfiguration.Current.RepositoryPath.GetFullPath().CombinePath(name);
+            var temp = path + "." + DateTime.Now.Ticks + ".del";
 
             var retry = 3;
             for (; retry > 0; retry--)
@@ -740,7 +740,7 @@ namespace GitCandy.Git
             return retry > 0;
         }
 
-        //private static DirectoryInfo GetDirectoryInfo(string project)
+        //private static DirectoryInfo GetDirectoryInfo(String project)
         //{
         //    return new DirectoryInfo(Path.Combine(UserConfiguration.Current.RepositoryPath.GetFullPath(), project));
         //}
@@ -748,7 +748,7 @@ namespace GitCandy.Git
 
         #region RunGitCmd
         // un-safe implementation
-        private void RunGitCmd(string serviceName, bool advertiseRefs, Stream inStream, Stream outStream)
+        private void RunGitCmd(String serviceName, bool advertiseRefs, Stream inStream, Stream outStream)
         {
             var args = serviceName + " --stateless-rpc";
             if (advertiseRefs)

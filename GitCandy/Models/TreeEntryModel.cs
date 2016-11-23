@@ -1,20 +1,21 @@
 ﻿using LibGit2Sharp;
 using System.Text;
+using System;
 
 namespace GitCandy.Models
 {
     public class TreeEntryModel : RepositoryModelBase
     {
-        public string Name { get; set; }
-        public string Path { get; set; }
-        public string ReferenceName { get; set; }
+        public String Name { get; set; }
+        public String Path { get; set; }
+        public String ReferenceName { get; set; }
         public CommitModel Commit { get; set; }
-        public string Sha { get; set; }
+        public String Sha { get; set; }
         public TreeEntryTargetType EntryType { get; set; }
         public byte[] RawData { get; set; }
-        public string SizeString { get; set; }
-        public string TextContent { get; set; }
-        public string TextBrush { get; set; }
+        public String SizeString { get; set; }
+        public String TextContent { get; set; }
+        public String TextBrush { get; set; }
         public BlobType BlobType { get; set; }
         public Encoding BlobEncoding { get; set; }
         public PathBarModel PathBar { get; set; }

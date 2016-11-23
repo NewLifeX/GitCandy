@@ -93,7 +93,7 @@ namespace GitCandy
         //            if (File.Exists(filename))
         //            {
         //                var content = File.ReadAllText(filename);
-        //                response.Write(string.Format(content, statusCode));
+        //                response.Write(String.Format(content, statusCode));
         //            }
         //        }
         //    }
@@ -108,7 +108,7 @@ namespace GitCandy
                 var culture = Session["Culture"] as CultureInfo;
                 if (culture == null)
                 {
-                    string langName = "en-us";
+                    String langName = "en-us";
 
                     if (Request.Cookies["Lang"] != null)
                     {

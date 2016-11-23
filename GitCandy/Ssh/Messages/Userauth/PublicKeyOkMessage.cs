@@ -8,7 +8,7 @@ namespace GitCandy.Ssh.Messages.Userauth
     {
         private const byte MessageNumber = 60;
 
-        public string KeyAlgorithmName { get; set; }
+        public String KeyAlgorithmName { get; set; }
         public byte[] PublicKey { get; set; }
 
         public override byte MessageType { get { return MessageNumber; } }

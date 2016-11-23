@@ -6,7 +6,7 @@ namespace GitCandy.Base
 {
     public class Profiler
     {
-        const string CacheKey = "GitCandyProfiler";
+        const String CacheKey = "GitCandyProfiler";
 
         private readonly Stopwatch _sw;
 

@@ -1,15 +1,16 @@
-﻿using GitCandy.Git.Cache;
-using LibGit2Sharp;
+﻿using System;
 using System.Diagnostics.Contracts;
 using System.IO;
+using GitCandy.Git.Cache;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
     public class RepositorySizeAccessor : GitCacheAccessor<long, RepositorySizeAccessor>
     {
-        private string key;
+        private String key;
 
-        public RepositorySizeAccessor(string repoId, Repository repo, string key)
+        public RepositorySizeAccessor(String repoId, Repository repo, String key)
             : base(repoId, repo)
         {
             Contract.Requires(key != null);
@@ -19,7 +20,7 @@ namespace GitCandy.Git
 
         public override bool IsAsync { get { return false; } }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(key);
         }

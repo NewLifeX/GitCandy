@@ -19,25 +19,25 @@ namespace GitCandy.Ssh.Messages
 
         public byte[] Cookie { get; private set; }
 
-        public string[] KeyExchangeAlgorithms { get; set; }
+        public String[] KeyExchangeAlgorithms { get; set; }
 
-        public string[] ServerHostKeyAlgorithms { get; set; }
+        public String[] ServerHostKeyAlgorithms { get; set; }
 
-        public string[] EncryptionAlgorithmsClientToServer { get; set; }
+        public String[] EncryptionAlgorithmsClientToServer { get; set; }
 
-        public string[] EncryptionAlgorithmsServerToClient { get; set; }
+        public String[] EncryptionAlgorithmsServerToClient { get; set; }
 
-        public string[] MacAlgorithmsClientToServer { get; set; }
+        public String[] MacAlgorithmsClientToServer { get; set; }
 
-        public string[] MacAlgorithmsServerToClient { get; set; }
+        public String[] MacAlgorithmsServerToClient { get; set; }
 
-        public string[] CompressionAlgorithmsClientToServer { get; set; }
+        public String[] CompressionAlgorithmsClientToServer { get; set; }
 
-        public string[] CompressionAlgorithmsServerToClient { get; set; }
+        public String[] CompressionAlgorithmsServerToClient { get; set; }
 
-        public string[] LanguagesClientToServer { get; set; }
+        public String[] LanguagesClientToServer { get; set; }
 
-        public string[] LanguagesServerToClient { get; set; }
+        public String[] LanguagesServerToClient { get; set; }
 
         public bool FirstKexPacketFollows { get; set; }
 
@@ -65,16 +65,16 @@ namespace GitCandy.Ssh.Messages
         protected override void OnGetPacket(SshDataWorker writer)
         {
             writer.Write(Cookie);
-            writer.Write(string.Join(",", KeyExchangeAlgorithms), Encoding.ASCII);
-            writer.Write(string.Join(",", ServerHostKeyAlgorithms), Encoding.ASCII);
-            writer.Write(string.Join(",", EncryptionAlgorithmsClientToServer), Encoding.ASCII);
-            writer.Write(string.Join(",", EncryptionAlgorithmsServerToClient), Encoding.ASCII);
-            writer.Write(string.Join(",", MacAlgorithmsClientToServer), Encoding.ASCII);
-            writer.Write(string.Join(",", MacAlgorithmsServerToClient), Encoding.ASCII);
-            writer.Write(string.Join(",", CompressionAlgorithmsClientToServer), Encoding.ASCII);
-            writer.Write(string.Join(",", CompressionAlgorithmsServerToClient), Encoding.ASCII);
-            writer.Write(string.Join(",", LanguagesClientToServer), Encoding.ASCII);
-            writer.Write(string.Join(",", LanguagesServerToClient), Encoding.ASCII);
+            writer.Write(String.Join(",", KeyExchangeAlgorithms), Encoding.ASCII);
+            writer.Write(String.Join(",", ServerHostKeyAlgorithms), Encoding.ASCII);
+            writer.Write(String.Join(",", EncryptionAlgorithmsClientToServer), Encoding.ASCII);
+            writer.Write(String.Join(",", EncryptionAlgorithmsServerToClient), Encoding.ASCII);
+            writer.Write(String.Join(",", MacAlgorithmsClientToServer), Encoding.ASCII);
+            writer.Write(String.Join(",", MacAlgorithmsServerToClient), Encoding.ASCII);
+            writer.Write(String.Join(",", CompressionAlgorithmsClientToServer), Encoding.ASCII);
+            writer.Write(String.Join(",", CompressionAlgorithmsServerToClient), Encoding.ASCII);
+            writer.Write(String.Join(",", LanguagesClientToServer), Encoding.ASCII);
+            writer.Write(String.Join(",", LanguagesServerToClient), Encoding.ASCII);
             writer.Write(FirstKexPacketFollows);
             writer.Write(Reserved);
         }

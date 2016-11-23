@@ -1,10 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace GitCandy.Ssh.Messages.Connection
 {
     public class CommandRequestMessage : ChannelRequestMessage
     {
-        public string Command { get; private set; }
+        public String Command { get; private set; }
 
         protected override void OnLoad(SshDataWorker reader)
         {

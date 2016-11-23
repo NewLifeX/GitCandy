@@ -59,7 +59,7 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\Team\Users.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Team_ChooseUserTitle, Model.Name));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_ChooseUserTitle, Model.Name));
 
             
             #line default
@@ -68,7 +68,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 8 "..\..\Views\Team\Users.cshtml"
-Write(string.Format(SR.Team_ChooseUserTitle, Model.Name));
+Write(String.Format(SR.Team_ChooseUserTitle, Model.Name));
 
             
             #line default

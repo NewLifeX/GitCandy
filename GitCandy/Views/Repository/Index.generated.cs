@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Index.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
 
             
             #line default

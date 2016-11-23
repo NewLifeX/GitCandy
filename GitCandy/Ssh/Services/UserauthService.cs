@@ -14,7 +14,7 @@ namespace GitCandy.Ssh.Services
 
         public event EventHandler<UserauthArgs> Userauth;
 
-        public event EventHandler<string> Succeed;
+        public event EventHandler<String> Succeed;
 
         protected internal override void CloseService()
         {

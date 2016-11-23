@@ -1,7 +1,7 @@
-﻿@model string[]
+﻿@model String[]
 
 @{
-    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as string;
+    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as String;
 }
 
 @for (var i = 0; i < Model.Length; i++)

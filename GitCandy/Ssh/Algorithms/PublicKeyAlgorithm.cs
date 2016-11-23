@@ -8,15 +8,15 @@ namespace GitCandy.Ssh.Algorithms
     [ContractClass(typeof(PublicKeyAlgorithmContract))]
     public abstract class PublicKeyAlgorithm
     {
-        public PublicKeyAlgorithm(string xml)
+        public PublicKeyAlgorithm(String xml)
         {
-            if (!string.IsNullOrEmpty(xml))
+            if (!String.IsNullOrEmpty(xml))
                 ImportKey(xml);
         }
 
-        public abstract string Name { get; }
+        public abstract String Name { get; }
 
-        public string GetFingerprint()
+        public String GetFingerprint()
         {
             using (var md5 = new MD5CryptoServiceProvider())
             {
@@ -54,7 +54,7 @@ namespace GitCandy.Ssh.Algorithms
             }
         }
 
-        protected abstract void ImportKey(string xml);
+        protected abstract void ImportKey(String xml);
 
         public abstract void LoadKeyAndCertificatesData(byte[] data);
 

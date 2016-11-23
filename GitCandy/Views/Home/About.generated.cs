@@ -52,7 +52,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Home\About.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Home_AboutTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Home_AboutTitle);
 
             
             #line default

@@ -11,9 +11,9 @@ namespace GitCandy.Git
     public class ContributorsAccessor : GitCacheAccessor<RepositoryStatisticsModel.Statistics, ContributorsAccessor>
     {
         private Commit commit;
-        private string key;
+        private String key;
 
-        public ContributorsAccessor(string repoId, Repository repo, Commit commit)
+        public ContributorsAccessor(String repoId, Repository repo, Commit commit)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -22,7 +22,7 @@ namespace GitCandy.Git
             this.key = commit.Sha;
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(key);
         }
@@ -43,7 +43,7 @@ namespace GitCandy.Git
                 var ancestors = repo.Commits
                     .QueryBy(new CommitFilter { IncludeReachableFrom = commit });
 
-                var dict = new Dictionary<string, int>();
+                var dict = new Dictionary<String, int>();
                 var statistics = new RepositoryStatisticsModel.Statistics();
                 foreach (var ancestor in ancestors)
                 {

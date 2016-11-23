@@ -52,7 +52,7 @@ namespace GitCandy.Ssh.Algorithms
                 case CipherModeEx.CTR:
                     return new CtrModeCryptoTransform(_algorithm);
                 default:
-                    throw new InvalidEnumArgumentException(string.Format("Invalid mode: {0}", _mode));
+                    throw new InvalidEnumArgumentException(String.Format("Invalid mode: {0}", _mode));
             }
         }
     }

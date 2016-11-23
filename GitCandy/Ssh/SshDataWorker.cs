@@ -54,7 +54,7 @@ namespace GitCandy.Ssh
             _ms.Write(bytes, 0, 8);
         }
 
-        public void Write(string str, Encoding encoding)
+        public void Write(String str, Encoding encoding)
         {
             Contract.Requires(str != null);
             Contract.Requires(encoding != null);
@@ -140,7 +140,7 @@ namespace GitCandy.Ssh
                     (ulong)data[4] << 24 | (ulong)data[5] << 16 | (ulong)data[6] << 8 | data[7]);
         }
 
-        public string ReadString(Encoding encoding)
+        public String ReadString(Encoding encoding)
         {
             Contract.Requires(encoding != null);
 

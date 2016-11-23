@@ -16,7 +16,7 @@ namespace GitCandy.Filters
                     return;
 
                 var field = filterContext.Controller.ValueProvider.GetValue("name");
-                if (field == null || string.IsNullOrEmpty(field.AttemptedValue) || controller.Token.Username == field.AttemptedValue)
+                if (field == null || String.IsNullOrEmpty(field.AttemptedValue) || controller.Token.Username == field.AttemptedValue)
                     return;
             }
 

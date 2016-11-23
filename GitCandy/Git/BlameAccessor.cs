@@ -1,21 +1,22 @@
-﻿using GitCandy.Base;
-using GitCandy.Extensions;
-using GitCandy.Git.Cache;
-using GitCandy.Models;
-using LibGit2Sharp;
+﻿using System;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
+using GitCandy.Base;
+using GitCandy.Extensions;
+using GitCandy.Git.Cache;
+using GitCandy.Models;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
     public class BlameAccessor : GitCacheAccessor<BlameHunkModel[], BlameAccessor>
     {
         private readonly Commit commit;
-        private readonly string path, code;
+        private readonly String path, code;
 
-        public BlameAccessor(string repoId, Repository repo, Commit commit, string path, params Encoding[] encodings)
+        public BlameAccessor(String repoId, Repository repo, Commit commit, String path, params Encoding[] encodings)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -35,7 +36,7 @@ namespace GitCandy.Git
             this.code = FileHelper.ReadToEnd(bytes, encoding);
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Sha, path);
         }

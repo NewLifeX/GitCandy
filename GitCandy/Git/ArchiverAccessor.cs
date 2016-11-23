@@ -1,23 +1,24 @@
-﻿using GitCandy.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
+using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using ICSharpCode.SharpZipLib.Zip;
 using LibGit2Sharp;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Text;
 
 namespace GitCandy.Git
 {
-    public class ArchiverAccessor : GitCacheAccessor<string, ArchiverAccessor>
+    public class ArchiverAccessor : GitCacheAccessor<String, ArchiverAccessor>
     {
         private readonly Commit commit;
         private readonly Encoding[] encodings;
-        private readonly string newline;
+        private readonly String newline;
 
-        public ArchiverAccessor(string repoId, Repository repo, Commit commit, string newline, params Encoding[] encodings)
+        public ArchiverAccessor(String repoId, Repository repo, Commit commit, String newline, params Encoding[] encodings)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -30,7 +31,7 @@ namespace GitCandy.Git
 
         public override bool IsAsync { get { return false; } }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Sha, newline);
         }

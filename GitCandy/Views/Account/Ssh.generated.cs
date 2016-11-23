@@ -59,7 +59,7 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\Account\Ssh.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Account_SshKeys);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Account_SshKeys);
 
             
             #line default

@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Account\Change.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Account_ChangePasswordTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Account_ChangePasswordTitle);
 
             
             #line default

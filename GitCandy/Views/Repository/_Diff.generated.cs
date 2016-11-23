@@ -57,7 +57,7 @@ WriteLiteral("></div>\r\n<div>");
 
             
             #line 4 "..\..\Views\Repository\_Diff.cshtml"
-Write(string.Format(SR.Repository_ChangedSummary, Model.Changes.Count(), Model.Changes.Sum(s => s.LinesAdded), Model.Changes.Sum(s => s.LinesDeleted)));
+Write(String.Format(SR.Repository_ChangedSummary, Model.Changes.Count(), Model.Changes.Sum(s => s.LinesAdded), Model.Changes.Sum(s => s.LinesDeleted)));
 
             
             #line default

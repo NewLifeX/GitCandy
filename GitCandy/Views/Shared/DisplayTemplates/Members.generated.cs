@@ -42,7 +42,7 @@ namespace ASP
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/DisplayTemplates/Members.cshtml")]
-    public partial class _Views_Shared_DisplayTemplates_Members_cshtml_ : System.Web.Mvc.WebViewPage<string[]>
+    public partial class _Views_Shared_DisplayTemplates_Members_cshtml_ : System.Web.Mvc.WebViewPage<String[]>
     {
         public _Views_Shared_DisplayTemplates_Members_cshtml_()
         {
@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Shared\DisplayTemplates\Members.cshtml"
   
-    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as string;
+    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as String;
 
             
             #line default

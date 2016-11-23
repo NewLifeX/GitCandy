@@ -1,9 +1,10 @@
-﻿using GitCandy.Base;
+﻿using System;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using GitCandy.Base;
 using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using LibGit2Sharp;
-using System.Diagnostics.Contracts;
-using System.Linq;
 
 namespace GitCandy.Git
 {
@@ -12,7 +13,7 @@ namespace GitCandy.Git
         private readonly Commit commit;
         private readonly Tree tree;
 
-        public SummaryAccessor(string repoId, Repository repo, Commit commit, Tree tree)
+        public SummaryAccessor(String repoId, Repository repo, Commit commit, Tree tree)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -22,7 +23,7 @@ namespace GitCandy.Git
             this.tree = tree;
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Id, tree.Id);
         }

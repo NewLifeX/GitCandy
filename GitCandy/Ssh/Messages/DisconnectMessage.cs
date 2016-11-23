@@ -13,7 +13,7 @@ namespace GitCandy.Ssh.Messages
         {
         }
 
-        public DisconnectMessage(DisconnectReason reasonCode, string description = "", string language = "en")
+        public DisconnectMessage(DisconnectReason reasonCode, String description = "", String language = "en")
         {
             Contract.Requires(description != null);
             Contract.Requires(language != null);
@@ -24,8 +24,8 @@ namespace GitCandy.Ssh.Messages
         }
 
         public DisconnectReason ReasonCode { get; private set; }
-        public string Description { get; private set; }
-        public string Language { get; private set; }
+        public String Description { get; private set; }
+        public String Language { get; private set; }
 
         public override byte MessageType { get { return MessageNumber; } }
 

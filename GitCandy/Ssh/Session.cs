@@ -24,16 +24,16 @@ namespace GitCandy.Ssh
 
         private static readonly RandomNumberGenerator _rng = new RNGCryptoServiceProvider();
         private static readonly Dictionary<byte, Type> _messagesMetadata;
-        internal static readonly Dictionary<string, Func<KexAlgorithm>> _keyExchangeAlgorithms =
-            new Dictionary<string, Func<KexAlgorithm>>();
-        internal static readonly Dictionary<string, Func<string, PublicKeyAlgorithm>> _publicKeyAlgorithms =
-            new Dictionary<string, Func<string, PublicKeyAlgorithm>>();
-        internal static readonly Dictionary<string, Func<CipherInfo>> _encryptionAlgorithms =
-            new Dictionary<string, Func<CipherInfo>>();
-        internal static readonly Dictionary<string, Func<HmacInfo>> _hmacAlgorithms =
-            new Dictionary<string, Func<HmacInfo>>();
-        internal static readonly Dictionary<string, Func<CompressionAlgorithm>> _compressionAlgorithms =
-            new Dictionary<string, Func<CompressionAlgorithm>>();
+        internal static readonly Dictionary<String, Func<KexAlgorithm>> _keyExchangeAlgorithms =
+            new Dictionary<String, Func<KexAlgorithm>>();
+        internal static readonly Dictionary<String, Func<String, PublicKeyAlgorithm>> _publicKeyAlgorithms =
+            new Dictionary<String, Func<String, PublicKeyAlgorithm>>();
+        internal static readonly Dictionary<String, Func<CipherInfo>> _encryptionAlgorithms =
+            new Dictionary<String, Func<CipherInfo>>();
+        internal static readonly Dictionary<String, Func<HmacInfo>> _hmacAlgorithms =
+            new Dictionary<String, Func<HmacInfo>>();
+        internal static readonly Dictionary<String, Func<CompressionAlgorithm>> _compressionAlgorithms =
+            new Dictionary<String, Func<CompressionAlgorithm>>();
 
         private readonly object _locker = new object();
         private readonly Socket _socket;
@@ -42,7 +42,7 @@ namespace GitCandy.Ssh
 #else
         private readonly TimeSpan _timeout = TimeSpan.FromSeconds(30);
 #endif
-        private readonly Dictionary<string, string> _hostKey;
+        private readonly Dictionary<String, String> _hostKey;
 
         private uint _outboundPacketSequence;
         private uint _inboundPacketSequence;
@@ -54,8 +54,8 @@ namespace GitCandy.Ssh
         private ConcurrentQueue<Message> _blockedMessages = new ConcurrentQueue<Message>();
         private EventWaitHandle _hasBlockedMessagesWaitHandle = new ManualResetEvent(true);
 
-        public string ServerVersion { get; private set; }
-        public string ClientVersion { get; private set; }
+        public String ServerVersion { get; private set; }
+        public String ClientVersion { get; private set; }
         public byte[] SessionId { get; private set; }
         public T GetService<T>() where T : SshService
         {
@@ -90,7 +90,7 @@ namespace GitCandy.Ssh
                                  .ToDictionary(x => x.Number, x => x.Type);
         }
 
-        public Session(Socket socket, Dictionary<string, string> hostKey)
+        public Session(Socket socket, Dictionary<String, String> hostKey)
         {
             Contract.Requires(socket != null);
             Contract.Requires(hostKey != null);
@@ -113,7 +113,7 @@ namespace GitCandy.Ssh
             if (!Regex.IsMatch(ClientVersion, "SSH-2.0-.+"))
             {
                 throw new SshConnectionException(
-                    string.Format("Not supported for client SSH version {0}. This server only supports SSH v2.0.", ClientVersion),
+                    String.Format("Not supported for client SSH version {0}. This server only supports SSH v2.0.", ClientVersion),
                     DisconnectReason.ProtocolVersionNotSupported);
             }
 
@@ -141,7 +141,7 @@ namespace GitCandy.Ssh
             Disconnect(DisconnectReason.ByApplication, "Connection terminated by the server.");
         }
 
-        public void Disconnect(DisconnectReason reason, string description)
+        public void Disconnect(DisconnectReason reason, String description)
         {
             if (reason == DisconnectReason.ByApplication)
             {
@@ -170,7 +170,7 @@ namespace GitCandy.Ssh
             _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveBuffer, socketBufferSize);
         }
 
-        private string SocketReadProtocolVersion()
+        private String SocketReadProtocolVersion()
         {
             // http://tools.ietf.org/html/rfc4253#section-4.2
             var buffer = new byte[255];
@@ -265,7 +265,7 @@ namespace GitCandy.Ssh
         private void WaitHandle(IAsyncResult ar)
         {
             if (!ar.AsyncWaitHandle.WaitOne(_timeout))
-                throw new SshConnectionException(string.Format("Socket operation has timed out after {0:F0} milliseconds.",
+                throw new SshConnectionException(String.Format("Socket operation has timed out after {0:F0} milliseconds.",
                     _timeout.TotalMilliseconds),
                     DisconnectReason.ConnectionLost);
         }
@@ -559,7 +559,7 @@ namespace GitCandy.Ssh
                 SendMessage(new ServiceAcceptMessage(message.ServiceName));
                 return;
             }
-            throw new SshConnectionException(string.Format("Service \"{0}\" not available.", message.ServiceName),
+            throw new SshConnectionException(String.Format("Service \"{0}\" not available.", message.ServiceName),
                 DisconnectReason.ServiceNotAvailable);
         }
 
@@ -578,7 +578,7 @@ namespace GitCandy.Ssh
         }
         #endregion
 
-        private string ChooseAlgorithm(string[] serverAlgorithms, string[] clientAlgorithms)
+        private String ChooseAlgorithm(String[] serverAlgorithms, String[] clientAlgorithms)
         {
             foreach (var client in clientAlgorithms)
                 foreach (var server in serverAlgorithms)
@@ -652,7 +652,7 @@ namespace GitCandy.Ssh
             }
         }
 
-        internal SshService RegisterService(string serviceName, UserauthArgs auth = null)
+        internal SshService RegisterService(String serviceName, UserauthArgs auth = null)
         {
             Contract.Requires(serviceName != null);
 
@@ -692,14 +692,14 @@ namespace GitCandy.Ssh
 
         private class ExchangeContext
         {
-            public string KeyExchange;
-            public string PublicKey;
-            public string ClientEncryption;
-            public string ServerEncryption;
-            public string ClientHmac;
-            public string ServerHmac;
-            public string ClientCompression;
-            public string ServerCompression;
+            public String KeyExchange;
+            public String PublicKey;
+            public String ClientEncryption;
+            public String ServerEncryption;
+            public String ClientHmac;
+            public String ServerHmac;
+            public String ClientCompression;
+            public String ServerCompression;
 
             public byte[] ClientKexInitPayload;
             public byte[] ServerKexInitPayload;

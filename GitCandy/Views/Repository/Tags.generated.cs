@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Tags.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_TagsTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TagsTitle, Model.RepositoryName));
 
             
             #line default
@@ -61,7 +61,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 7 "..\..\Views\Repository\Tags.cshtml"
-Write(string.Format(SR.Repository_TagsTitle, ""));
+Write(String.Format(SR.Repository_TagsTitle, ""));
 
             
             #line default

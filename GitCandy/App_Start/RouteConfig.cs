@@ -120,7 +120,7 @@ namespace GitCandy
 
     class UserUrlConstraint : IRouteConstraint
     {
-        public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;
@@ -149,7 +149,7 @@ namespace GitCandy
 
     class TeamUrlConstraint : IRouteConstraint
     {
-        public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;

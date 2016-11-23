@@ -72,11 +72,11 @@ WriteLiteral("</li>\r\n\r\n");
             #line hidden
             
             #line 6 "..\..\Views\Repository\_PathBar.cshtml"
-     if (!string.IsNullOrEmpty(Model.Path))
+     if (!String.IsNullOrEmpty(Model.Path))
     {
         var dirs = Model.Path.Split('/');
         var length = dirs.Length;
-        var currentPath = string.Empty;
+        var currentPath = String.Empty;
         for (var i = 0; i < length; i++)
         {
             if (i != 0)

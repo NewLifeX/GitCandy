@@ -4,9 +4,9 @@ namespace GitCandy.Models
 {
     public class TagModel
     {
-        public string ReferenceName { get; set; }
-        public string Sha { get; set; }
+        public String ReferenceName { get; set; }
+        public String Sha { get; set; }
         public DateTimeOffset When { get; set; }
-        public string MessageShort { get; set; }
+        public String MessageShort { get; set; }
     }
 }

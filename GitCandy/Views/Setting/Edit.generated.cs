@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Setting\Edit.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Setting_EditTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Setting_EditTitle);
 
             
             #line default

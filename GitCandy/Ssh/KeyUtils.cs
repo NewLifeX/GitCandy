@@ -6,7 +6,7 @@ namespace GitCandy.Ssh
 {
     public static class KeyUtils
     {
-        public static string GetFingerprint(string sshkey)
+        public static String GetFingerprint(String sshkey)
         {
             Contract.Requires(sshkey != null);
 
@@ -18,7 +18,7 @@ namespace GitCandy.Ssh
             }
         }
 
-        private static AsymmetricAlgorithm GetAsymmetricAlgorithm(string type)
+        private static AsymmetricAlgorithm GetAsymmetricAlgorithm(String type)
         {
             Contract.Requires(type != null);
 
@@ -33,7 +33,7 @@ namespace GitCandy.Ssh
             }
         }
 
-        public static string GeneratePrivateKey(string type)
+        public static String GeneratePrivateKey(String type)
         {
             Contract.Requires(type != null);
 
@@ -41,9 +41,9 @@ namespace GitCandy.Ssh
             return alg.ToXmlString(true);
         }
 
-        public static string[] SupportedAlgorithms
+        public static String[] SupportedAlgorithms
         {
-            get { return new string[] { "ssh-rsa", "ssh-dss" }; }
+            get { return new String[] { "ssh-rsa", "ssh-dss" }; }
         }
     }
 }

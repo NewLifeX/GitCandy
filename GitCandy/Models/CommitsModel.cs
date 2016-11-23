@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GitCandy.Models
 {
     public class CommitsModel : RepositoryModelBase
     {
-        public string ReferenceName { get; set; }
-        public string Sha { get; set; }
-        public string Path { get; set; }
+        public String ReferenceName { get; set; }
+        public String Sha { get; set; }
+        public String Path { get; set; }
         public IEnumerable<CommitModel> Commits { get; set; }
         public int CurrentPage { get; set; }
         public int ItemCount { get; set; }

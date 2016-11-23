@@ -52,7 +52,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Shared\_Pager.cshtml"
   
-    var action = ViewContext.RouteData.Values["Action"] as string;
+    var action = ViewContext.RouteData.Values["Action"] as String;
     var pager = ViewBag.Pager as GitCandy.Base.Pager;
 
             

@@ -53,7 +53,7 @@ namespace ASP
             #line 2 "..\..\Views\Repository\_BranchSelector.cshtml"
   
     var values = ViewContext.RouteData.Values;
-    var action = values["action"] as string;
+    var action = values["action"] as String;
     var noLink = Model.Path == null;
     var identity = Html.GetRootViewBag().Identity++;
 

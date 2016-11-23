@@ -59,7 +59,7 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\Repository\Coop.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
 
             
             #line default
@@ -68,7 +68,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 8 "..\..\Views\Repository\Coop.cshtml"
-Write(string.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
+Write(String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
 
             
             #line default

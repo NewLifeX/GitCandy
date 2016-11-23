@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace GitCandy.Ssh.Algorithms
@@ -7,17 +8,17 @@ namespace GitCandy.Ssh.Algorithms
     {
         private readonly DSACryptoServiceProvider _algorithm = new DSACryptoServiceProvider();
 
-        public DssKey(string xml)
+        public DssKey(String xml)
             : base(xml)
         {
         }
 
-        public override string Name
+        public override String Name
         {
             get { return "ssh-dss"; }
         }
 
-        protected override void ImportKey(string xml)
+        protected override void ImportKey(String xml)
         {
             _algorithm.FromXmlString(xml);
         }

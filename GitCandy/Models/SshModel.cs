@@ -1,14 +1,16 @@
 ﻿
+using System;
+
 namespace GitCandy.Models
 {
     public class SshModel
     {
-        public string Username { get; set; }
+        public String Username { get; set; }
         public SshKey[] SshKeys { get; set; }
 
         public class SshKey
         {
-            public string Name { get; set; }
+            public String Name { get; set; }
         }
     }
 }

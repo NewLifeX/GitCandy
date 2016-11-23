@@ -10,13 +10,13 @@ namespace GitCandy.Base
 {
     public static class FileHelper
     {
-        public const string BinaryMimeType = "application/octet-stream";
+        public const String BinaryMimeType = "application/octet-stream";
 
-        public static readonly IReadOnlyDictionary<string, string> BrushMapping;
-        //public static readonly IReadOnlyDictionary<string, string> AchiveMapping;
-        public static readonly IReadOnlyCollection<string> ImageSet;
+        public static readonly IReadOnlyDictionary<String, String> BrushMapping;
+        //public static readonly IReadOnlyDictionary<String, String> AchiveMapping;
+        public static readonly IReadOnlyCollection<String> ImageSet;
 
-        private static readonly string[] SizeUnits = { "B", "KiB", "MiB", "GiB", "TiB" };
+        private static readonly String[] SizeUnits = { "B", "KiB", "MiB", "GiB", "TiB" };
         private static readonly Encoding[] BomMapping =
         {
             new UTF8Encoding(true),             // UTF-8
@@ -29,7 +29,7 @@ namespace GitCandy.Base
 
         static FileHelper()
         {
-            BrushMapping = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>
+            BrushMapping = new ReadOnlyDictionary<String, String>(new Dictionary<String, String>
             {
                 { ".sh", "hash" },
                 { ".cs", "cs" },
@@ -107,14 +107,14 @@ namespace GitCandy.Base
                 { ".http", "http" },
             });
 
-            //AchiveMapping = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>
+            //AchiveMapping = new ReadOnlyDictionary<String, String>(new Dictionary<String, String>
             //{
             //    { "zip", "application/zip" },
             //    { "gz", "application/x-gzip" },
             //    { "tar.gz", "application/x-tgz" },
             //});
 
-            ImageSet = new ReadOnlyCollection<string>(new List<string>
+            ImageSet = new ReadOnlyCollection<String>(new List<String>
             {
                 ".bmp",
                 ".gif",
@@ -129,7 +129,7 @@ namespace GitCandy.Base
             Boms = BomMapping.Select(s => s.GetPreamble()).ToArray();
         }
 
-        public static string GetBrush(string path)
+        public static String GetBrush(String path)
         {
             var extension = Path.GetExtension(path).ToLower();
             if (BrushMapping.ContainsKey(extension))
@@ -176,7 +176,7 @@ namespace GitCandy.Base
             }
         }
 
-        public static string ReadToEnd(byte[] bytes, Encoding encoding = null, string newline = null)
+        public static String ReadToEnd(byte[] bytes, Encoding encoding = null, String newline = null)
         {
             using (var reader = new StreamReader(new MemoryStream(bytes), encoding ?? Encoding.UTF8, true))
             {
@@ -185,7 +185,7 @@ namespace GitCandy.Base
             }
         }
 
-        public static string GetSizeString(long size)
+        public static String GetSizeString(long size)
         {
             if (size < 0)
                 return "unknow size";
@@ -201,7 +201,7 @@ namespace GitCandy.Base
             return "largest size";
         }
 
-        public static byte[] ReplaceNewline(byte[] bytes, Encoding encoding = null, string newline = null)
+        public static byte[] ReplaceNewline(byte[] bytes, Encoding encoding = null, String newline = null)
         {
             if (newline == null)
                 return bytes;

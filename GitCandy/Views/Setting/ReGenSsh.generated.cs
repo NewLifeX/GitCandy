@@ -52,7 +52,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Setting\ReGenSsh.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Setting_ReGenSshTitle));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Setting_ReGenSshTitle));
 
             
             #line default

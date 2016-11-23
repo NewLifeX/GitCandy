@@ -9,7 +9,7 @@ namespace GitCandy.Filters
 {
     public class SmartGitAttribute : SmartAuthorizeAttribute
     {
-        private const string AuthKey = "GitCandyGitAuthorize";
+        private const String AuthKey = "GitCandyGitAuthorize";
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -19,7 +19,7 @@ namespace GitCandy.Filters
             if (controller == null) return;
 
             // git.exe not accept cookies as well as no session available
-            var username = controller.Session[AuthKey] as string;
+            var username = controller.Session[AuthKey] as String;
             if (username == null)
             {
                 var token = controller.Token;
@@ -58,15 +58,15 @@ namespace GitCandy.Filters
             var project = projectField == null ? null : projectField.AttemptedValue;
             var service = serviceField == null ? null : serviceField.AttemptedValue;
 
-            if (string.IsNullOrEmpty(service)) // redirect to git browser
+            if (String.IsNullOrEmpty(service)) // redirect to git browser
             {
                 right = true;
             }
-            else if (string.Equals(service, "git-receive-pack", StringComparison.OrdinalIgnoreCase)) // git push
+            else if (String.Equals(service, "git-receive-pack", StringComparison.OrdinalIgnoreCase)) // git push
             {
                 right = controller.RepositoryService.CanWriteRepository(project, username);
             }
-            else if (string.Equals(service, "git-upload-pack", StringComparison.OrdinalIgnoreCase)) // git fetch
+            else if (String.Equals(service, "git-upload-pack", StringComparison.OrdinalIgnoreCase)) // git fetch
             {
                 right = controller.RepositoryService.CanReadRepository(project, username);
             }

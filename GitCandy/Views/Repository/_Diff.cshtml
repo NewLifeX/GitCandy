@@ -1,7 +1,7 @@
 ﻿@model GitCandy.Models.CommitModel
 
 <div class="page-divider"></div>
-<div>@string.Format(SR.Repository_ChangedSummary, Model.Changes.Count(), Model.Changes.Sum(s => s.LinesAdded), Model.Changes.Sum(s => s.LinesDeleted))</div>
+<div>@String.Format(SR.Repository_ChangedSummary, Model.Changes.Count(), Model.Changes.Sum(s => s.LinesAdded), Model.Changes.Sum(s => s.LinesDeleted))</div>
 @foreach (var change in Model.Changes)
 {
     var removed = change.ChangeKind == LibGit2Sharp.ChangeKind.Deleted || change.ChangeKind == LibGit2Sharp.ChangeKind.Ignored;

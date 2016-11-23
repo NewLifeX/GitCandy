@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Create.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Repository_CreateTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_CreateTitle);
 
             
             #line default

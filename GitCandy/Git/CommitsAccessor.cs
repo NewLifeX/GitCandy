@@ -1,18 +1,19 @@
-﻿using GitCandy.Extensions;
-using GitCandy.Git.Cache;
-using LibGit2Sharp;
+﻿using System;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using GitCandy.Extensions;
+using GitCandy.Git.Cache;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
     public class CommitsAccessor : GitCacheAccessor<RevisionSummaryCacheItem[], CommitsAccessor>
     {
         private readonly Commit commit;
-        private readonly string path;
+        private readonly String path;
         private readonly int page, pageSize;
 
-        public CommitsAccessor(string repoId, Repository repo, Commit commit, string path, int page, int pageSize)
+        public CommitsAccessor(String repoId, Repository repo, Commit commit, String path, int page, int pageSize)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -28,7 +29,7 @@ namespace GitCandy.Git
 
         public override bool IsAsync { get { return false; } }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Sha, path, page, pageSize);
         }

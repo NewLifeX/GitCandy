@@ -8,7 +8,7 @@ namespace GitCandy.Ssh.Messages
     {
         private const byte MessageNumber = 5;
 
-        public string ServiceName { get; private set; }
+        public String ServiceName { get; private set; }
 
         public override byte MessageType { get { return MessageNumber; } }
 

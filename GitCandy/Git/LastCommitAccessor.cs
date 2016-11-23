@@ -2,15 +2,16 @@
 using LibGit2Sharp;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System;
 
 namespace GitCandy.Git
 {
-    public sealed class LastCommitAccessor : GitCacheAccessor<string, LastCommitAccessor>
+    public sealed class LastCommitAccessor : GitCacheAccessor<String, LastCommitAccessor>
     {
         private readonly Commit commit;
-        private readonly string path;
+        private readonly String path;
 
-        public LastCommitAccessor(string repoId, Repository repo, Commit commit, string path)
+        public LastCommitAccessor(String repoId, Repository repo, Commit commit, String path)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -23,7 +24,7 @@ namespace GitCandy.Git
             var treeEntry = commit[path];
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Sha, path);
         }
@@ -46,7 +47,7 @@ namespace GitCandy.Git
                 }
 
                 var gitObject = treeEntry.Target;
-                var hs = new HashSet<string>();
+                var hs = new HashSet<String>();
                 var queue = new Queue<Commit>();
                 queue.Enqueue(commit);
                 hs.Add(commit.Sha);

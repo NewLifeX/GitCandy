@@ -22,11 +22,11 @@ namespace GitCandy.Configuration
 
         public bool AllowRepositoryCreation { get; set; } = true;
 
-        public string RepositoryPath { get; set; } = "..\\Repos";
+        public String RepositoryPath { get; set; } = "..\\Repos";
 
-        public string CachePath { get; set; } = "..\\Cache";
+        public String CachePath { get; set; } = "..\\Cache";
 
-        public string GitCorePath { get; set; }
+        public String GitCorePath { get; set; }
 
         public int Commits { get; set; } = 30;
 
@@ -54,7 +54,7 @@ namespace GitCandy.Configuration
 
         private String GetGitCore()
         {
-            var list = new List<string>();
+            var list = new List<String>();
             var variable = Environment.GetEnvironmentVariable("path");
             if (variable != null)
                 list.AddRange(variable.Split(';'));
@@ -71,7 +71,7 @@ namespace GitCandy.Configuration
                 list.Add(drive + @"PortableGit");
             }
 
-            list = list.Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+            list = list.Where(x => !String.IsNullOrEmpty(x)).Distinct().ToList();
             foreach (var path in list)
             {
                 var ret = SearchPath(path);
@@ -82,7 +82,7 @@ namespace GitCandy.Configuration
             return "";
         }
 
-        private string SearchPath(string path)
+        private String SearchPath(String path)
         {
             var patterns = new[] {
                 @"..\libexec\git-core", // git 1.x

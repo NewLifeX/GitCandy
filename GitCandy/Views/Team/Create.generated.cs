@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Team\Create.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Team_CreationTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Team_CreationTitle);
 
             
             #line default

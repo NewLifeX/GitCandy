@@ -1,15 +1,16 @@
-﻿using GitCandy.Git.Cache;
-using LibGit2Sharp;
+﻿using System;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using GitCandy.Git.Cache;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
     public class HistoryDivergenceAccessor : GitCacheAccessor<RevisionSummaryCacheItem[], HistoryDivergenceAccessor>
     {
-        private readonly string key;
+        private readonly String key;
 
-        public HistoryDivergenceAccessor(string repoId, Repository repo, string key)
+        public HistoryDivergenceAccessor(String repoId, Repository repo, String key)
             : base(repoId, repo)
         {
             Contract.Requires(key != null);
@@ -17,7 +18,7 @@ namespace GitCandy.Git
             this.key = key;
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(key);
         }

@@ -1,5 +1,6 @@
 ﻿using GitCandy.App_GlobalResources;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace GitCandy.Models
 {
@@ -32,13 +33,13 @@ namespace GitCandy.Models
         public bool AllowRepositoryCreation { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_RepositoryPath")]
-        public string RepositoryPath { get; set; }
+        public String RepositoryPath { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_CachePath")]
-        public string CachePath { get; set; }
+        public String CachePath { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_GitCorePath")]
-        public string GitCorePath { get; set; }
+        public String GitCorePath { get; set; }
 
         [Range(5, 50, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_NumberOfCommitsPerPage")]

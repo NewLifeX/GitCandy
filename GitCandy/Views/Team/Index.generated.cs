@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Team\Index.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Team_ListTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Team_ListTitle);
 
             
             #line default
@@ -132,7 +132,7 @@ WriteLiteral(">");
 
             
             #line 24 "..\..\Views\Team\Index.cshtml"
-                      Write(string.Format(SR.Team_TeamsFound, Model.ItemCount));
+                      Write(String.Format(SR.Team_TeamsFound, Model.ItemCount));
 
             
             #line default

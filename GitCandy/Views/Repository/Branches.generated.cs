@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Branches.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_BranchesTitle, Model));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BranchesTitle, Model));
 
             
             #line default
@@ -61,7 +61,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 7 "..\..\Views\Repository\Branches.cshtml"
-Write(string.Format(SR.Repository_BranchesTitle, ""));
+Write(String.Format(SR.Repository_BranchesTitle, ""));
 
             
             #line default

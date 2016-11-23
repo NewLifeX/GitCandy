@@ -62,12 +62,12 @@ namespace GitCandy.Git.Cache
             enabled = false;
 
             var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
-            if (string.IsNullOrEmpty(cachePath)) return;
+            if (String.IsNullOrEmpty(cachePath)) return;
 
             cachePath.EnsureDirectory(false);
 
             var expectation = GetExpectation();
-            var reality = new string[accessors.Length];
+            var reality = new String[accessors.Length];
             var filename = Path.Combine(cachePath, "version");
             if (File.Exists(filename))
             {
@@ -103,7 +103,7 @@ namespace GitCandy.Git.Cache
             enabled = true;
         }
 
-        private static string[] GetExpectation()
+        private static String[] GetExpectation()
         {
             var assembly = typeof(AppInfomation).Assembly;
             var name = assembly.GetManifestResourceNames().Single(s => s.EndsWith(".CacheVersion"));
@@ -114,7 +114,7 @@ namespace GitCandy.Git.Cache
             }
         }
 
-        public static void Delete(string project)
+        public static void Delete(String project)
         {
             var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
             for (int i = 0; i < accessors.Length; i++)
@@ -210,13 +210,13 @@ namespace GitCandy.Git.Cache
     {
         public static int AccessorId { get; private set; }
 
-        protected readonly string repoId;
+        protected readonly String repoId;
         protected readonly Repository repo;
-        protected readonly string repoPath;
+        protected readonly String repoPath;
 
         protected TReturn result;
         protected bool resultDone;
-        protected string cacheKey;
+        protected String cacheKey;
 
         public GitCacheReturn<TReturn> Result
         {
@@ -246,7 +246,7 @@ namespace GitCandy.Git.Cache
             }
         }
 
-        public GitCacheAccessor(string repoId, Repository repo)
+        public GitCacheAccessor(String repoId, Repository repo)
         {
             Contract.Requires(repoId != null);
             Contract.Requires(repo != null);
@@ -256,9 +256,9 @@ namespace GitCandy.Git.Cache
             this.repoPath = repo.Info.Path;
         }
 
-        protected abstract string GetCacheKey();
+        protected abstract String GetCacheKey();
 
-        protected virtual string GetCacheKey(params object[] keys)
+        protected virtual String GetCacheKey(params object[] keys)
         {
             Contract.Requires(keys != null);
             Contract.Requires(keys.Length > 0);
@@ -267,12 +267,12 @@ namespace GitCandy.Git.Cache
             if (cacheKey != null)
                 return cacheKey;
 
-            var key = typeof(TAccessor).Name + string.Concat(keys);
+            var key = typeof(TAccessor).Name + String.Concat(keys);
             cacheKey = key.CalcSha();
             return cacheKey;
         }
 
-        protected virtual string GetCacheFile()
+        protected virtual String GetCacheFile()
         {
             return AccessorId + "\\" + repoId + "\\" + GetCacheKey();
         }

@@ -12,7 +12,7 @@ namespace GitCandy.Ssh
     {
         private readonly object _lock = new object();
         private readonly List<Session> _sessions = new List<Session>();
-        private readonly Dictionary<string, string> _hostKey = new Dictionary<string, string>();
+        private readonly Dictionary<String, String> _hostKey = new Dictionary<String, String>();
         private bool _isDisposed;
         private bool _started;
         private TcpListener _listenser = null;
@@ -79,7 +79,7 @@ namespace GitCandy.Ssh
             }
         }
 
-        public void AddHostKey(string type, string xml)
+        public void AddHostKey(String type, String xml)
         {
             Contract.Requires(type != null);
             Contract.Requires(xml != null);

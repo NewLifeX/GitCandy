@@ -11,8 +11,8 @@ namespace GitCandy
     public static class AppInfomation
     {
         public static readonly Version Version = typeof(AppInfomation).Assembly.GetName().Version;
-        public static readonly string AssemblyConfiguration;
-        public static readonly string BuildingInformation;
+        public static readonly String AssemblyConfiguration;
+        public static readonly String BuildingInformation;
         public static readonly DateTimeOffset StartingTime = DateTimeOffset.Now;
 
         static AppInfomation()
@@ -41,7 +41,7 @@ namespace GitCandy
                 : assemblyConfigurationAttr.Configuration;
         }
 
-        public static string DateTimeOffsetFormatedNow
+        public static String DateTimeOffsetFormatedNow
         {
             get
             {
@@ -49,7 +49,7 @@ namespace GitCandy
             }
         }
 
-        //public static string GetAppStartingInfo()
+        //public static String GetAppStartingInfo()
         //{
         //    var sb = new StringBuilder();
 
@@ -70,12 +70,12 @@ namespace GitCandy
         //    return sb.ToString();
         //}
 
-        //public static string GetAppStartedInfo()
+        //public static String GetAppStartedInfo()
         //{
         //    return "GitCandy Started.";
         //}
 
-        //public static string GetAppEndInfo()
+        //public static String GetAppEndInfo()
         //{
         //    return "GitCandy End.";
         //}

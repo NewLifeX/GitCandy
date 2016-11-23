@@ -6,7 +6,7 @@ namespace GitCandy.Base
 {
     public class RawResult : ActionResult
     {
-        public RawResult(byte[] contents, string contentType = "text/plain", string fileDownloadName = null)
+        public RawResult(byte[] contents, String contentType = "text/plain", String fileDownloadName = null)
         {
             if (contents == null)
                 throw new ArgumentNullException("contents");
@@ -17,8 +17,8 @@ namespace GitCandy.Base
         }
 
         public byte[] Contents { get; private set; }
-        public string ContentType { get; private set; }
-        public string FileDownloadName { get; private set; }
+        public String ContentType { get; private set; }
+        public String FileDownloadName { get; private set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
@@ -26,7 +26,7 @@ namespace GitCandy.Base
                 throw new ArgumentNullException("context");
 
             var response = context.HttpContext.Response;
-            if (!string.IsNullOrEmpty(FileDownloadName))
+            if (!String.IsNullOrEmpty(FileDownloadName))
                 response.AddHeader("Content-Disposition", new ContentDisposition { FileName = FileDownloadName }.ToString());
             response.ContentType = ContentType;
             response.BinaryWrite(Contents);

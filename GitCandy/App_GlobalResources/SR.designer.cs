@@ -61,313 +61,313 @@ namespace GitCandy.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account with this username already exists..
+        ///   Looks up a localized String similar to Account with this username already exists..
         /// </summary>
-        public static string Account_AccountAlreadyExists {
+        public static String Account_AccountAlreadyExists {
             get {
                 return ResourceManager.GetString("Account_AccountAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t remove yourself.
+        ///   Looks up a localized String similar to Can&apos;t remove yourself.
         /// </summary>
-        public static string Account_CantRemoveSelf {
+        public static String Account_CantRemoveSelf {
             get {
                 return ResourceManager.GetString("Account_CantRemoveSelf", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change password.
+        ///   Looks up a localized String similar to Change password.
         /// </summary>
-        public static string Account_ChangePassword {
+        public static String Account_ChangePassword {
             get {
                 return ResourceManager.GetString("Account_ChangePassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change Password.
+        ///   Looks up a localized String similar to Change Password.
         /// </summary>
-        public static string Account_ChangePasswordTitle {
+        public static String Account_ChangePasswordTitle {
             get {
                 return ResourceManager.GetString("Account_ChangePasswordTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform Password.
+        ///   Looks up a localized String similar to Conform Password.
         /// </summary>
-        public static string Account_ConformPassword {
+        public static String Account_ConformPassword {
             get {
                 return ResourceManager.GetString("Account_ConformPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register.
+        ///   Looks up a localized String similar to Register.
         /// </summary>
-        public static string Account_CreateTitle {
+        public static String Account_CreateTitle {
             get {
                 return ResourceManager.GetString("Account_CreateTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account creation was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Account creation was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Account_CreationUnsuccessfull {
+        public static String Account_CreationUnsuccessfull {
             get {
                 return ResourceManager.GetString("Account_CreationUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform Delete User {0}.
+        ///   Looks up a localized String similar to Conform Delete User {0}.
         /// </summary>
-        public static string Account_DeleteTitle {
+        public static String Account_DeleteTitle {
             get {
                 return ResourceManager.GetString("Account_DeleteTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to delete the account &quot;{0}&quot;?.
+        ///   Looks up a localized String similar to Do you conform to delete the account &quot;{0}&quot;?.
         /// </summary>
-        public static string Account_DeletionWords {
+        public static String Account_DeletionWords {
             get {
                 return ResourceManager.GetString("Account_DeletionWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized String similar to Description.
         /// </summary>
-        public static string Account_Description {
+        public static String Account_Description {
             get {
                 return ResourceManager.GetString("Account_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User {0}.
+        ///   Looks up a localized String similar to User {0}.
         /// </summary>
-        public static string Account_DetailTitle {
+        public static String Account_DetailTitle {
             get {
                 return ResourceManager.GetString("Account_DetailTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit User {0}.
+        ///   Looks up a localized String similar to Edit User {0}.
         /// </summary>
-        public static string Account_EditTitle {
+        public static String Account_EditTitle {
             get {
                 return ResourceManager.GetString("Account_EditTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email.
+        ///   Looks up a localized String similar to Email.
         /// </summary>
-        public static string Account_Email {
+        public static String Account_Email {
             get {
                 return ResourceManager.GetString("Account_Email", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account with this email already exists..
+        ///   Looks up a localized String similar to Account with this email already exists..
         /// </summary>
-        public static string Account_EmailAlreadyExists {
+        public static String Account_EmailAlreadyExists {
             get {
                 return ResourceManager.GetString("Account_EmailAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forgot username or password.
+        ///   Looks up a localized String similar to Forgot username or password.
         /// </summary>
-        public static string Account_ForgotPassword {
+        public static String Account_ForgotPassword {
             get {
                 return ResourceManager.GetString("Account_ForgotPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forgot Password.
+        ///   Looks up a localized String similar to Forgot Password.
         /// </summary>
-        public static string Account_ForgotTitle {
+        public static String Account_ForgotTitle {
             get {
                 return ResourceManager.GetString("Account_ForgotTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is system administrator.
+        ///   Looks up a localized String similar to Is system administrator.
         /// </summary>
-        public static string Account_IsSystemAdministrator {
+        public static String Account_IsSystemAdministrator {
             get {
                 return ResourceManager.GetString("Account_IsSystemAdministrator", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List of Users.
+        ///   Looks up a localized String similar to List of Users.
         /// </summary>
-        public static string Account_ListTitle {
+        public static String Account_ListTitle {
             get {
                 return ResourceManager.GetString("Account_ListTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username or password error.
+        ///   Looks up a localized String similar to Username or password error.
         /// </summary>
-        public static string Account_LoginFailed {
+        public static String Account_LoginFailed {
             get {
                 return ResourceManager.GetString("Account_LoginFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized String similar to Log in.
         /// </summary>
-        public static string Account_LoginTitle {
+        public static String Account_LoginTitle {
             get {
                 return ResourceManager.GetString("Account_LoginTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password.
+        ///   Looks up a localized String similar to New password.
         /// </summary>
-        public static string Account_NewPassword {
+        public static String Account_NewPassword {
             get {
                 return ResourceManager.GetString("Account_NewPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nickname.
+        ///   Looks up a localized String similar to Nickname.
         /// </summary>
-        public static string Account_Nickname {
+        public static String Account_Nickname {
             get {
                 return ResourceManager.GetString("Account_Nickname", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old password.
+        ///   Looks up a localized String similar to Old password.
         /// </summary>
-        public static string Account_OldPassword {
+        public static String Account_OldPassword {
             get {
                 return ResourceManager.GetString("Account_OldPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old password error.
+        ///   Looks up a localized String similar to Old password error.
         /// </summary>
-        public static string Account_OldPasswordError {
+        public static String Account_OldPasswordError {
             get {
                 return ResourceManager.GetString("Account_OldPasswordError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password.
+        ///   Looks up a localized String similar to Password.
         /// </summary>
-        public static string Account_Password {
+        public static String Account_Password {
             get {
                 return ResourceManager.GetString("Account_Password", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password error.
+        ///   Looks up a localized String similar to Password error.
         /// </summary>
-        public static string Account_PasswordError {
+        public static String Account_PasswordError {
             get {
                 return ResourceManager.GetString("Account_PasswordError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Respositories.
+        ///   Looks up a localized String similar to Respositories.
         /// </summary>
-        public static string Account_Repositories {
+        public static String Account_Repositories {
             get {
                 return ResourceManager.GetString("Account_Repositories", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSH.
+        ///   Looks up a localized String similar to SSH.
         /// </summary>
-        public static string Account_SSH {
+        public static String Account_SSH {
             get {
                 return ResourceManager.GetString("Account_SSH", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSH Key.
+        ///   Looks up a localized String similar to SSH Key.
         /// </summary>
-        public static string Account_SshKeys {
+        public static String Account_SshKeys {
             get {
                 return ResourceManager.GetString("Account_SshKeys", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teams.
+        ///   Looks up a localized String similar to Teams.
         /// </summary>
-        public static string Account_Teams {
+        public static String Account_Teams {
             get {
                 return ResourceManager.GetString("Account_Teams", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account update was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Account update was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Account_UpdateUnsuccessfull {
+        public static String Account_UpdateUnsuccessfull {
             get {
                 return ResourceManager.GetString("Account_UpdateUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized String similar to Username.
         /// </summary>
-        public static string Account_Username {
+        public static String Account_Username {
             get {
                 return ResourceManager.GetString("Account_Username", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username or email.
+        ///   Looks up a localized String similar to Username or email.
         /// </summary>
-        public static string Account_UsernameOrEmail {
+        public static String Account_UsernameOrEmail {
             get {
                 return ResourceManager.GetString("Account_UsernameOrEmail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} user(s) found.
+        ///   Looks up a localized String similar to {0} user(s) found.
         /// </summary>
-        public static string Account_UsersFound {
+        public static String Account_UsersFound {
             get {
                 return ResourceManager.GetString("Account_UsersFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GitCandy&amp;copy; is a [Git](http://git-scm.com/documentation) distributed version control platform based on ASP.NET MVC application, which supports public and private repositories. You can create and collaborate your repository with your team anytime anywhere without any limit.
+        ///   Looks up a localized String similar to GitCandy&amp;copy; is a [Git](http://git-scm.com/documentation) distributed version control platform based on ASP.NET MVC application, which supports public and private repositories. You can create and collaborate your repository with your team anytime anywhere without any limit.
         ///
         ///Visit a demo on [http://gitcandy.com]()
         ///
@@ -376,1465 +376,1465 @@ namespace GitCandy.App_GlobalResources {
         ///---
         ///#### Thanks for (alphabet).
         /// </summary>
-        public static string Home_AboutDescription {
+        public static String Home_AboutDescription {
             get {
                 return ResourceManager.GetString("Home_AboutDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized String similar to About.
         /// </summary>
-        public static string Home_AboutTitle {
+        public static String Home_AboutTitle {
             get {
                 return ResourceManager.GetString("Home_AboutTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ahead.
+        ///   Looks up a localized String similar to ahead.
         /// </summary>
-        public static string Repository_Ahead {
+        public static String Repository_Ahead {
             get {
                 return ResourceManager.GetString("Repository_Ahead", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read for anonymous.
+        ///   Looks up a localized String similar to Read for anonymous.
         /// </summary>
-        public static string Repository_AllowAnonymousRead {
+        public static String Repository_AllowAnonymousRead {
             get {
                 return ResourceManager.GetString("Repository_AllowAnonymousRead", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write for anonymous.
+        ///   Looks up a localized String similar to Write for anonymous.
         /// </summary>
-        public static string Repository_AllowAnonymousWrite {
+        public static String Repository_AllowAnonymousWrite {
             get {
                 return ResourceManager.GetString("Repository_AllowAnonymousWrite", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository with this name already exists..
+        ///   Looks up a localized String similar to Repository with this name already exists..
         /// </summary>
-        public static string Repository_AlreadyExists {
+        public static String Repository_AlreadyExists {
             get {
                 return ResourceManager.GetString("Repository_AlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to authored at.
+        ///   Looks up a localized String similar to authored at.
         /// </summary>
-        public static string Repository_AuthoredAt {
+        public static String Repository_AuthoredAt {
             get {
                 return ResourceManager.GetString("Repository_AuthoredAt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base branch.
+        ///   Looks up a localized String similar to Base branch.
         /// </summary>
-        public static string Repository_BaseBranch {
+        public static String Repository_BaseBranch {
             get {
                 return ResourceManager.GetString("Repository_BaseBranch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to behind.
+        ///   Looks up a localized String similar to behind.
         /// </summary>
-        public static string Repository_Behind {
+        public static String Repository_Behind {
             get {
                 return ResourceManager.GetString("Repository_Behind", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a binary file that preview is not supported.
+        ///   Looks up a localized String similar to This is a binary file that preview is not supported.
         /// </summary>
-        public static string Repository_BinaryFileWrods {
+        public static String Repository_BinaryFileWrods {
             get {
                 return ResourceManager.GetString("Repository_BinaryFileWrods", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blame.
+        ///   Looks up a localized String similar to Blame.
         /// </summary>
-        public static string Repository_Blame {
+        public static String Repository_Blame {
             get {
                 return ResourceManager.GetString("Repository_Blame", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {2} at {1} · {0}.
+        ///   Looks up a localized String similar to {2} at {1} · {0}.
         /// </summary>
-        public static string Repository_BlameTitle {
+        public static String Repository_BlameTitle {
             get {
                 return ResourceManager.GetString("Repository_BlameTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {2} at {1} · {0}.
+        ///   Looks up a localized String similar to {2} at {1} · {0}.
         /// </summary>
-        public static string Repository_BlobTitle {
+        public static String Repository_BlobTitle {
             get {
                 return ResourceManager.GetString("Repository_BlobTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to delete the branch &quot;{0}&quot;?.
+        ///   Looks up a localized String similar to Do you conform to delete the branch &quot;{0}&quot;?.
         /// </summary>
-        public static string Repository_BranchDeletionWords {
+        public static String Repository_BranchDeletionWords {
             get {
                 return ResourceManager.GetString("Repository_BranchDeletionWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Branches.
+        ///   Looks up a localized String similar to Branches.
         /// </summary>
-        public static string Repository_Branches {
+        public static String Repository_Branches {
             get {
                 return ResourceManager.GetString("Repository_Branches", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Branches · {0}.
+        ///   Looks up a localized String similar to Branches · {0}.
         /// </summary>
-        public static string Repository_BranchesTitle {
+        public static String Repository_BranchesTitle {
             get {
                 return ResourceManager.GetString("Repository_BranchesTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary: {0} changed files with {1} additions and {2} deletions..
+        ///   Looks up a localized String similar to Summary: {0} changed files with {1} additions and {2} deletions..
         /// </summary>
-        public static string Repository_ChangedSummary {
+        public static String Repository_ChangedSummary {
             get {
                 return ResourceManager.GetString("Repository_ChangedSummary", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collaborations.
+        ///   Looks up a localized String similar to Collaborations.
         /// </summary>
-        public static string Repository_Collaborations {
+        public static String Repository_Collaborations {
             get {
                 return ResourceManager.GetString("Repository_Collaborations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collaborations · {0}.
+        ///   Looks up a localized String similar to Collaborations · {0}.
         /// </summary>
-        public static string Repository_CollaborationTitle {
+        public static String Repository_CollaborationTitle {
             get {
                 return ResourceManager.GetString("Repository_CollaborationTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collaborators.
+        ///   Looks up a localized String similar to Collaborators.
         /// </summary>
-        public static string Repository_Collaborators {
+        public static String Repository_Collaborators {
             get {
                 return ResourceManager.GetString("Repository_Collaborators", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commits.
+        ///   Looks up a localized String similar to Commits.
         /// </summary>
-        public static string Repository_Commits {
+        public static String Repository_Commits {
             get {
                 return ResourceManager.GetString("Repository_Commits", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to History for {1} · {0}.
+        ///   Looks up a localized String similar to History for {1} · {0}.
         /// </summary>
-        public static string Repository_CommitsTitle {
+        public static String Repository_CommitsTitle {
             get {
                 return ResourceManager.GetString("Repository_CommitsTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to committed at.
+        ///   Looks up a localized String similar to committed at.
         /// </summary>
-        public static string Repository_CommittedAt {
+        public static String Repository_CommittedAt {
             get {
                 return ResourceManager.GetString("Repository_CommittedAt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {2} at {1} · {0}.
+        ///   Looks up a localized String similar to {2} at {1} · {0}.
         /// </summary>
-        public static string Repository_CommitTitle {
+        public static String Repository_CommitTitle {
             get {
                 return ResourceManager.GetString("Repository_CommitTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare.
+        ///   Looks up a localized String similar to Compare.
         /// </summary>
-        public static string Repository_Compare {
+        public static String Repository_Compare {
             get {
                 return ResourceManager.GetString("Repository_Compare", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is nothing to compare.
+        ///   Looks up a localized String similar to There is nothing to compare.
         /// </summary>
-        public static string Repository_CompareNothing {
+        public static String Repository_CompareNothing {
             get {
                 return ResourceManager.GetString("Repository_CompareNothing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare · {0}.
+        ///   Looks up a localized String similar to Compare · {0}.
         /// </summary>
-        public static string Repository_CompareTitle {
+        public static String Repository_CompareTitle {
             get {
                 return ResourceManager.GetString("Repository_CompareTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contributors.
+        ///   Looks up a localized String similar to Contributors.
         /// </summary>
-        public static string Repository_Contributors {
+        public static String Repository_Contributors {
             get {
                 return ResourceManager.GetString("Repository_Contributors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contributors · {0}.
+        ///   Looks up a localized String similar to Contributors · {0}.
         /// </summary>
-        public static string Repository_ContributorsTitle {
+        public static String Repository_ContributorsTitle {
             get {
                 return ResourceManager.GetString("Repository_ContributorsTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copied.
+        ///   Looks up a localized String similar to Copied.
         /// </summary>
-        public static string Repository_Copied {
+        public static String Repository_Copied {
             get {
                 return ResourceManager.GetString("Repository_Copied", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy to clipboard.
+        ///   Looks up a localized String similar to Copy to clipboard.
         /// </summary>
-        public static string Repository_CopyToClipboard {
+        public static String Repository_CopyToClipboard {
             get {
                 return ResourceManager.GetString("Repository_CopyToClipboard", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Repository.
+        ///   Looks up a localized String similar to Create Repository.
         /// </summary>
-        public static string Repository_CreateTitle {
+        public static String Repository_CreateTitle {
             get {
                 return ResourceManager.GetString("Repository_CreateTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository creation was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Repository creation was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Repository_CreationUnsuccessfull {
+        public static String Repository_CreationUnsuccessfull {
             get {
                 return ResourceManager.GetString("Repository_CreationUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current branch.
+        ///   Looks up a localized String similar to Current branch.
         /// </summary>
-        public static string Repository_CurrentBranch {
+        public static String Repository_CurrentBranch {
             get {
                 return ResourceManager.GetString("Repository_CurrentBranch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commits in current branch.
+        ///   Looks up a localized String similar to Commits in current branch.
         /// </summary>
-        public static string Repository_CurrentCommits {
+        public static String Repository_CurrentCommits {
             get {
                 return ResourceManager.GetString("Repository_CurrentCommits", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contributors in current branch.
+        ///   Looks up a localized String similar to Contributors in current branch.
         /// </summary>
-        public static string Repository_CurrentContributors {
+        public static String Repository_CurrentContributors {
             get {
                 return ResourceManager.GetString("Repository_CurrentContributors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files in current branch.
+        ///   Looks up a localized String similar to Files in current branch.
         /// </summary>
-        public static string Repository_CurrentFiles {
+        public static String Repository_CurrentFiles {
             get {
                 return ResourceManager.GetString("Repository_CurrentFiles", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source size in current branch.
+        ///   Looks up a localized String similar to Source size in current branch.
         /// </summary>
-        public static string Repository_CurrentSourceSize {
+        public static String Repository_CurrentSourceSize {
             get {
                 return ResourceManager.GetString("Repository_CurrentSourceSize", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default branch.
+        ///   Looks up a localized String similar to Default branch.
         /// </summary>
-        public static string Repository_DefaultBranch {
+        public static String Repository_DefaultBranch {
             get {
                 return ResourceManager.GetString("Repository_DefaultBranch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commits in default branch.
+        ///   Looks up a localized String similar to Commits in default branch.
         /// </summary>
-        public static string Repository_DefaultCommits {
+        public static String Repository_DefaultCommits {
             get {
                 return ResourceManager.GetString("Repository_DefaultCommits", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contributors in default branch.
+        ///   Looks up a localized String similar to Contributors in default branch.
         /// </summary>
-        public static string Repository_DefaultContributors {
+        public static String Repository_DefaultContributors {
             get {
                 return ResourceManager.GetString("Repository_DefaultContributors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files in default branch.
+        ///   Looks up a localized String similar to Files in default branch.
         /// </summary>
-        public static string Repository_DefaultFiles {
+        public static String Repository_DefaultFiles {
             get {
                 return ResourceManager.GetString("Repository_DefaultFiles", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source size in default branch.
+        ///   Looks up a localized String similar to Source size in default branch.
         /// </summary>
-        public static string Repository_DefaultSourceSize {
+        public static String Repository_DefaultSourceSize {
             get {
                 return ResourceManager.GetString("Repository_DefaultSourceSize", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform Delete Repository {0}.
+        ///   Looks up a localized String similar to Conform Delete Repository {0}.
         /// </summary>
-        public static string Repository_DeleteTitle {
+        public static String Repository_DeleteTitle {
             get {
                 return ResourceManager.GetString("Repository_DeleteTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to delete the repository &quot;{0}&quot;?.
+        ///   Looks up a localized String similar to Do you conform to delete the repository &quot;{0}&quot;?.
         /// </summary>
-        public static string Repository_DeletionWords {
+        public static String Repository_DeletionWords {
             get {
                 return ResourceManager.GetString("Repository_DeletionWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized String similar to Description.
         /// </summary>
-        public static string Repository_Description {
+        public static String Repository_Description {
             get {
                 return ResourceManager.GetString("Repository_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository {0}.
+        ///   Looks up a localized String similar to Repository {0}.
         /// </summary>
-        public static string Repository_DetailTitle {
+        public static String Repository_DetailTitle {
             get {
                 return ResourceManager.GetString("Repository_DetailTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Repository {0}.
+        ///   Looks up a localized String similar to Edit Repository {0}.
         /// </summary>
-        public static string Repository_EditTitle {
+        public static String Repository_EditTitle {
             get {
                 return ResourceManager.GetString("Repository_EditTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Push a repository with HEAD(master) branch for display here..
+        ///   Looks up a localized String similar to Push a repository with HEAD(master) branch for display here..
         /// </summary>
-        public static string Repository_EmptyWords {
+        public static String Repository_EmptyWords {
             get {
                 return ResourceManager.GetString("Repository_EmptyWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Added.
+        ///   Looks up a localized String similar to Added.
         /// </summary>
-        public static string Repository_FileAdded {
+        public static String Repository_FileAdded {
             get {
                 return ResourceManager.GetString("Repository_FileAdded", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copied.
+        ///   Looks up a localized String similar to Copied.
         /// </summary>
-        public static string Repository_FileCopied {
+        public static String Repository_FileCopied {
             get {
                 return ResourceManager.GetString("Repository_FileCopied", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleted.
+        ///   Looks up a localized String similar to Deleted.
         /// </summary>
-        public static string Repository_FileDeleted {
+        public static String Repository_FileDeleted {
             get {
                 return ResourceManager.GetString("Repository_FileDeleted", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ignored.
+        ///   Looks up a localized String similar to Ignored.
         /// </summary>
-        public static string Repository_FileIgnored {
+        public static String Repository_FileIgnored {
             get {
                 return ResourceManager.GetString("Repository_FileIgnored", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modified.
+        ///   Looks up a localized String similar to Modified.
         /// </summary>
-        public static string Repository_FileModified {
+        public static String Repository_FileModified {
             get {
                 return ResourceManager.GetString("Repository_FileModified", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renamed.
+        ///   Looks up a localized String similar to Renamed.
         /// </summary>
-        public static string Repository_FileRenamed {
+        public static String Repository_FileRenamed {
             get {
                 return ResourceManager.GetString("Repository_FileRenamed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TypeChanged.
+        ///   Looks up a localized String similar to TypeChanged.
         /// </summary>
-        public static string Repository_FileTypeChanged {
+        public static String Repository_FileTypeChanged {
             get {
                 return ResourceManager.GetString("Repository_FileTypeChanged", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unmodified.
+        ///   Looks up a localized String similar to Unmodified.
         /// </summary>
-        public static string Repository_FileUnmodified {
+        public static String Repository_FileUnmodified {
             get {
                 return ResourceManager.GetString("Repository_FileUnmodified", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Untracked.
+        ///   Looks up a localized String similar to Untracked.
         /// </summary>
-        public static string Repository_FileUntracked {
+        public static String Repository_FileUntracked {
             get {
                 return ResourceManager.GetString("Repository_FileUntracked", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Git Url.
+        ///   Looks up a localized String similar to Git Url.
         /// </summary>
-        public static string Repository_GitUrl {
+        public static String Repository_GitUrl {
             get {
                 return ResourceManager.GetString("Repository_GitUrl", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The HEAD has not set yet.
+        ///   Looks up a localized String similar to The HEAD has not set yet.
         /// </summary>
-        public static string Repository_HeadNotSet {
+        public static String Repository_HeadNotSet {
             get {
                 return ResourceManager.GetString("Repository_HeadNotSet", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to History.
+        ///   Looks up a localized String similar to History.
         /// </summary>
-        public static string Repository_History {
+        public static String Repository_History {
             get {
                 return ResourceManager.GetString("Repository_History", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to History for ·.
+        ///   Looks up a localized String similar to History for ·.
         /// </summary>
-        public static string Repository_HistoryFor {
+        public static String Repository_HistoryFor {
             get {
                 return ResourceManager.GetString("Repository_HistoryFor", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is a private repository.
+        ///   Looks up a localized String similar to Is a private repository.
         /// </summary>
-        public static string Repository_IsPrivate {
+        public static String Repository_IsPrivate {
             get {
                 return ResourceManager.GetString("Repository_IsPrivate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List of Repositories.
+        ///   Looks up a localized String similar to List of Repositories.
         /// </summary>
-        public static string Repository_ListTitle {
+        public static String Repository_ListTitle {
             get {
                 return ResourceManager.GetString("Repository_ListTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository name.
+        ///   Looks up a localized String similar to Repository name.
         /// </summary>
-        public static string Repository_Name {
+        public static String Repository_Name {
             get {
                 return ResourceManager.GetString("Repository_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normal view.
+        ///   Looks up a localized String similar to Normal view.
         /// </summary>
-        public static string Repository_NormalView {
+        public static String Repository_NormalView {
             get {
                 return ResourceManager.GetString("Repository_NormalView", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No tags found.
+        ///   Looks up a localized String similar to No tags found.
         /// </summary>
-        public static string Repository_NoTags {
+        public static String Repository_NoTags {
             get {
                 return ResourceManager.GetString("Repository_NoTags", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent(s).
+        ///   Looks up a localized String similar to Parent(s).
         /// </summary>
-        public static string Repository_Parents {
+        public static String Repository_Parents {
             get {
                 return ResourceManager.GetString("Repository_Parents", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Popular repositories.
+        ///   Looks up a localized String similar to Popular repositories.
         /// </summary>
-        public static string Repository_PopularRepositories {
+        public static String Repository_PopularRepositories {
             get {
                 return ResourceManager.GetString("Repository_PopularRepositories", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Raw.
+        ///   Looks up a localized String similar to Raw.
         /// </summary>
-        public static string Repository_Raw {
+        public static String Repository_Raw {
             get {
                 return ResourceManager.GetString("Repository_Raw", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relationship.
+        ///   Looks up a localized String similar to Relationship.
         /// </summary>
-        public static string Repository_Relationship {
+        public static String Repository_Relationship {
             get {
                 return ResourceManager.GetString("Repository_Relationship", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository size.
+        ///   Looks up a localized String similar to Repository size.
         /// </summary>
-        public static string Repository_RepositorySize {
+        public static String Repository_RepositorySize {
             get {
                 return ResourceManager.GetString("Repository_RepositorySize", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read.
+        ///   Looks up a localized String similar to Read.
         /// </summary>
-        public static string Repository_ShortAllowRead {
+        public static String Repository_ShortAllowRead {
             get {
                 return ResourceManager.GetString("Repository_ShortAllowRead", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write.
+        ///   Looks up a localized String similar to Write.
         /// </summary>
-        public static string Repository_ShortAllowWrite {
+        public static String Repository_ShortAllowWrite {
             get {
                 return ResourceManager.GetString("Repository_ShortAllowWrite", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Owner.
+        ///   Looks up a localized String similar to Owner.
         /// </summary>
-        public static string Repository_ShortIsOwner {
+        public static String Repository_ShortIsOwner {
             get {
                 return ResourceManager.GetString("Repository_ShortIsOwner", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized String similar to No.
         /// </summary>
-        public static string Repository_ShortNonAllowRead {
+        public static String Repository_ShortNonAllowRead {
             get {
                 return ResourceManager.GetString("Repository_ShortNonAllowRead", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized String similar to No.
         /// </summary>
-        public static string Repository_ShortNonAllowWrite {
+        public static String Repository_ShortNonAllowWrite {
             get {
                 return ResourceManager.GetString("Repository_ShortNonAllowWrite", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized String similar to No.
         /// </summary>
-        public static string Repository_ShortNotOwner {
+        public static String Repository_ShortNotOwner {
             get {
                 return ResourceManager.GetString("Repository_ShortNotOwner", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Statistics.
+        ///   Looks up a localized String similar to Statistics.
         /// </summary>
-        public static string Repository_Statistics {
+        public static String Repository_Statistics {
             get {
                 return ResourceManager.GetString("Repository_Statistics", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to delete the tag &quot;{0}&quot;?.
+        ///   Looks up a localized String similar to Do you conform to delete the tag &quot;{0}&quot;?.
         /// </summary>
-        public static string Repository_TagDeletionWords {
+        public static String Repository_TagDeletionWords {
             get {
                 return ResourceManager.GetString("Repository_TagDeletionWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tags.
+        ///   Looks up a localized String similar to Tags.
         /// </summary>
-        public static string Repository_Tags {
+        public static String Repository_Tags {
             get {
                 return ResourceManager.GetString("Repository_Tags", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tags · {0}.
+        ///   Looks up a localized String similar to Tags · {0}.
         /// </summary>
-        public static string Repository_TagsTitle {
+        public static String Repository_TagsTitle {
             get {
                 return ResourceManager.GetString("Repository_TagsTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teams.
+        ///   Looks up a localized String similar to Teams.
         /// </summary>
-        public static string Repository_Teams {
+        public static String Repository_Teams {
             get {
                 return ResourceManager.GetString("Repository_Teams", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tree.
+        ///   Looks up a localized String similar to Tree.
         /// </summary>
-        public static string Repository_Tree {
+        public static String Repository_Tree {
             get {
                 return ResourceManager.GetString("Repository_Tree", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {2} at {1} · {0}.
+        ///   Looks up a localized String similar to {2} at {1} · {0}.
         /// </summary>
-        public static string Repository_TreeTitle {
+        public static String Repository_TreeTitle {
             get {
                 return ResourceManager.GetString("Repository_TreeTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository update was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Repository update was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Repository_UpdateUnsuccessfull {
+        public static String Repository_UpdateUnsuccessfull {
             get {
                 return ResourceManager.GetString("Repository_UpdateUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip.
+        ///   Looks up a localized String similar to Zip.
         /// </summary>
-        public static string Repository_Zip {
+        public static String Repository_Zip {
             get {
                 return ResourceManager.GetString("Repository_Zip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip with CR (\r).
+        ///   Looks up a localized String similar to Zip with CR (\r).
         /// </summary>
-        public static string Repository_ZipCR {
+        public static String Repository_ZipCR {
             get {
                 return ResourceManager.GetString("Repository_ZipCR", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip with CRLF (\r\n).
+        ///   Looks up a localized String similar to Zip with CRLF (\r\n).
         /// </summary>
-        public static string Repository_ZipCRLF {
+        public static String Repository_ZipCRLF {
             get {
                 return ResourceManager.GetString("Repository_ZipCRLF", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip with LF (\n).
+        ///   Looks up a localized String similar to Zip with LF (\n).
         /// </summary>
-        public static string Repository_ZipLF {
+        public static String Repository_ZipLF {
             get {
                 return ResourceManager.GetString("Repository_ZipLF", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow register user.
+        ///   Looks up a localized String similar to Allow register user.
         /// </summary>
-        public static string Setting_AllowRegisterUser {
+        public static String Setting_AllowRegisterUser {
             get {
                 return ResourceManager.GetString("Setting_AllowRegisterUser", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow repository creation.
+        ///   Looks up a localized String similar to Allow repository creation.
         /// </summary>
-        public static string Setting_AllowRepositoryCreation {
+        public static String Setting_AllowRepositoryCreation {
             get {
                 return ResourceManager.GetString("Setting_AllowRepositoryCreation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path of cache directory.
+        ///   Looks up a localized String similar to Path of cache directory.
         /// </summary>
-        public static string Setting_CachePath {
+        public static String Setting_CachePath {
             get {
                 return ResourceManager.GetString("Setting_CachePath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized String similar to Settings.
         /// </summary>
-        public static string Setting_EditTitle {
+        public static String Setting_EditTitle {
             get {
                 return ResourceManager.GetString("Setting_EditTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable SSH.
+        ///   Looks up a localized String similar to Enable SSH.
         /// </summary>
-        public static string Setting_EnableSsh {
+        public static String Setting_EnableSsh {
             get {
                 return ResourceManager.GetString("Setting_EnableSsh", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Force HTTPS connection.
+        ///   Looks up a localized String similar to Force HTTPS connection.
         /// </summary>
-        public static string Setting_ForceSsl {
+        public static String Setting_ForceSsl {
             get {
                 return ResourceManager.GetString("Setting_ForceSsl", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path of git core.
+        ///   Looks up a localized String similar to Path of git core.
         /// </summary>
-        public static string Setting_GitCorePath {
+        public static String Setting_GitCorePath {
             get {
                 return ResourceManager.GetString("Setting_GitCorePath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is public server.
+        ///   Looks up a localized String similar to Is public server.
         /// </summary>
-        public static string Setting_IsPublicServer {
+        public static String Setting_IsPublicServer {
             get {
                 return ResourceManager.GetString("Setting_IsPublicServer", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local skip custom error.
+        ///   Looks up a localized String similar to Local skip custom error.
         /// </summary>
-        public static string Setting_LocalSkipCustomError {
+        public static String Setting_LocalSkipCustomError {
             get {
                 return ResourceManager.GetString("Setting_LocalSkipCustomError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of commits per page.
+        ///   Looks up a localized String similar to Number of commits per page.
         /// </summary>
-        public static string Setting_NumberOfCommitsPerPage {
+        public static String Setting_NumberOfCommitsPerPage {
             get {
                 return ResourceManager.GetString("Setting_NumberOfCommitsPerPage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of items per list.
+        ///   Looks up a localized String similar to Number of items per list.
         /// </summary>
-        public static string Setting_NumberOfItemsPerList {
+        public static String Setting_NumberOfItemsPerList {
             get {
                 return ResourceManager.GetString("Setting_NumberOfItemsPerList", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of repository contributors.
+        ///   Looks up a localized String similar to Number of repository contributors.
         /// </summary>
-        public static string Setting_NumberOfRepositoryContributors {
+        public static String Setting_NumberOfRepositoryContributors {
             get {
                 return ResourceManager.GetString("Setting_NumberOfRepositoryContributors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Re-generate ssh key.
+        ///   Looks up a localized String similar to Re-generate ssh key.
         /// </summary>
-        public static string Setting_ReGenSsh {
+        public static String Setting_ReGenSsh {
             get {
                 return ResourceManager.GetString("Setting_ReGenSsh", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform to Re-generate ssh key.
+        ///   Looks up a localized String similar to Conform to Re-generate ssh key.
         /// </summary>
-        public static string Setting_ReGenSshTitle {
+        public static String Setting_ReGenSshTitle {
             get {
                 return ResourceManager.GetString("Setting_ReGenSshTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to Re-generate ssh key?.
+        ///   Looks up a localized String similar to Do you conform to Re-generate ssh key?.
         /// </summary>
-        public static string Setting_ReGenSshWords {
+        public static String Setting_ReGenSshWords {
             get {
                 return ResourceManager.GetString("Setting_ReGenSshWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path of repositories.
+        ///   Looks up a localized String similar to Path of repositories.
         /// </summary>
-        public static string Setting_RepositoryPath {
+        public static String Setting_RepositoryPath {
             get {
                 return ResourceManager.GetString("Setting_RepositoryPath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform to restart.
+        ///   Looks up a localized String similar to Conform to restart.
         /// </summary>
-        public static string Setting_RestartTitle {
+        public static String Setting_RestartTitle {
             get {
                 return ResourceManager.GetString("Setting_RestartTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to restart this application?.
+        ///   Looks up a localized String similar to Do you conform to restart this application?.
         /// </summary>
-        public static string Setting_RestartWords {
+        public static String Setting_RestartWords {
             get {
                 return ResourceManager.GetString("Setting_RestartWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSH connection port.
+        ///   Looks up a localized String similar to SSH connection port.
         /// </summary>
-        public static string Setting_SshPort {
+        public static String Setting_SshPort {
             get {
                 return ResourceManager.GetString("Setting_SshPort", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HTTPS connection port.
+        ///   Looks up a localized String similar to HTTPS connection port.
         /// </summary>
-        public static string Setting_SslPort {
+        public static String Setting_SslPort {
             get {
                 return ResourceManager.GetString("Setting_SslPort", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update settings was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Update settings was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Setting_UpdateSettingsUnsuccessfull {
+        public static String Setting_UpdateSettingsUnsuccessfull {
             get {
                 return ResourceManager.GetString("Setting_UpdateSettingsUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized String similar to About.
         /// </summary>
-        public static string Shared_About {
+        public static String Shared_About {
             get {
                 return ResourceManager.GetString("Shared_About", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized String similar to Add.
         /// </summary>
-        public static string Shared_Add {
+        public static String Shared_Add {
             get {
                 return ResourceManager.GetString("Shared_Add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GitCandy.
+        ///   Looks up a localized String similar to GitCandy.
         /// </summary>
-        public static string Shared_AppTitle {
+        public static String Shared_AppTitle {
             get {
                 return ResourceManager.GetString("Shared_AppTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized String similar to Back.
         /// </summary>
-        public static string Shared_Back {
+        public static String Shared_Back {
             get {
                 return ResourceManager.GetString("Shared_Back", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform.
+        ///   Looks up a localized String similar to Conform.
         /// </summary>
-        public static string Shared_Conform {
+        public static String Shared_Conform {
             get {
                 return ResourceManager.GetString("Shared_Conform", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized String similar to Create.
         /// </summary>
-        public static string Shared_Create {
+        public static String Shared_Create {
             get {
                 return ResourceManager.GetString("Shared_Create", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized String similar to Delete.
         /// </summary>
-        public static string Shared_Delete {
+        public static String Shared_Delete {
             get {
                 return ResourceManager.GetString("Shared_Delete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detail.
+        ///   Looks up a localized String similar to Detail.
         /// </summary>
-        public static string Shared_Detail {
+        public static String Shared_Detail {
             get {
                 return ResourceManager.GetString("Shared_Detail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized String similar to Edit.
         /// </summary>
-        public static string Shared_Edit {
+        public static String Shared_Edit {
             get {
                 return ResourceManager.GetString("Shared_Edit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate.
+        ///   Looks up a localized String similar to Generate.
         /// </summary>
-        public static string Shared_Generate {
+        public static String Shared_Generate {
             get {
                 return ResourceManager.GetString("Shared_Generate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lanuages.
+        ///   Looks up a localized String similar to Lanuages.
         /// </summary>
-        public static string Shared_Lanuages {
+        public static String Shared_Lanuages {
             get {
                 return ResourceManager.GetString("Shared_Lanuages", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login.
+        ///   Looks up a localized String similar to Login.
         /// </summary>
-        public static string Shared_Login {
+        public static String Shared_Login {
             get {
                 return ResourceManager.GetString("Shared_Login", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logout.
+        ///   Looks up a localized String similar to Logout.
         /// </summary>
-        public static string Shared_Logout {
+        public static String Shared_Logout {
             get {
                 return ResourceManager.GetString("Shared_Logout", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized String similar to No.
         /// </summary>
-        public static string Shared_No {
+        public static String Shared_No {
             get {
                 return ResourceManager.GetString("Shared_No", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register.
+        ///   Looks up a localized String similar to Register.
         /// </summary>
-        public static string Shared_Register {
+        public static String Shared_Register {
             get {
                 return ResourceManager.GetString("Shared_Register", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove.
+        ///   Looks up a localized String similar to Remove.
         /// </summary>
-        public static string Shared_Remove {
+        public static String Shared_Remove {
             get {
                 return ResourceManager.GetString("Shared_Remove", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repositories.
+        ///   Looks up a localized String similar to Repositories.
         /// </summary>
-        public static string Shared_Repositories {
+        public static String Shared_Repositories {
             get {
                 return ResourceManager.GetString("Shared_Repositories", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized String similar to Reset.
         /// </summary>
-        public static string Shared_Reset {
+        public static String Shared_Reset {
             get {
                 return ResourceManager.GetString("Shared_Reset", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restart.
+        ///   Looks up a localized String similar to Restart.
         /// </summary>
-        public static string Shared_Restart {
+        public static String Shared_Restart {
             get {
                 return ResourceManager.GetString("Shared_Restart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
+        ///   Looks up a localized String similar to Save.
         /// </summary>
-        public static string Shared_Save {
+        public static String Shared_Save {
             get {
                 return ResourceManager.GetString("Shared_Save", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized String similar to Search.
         /// </summary>
-        public static string Shared_Search {
+        public static String Shared_Search {
             get {
                 return ResourceManager.GetString("Shared_Search", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized String similar to Settings.
         /// </summary>
-        public static string Shared_Settings {
+        public static String Shared_Settings {
             get {
                 return ResourceManager.GetString("Shared_Settings", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something wrong.
+        ///   Looks up a localized String similar to Something wrong.
         /// </summary>
-        public static string Shared_SomethingWrong {
+        public static String Shared_SomethingWrong {
             get {
                 return ResourceManager.GetString("Shared_SomethingWrong", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teams.
+        ///   Looks up a localized String similar to Teams.
         /// </summary>
-        public static string Shared_Teams {
+        public static String Shared_Teams {
             get {
                 return ResourceManager.GetString("Shared_Teams", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - GitCandy.
+        ///   Looks up a localized String similar to {0} - GitCandy.
         /// </summary>
-        public static string Shared_TitleFormat {
+        public static String Shared_TitleFormat {
             get {
                 return ResourceManager.GetString("Shared_TitleFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users.
+        ///   Looks up a localized String similar to Users.
         /// </summary>
-        public static string Shared_Users {
+        public static String Shared_Users {
             get {
                 return ResourceManager.GetString("Shared_Users", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
+        ///   Looks up a localized String similar to Yes.
         /// </summary>
-        public static string Shared_Yes {
+        public static String Shared_Yes {
             get {
                 return ResourceManager.GetString("Shared_Yes", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team with this name already exists..
+        ///   Looks up a localized String similar to Team with this name already exists..
         /// </summary>
-        public static string Team_AlreadyExists {
+        public static String Team_AlreadyExists {
             get {
                 return ResourceManager.GetString("Team_AlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose Users for Team {0}.
+        ///   Looks up a localized String similar to Choose Users for Team {0}.
         /// </summary>
-        public static string Team_ChooseUserTitle {
+        public static String Team_ChooseUserTitle {
             get {
                 return ResourceManager.GetString("Team_ChooseUserTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Team.
+        ///   Looks up a localized String similar to Create Team.
         /// </summary>
-        public static string Team_CreationTitle {
+        public static String Team_CreationTitle {
             get {
                 return ResourceManager.GetString("Team_CreationTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team creation was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Team creation was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Team_CreationUnsuccessfull {
+        public static String Team_CreationUnsuccessfull {
             get {
                 return ResourceManager.GetString("Team_CreationUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conform Delete Team {0}.
+        ///   Looks up a localized String similar to Conform Delete Team {0}.
         /// </summary>
-        public static string Team_DeleteTitle {
+        public static String Team_DeleteTitle {
             get {
                 return ResourceManager.GetString("Team_DeleteTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you conform to delete the team &quot;{0}&quot;?.
+        ///   Looks up a localized String similar to Do you conform to delete the team &quot;{0}&quot;?.
         /// </summary>
-        public static string Team_DeletionWords {
+        public static String Team_DeletionWords {
             get {
                 return ResourceManager.GetString("Team_DeletionWords", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team description.
+        ///   Looks up a localized String similar to Team description.
         /// </summary>
-        public static string Team_Description {
+        public static String Team_Description {
             get {
                 return ResourceManager.GetString("Team_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team {0}.
+        ///   Looks up a localized String similar to Team {0}.
         /// </summary>
-        public static string Team_DetailTitle {
+        public static String Team_DetailTitle {
             get {
                 return ResourceManager.GetString("Team_DetailTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Team {0}.
+        ///   Looks up a localized String similar to Edit Team {0}.
         /// </summary>
-        public static string Team_EditTitle {
+        public static String Team_EditTitle {
             get {
                 return ResourceManager.GetString("Team_EditTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List of Teams.
+        ///   Looks up a localized String similar to List of Teams.
         /// </summary>
-        public static string Team_ListTitle {
+        public static String Team_ListTitle {
             get {
                 return ResourceManager.GetString("Team_ListTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Members.
+        ///   Looks up a localized String similar to Members.
         /// </summary>
-        public static string Team_Members {
+        public static String Team_Members {
             get {
                 return ResourceManager.GetString("Team_Members", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team name.
+        ///   Looks up a localized String similar to Team name.
         /// </summary>
-        public static string Team_Name {
+        public static String Team_Name {
             get {
                 return ResourceManager.GetString("Team_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repositories.
+        ///   Looks up a localized String similar to Repositories.
         /// </summary>
-        public static string Team_Repositories {
+        public static String Team_Repositories {
             get {
                 return ResourceManager.GetString("Team_Repositories", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin.
+        ///   Looks up a localized String similar to Admin.
         /// </summary>
-        public static string Team_ShortAdministrator {
+        public static String Team_ShortAdministrator {
             get {
                 return ResourceManager.GetString("Team_ShortAdministrator", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized String similar to No.
         /// </summary>
-        public static string Team_ShortNonAdministrator {
+        public static String Team_ShortNonAdministrator {
             get {
                 return ResourceManager.GetString("Team_ShortNonAdministrator", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} team(s) found.
+        ///   Looks up a localized String similar to {0} team(s) found.
         /// </summary>
-        public static string Team_TeamsFound {
+        public static String Team_TeamsFound {
             get {
                 return ResourceManager.GetString("Team_TeamsFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team update was unsuccessful. Please correct the errors and try again..
+        ///   Looks up a localized String similar to Team update was unsuccessful. Please correct the errors and try again..
         /// </summary>
-        public static string Team_UpdateUnsuccessfull {
+        public static String Team_UpdateUnsuccessfull {
             get {
                 return ResourceManager.GetString("Team_UpdateUnsuccessfull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; and &quot;{1}&quot; must have the same value.
+        ///   Looks up a localized String similar to &quot;{0}&quot; and &quot;{1}&quot; must have the same value.
         /// </summary>
-        public static string Validation_Compare {
+        public static String Validation_Compare {
             get {
                 return ResourceManager.GetString("Validation_Compare", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid email address.
+        ///   Looks up a localized String similar to &quot;{0}&quot; is not a valid email address.
         /// </summary>
-        public static string Validation_Email {
+        public static String Validation_Email {
             get {
                 return ResourceManager.GetString("Validation_Email", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid &quot;{1}&quot; file path.
+        ///   Looks up a localized String similar to &quot;{0}&quot; is not a valid &quot;{1}&quot; file path.
         /// </summary>
-        public static string Validation_Filepath {
+        public static String Validation_Filepath {
             get {
                 return ResourceManager.GetString("Validation_Filepath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; not a valid.
+        ///   Looks up a localized String similar to &quot;{0}&quot; not a valid.
         /// </summary>
-        public static string Validation_Name {
+        public static String Validation_Name {
             get {
                 return ResourceManager.GetString("Validation_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} can only be between {1} and {2}.
+        ///   Looks up a localized String similar to {0} can only be between {1} and {2}.
         /// </summary>
-        public static string Validation_NumberRange {
+        public static String Validation_NumberRange {
             get {
                 return ResourceManager.GetString("Validation_NumberRange", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is mandatory.
+        ///   Looks up a localized String similar to &quot;{0}&quot; is mandatory.
         /// </summary>
-        public static string Validation_Required {
+        public static String Validation_Required {
             get {
                 return ResourceManager.GetString("Validation_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; should be smaller than {1} chars.
+        ///   Looks up a localized String similar to &quot;{0}&quot; should be smaller than {1} chars.
         /// </summary>
-        public static string Validation_StringLength {
+        public static String Validation_StringLength {
             get {
                 return ResourceManager.GetString("Validation_StringLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; should be smaller than {1} chars and large then {2} chars.
+        ///   Looks up a localized String similar to &quot;{0}&quot; should be smaller than {1} chars and large then {2} chars.
         /// </summary>
-        public static string Validation_StringLengthRange {
+        public static String Validation_StringLengthRange {
             get {
                 return ResourceManager.GetString("Validation_StringLengthRange", resourceCulture);
             }

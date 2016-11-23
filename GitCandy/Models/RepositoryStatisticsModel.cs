@@ -11,7 +11,7 @@ namespace GitCandy.Models
         [Serializable]
         public class Statistics
         {
-            public string Branch { get; set; }
+            public String Branch { get; set; }
             public int NumberOfFiles { get; set; }
             public int NumberOfCommits { get; set; }
             public long SizeOfSource { get; set; }
@@ -22,7 +22,7 @@ namespace GitCandy.Models
         [Serializable]
         public class ContributorCommits
         {
-            public string Author { get; set; }
+            public String Author { get; set; }
             public int CommitsCount { get; set; }
         }
     }

@@ -52,7 +52,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Account\Forgot.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Account_ForgotTitle);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Account_ForgotTitle);
 
             
             #line default

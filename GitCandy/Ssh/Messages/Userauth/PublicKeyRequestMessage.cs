@@ -7,7 +7,7 @@ namespace GitCandy.Ssh.Messages.Userauth
     public class PublicKeyRequestMessage : RequestMessage
     {
         public bool HasSignature { get; private set; }
-        public string KeyAlgorithmName { get; private set; }
+        public String KeyAlgorithmName { get; private set; }
         public byte[] PublicKey { get; private set; }
         public byte[] Signature { get; private set; }
 
@@ -18,7 +18,7 @@ namespace GitCandy.Ssh.Messages.Userauth
             base.OnLoad(reader);
 
             if (MethodName != "publickey")
-                throw new ArgumentException(string.Format("Method name {0} is not valid.", MethodName));
+                throw new ArgumentException(String.Format("Method name {0} is not valid.", MethodName));
 
             HasSignature = reader.ReadBoolean();
             KeyAlgorithmName = reader.ReadString(Encoding.ASCII);

@@ -1,4 +1,6 @@
-﻿namespace GitCandy.Models
+﻿using System;
+
+namespace GitCandy.Models
 {
     public class CollaborationModel : RepositoryModelBase
     {
@@ -7,7 +9,7 @@
 
         public class UserRole
         {
-            public string Name { get; set; }
+            public String Name { get; set; }
             public bool AllowRead { get; set; }
             public bool AllowWrite { get; set; }
             public bool IsOwner { get; set; }
@@ -15,7 +17,7 @@
 
         public class TeamRole
         {
-            public string Name { get; set; }
+            public String Name { get; set; }
             public bool AllowRead { get; set; }
             public bool AllowWrite { get; set; }
         }

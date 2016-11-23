@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Tree.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_TreeTitle, Model.RepositoryName, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TreeTitle, Model.RepositoryName, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
 
             
             #line default

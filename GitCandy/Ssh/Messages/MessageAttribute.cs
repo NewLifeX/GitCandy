@@ -6,7 +6,7 @@ namespace GitCandy.Ssh.Messages
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public sealed class MessageAttribute : Attribute
     {
-        public MessageAttribute(string name, byte number)
+        public MessageAttribute(String name, byte number)
         {
             Contract.Requires(name != null);
 
@@ -14,7 +14,7 @@ namespace GitCandy.Ssh.Messages
             Number = number;
         }
 
-        public string Name { get; private set; }
+        public String Name { get; private set; }
         public byte Number { get; private set; }
     }
 }

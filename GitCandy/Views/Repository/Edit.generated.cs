@@ -52,7 +52,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Edit.cshtml"
   
-    ViewBag.Title = string.Format(SR.Shared_TitleFormat, string.Format(SR.Repository_EditTitle, Model.Name));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_EditTitle, Model.Name));
     var token = GitCandy.Security.Token.Current;
 
             
@@ -62,7 +62,7 @@ WriteLiteral("\r\n\r\n<h3>");
 
             
             #line 8 "..\..\Views\Repository\Edit.cshtml"
-Write(string.Format(SR.Repository_EditTitle, Model.Name));
+Write(String.Format(SR.Repository_EditTitle, Model.Name));
 
             
             #line default

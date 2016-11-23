@@ -8,7 +8,7 @@ namespace GitCandy.Ssh.Messages.Connection
     {
         private const byte MessageNumber = 90;
 
-        public string ChannelType { get; private set; }
+        public String ChannelType { get; private set; }
         public uint SenderChannel { get; private set; }
         public uint InitialWindowSize { get; private set; }
         public uint MaximumPacketSize { get; private set; }

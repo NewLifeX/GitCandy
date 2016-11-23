@@ -42,7 +42,7 @@ namespace ASP
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Repository/_ZipButton.cshtml")]
-    public partial class _Views_Repository__ZipButton_cshtml : System.Web.Mvc.WebViewPage<string>
+    public partial class _Views_Repository__ZipButton_cshtml : System.Web.Mvc.WebViewPage<String>
     {
         public _Views_Repository__ZipButton_cshtml()
         {

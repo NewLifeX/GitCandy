@@ -1,20 +1,21 @@
-﻿using GitCandy.Extensions;
-using GitCandy.Git.Cache;
-using GitCandy.Models;
-using LibGit2Sharp;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using GitCandy.Extensions;
+using GitCandy.Git.Cache;
+using GitCandy.Models;
+using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
     public class ScopeAccessor : GitCacheAccessor<RepositoryScope, ScopeAccessor>
     {
         private readonly Commit commit;
-        private readonly string path;
+        private readonly String path;
         private readonly bool pathExist;
 
-        public ScopeAccessor(string repoId, Repository repo, Commit commit, string path = "")
+        public ScopeAccessor(String repoId, Repository repo, Commit commit, String path = "")
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -24,7 +25,7 @@ namespace GitCandy.Git
             this.pathExist = commit[path] != null;
         }
 
-        protected override string GetCacheKey()
+        protected override String GetCacheKey()
         {
             return GetCacheKey(commit.Sha, path);
         }
@@ -48,7 +49,7 @@ namespace GitCandy.Git
                     ? repo.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = commit }).PathFilter(path)
                     : repo.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = commit });
 
-                var set = new HashSet<string>();
+                var set = new HashSet<String>();
                 foreach (var ancestor in ancestors)
                 {
                     result.Commits++;

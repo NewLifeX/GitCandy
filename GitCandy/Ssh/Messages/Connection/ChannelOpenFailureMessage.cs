@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace GitCandy.Ssh.Messages.Connection
 {
@@ -9,8 +10,8 @@ namespace GitCandy.Ssh.Messages.Connection
 
         public uint RecipientChannel { get; set; }
         public ChannelOpenFailureReason ReasonCode { get; set; }
-        public string Description { get; set; }
-        public string Language { get; set; }
+        public String Description { get; set; }
+        public String Language { get; set; }
 
         public override byte MessageType { get { return MessageNumber; } }
 
