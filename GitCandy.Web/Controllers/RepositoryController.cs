@@ -222,7 +222,7 @@ namespace GitCandy.Controllers
                 if (model.Entries == null && model.ReferenceName != "HEAD")
                     return RedirectToAction("Tree", new { path = model.ReferenceName });
 
-                model.GitUrls = GetGitUrl(name);
+                model.GitUrls = GetGitUrl(owner, name);
                 model.Owner = repo.Owner.Name;
                 model.Name = name;
                 if (model.IsRoot)
@@ -266,13 +266,14 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Blame(String name, String path)
+        public ActionResult Blame(String owner, String name, String path)
         {
             using (var git = new GitService(name))
             {
                 var model = git.GetBlame(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                model.Owner = owner;
                 model.Name = name;
                 return View(model);
             }
@@ -294,20 +295,21 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Commit(String name, String path)
+        public ActionResult Commit(String owner, String name, String path)
         {
             using (var git = new GitService(name))
             {
                 var model = git.GetCommit(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                model.Owner = owner;
                 model.Name = name;
                 return View(model);
             }
         }
 
         [ReadRepository]
-        public ActionResult Compare(String name, String path)
+        public ActionResult Compare(String owner, String name, String path)
         {
             using (var git = new GitService(name))
             {
@@ -330,6 +332,7 @@ namespace GitCandy.Controllers
                 var model = git.GetCompare(start.Replace(';', '/'), end.Replace(';', '/'));
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                model.Owner = owner;
                 model.Name = name;
                 return View(model);
             }
@@ -350,6 +353,7 @@ namespace GitCandy.Controllers
                     .Segment(5)
                     .Center();
 
+                model.Owner = owner;
                 model.Name = name;
                 return View(model);
             }
@@ -397,6 +401,7 @@ namespace GitCandy.Controllers
                 var model = git.GetTags();
                 //if (model == null)
                 //    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                model.Owner = owner;
                 model.Name = name;
                 model.CanDelete = Token != null && Token.IsSystemAdministrator
                     || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
@@ -423,6 +428,7 @@ namespace GitCandy.Controllers
                 var model = git.GetBranches();
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                model.Owner = owner;
                 model.Name = name;
                 model.CanDelete = Token != null && Token.IsSystemAdministrator
                     || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
@@ -458,14 +464,16 @@ namespace GitCandy.Controllers
                     repo.SaveAsync();
                 }
 
+                model.Owner = owner;
+
                 return View(model);
             }
         }
 
-        private GitUrl[] GetGitUrl(String name)
+        private GitUrl[] GetGitUrl(String owner, String name)
         {
             var url = Request.Url;
-            String path = VirtualPathUtility.ToAbsolute("~/git/" + name + ".git");
+            String path = VirtualPathUtility.ToAbsolute("~/" + owner + "/" + name);
             UriBuilder ub = new UriBuilder(url.Scheme, url.Host, url.Port, path);
             var httpUrl = ub.Uri.ToString();
 

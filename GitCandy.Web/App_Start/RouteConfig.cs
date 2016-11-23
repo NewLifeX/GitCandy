@@ -22,13 +22,13 @@ namespace GitCandy
                 constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
-            routes.MapRoute(
-                name: "UserGitWeb2",
-                url: "{owner}/{name}/{*path}",
-                defaults: new { controller = "Repository", action = "Tree", path = UrlParameter.Optional },
-                constraints: new { owner = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
+            //routes.MapRoute(
+            //    name: "UserGitWeb2",
+            //    url: "{owner}/{name}/{*path}",
+            //    defaults: new { controller = "Repository", action = "Tree", path = UrlParameter.Optional },
+            //    constraints: new { owner = new UserUrlConstraint() },
+            //    namespaces: new[] { typeof(AccountController).Namespace }
+            //);
             routes.MapRoute(
                 name: "UserGitAct",
                 url: "{owner}/{name}/{action}/{*path}",
