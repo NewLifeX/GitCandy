@@ -28,21 +28,17 @@ namespace GitCandy
                 constraints: new { team = new TeamUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
-            //routes.MapRoute(
-            //    name: "Git.git",
-            //    url: "git/{project}.git/{*verb}",
-            //    defaults: new { controller = "Git", action = "Smart" },
-            //    namespaces: new[] { typeof(AccountController).Namespace }
-            //);
-            //routes.MapRoute(
-            //    name: "Git",
-            //    url: "git/{project}/{*verb}",
-            //    defaults: new { controller = "Git", action = "Smart" },
-            //    namespaces: new[] { typeof(AccountController).Namespace }
-            //);
             #endregion
 
             #region AccountContorller
+            // 实现用户名直达用户首页
+            routes.MapRoute(
+                name: "UserIndex",
+                url: "{name}",
+                defaults: new { controller = "Account", action = "Detail" },
+                constraints: new { name = new UserUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
             routes.MapRoute(
                 name: "Account",
                 url: "Account/{action}/{name}",
@@ -52,6 +48,14 @@ namespace GitCandy
             #endregion
 
             #region TeamContorller
+            // 实现团队名直达团队首页
+            routes.MapRoute(
+                name: "TeamIndex",
+                url: "{name}",
+                defaults: new { controller = "Team", action = "Detail" },
+                constraints: new { name = new TeamUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
             routes.MapRoute(
                 name: "Team",
                 url: "Team/{action}/{name}",
