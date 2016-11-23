@@ -1,0 +1,47 @@
+﻿@model GitCandy.Models.RepositoryListModel
+
+@{
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
+}
+
+<h4>@SR.Repository_ListTitle</h4>
+
+<div class="row">
+    @if (Model.CanCreateRepository)
+    {
+        <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" })</div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table border-area">
+            <thead>@SR.Repository_Collaborations</thead>
+            @foreach (var repo in Model.Collaborations)
+            {
+                <tr>
+                    <td>
+                        <div>@Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))</div>
+                        <div>@repo.Description</div>
+                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table border-area">
+            <thead>@SR.Repository_PopularRepositories</thead>
+            @foreach (var repo in Model.Repositories)
+            {
+                <tr>
+                    <td>
+                        <div>@Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))</div>
+                        <div>@repo.Description</div>
+                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
