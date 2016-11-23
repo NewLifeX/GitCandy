@@ -31,16 +31,16 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } }
         }
 
-        private Int32 _UserID;
-        /// <summary>用户</summary>
-        [DisplayName("用户")]
-        [Description("用户")]
+        private Int32 _OwnerID;
+        /// <summary>拥有者</summary>
+        [DisplayName("拥有者")]
+        [Description("拥有者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(2, "UserID", "用户", null, "int", 10, 0, false)]
-        public virtual Int32 UserID
+        [BindColumn(2, "OwnerID", "拥有者", null, "int", 10, 0, false)]
+        public virtual Int32 OwnerID
         {
-            get { return _UserID; }
-            set { if (OnPropertyChanging(__.UserID, value)) { _UserID = value; OnPropertyChanged(__.UserID); } }
+            get { return _OwnerID; }
+            set { if (OnPropertyChanging(__.OwnerID, value)) { _OwnerID = value; OnPropertyChanged(__.OwnerID); } }
         }
 
         private String _Name;
@@ -299,7 +299,7 @@ namespace NewLife.GitCandy.Entity
                 switch (name)
                 {
                     case __.ID : return _ID;
-                    case __.UserID : return _UserID;
+                    case __.OwnerID : return _OwnerID;
                     case __.Name : return _Name;
                     case __.Enable : return _Enable;
                     case __.IsPrivate : return _IsPrivate;
@@ -328,7 +328,7 @@ namespace NewLife.GitCandy.Entity
                 switch (name)
                 {
                     case __.ID : _ID = Convert.ToInt32(value); break;
-                    case __.UserID : _UserID = Convert.ToInt32(value); break;
+                    case __.OwnerID : _OwnerID = Convert.ToInt32(value); break;
                     case __.Name : _Name = Convert.ToString(value); break;
                     case __.Enable : _Enable = Convert.ToBoolean(value); break;
                     case __.IsPrivate : _IsPrivate = Convert.ToBoolean(value); break;
@@ -362,8 +362,8 @@ namespace NewLife.GitCandy.Entity
             ///<summary>编号</summary>
             public static readonly Field ID = FindByName(__.ID);
 
-            ///<summary>用户</summary>
-            public static readonly Field UserID = FindByName(__.UserID);
+            ///<summary>拥有者</summary>
+            public static readonly Field OwnerID = FindByName(__.OwnerID);
 
             ///<summary>名称</summary>
             public static readonly Field Name = FindByName(__.Name);
@@ -434,8 +434,8 @@ namespace NewLife.GitCandy.Entity
             ///<summary>编号</summary>
             public const String ID = "ID";
 
-            ///<summary>用户</summary>
-            public const String UserID = "UserID";
+            ///<summary>拥有者</summary>
+            public const String OwnerID = "OwnerID";
 
             ///<summary>名称</summary>
             public const String Name = "Name";
@@ -508,8 +508,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>编号</summary>
         Int32 ID { get; set; }
 
-        /// <summary>用户</summary>
-        Int32 UserID { get; set; }
+        /// <summary>拥有者</summary>
+        Int32 OwnerID { get; set; }
 
         /// <summary>名称</summary>
         String Name { get; set; }

@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -149,7 +150,7 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
 
             
             #line 23 "..\..\Views\Repository\Index.cshtml"
-                        Write(Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name })));
+                        Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
 
             
             #line default
@@ -254,7 +255,7 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
 
             
             #line 39 "..\..\Views\Repository\Index.cshtml"
-                        Write(Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name })));
+                        Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
 
             
             #line default

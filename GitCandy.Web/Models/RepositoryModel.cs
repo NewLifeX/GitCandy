@@ -9,6 +9,8 @@ namespace GitCandy.Models
 {
     public class RepositoryModel
     {
+        public String Owner { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
         [StringLength(50, MinimumLength = 2, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
         [RegularExpression(RegularExpression.Repositoryname, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Name")]

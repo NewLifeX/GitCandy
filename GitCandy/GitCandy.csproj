@@ -149,11 +149,18 @@
     <Content Include="Entity\NewLife.GitCandy.xml" />
     <Content Include="Entity\XCoder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>XCoder.cs</LastGenOutput>
+      <LastGenOutput>XCoder.log</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entity\set.config" />
+    <None Include="Entity\XCoder.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCoder.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,16 +17,16 @@ namespace GitCandy
             #region GitController
             routes.MapRoute(
                 name: "UserGitWeb",
-                url: "{user}/{name}/{*path}",
+                url: "{owner}/{name}/{*path}",
                 defaults: new { controller = "Repository", action = "Tree" },
-                constraints: new { user = new UserUrlConstraint() },
+                constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
             routes.MapRoute(
                 name: "UserGit",
-                url: "{user}/{project}/{*verb}",
+                url: "{owner}/{project}/{*verb}",
                 defaults: new { controller = "Git", action = "Smart" },
-                constraints: new { user = new UserUrlConstraint() },
+                constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
             #endregion
@@ -37,7 +37,7 @@ namespace GitCandy
                 name: "UserIndex",
                 url: "{name}",
                 defaults: new { controller = "Account", action = "Detail" },
-                constraints: new { name = new UserUrlConstraint() },
+                constraints: new { name = new UserUrlConstraint { IsTeam = false } },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
             routes.MapRoute(
@@ -54,7 +54,7 @@ namespace GitCandy
                 name: "TeamIndex",
                 url: "{name}",
                 defaults: new { controller = "Team", action = "Detail" },
-                constraints: new { name = new TeamUrlConstraint() },
+                constraints: new { name = new UserUrlConstraint { IsTeam = true } },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
             routes.MapRoute(
@@ -106,63 +106,64 @@ namespace GitCandy
 
     class UserUrlConstraint : IRouteConstraint
     {
+        public Boolean? IsTeam { get; set; }
+
         public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;
 
-            return Match(name);
+            var m = Match(name);
+
+            if (IsTeam == null) return m != null;
+
+            return IsTeam == m;
         }
 
-        private static DictionaryCache<String, Boolean> _cache;
-        private static Boolean Match(String name)
+        private static DictionaryCache<String, Boolean?> _cache;
+        private static Boolean? Match(String name)
         {
             if (_cache == null)
             {
-                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
+                _cache = new DictionaryCache<String, Boolean?>(StringComparer.OrdinalIgnoreCase);
                 _cache.Asynchronous = true;
                 _cache.CacheDefault = true;
                 _cache.Expire = 10 * 60;        // 10分钟过期
                 //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
             }
 
-            return _cache.GetItem(name, k =>
-            {
-                var user = User.FindByName(k);
-                if (user == null) return false;
-                return !user.IsTeam;
-            });
+            return _cache.GetItem(name, k => User.FindByName(k)?.IsTeam);
         }
     }
 
-    class TeamUrlConstraint : IRouteConstraint
-    {
-        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
-        {
-            var name = values[parameterName] + "";
-            if (name.IsNullOrEmpty()) return false;
+    //class TeamUrlConstraint : IRouteConstraint
+    //{
+    //    public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+    //    {
+    //        var name = values[parameterName] + "";
+    //        if (name.IsNullOrEmpty()) return false;
 
-            return Match(name);
-        }
+    //        return Match(name);
+    //    }
 
-        private static DictionaryCache<String, Boolean> _cache;
-        private static Boolean Match(String name)
-        {
-            if (_cache == null)
-            {
-                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
-                _cache.Asynchronous = true;
-                _cache.CacheDefault = true;
-                _cache.Expire = 10 * 60;        // 10分钟过期
-                //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
-            }
+    //    private static DictionaryCache<String, Boolean> _cache;
+    //    private static Boolean Match(String name)
+    //    {
+    //        if (_cache == null)
+    //        {
+    //            _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
+    //            _cache.Asynchronous = true;
+    //            _cache.CacheDefault = true;
+    //            _cache.Expire = 10 * 60;        // 10分钟过期
+    //            //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
+    //        }
 
-            return _cache.GetItem(name, k =>
-            {
-                var user = User.FindByName(k);
-                if (user == null) return false;
-                return user.IsTeam;
-            });
-        }
-    }
+    //        return _cache.GetItem(name, k =>
+    //        {
+    //            var user = User.FindByName(k);
+    //            if (user == null) return false;
+    //            return user.IsTeam;
+    //        });
+    //    }
+    //}
 }

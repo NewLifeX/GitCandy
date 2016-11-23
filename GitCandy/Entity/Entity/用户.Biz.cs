@@ -54,7 +54,7 @@ namespace NewLife.GitCandy.Entity
             (Teams as IEntityList)?.Delete(true);
             (Repositories as IEntityList)?.Delete(true);
             (SshKeys as IEntityList)?.Delete(true);
-            Repository.FindAllByUserID(ID).Delete();
+            Repository.FindAllByOwnerID(ID).Delete();
             AuthorizationLog.FindAllByUserID(ID).Delete();
 
             return base.OnDelete();

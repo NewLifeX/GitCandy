@@ -28,29 +28,36 @@ namespace NewLife.GitCandy.Entity
             var df = Meta.Factory.AdditionalFields;
             df.Add(__.Views);
         }
+
+        public override void Valid(Boolean isNew)
+        {
+            if (OwnerID <= 0) throw new ArgumentNullException(__.OwnerID, _.OwnerID.DisplayName);
+
+            base.Valid(isNew);
+        }
         #endregion
 
         #region 扩展属性
-        private User _User;
+        private User _Owner;
         /// <summary>团队</summary>
-        public User User
+        public User Owner
         {
             get
             {
                 //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
                 {
-                    _User = User.FindByID(UserID);
+                    _Owner = User.FindByID(OwnerID);
                     //Dirtys["User"] = true;
                 }
-                return _User;
+                return _Owner;
             }
-            set { _User = value; }
+            set { _Owner = value; }
         }
 
         /// <summary>用户名称</summary>
         [DisplayName("用户")]
-        [Map(__.UserID, typeof(User), "ID")]
-        public String UserName { get { return User + ""; } }
+        [Map(__.OwnerID, typeof(User), "ID")]
+        public String OwnerName { get { return Owner + ""; } }
         #endregion
 
         #region 扩展查询
@@ -68,14 +75,14 @@ namespace NewLife.GitCandy.Entity
         /// <param name="name">名称。登录用户名</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static Repository FindByUserIDAndName(Int32 userid, String name)
+        public static Repository FindByOwnerIDAndName(Int32 userid, String name)
         {
             if (userid <= 0 || name.IsNullOrEmpty()) return null;
 
             if (Meta.Count >= 1000)
-                return Find(new String[] { __.UserID, __.Name }, new Object[] { userid, name });
+                return Find(new String[] { __.OwnerID, __.Name }, new Object[] { userid, name });
             else // 实体缓存
-                return Meta.Cache.Entities.ToList().FirstOrDefault(e => e.UserID == userid && e.Name == name);
+                return Meta.Cache.Entities.ToList().FirstOrDefault(e => e.OwnerID == userid && e.Name == name);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
@@ -87,17 +94,17 @@ namespace NewLife.GitCandy.Entity
             var user = User.FindByName(owner);
             if (user == null) return null;
 
-            return FindByUserIDAndName(user.ID, name);
+            return FindByOwnerIDAndName(user.ID, name);
         }
 
-        public static EntityList<Repository> FindAllByUserID(Int32 userid)
+        public static EntityList<Repository> FindAllByOwnerID(Int32 userid)
         {
             if (userid <= 0) return new EntityList<Repository>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(__.OwnerID, userid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+                return Meta.Cache.Entities.FindAll(e => e.OwnerID == userid);
         }
         #endregion
 
@@ -159,12 +166,12 @@ namespace NewLife.GitCandy.Entity
             if (user.IsAdmin) return true;
 
             // 个人
-            if (UserID == user.ID) return true;
+            if (OwnerID == user.ID) return true;
 
             // 团队
             foreach (var team in user.Teams)
             {
-                if (team.UserID == UserID) return true;
+                if (team.UserID == OwnerID) return true;
             }
 
             return false;

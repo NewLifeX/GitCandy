@@ -12,9 +12,7 @@ namespace GitCandy.Extensions
         public static RouteValueDictionary OverRoute(this HtmlHelper helper, object routeValues = null, bool withQuery = false)
         {
             var old = helper.ViewContext.RouteData.Values;
-
-            if (routeValues == null)
-                return old;
+            if (routeValues == null) return old;
 
             var over = new Dictionary<String, object>(old, StringComparer.OrdinalIgnoreCase);
             if (withQuery)

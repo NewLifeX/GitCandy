@@ -13,7 +13,7 @@ namespace GitCandy.Data
         public Repository Create(RepositoryModel model, Int32 uid, out Boolean badName)
         {
             badName = false;
-            var repo = Repository.FindByUserIDAndName(uid, model.Name);
+            var repo = Repository.FindByOwnerIDAndName(uid, model.Name);
             if (repo != null)
             {
                 badName = true;
@@ -24,7 +24,7 @@ namespace GitCandy.Data
             {
                 Name = model.Name,
                 Description = model.Description,
-                UserID = uid,
+                OwnerID = uid,
                 CreateTime = DateTime.UtcNow,
                 IsPrivate = model.IsPrivate,
                 AllowAnonymousRead = model.AllowAnonymousRead,
@@ -48,6 +48,7 @@ namespace GitCandy.Data
 
             var model = new RepositoryModel
             {
+                Owner = repo.Owner.Name,
                 Name = repo.Name,
                 Description = repo.Description,
                 IsPrivate = repo.IsPrivate,
@@ -316,7 +317,7 @@ namespace GitCandy.Data
                 var user = User.FindByName(username);
                 var q1 = user.Repositories.Select(e => e.Repository);
                 var q2 = user.Teams.SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
-                var q3 = q1.Union(q2);
+                var q3 = q1.Union(q2).Where(e => e.Enable);
                 q3 = q3.OrderByDescending(e => e.LastCommit);
 
                 model.Collaborations = ToRepositoryArray(q3);
@@ -331,6 +332,7 @@ namespace GitCandy.Data
         {
             return source.Select(s => new RepositoryModel
             {
+                Owner = s.Owner.Name,
                 Name = s.Name,
                 Description = s.Description,
                 Commits = s.Commits,
