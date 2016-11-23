@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -70,7 +71,7 @@ WriteLiteral(" ");
 
             
             #line 7 "..\..\Views\Repository\Branches.cshtml"
-                                               Write(Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" })));
+                                               Write(Html.Link(Model));
 
             
             #line default
@@ -128,14 +129,14 @@ WriteLiteral(">\r\n                <td>\r\n                    <div>");
             #line hidden
 WriteLiteral("</div>\r\n                    <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 597), Tuple.Create("\"", 625)
+WriteAttribute("title", Tuple.Create(" title=\"", 533), Tuple.Create("\"", 561)
             
             #line 20 "..\..\Views\Repository\Branches.cshtml"
-, Tuple.Create(Tuple.Create("", 605), Tuple.Create<System.Object, System.Int32>(Model.Commit.Author
+, Tuple.Create(Tuple.Create("", 541), Tuple.Create<System.Object, System.Int32>(Model.Commit.Author
             
             #line default
             #line hidden
-, 605), false)
+, 541), false)
 );
 
 WriteLiteral(">");
@@ -158,14 +159,14 @@ WriteLiteral("</strong>\r\n                    <span>");
             #line hidden
 WriteLiteral("</span>\r\n                    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 748), Tuple.Create("\"", 781)
+WriteAttribute("title", Tuple.Create(" title=\"", 684), Tuple.Create("\"", 717)
             
             #line 22 "..\..\Views\Repository\Branches.cshtml"
-, Tuple.Create(Tuple.Create("", 756), Tuple.Create<System.Object, System.Int32>(Model.Commit.Author.When
+, Tuple.Create(Tuple.Create("", 692), Tuple.Create<System.Object, System.Int32>(Model.Commit.Author.When
             
             #line default
             #line hidden
-, 756), false)
+, 692), false)
 );
 
 WriteLiteral(">");
@@ -214,14 +215,14 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
             #line hidden
 WriteLiteral("</div>\r\n                        <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1306), Tuple.Create("\"", 1333)
+WriteAttribute("title", Tuple.Create(" title=\"", 1242), Tuple.Create("\"", 1269)
             
             #line 33 "..\..\Views\Repository\Branches.cshtml"
-, Tuple.Create(Tuple.Create("", 1314), Tuple.Create<System.Object, System.Int32>(item.Commit.Author
+, Tuple.Create(Tuple.Create("", 1250), Tuple.Create<System.Object, System.Int32>(item.Commit.Author
             
             #line default
             #line hidden
-, 1314), false)
+, 1250), false)
 );
 
 WriteLiteral(">");
@@ -244,14 +245,14 @@ WriteLiteral("</strong>\r\n                        <span>");
             #line hidden
 WriteLiteral("</span>\r\n                        <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1464), Tuple.Create("\"", 1496)
+WriteAttribute("title", Tuple.Create(" title=\"", 1400), Tuple.Create("\"", 1432)
             
             #line 35 "..\..\Views\Repository\Branches.cshtml"
-, Tuple.Create(Tuple.Create("", 1472), Tuple.Create<System.Object, System.Int32>(item.Commit.Author.When
+, Tuple.Create(Tuple.Create("", 1408), Tuple.Create<System.Object, System.Int32>(item.Commit.Author.When
             
             #line default
             #line hidden
-, 1472), false)
+, 1408), false)
 );
 
 WriteLiteral(">");

@@ -1,10 +1,10 @@
 ﻿@model GitCandy.Models.CompareModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CompareTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CompareTitle, Model.Name));
 }
 
-<h4>@Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" }))</h4>
+<h4>@Html.Link(Model)</h4>
 
 <div class="row">
     <div class="col-md-3 branch-from">

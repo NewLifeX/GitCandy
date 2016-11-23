@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -52,7 +53,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Commits.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CommitsTitle, Model.RepositoryName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CommitsTitle, Model.Name ?? Model.Sha.ToShortSha(), Model.Path));
 
             
             #line default
@@ -70,7 +71,7 @@ WriteLiteral(" ");
 
             
             #line 7 "..\..\Views\Repository\Commits.cshtml"
-                         Write(Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" })));
+                         Write(Html.Link(Model));
 
             
             #line default
@@ -108,14 +109,14 @@ WriteLiteral(" class=\"col-md-9\"");
 
 WriteLiteral(">\r\n                <div");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 531), Tuple.Create("\"", 565)
+WriteAttribute("title", Tuple.Create(" title=\"", 457), Tuple.Create("\"", 491)
             
             #line 16 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 539), Tuple.Create<System.Object, System.Int32>(commit.CommitMessageShort
+, Tuple.Create(Tuple.Create("", 465), Tuple.Create<System.Object, System.Int32>(commit.CommitMessageShort
             
             #line default
             #line hidden
-, 539), false)
+, 465), false)
 );
 
 WriteLiteral(">");
@@ -129,14 +130,14 @@ WriteLiteral(">");
             #line hidden
 WriteLiteral("</div>\r\n                <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 730), Tuple.Create("\"", 752)
+WriteAttribute("title", Tuple.Create(" title=\"", 656), Tuple.Create("\"", 678)
             
             #line 17 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 738), Tuple.Create<System.Object, System.Int32>(commit.Author
+, Tuple.Create(Tuple.Create("", 664), Tuple.Create<System.Object, System.Int32>(commit.Author
             
             #line default
             #line hidden
-, 738), false)
+, 664), false)
 );
 
 WriteLiteral(">");
@@ -159,14 +160,14 @@ WriteLiteral("</strong>\r\n                <span>");
             #line hidden
 WriteLiteral("</span>\r\n                <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 867), Tuple.Create("\"", 894)
+WriteAttribute("title", Tuple.Create(" title=\"", 793), Tuple.Create("\"", 820)
             
             #line 19 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 875), Tuple.Create<System.Object, System.Int32>(commit.Author.When
+, Tuple.Create(Tuple.Create("", 801), Tuple.Create<System.Object, System.Int32>(commit.Author.When
             
             #line default
             #line hidden
-, 875), false)
+, 801), false)
 );
 
 WriteLiteral(">");
@@ -196,14 +197,14 @@ WriteLiteral("</span>\r\n");
             #line hidden
 WriteLiteral("                    <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1056), Tuple.Create("\"", 1081)
+WriteAttribute("title", Tuple.Create(" title=\"", 982), Tuple.Create("\"", 1007)
             
             #line 22 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 1064), Tuple.Create<System.Object, System.Int32>(commit.Committer
+, Tuple.Create(Tuple.Create("", 990), Tuple.Create<System.Object, System.Int32>(commit.Committer
             
             #line default
             #line hidden
-, 1064), false)
+, 990), false)
 );
 
 WriteLiteral(">");
@@ -230,14 +231,14 @@ WriteLiteral("</span>\r\n");
 
 WriteLiteral("                    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1208), Tuple.Create("\"", 1238)
+WriteAttribute("title", Tuple.Create(" title=\"", 1134), Tuple.Create("\"", 1164)
             
             #line 24 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 1216), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
+, Tuple.Create(Tuple.Create("", 1142), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
             
             #line default
             #line hidden
-, 1216), false)
+, 1142), false)
 );
 
 WriteLiteral(">");

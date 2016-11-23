@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -52,7 +53,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Tags.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TagsTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TagsTitle, Model.Name));
 
             
             #line default
@@ -70,7 +71,7 @@ WriteLiteral(" ");
 
             
             #line 7 "..\..\Views\Repository\Tags.cshtml"
-                                           Write(Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" })));
+                                           Write(Html.Link(Model));
 
             
             #line default
@@ -177,14 +178,14 @@ WriteLiteral("                </div>\r\n                <div>");
             #line hidden
 WriteLiteral("</div>\r\n                <div");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 897), Tuple.Create("\"", 914)
+WriteAttribute("title", Tuple.Create(" title=\"", 823), Tuple.Create("\"", 840)
             
             #line 21 "..\..\Views\Repository\Tags.cshtml"
-, Tuple.Create(Tuple.Create("", 905), Tuple.Create<System.Object, System.Int32>(tag.When
+, Tuple.Create(Tuple.Create("", 831), Tuple.Create<System.Object, System.Int32>(tag.When
             
             #line default
             #line hidden
-, 905), false)
+, 831), false)
 );
 
 WriteLiteral(">");

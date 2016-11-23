@@ -4,7 +4,8 @@ namespace GitCandy.Models
 {
     public abstract class RepositoryModelBase
     {
-        public String RepositoryName { get; set; }
+        public String Owner { get; set; }
+        public String Name { get; set; }
         public BranchSelectorModel BranchSelector { get; set; }
     }
 }

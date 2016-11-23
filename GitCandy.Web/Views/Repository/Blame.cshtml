@@ -1,10 +1,10 @@
 ﻿@model GitCandy.Models.BlameModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.RepositoryName, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
 }
 
-<h4>@Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" }))</h4>
+<h4>@Html.Link(Model)</h4>
 
 @Html.Partial("_PathBar", Model.PathBar)
 @Html.Partial("_BranchSelector", Model.BranchSelector)

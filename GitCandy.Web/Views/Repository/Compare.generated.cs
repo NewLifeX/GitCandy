@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -52,7 +53,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Compare.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CompareTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CompareTitle, Model.Name));
 
             
             #line default
@@ -61,7 +62,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 7 "..\..\Views\Repository\Compare.cshtml"
-Write(Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" })));
+Write(Html.Link(Model));
 
             
             #line default
@@ -170,14 +171,14 @@ WriteLiteral(">\r\n            <tbody>\r\n");
             #line hidden
 WriteLiteral("                    <tr>\r\n                        <td><span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1012), Tuple.Create("\"", 1037)
+WriteAttribute("title", Tuple.Create(" title=\"", 938), Tuple.Create("\"", 963)
             
             #line 33 "..\..\Views\Repository\Compare.cshtml"
-, Tuple.Create(Tuple.Create("", 1020), Tuple.Create<System.Object, System.Int32>(commit.Committer
+, Tuple.Create(Tuple.Create("", 946), Tuple.Create<System.Object, System.Int32>(commit.Committer
             
             #line default
             #line hidden
-, 1020), false)
+, 946), false)
 );
 
 WriteLiteral(">");
@@ -191,14 +192,14 @@ WriteLiteral(">");
             #line hidden
 WriteLiteral("</span></td>\r\n                        <td><span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1124), Tuple.Create("\"", 1154)
+WriteAttribute("title", Tuple.Create(" title=\"", 1050), Tuple.Create("\"", 1080)
             
             #line 34 "..\..\Views\Repository\Compare.cshtml"
-, Tuple.Create(Tuple.Create("", 1132), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
+, Tuple.Create(Tuple.Create("", 1058), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
             
             #line default
             #line hidden
-, 1132), false)
+, 1058), false)
 );
 
 WriteLiteral(">");

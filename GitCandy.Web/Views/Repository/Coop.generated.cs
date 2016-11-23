@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -59,7 +60,7 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\Repository\Coop.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CollaborationTitle, Model.Name));
 
             
             #line default
@@ -68,7 +69,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 8 "..\..\Views\Repository\Coop.cshtml"
-Write(String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
+Write(String.Format(SR.Repository_CollaborationTitle, Model.Name));
 
             
             #line default
@@ -138,7 +139,7 @@ WriteLiteral(">\r\n        var repo = \"");
 
             
             #line 24 "..\..\Views\Repository\Coop.cshtml"
-               Write(Model.RepositoryName);
+               Write(Model.Name);
 
             
             #line default
@@ -448,7 +449,7 @@ WriteLiteral("\", query: function (item) { return { name: repo, team: item, act:
             #line hidden
             
             #line 88 "..\..\Views\Repository\Coop.cshtml"
-Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.RepositoryName }, new { @class = "btn btn-default" }));
+Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.Name }, new { @class = "btn btn-default" }));
 
             
             #line default

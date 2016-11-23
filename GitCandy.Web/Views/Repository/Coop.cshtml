@@ -2,10 +2,10 @@
 @using NewLife.Serialization;
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CollaborationTitle, Model.Name));
 }
 
-<h4>@String.Format(SR.Repository_CollaborationTitle, Model.RepositoryName)</h4>
+<h4>@String.Format(SR.Repository_CollaborationTitle, Model.Name)</h4>
 
 @if (Model != null)
 {
@@ -21,7 +21,7 @@
     </div>
 
     <script type="text/javascript">
-        var repo = "@Model.RepositoryName";
+        var repo = "@Model.Name";
         var chooser_params = [];
         chooser_params.push(
             {
@@ -85,4 +85,4 @@
             });
     </script>
 }
-@Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.RepositoryName }, new { @class = "btn btn-default" })
+@Html.ActionLink(SR.Shared_Back, "Detail", new { Name = Model.Name }, new { @class = "btn btn-default" })

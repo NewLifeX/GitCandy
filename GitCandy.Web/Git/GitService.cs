@@ -483,7 +483,7 @@ namespace GitCandy.Git
 
             var model = new ContributorsModel
             {
-                RepositoryName = Name,
+                Name = Name,
                 Statistics = statistics,
             };
             return model;

@@ -17,8 +17,22 @@ namespace GitCandy
             #region GitController
             routes.MapRoute(
                 name: "UserGitWeb",
-                url: "{owner}/{name}/{*path}",
+                url: "{owner}/{name}",
                 defaults: new { controller = "Repository", action = "Tree" },
+                constraints: new { owner = new UserUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
+            routes.MapRoute(
+                name: "UserGitWeb2",
+                url: "{owner}/{name}/{*path}",
+                defaults: new { controller = "Repository", action = "Tree", path = UrlParameter.Optional },
+                constraints: new { owner = new UserUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
+            routes.MapRoute(
+                name: "UserGitAct",
+                url: "{owner}/{name}/{action}/{*path}",
+                defaults: new { controller = "Repository", path = UrlParameter.Optional },
                 constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );

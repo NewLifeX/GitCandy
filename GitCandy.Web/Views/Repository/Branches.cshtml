@@ -4,7 +4,7 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BranchesTitle, Model));
 }
 
-<h4>@String.Format(SR.Repository_BranchesTitle, "") @Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" }))</h4>
+<h4>@String.Format(SR.Repository_BranchesTitle, "") @Html.Link(Model)</h4>
 
 @if (Model.Commit == null)
 {

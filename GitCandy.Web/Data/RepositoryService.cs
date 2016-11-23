@@ -102,7 +102,7 @@ namespace GitCandy.Data
             var list = UserRepository.FindAllByRepositoryID(repo.ID).ToList();
             var model = new CollaborationModel
             {
-                RepositoryName = repo.Name,
+                Name = repo.Name,
                 Users = list.Where(e => !e.User.IsTeam)
                     .Select(s => new CollaborationModel.UserRole
                     {

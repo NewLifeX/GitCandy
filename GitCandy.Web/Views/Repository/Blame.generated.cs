@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -52,7 +53,7 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Blame.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.RepositoryName, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
 
             
             #line default
@@ -61,7 +62,7 @@ WriteLiteral("\r\n\r\n<h4>");
 
             
             #line 7 "..\..\Views\Repository\Blame.cshtml"
-Write(Html.ActionLink(Model.RepositoryName, "Tree", Html.OverRoute(new { path = "" })));
+Write(Html.Link(Model));
 
             
             #line default
@@ -195,14 +196,14 @@ WriteLiteral("</span>\r\n                        <span>");
             #line hidden
 WriteLiteral("</span>\r\n                        <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1644), Tuple.Create("\"", 1669)
+WriteAttribute("title", Tuple.Create(" title=\"", 1570), Tuple.Create("\"", 1595)
             
             #line 32 "..\..\Views\Repository\Blame.cshtml"
-, Tuple.Create(Tuple.Create("", 1652), Tuple.Create<System.Object, System.Int32>(hunk.AuthorEmail
+, Tuple.Create(Tuple.Create("", 1578), Tuple.Create<System.Object, System.Int32>(hunk.AuthorEmail
             
             #line default
             #line hidden
-, 1652), false)
+, 1578), false)
 );
 
 WriteLiteral(">");
@@ -217,14 +218,14 @@ WriteLiteral(">");
 WriteLiteral("</strong>\r\n                    </div>\r\n                    <div>\r\n               " +
 "         <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1778), Tuple.Create("\"", 1802)
+WriteAttribute("title", Tuple.Create(" title=\"", 1704), Tuple.Create("\"", 1728)
             
             #line 35 "..\..\Views\Repository\Blame.cshtml"
-, Tuple.Create(Tuple.Create("", 1786), Tuple.Create<System.Object, System.Int32>(hunk.AuthorDate
+, Tuple.Create(Tuple.Create("", 1712), Tuple.Create<System.Object, System.Int32>(hunk.AuthorDate
             
             #line default
             #line hidden
-, 1786), false)
+, 1712), false)
 );
 
 WriteLiteral(">");
@@ -238,14 +239,14 @@ WriteLiteral(">");
             #line hidden
 WriteLiteral("</span>\r\n                        <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1887), Tuple.Create("\"", 1913)
+WriteAttribute("title", Tuple.Create(" title=\"", 1813), Tuple.Create("\"", 1839)
             
             #line 36 "..\..\Views\Repository\Blame.cshtml"
-, Tuple.Create(Tuple.Create("", 1895), Tuple.Create<System.Object, System.Int32>(hunk.MessageShort
+, Tuple.Create(Tuple.Create("", 1821), Tuple.Create<System.Object, System.Int32>(hunk.MessageShort
             
             #line default
             #line hidden
-, 1895), false)
+, 1821), false)
 );
 
 WriteLiteral(">");

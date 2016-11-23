@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using GitCandy.Models;
+using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Extensions
 {
@@ -56,6 +58,15 @@ namespace GitCandy.Extensions
                 controller = controller.ControllerContext.ParentActionViewContext.Controller;
             }
             return controller.ViewBag;
+        }
+
+        public static MvcHtmlString Link(this HtmlHelper html, RepositoryModelBase repo)
+        {
+            var user = User.FindByName(repo.Owner);
+            var link1 = html.ActionLink(repo.Owner, "Detail", user.IsTeam ? "Team" : "Account", new { name = repo.Owner }, null);
+            var link2 = html.ActionLink(repo.Name, "Tree", html.OverRoute(new { path = "" }));
+
+            return new MvcHtmlString(link1.ToHtmlString() + "/" + link2.ToHtmlString());
         }
     }
 }
