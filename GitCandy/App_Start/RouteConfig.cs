@@ -49,6 +49,14 @@ namespace GitCandy
             #endregion
 
             #region TeamContorller
+            // 实现团队名直达团队首页
+            routes.MapRoute(
+                name: "TeamIndex",
+                url: "{name}",
+                defaults: new { controller = "Team", action = "Detail" },
+                constraints: new { name = new TeamUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
             routes.MapRoute(
                 name: "Team",
                 url: "Team/{action}/{name}",
@@ -104,9 +112,6 @@ namespace GitCandy
             if (name.IsNullOrEmpty()) return false;
 
             return Match(name);
-            //if (User.FindByName(name) != null) return true;
-
-            //return false;
         }
 
         private static DictionaryCache<String, Boolean> _cache;
@@ -121,7 +126,43 @@ namespace GitCandy
                 //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
             }
 
-            return _cache.GetItem(name, k => User.FindByName(k) != null);
+            return _cache.GetItem(name, k =>
+            {
+                var user = User.FindByName(k);
+                if (user == null) return false;
+                return !user.IsTeam;
+            });
+        }
+    }
+
+    class TeamUrlConstraint : IRouteConstraint
+    {
+        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            var name = values[parameterName] + "";
+            if (name.IsNullOrEmpty()) return false;
+
+            return Match(name);
+        }
+
+        private static DictionaryCache<String, Boolean> _cache;
+        private static Boolean Match(String name)
+        {
+            if (_cache == null)
+            {
+                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
+                _cache.Asynchronous = true;
+                _cache.CacheDefault = true;
+                _cache.Expire = 10 * 60;        // 10分钟过期
+                //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
+            }
+
+            return _cache.GetItem(name, k =>
+            {
+                var user = User.FindByName(k);
+                if (user == null) return false;
+                return user.IsTeam;
+            });
         }
     }
 }

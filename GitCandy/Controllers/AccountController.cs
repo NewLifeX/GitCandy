@@ -73,7 +73,7 @@ namespace GitCandy.Controllers
             if (String.IsNullOrEmpty(name) && Token != null)
                 name = Token.Username;
 
-            var model = MembershipService.GetUserModel(name, true, Token == null ? null : Token.Username);
+            var model = MembershipService.GetUserModel(name, true, Token?.Username);
             if (model == null)
                 throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             return View(model);

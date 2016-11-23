@@ -12,42 +12,6 @@ namespace GitCandy.Data
     public class MembershipService
     {
         #region Account part
-        public User CreateAccount(String name, String nickname, String password, String email, String description, out bool badName, out bool badEmail)
-        {
-            badName = false;
-            badEmail = false;
-
-            var user = User.FindByName(name);
-            if (user != null)
-            {
-                badName = true;
-                return null;
-            }
-
-            user = User.FindByEmail(email);
-            if (user != null)
-            {
-                badEmail = true;
-                return null;
-            }
-
-
-            user = new User
-            {
-                Name = name,
-                Nickname = nickname,
-                Email = email,
-                Password = password.MD5(),
-                Enable = true,
-                Description = description,
-                RegisterTime = DateTime.Now
-            };
-
-            user.Save();
-
-            return user;
-        }
-
         public UserModel GetUserModel(String name, bool withMembers = false, String viewUser = null)
         {
             var user = User.FindByName(name);
@@ -177,7 +141,7 @@ namespace GitCandy.Data
             var p = new PageParameter();
             p.PageIndex = page;
             p.PageSize = pagesize;
-            var list = User.Search(keyword, p);
+            var list = User.SearchByName(keyword, p);
 
             return new UserListModel
             {
@@ -309,6 +273,7 @@ namespace GitCandy.Data
             if (withMembers)
             {
                 model.MembersRole = UserTeam.FindAllByTeamID(team.ID).ToList()
+                    .Where(e => e.User != null)
                     .Select(s => new TeamModel.UserRole
                     {
                         Name = s.User.Name,
@@ -328,7 +293,7 @@ namespace GitCandy.Data
                 }
                 model.RepositoriesRole = rs.Select(s => new TeamModel.RepositoryRole
                 {
-                    Name = s.Repository.Name,
+                    Name = s.RepositoryName,
                     AllowRead = s.AllowRead,
                     AllowWrite = s.AllowWrite,
                 })
