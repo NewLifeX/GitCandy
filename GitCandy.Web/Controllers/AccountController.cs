@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using GitCandy.App_GlobalResources;
+using GitCandy.Web.App_GlobalResources;
 using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Filters;

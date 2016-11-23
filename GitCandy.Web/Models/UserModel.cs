@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using GitCandy.App_GlobalResources;
+using GitCandy.Web.App_GlobalResources;
 using GitCandy.Base;
 
 namespace GitCandy.Models

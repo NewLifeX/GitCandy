@@ -1,6 +1,4 @@
-﻿using GitCandy.App_GlobalResources;
-using LibGit2Sharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
@@ -9,6 +7,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using GitCandy.Web.App_GlobalResources;
+using LibGit2Sharp;
 
 namespace GitCandy.Extensions
 {

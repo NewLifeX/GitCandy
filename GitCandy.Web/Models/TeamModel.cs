@@ -1,4 +1,4 @@
-﻿using GitCandy.App_GlobalResources;
+﻿using GitCandy.Web.App_GlobalResources;
 using GitCandy.Base;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;

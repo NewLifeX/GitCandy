@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GitCandy.App_GlobalResources {
+namespace GitCandy.Web.App_GlobalResources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GitCandy.App_GlobalResources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GitCandy.App_GlobalResources.SR", typeof(SR).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GitCandy.Web.App_GlobalResources.SR", typeof(SR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

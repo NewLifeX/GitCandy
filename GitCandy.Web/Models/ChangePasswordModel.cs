@@ -1,6 +1,6 @@
-﻿using GitCandy.App_GlobalResources;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System;
+using GitCandy.Web.App_GlobalResources;
 
 namespace GitCandy.Models
 {
