@@ -151,5 +151,23 @@ namespace GitCandy.Controllers
             if (key != null)
                 HttpRuntime.Cache.Remove(key);
         }
+
+        //protected override void OnException(ExceptionContext filterContext)
+        //{
+        //    // 拦截处理异常
+        //    if (!filterContext.ExceptionHandled)
+        //    {
+        //        var ex = filterContext.Exception;
+        //        var ae = ex as ArgumentException;
+        //        if (ae != null)
+        //            ModelState.AddModelError(ae.ParamName, ae.Message);
+        //        else
+        //            ModelState.AddModelError(null, ex);
+
+        //        filterContext.ExceptionHandled = true;
+        //    }
+
+        //    base.OnException(filterContext);
+        //}
     }
 }

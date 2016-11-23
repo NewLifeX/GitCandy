@@ -24,7 +24,7 @@ namespace GitCandy.Data
                 return null;
             }
 
-            user = User.FindByName(email);
+            user = User.FindByEmail(email);
             if (user != null)
             {
                 badEmail = true;

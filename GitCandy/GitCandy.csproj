@@ -368,7 +368,7 @@
     <Compile Include="Base\StringLogicalComparer.cs" />
     <Compile Include="Configuration\HostKey.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CandyControllerBase.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

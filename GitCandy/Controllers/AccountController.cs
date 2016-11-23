@@ -13,7 +13,7 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
-    public class UserController : CandyControllerBase
+    public class AccountController : CandyControllerBase
     {
         [Administrator]
         public ActionResult Index(String query, int? page)
@@ -43,22 +43,26 @@ namespace GitCandy.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool badName, badEmail;
-                var user = MembershipService.CreateAccount(model.Name, model.Nickname, model.Password, model.Email, model.Description, out badName, out badEmail);
-                if (user != null)
+                try
                 {
-                    if (Token != null)
+                    var user = UserX.Create(model.Name, model.Nickname, model.Password, model.Email, model.Description);
+                    if (user != null)
                     {
-                        return RedirectToAction("Detail", "Account", new { name = user.Name });
+                        if (Token != null) return RedirectToAction("Detail", "Account", new { name = user.Name });
+
+                        var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
+                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
+                        return RedirectToStartPage();
                     }
-                    var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                    Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
-                    return RedirectToStartPage();
                 }
-                if (badName)
-                    ModelState.AddModelError("Name", SR.Account_AccountAlreadyExists);
-                if (badEmail)
-                    ModelState.AddModelError("Email", SR.Account_EmailAlreadyExists);
+                catch (ArgumentException aex)
+                {
+                    ModelState.AddModelError(aex.ParamName, aex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             return View(model);

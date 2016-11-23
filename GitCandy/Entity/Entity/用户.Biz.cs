@@ -216,6 +216,30 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 业务
+        public static User Create(String name, String nickname, String password, String email, String description)
+        {
+            var user = User.FindByName(name);
+            if (user != null) throw new ArgumentException(_.Name.DisplayName + "已存在", __.Name);
+
+            user = User.FindByEmail(email);
+            if (user != null) throw new ArgumentException(_.Email.DisplayName + "已存在", __.Email);
+
+            user = new User
+            {
+                Name = name,
+                Nickname = nickname,
+                Email = email,
+                Password = password.MD5(),
+                Enable = true,
+                Description = description,
+                RegisterTime = DateTime.Now
+            };
+
+            user.Save();
+
+            return user;
+        }
+
         public Boolean Login(String password)
         {
             var user = this;
