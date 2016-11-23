@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GitCandy.Controllers;
+using NewLife.Collections;
 using NewLife.GitCandy.Entity;
 
 namespace GitCandy
@@ -124,9 +125,25 @@ namespace GitCandy
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;
 
-            if (User.FindByName(name) != null) return true;
+            return Match(name);
+            //if (User.FindByName(name) != null) return true;
 
-            return false;
+            //return false;
+        }
+
+        private static DictionaryCache<String, Boolean> _cache;
+        private static Boolean Match(String name)
+        {
+            if (_cache == null)
+            {
+                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
+                _cache.Asynchronous = true;
+                _cache.CacheDefault = true;
+                _cache.Expire = 10 * 60;        // 10分钟过期
+                //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
+            }
+
+            return _cache.GetItem(name, k => User.FindByName(k) != null);
         }
     }
 
@@ -137,9 +154,25 @@ namespace GitCandy
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;
 
-            if (Team.FindByName(name) != null) return true;
+            return Match(name);
+            //if (Team.FindByName(name) != null) return true;
 
-            return false;
+            //return false;
+        }
+
+        private static DictionaryCache<String, Boolean> _cache;
+        private static Boolean Match(String name)
+        {
+            if (_cache == null)
+            {
+                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
+                _cache.Asynchronous = true;
+                _cache.CacheDefault = true;
+                _cache.Expire = 10 * 60;        // 10分钟过期
+                //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
+            }
+
+            return _cache.GetItem(name, k => Team.FindByName(k) != null);
         }
     }
 }
