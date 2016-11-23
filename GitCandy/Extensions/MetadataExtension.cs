@@ -15,8 +15,8 @@ namespace GitCandy.Extensions
     public static class MetadataExtension
     {
         const int ShaBytesLength = 20;
-        const string HexValuesInUppercase = "0123456789ABCDEF";
-        const string HexValuesInLowercase = "0123456789abcdef";
+        const String HexValuesInUppercase = "0123456789ABCDEF";
+        const String HexValuesInLowercase = "0123456789abcdef";
 
         public static byte[] AggregateSha(this byte[] one, params byte[][] twos)
         {
@@ -36,7 +36,7 @@ namespace GitCandy.Extensions
             return val;
         }
 
-        public static string BytesToString(this byte[] bytes)
+        public static String BytesToString(this byte[] bytes)
         {
             Contract.Requires(bytes != null);
 
@@ -49,20 +49,20 @@ namespace GitCandy.Extensions
                 chars[index++] = HexValuesInLowercase[b >> 4];
             }
 
-            return new string(chars);
+            return new String(chars);
         }
 
-        public static string ToFlagString(this bool flag, string trueStr, string falseStr)
+        public static String ToFlagString(this bool flag, String trueStr, String falseStr)
         {
             return flag ? trueStr : falseStr;
         }
 
-        public static Dictionary<string, object> CastToDictionary(this object values)
+        public static Dictionary<String, object> CastToDictionary(this object values)
         {
             if (values == null)
                 return null;
 
-            var dictionary = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            var dictionary = new Dictionary<String, object>(StringComparer.OrdinalIgnoreCase);
             var properties = TypeDescriptor.GetProperties(values);
             foreach (PropertyDescriptor propertyDescriptor in properties)
             {
@@ -72,7 +72,7 @@ namespace GitCandy.Extensions
             return dictionary;
         }
 
-        public static string ToShortSha(this string sha)
+        public static String ToShortSha(this String sha)
         {
             if (sha == null)
                 return null;
@@ -82,7 +82,7 @@ namespace GitCandy.Extensions
                 : sha;
         }
 
-        public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<string> items, string selected)
+        public static IEnumerable<SelectListItem> ToSelectListItem(this IEnumerable<String> items, String selected)
         {
             return items.Select(s => new SelectListItem
             {
@@ -91,7 +91,7 @@ namespace GitCandy.Extensions
             });
         }
 
-        public static string CalcSha(this string str)
+        public static String CalcSha(this String str)
         {
             var sha = new SHA1CryptoServiceProvider();
             var data = Encoding.UTF8.GetBytes(str);
@@ -99,14 +99,14 @@ namespace GitCandy.Extensions
             return data.BytesToString();
         }
 
-        public static string RepetitionIfEmpty(this string str, string repetition)
+        public static String RepetitionIfEmpty(this String str, String repetition)
         {
-            return string.IsNullOrWhiteSpace(str)
+            return String.IsNullOrWhiteSpace(str)
                 ? repetition
                 : str;
         }
 
-        public static string ShortString(this string str, int length)
+        public static String ShortString(this String str, int length)
         {
             var wide = 0;
             var len = 0;
@@ -144,7 +144,7 @@ namespace GitCandy.Extensions
             }
         }
 
-        public static string ReadLines(this StringReader reader, int lineCount)
+        public static String ReadLines(this StringReader reader, int lineCount)
         {
             var sb = new StringBuilder();
             while (lineCount-- > 0)
@@ -156,7 +156,7 @@ namespace GitCandy.Extensions
             return sb.ToString();
         }
 
-        public static string ToLocateString(this ChangeKind changeKind)
+        public static String ToLocateString(this ChangeKind changeKind)
         {
             switch (changeKind)
             {
@@ -179,12 +179,12 @@ namespace GitCandy.Extensions
                 case ChangeKind.Untracked:
                     return SR.Repository_FileUntracked;
                 default:
-                    return string.Empty;
+                    return String.Empty;
             }
         }
 
         [Pure]
-        public static string SafyToString(this object obj)
+        public static String SafyToString(this object obj)
         {
             if (obj == null)
                 return null;

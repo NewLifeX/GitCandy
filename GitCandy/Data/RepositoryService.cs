@@ -10,46 +10,40 @@ namespace GitCandy.Data
 {
     public class RepositoryService
     {
-        public Repository Create(RepositoryModel model, long managerID, out bool badName)
+        public Repository Create(RepositoryModel model, Int32 uid, out Boolean badName)
         {
             badName = false;
-            var rp = Repository.FindByName(model.Name);
-            if (rp != null)
+            var repo = Repository.FindByUserIDAndName(uid, model.Name);
+            if (repo != null)
             {
                 badName = true;
                 return null;
             }
 
-            rp = new Repository
+            repo = new Repository
             {
                 Name = model.Name,
                 Description = model.Description,
+                UserID = uid,
                 CreateTime = DateTime.UtcNow,
                 IsPrivate = model.IsPrivate,
                 AllowAnonymousRead = model.AllowAnonymousRead,
                 AllowAnonymousWrite = model.AllowAnonymousWrite,
             };
-            rp.Save();
+            repo.Save();
 
-            if (managerID > 0)
-            {
-                var role = new UserRepository
-                {
-                    RepositoryID = rp.ID,
-                    UserID = (Int32)managerID,
-                    IsOwner = true,
-                    AllowRead = true,
-                    AllowWrite = true
-                };
-                role.Save();
-            }
+            var ur = new UserRepository();
+            ur.UserID = uid;
+            ur.RepositoryID = repo.ID;
+            ur.IsOwner = true;
+            ur.Save();
 
-            return rp;
+            return repo;
         }
 
-        public RepositoryModel GetRepositoryModel(string reponame, bool withShipment = false, string username = null)
+        public RepositoryModel Get(String owner, String reponame, Boolean withShipment = false, String username = null)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return null;
 
             var model = new RepositoryModel
@@ -63,9 +57,7 @@ namespace GitCandy.Data
             if (withShipment || username != null)
             {
                 var tempList = UserRepository.FindAllByRepositoryID(repo.ID).ToList()
-                    .Select(s => new { s.User.Name, s.IsOwner, Kind = true })
-                    .Concat(TeamRepository.FindAllByRepositoryID(repo.ID).ToList()
-                        .Select(s => new { s.Team.Name, IsOwner = false, Kind = false }))
+                    .Select(s => new { s.User.Name, s.IsOwner, Kind = !s.User.IsTeam })
                     .ToList();
 
                 if (withShipment)
@@ -90,9 +82,9 @@ namespace GitCandy.Data
             return model;
         }
 
-        public bool Update(RepositoryModel model)
+        public Boolean Update(String owner, RepositoryModel model)
         {
-            var repo = Repository.FindByName(model.Name);
+            var repo = Repository.FindByOwnerAndName(owner, model.Name);
             if (repo == null) return false;
 
             repo.IsPrivate = model.IsPrivate;
@@ -105,15 +97,16 @@ namespace GitCandy.Data
             return true;
         }
 
-        public CollaborationModel GetRepositoryCollaborationModel(string name)
+        public CollaborationModel GetRepositoryCollaborationModel(String owner, String name)
         {
-            var repo = Repository.FindByName(name);
+            var repo = Repository.FindByOwnerAndName(owner, name);
             if (repo == null) return null;
 
+            var list = UserRepository.FindAllByRepositoryID(repo.ID).ToList();
             var model = new CollaborationModel
             {
                 RepositoryName = repo.Name,
-                Users = UserRepository.FindAllByRepositoryID(repo.ID).ToList()
+                Users = list.Where(e => !e.User.IsTeam)
                     .Select(s => new CollaborationModel.UserRole
                     {
                         Name = s.User.Name,
@@ -123,10 +116,10 @@ namespace GitCandy.Data
                     })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray(),
-                Teams = TeamRepository.FindAllByRepositoryID(repo.ID).ToList()
+                Teams = list.Where(e => e.User.IsTeam)
                     .Select(s => new CollaborationModel.TeamRole
                     {
-                        Name = s.Team.Name,
+                        Name = s.User.Name,
                         AllowRead = s.AllowRead,
                         AllowWrite = s.AllowWrite,
                     })
@@ -136,9 +129,9 @@ namespace GitCandy.Data
             return model;
         }
 
-        public UserRepository RepositoryAddUser(string reponame, string username)
+        public UserRepository RepositoryAddUser(String owner, String reponame, String username)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return null;
 
             var user = User.FindByName(username);
@@ -160,9 +153,9 @@ namespace GitCandy.Data
             return role;
         }
 
-        public bool RepositoryRemoveUser(string reponame, string username)
+        public Boolean RepositoryRemoveUser(String owner, String reponame, String username)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
 
             var user = User.FindByName(username);
@@ -176,9 +169,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public bool RepositoryUserSetValue(string reponame, string username, string field, bool value)
+        public Boolean RepositoryUserSetValue(String owner, String reponame, String username, String field, Boolean value)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
 
             var user = User.FindByName(username);
@@ -201,72 +194,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public TeamRepository RepositoryAddTeam(string reponame, string teamname)
+        public Boolean Delete(String owner, String name)
         {
-            var repo = Repository.FindByName(reponame);
-            if (repo == null) return null;
-
-            var team = Team.FindByName(teamname);
-            if (team == null) return null;
-
-            var role = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, repo.ID);
-            if (role != null) return role;
-
-            role = new TeamRepository
-            {
-                RepositoryID = repo.ID,
-                TeamID = team.ID,
-                AllowRead = true,
-                AllowWrite = true,
-            };
-
-            role.Save();
-
-            return role;
-        }
-
-        public bool RepositoryRemoveTeam(string reponame, string teamname)
-        {
-            var repo = Repository.FindByName(reponame);
-            if (repo == null) return false;
-
-            var team = Team.FindByName(teamname);
-            if (team == null) return false;
-
-            var role = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, repo.ID);
-            if (role == null) return false;
-
-            role.Delete();
-
-            return true;
-        }
-
-        public bool RepositoryTeamSetValue(string reponame, string teamname, string field, bool value)
-        {
-            var repo = Repository.FindByName(reponame);
-            if (repo == null) return false;
-
-            var team = Team.FindByName(teamname);
-            if (team == null) return false;
-
-            var role = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, repo.ID);
-            if (role == null) return false;
-
-            if (field == "read")
-                role.AllowRead = value;
-            else if (field == "write")
-                role.AllowWrite = value;
-            else
-                return false;
-
-            role.Save();
-
-            return true;
-        }
-
-        public Boolean Delete(string name)
-        {
-            var repo = Repository.FindByName(name);
+            var repo = Repository.FindByOwnerAndName(owner, name);
             if (repo == null) return false;
 
             repo.Delete();
@@ -274,9 +204,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public bool IsRepositoryAdministrator(string reponame, string username)
+        public Boolean IsRepositoryAdministrator(String owner, String reponame, String username)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
 
             var user = User.FindByName(username);
@@ -288,36 +218,32 @@ namespace GitCandy.Data
             return role.IsOwner;
         }
 
-        public bool CanReadRepository(string reponame, string username)
+        private Boolean CheckReadWrite(Repository repo, User user, Boolean write)
         {
-            var repo = Repository.FindByName(reponame);
+            //var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
-            if (repo.AllowAnonymousRead) return true;
+            if (repo.AllowAnonymousRead && (!write || repo.AllowAnonymousWrite)) return true;
 
-            var user = User.FindByName(username);
             if (user == null) return false;
             if (user.IsAdmin) return true;
 
             // 个人权限
             var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
-            if (role != null && role.AllowRead) return true;
+            if (role != null && role.AllowRead && (!write || role.AllowWrite)) return true;
 
             // 团队权限
-            var ts = user.Teams.Select(e => e.ID).ToArray();
-            if (ts.Length == 0) return false;
-
-            var roles = TeamRepository.FindAllByRepositoryID(repo.ID);
-            foreach (var item in roles)
+            foreach (var item in user.Teams)
             {
-                if (item.AllowRead && ts.Contains(item.TeamID)) return true;
+                role = UserRepository.FindByUserIDAndRepositoryID(item.TeamID, repo.ID);
+                if (role != null && role.AllowRead && (!write || role.AllowWrite)) return true;
             }
 
             return false;
         }
 
-        public bool CanWriteRepository(string reponame, string username)
+        public Boolean CanReadRepository(String owner, String reponame, String username)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
             if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
 
@@ -325,26 +251,25 @@ namespace GitCandy.Data
             if (user == null) return false;
             if (user.IsAdmin) return true;
 
-            // 个人权限
-            var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
-            if (role != null && role.AllowRead && role.AllowWrite) return true;
-
-            // 团队权限
-            var ts = user.Teams.Select(e => e.ID).ToArray();
-            if (ts.Length == 0) return false;
-
-            var roles = TeamRepository.FindAllByRepositoryID(repo.ID);
-            foreach (var item in roles)
-            {
-                if (item.AllowRead && item.AllowWrite && ts.Contains(item.TeamID)) return true;
-            }
-
-            return false;
+            return CheckReadWrite(repo, user, false);
         }
 
-        public bool CanReadRepository(string reponame, string fingerprint, string publickey)
+        public Boolean CanWriteRepository(String owner, String reponame, String username)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
+            if (repo == null) return false;
+            if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
+
+            var user = User.FindByName(username);
+            if (user == null) return false;
+            if (user.IsAdmin) return true;
+
+            return CheckReadWrite(repo, user, true);
+        }
+
+        public Boolean CanReadRepository(String owner, String reponame, String fingerprint, String publickey)
+        {
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
             if (repo.AllowAnonymousRead) return true;
 
@@ -355,26 +280,12 @@ namespace GitCandy.Data
             if (user == null) return false;
             if (user.IsAdmin) return true;
 
-            // 个人权限
-            var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
-            if (role != null && role.AllowRead) return true;
-
-            // 团队权限
-            var ts = user.Teams.Select(e => e.ID).ToArray();
-            if (ts.Length == 0) return false;
-
-            var roles = TeamRepository.FindAllByRepositoryID(repo.ID);
-            foreach (var item in roles)
-            {
-                if (item.AllowRead && ts.Contains(item.TeamID)) return true;
-            }
-
-            return false;
+            return CheckReadWrite(repo, user, false);
         }
 
-        public bool CanWriteRepository(string reponame, string fingerprint, string publickey)
+        public Boolean CanWriteRepository(String owner, String reponame, String fingerprint, String publickey)
         {
-            var repo = Repository.FindByName(reponame);
+            var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
             if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
 
@@ -385,24 +296,10 @@ namespace GitCandy.Data
             if (user == null) return false;
             if (user.IsAdmin) return true;
 
-            // 个人权限
-            var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
-            if (role != null && role.AllowRead && role.AllowWrite) return true;
-
-            // 团队权限
-            var ts = user.Teams.Select(e => e.ID).ToArray();
-            if (ts.Length == 0) return false;
-
-            var roles = TeamRepository.FindAllByRepositoryID(repo.ID);
-            foreach (var item in roles)
-            {
-                if (item.AllowRead && item.AllowWrite && ts.Contains(item.TeamID)) return true;
-            }
-
-            return false;
+            return CheckReadWrite(repo, user, true);
         }
 
-        public RepositoryListModel GetRepositories(string username, bool showAll, PageParameter param)
+        public RepositoryListModel GetRepositories(String username, Boolean showAll, PageParameter param)
         {
             var model = new RepositoryListModel();
 
@@ -413,7 +310,7 @@ namespace GitCandy.Data
                 param.Desc = true;
             }
 
-            if (string.IsNullOrEmpty(username))
+            if (String.IsNullOrEmpty(username))
             {
                 model.Collaborations = new RepositoryModel[0];
                 model.Repositories = ToRepositoryArray(Repository.GetPublics(param));
@@ -421,17 +318,14 @@ namespace GitCandy.Data
             else
             {
                 var user = User.FindByName(username);
-                var q1 = UserRepository.FindAllByUserID(user.ID).ToList().Where(s => s.AllowRead && s.AllowWrite).Select(s => s.Repository);
-                var q2 = user.Teams.SelectMany(s => TeamRepository.FindAllByTeamID(s.ID).ToList().Where(t => t.AllowRead && t.AllowWrite).Select(t => t.Repository));
+                var q1 = user.Repositories.Select(e => e.Repository);
+                var q2 = user.Teams.SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
                 var q3 = q1.Union(q2);
                 q3 = q3.OrderByDescending(e => e.LastCommit);
 
                 model.Collaborations = ToRepositoryArray(q3);
-                //model.Repositories = ToRepositoryArray(ctx.Repositories.Where(s => showAll || (!s.IsPrivate)).Except(q3).OrderBy(s => s.Name));
-                var exp = Repository._.ID.NotIn(q3.Select(e => e.ID));
-                if (!showAll) exp &= Repository._.IsPrivate.IsTrue(false);
-                var list = Repository.FindAll(exp, param).ToList();
-                model.Repositories = ToRepositoryArray(list.ToList());
+                var list = Repository.Search(!showAll, q3.Select(e => e.ID), param);
+                model.Repositories = ToRepositoryArray(list);
             }
 
             return model;

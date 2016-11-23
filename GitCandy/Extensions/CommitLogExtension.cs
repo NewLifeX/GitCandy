@@ -10,9 +10,9 @@ namespace GitCandy.Extensions
 {
     public static class CommitLogExtension
     {
-        public static IEnumerable<Commit> PathFilter(this IEnumerable<Commit> log, string path)
+        public static IEnumerable<Commit> PathFilter(this IEnumerable<Commit> log, String path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
                 return log;
 
             return log.Where(s =>
@@ -33,9 +33,9 @@ namespace GitCandy.Extensions
 
         public static MvcHtmlString Link(this HtmlHelper html, Signature sign)
         {
-            var user = User.FindByName(sign.Name) ?? User.FindByMail(sign.Email);
+            var user = User.FindByName(sign.Name) ?? User.FindByEmail(sign.Email);
             if (user != null)
-                return html.ActionLink(user.FriendName, "Detail", "Account", new { name = user.Name }, new { target = "_blank" });
+                return html.ActionLink(user + "", "Detail", "Account", new { name = user.Name }, new { target = "_blank" });
             else
                 return new MvcHtmlString(sign.Name);
         }

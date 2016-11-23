@@ -18,10 +18,10 @@ namespace GitCandy.Filters
                 var repoController = controller as RepositoryController;
                 if (repoController != null)
                 {
+                    var owner = controller.ValueProvider.GetValue("owner");
                     var field = controller.ValueProvider.GetValue("name");
-                    var isAdmin = field != null && repoController.RepositoryService.IsRepositoryAdministrator(field.AttemptedValue, controller.Token.Username);
-                    if (isAdmin)
-                        return;
+                    var isAdmin = field != null && repoController.RepositoryService.IsRepositoryAdministrator(owner.AttemptedValue, field.AttemptedValue, controller.Token.Username);
+                    if (isAdmin) return;
                 }
             }
 

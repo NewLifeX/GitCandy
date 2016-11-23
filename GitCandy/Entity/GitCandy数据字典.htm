@@ -13,7 +13,7 @@
 }
 -->
 </style>
-由Stone/X生成于：2016-11-23 03:14:54 <BR />
+由Stone/X生成于：2016-11-23 21:29:06 <BR />
 
 User：
 <strong>用户 （User）</strong> <BR>
@@ -103,7 +103,19 @@ User：
     <td> </td>
   </tr>
   <tr class="dbbody">
-    <td>系统管理员 </td>
+    <td>团队 </td>
+    <td>IsTeam</td>
+    <td>IsTeam</td>
+    <td>Boolean</td>
+    <td>1</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr class="dbbody">
+    <td>管理员 </td>
     <td>IsAdmin</td>
     <td>IsAdmin</td>
     <td>Boolean</td>
@@ -248,131 +260,6 @@ User：
   </tr>
 </table>
 
-Team：
-<strong>团队 （Team）</strong> <BR>
-<table border="0" cellspacing="0" class="dbtable">
-  <tr align="center" valign="middle" class="caption">
-    <td width="150">中文名</td>
-    <td width="150">英文名</td>
-    <td width="150">字段名</td>
-    <td width="75">数据类型</td>
-    <td width="50">大小</td>
-    <td width="35">主键</td>
-    <td width="35">唯一</td>
-    <td width="35">必填</td>
-    <td width="75">默认值</td>
-    <td width="150">描述</td>
-  </tr>
-  <tr class="dbbody">
-    <td>编号 </td>
-    <td>ID</td>
-    <td>ID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">是</td>
-    <td align="center">是</td>
-    <td align="center">是</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>名称 </td>
-    <td>Name</td>
-    <td>Name</td>
-    <td>String</td>
-    <td>50</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>描述 </td>
-    <td>Description</td>
-    <td>Description</td>
-    <td>String</td>
-    <td>500</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建者 </td>
-    <td>CreateUserID</td>
-    <td>CreateUserID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建时间 </td>
-    <td>CreateTime</td>
-    <td>CreateTime</td>
-    <td>DateTime</td>
-    <td>3</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建地址 </td>
-    <td>CreateIP</td>
-    <td>CreateIP</td>
-    <td>String</td>
-    <td>50</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新者 </td>
-    <td>UpdateUserID</td>
-    <td>UpdateUserID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新时间 </td>
-    <td>UpdateTime</td>
-    <td>UpdateTime</td>
-    <td>DateTime</td>
-    <td>3</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新地址 </td>
-    <td>UpdateIP</td>
-    <td>UpdateIP</td>
-    <td>String</td>
-    <td>50</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-</table>
-
 Repository：
 <strong>仓库 （Repository）</strong> <BR>
 <table border="0" cellspacing="0" class="dbtable">
@@ -401,6 +288,18 @@ Repository：
     <td> </td>
   </tr>
   <tr class="dbbody">
+    <td>用户 </td>
+    <td>UserID</td>
+    <td>UserID</td>
+    <td>Int32</td>
+    <td>10</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr class="dbbody">
     <td>名称 </td>
     <td>Name</td>
     <td>Name</td>
@@ -410,7 +309,7 @@ Repository：
     <td align="center">&nbsp;</td>
     <td align="center">&nbsp;</td>
     <td> </td>
-    <td>登录用户名 </td>
+    <td> </td>
   </tr>
   <tr class="dbbody">
     <td>启用 </td>
@@ -831,7 +730,7 @@ UserRepository：
     <td> </td>
   </tr>
   <tr class="dbbody">
-    <td>管理员 </td>
+    <td>允许读 </td>
     <td>AllowRead</td>
     <td>AllowRead</td>
     <td>Boolean</td>
@@ -843,7 +742,7 @@ UserRepository：
     <td> </td>
   </tr>
   <tr class="dbbody">
-    <td>管理员 </td>
+    <td>允许写 </td>
     <td>AllowWrite</td>
     <td>AllowWrite</td>
     <td>Boolean</td>
@@ -858,155 +757,6 @@ UserRepository：
     <td>管理员 </td>
     <td>IsOwner</td>
     <td>IsOwner</td>
-    <td>Boolean</td>
-    <td>1</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建者 </td>
-    <td>CreateUserID</td>
-    <td>CreateUserID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建时间 </td>
-    <td>CreateTime</td>
-    <td>CreateTime</td>
-    <td>DateTime</td>
-    <td>3</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>创建地址 </td>
-    <td>CreateIP</td>
-    <td>CreateIP</td>
-    <td>String</td>
-    <td>50</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新者 </td>
-    <td>UpdateUserID</td>
-    <td>UpdateUserID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新时间 </td>
-    <td>UpdateTime</td>
-    <td>UpdateTime</td>
-    <td>DateTime</td>
-    <td>3</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>更新地址 </td>
-    <td>UpdateIP</td>
-    <td>UpdateIP</td>
-    <td>String</td>
-    <td>50</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-</table>
-
-TeamRepository：
-<strong>团队仓库 （TeamRepository）</strong> <BR>
-<table border="0" cellspacing="0" class="dbtable">
-  <tr align="center" valign="middle" class="caption">
-    <td width="150">中文名</td>
-    <td width="150">英文名</td>
-    <td width="150">字段名</td>
-    <td width="75">数据类型</td>
-    <td width="50">大小</td>
-    <td width="35">主键</td>
-    <td width="35">唯一</td>
-    <td width="35">必填</td>
-    <td width="75">默认值</td>
-    <td width="150">描述</td>
-  </tr>
-  <tr class="dbbody">
-    <td>编号 </td>
-    <td>ID</td>
-    <td>ID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">是</td>
-    <td align="center">是</td>
-    <td align="center">是</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>团队 </td>
-    <td>TeamID</td>
-    <td>TeamID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>仓库 </td>
-    <td>RepositoryID</td>
-    <td>RepositoryID</td>
-    <td>Int32</td>
-    <td>10</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>管理员 </td>
-    <td>AllowRead</td>
-    <td>AllowRead</td>
-    <td>Boolean</td>
-    <td>1</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td> </td>
-    <td> </td>
-  </tr>
-  <tr class="dbbody">
-    <td>管理员 </td>
-    <td>AllowWrite</td>
-    <td>AllowWrite</td>
     <td>Boolean</td>
     <td>1</td>
     <td align="center">&nbsp;</td>

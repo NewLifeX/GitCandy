@@ -1,5 +1,6 @@
 ﻿using GitCandy.Controllers;
 using System.Web.Mvc;
+using System;
 
 namespace GitCandy.Filters
 {

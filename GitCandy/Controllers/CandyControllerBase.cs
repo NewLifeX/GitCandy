@@ -13,7 +13,7 @@ namespace GitCandy.Controllers
     [AllowAnonymous]
     public abstract class CandyControllerBase : Controller
     {
-        private const string AuthKey = "_gc_auth";
+        private const String AuthKey = "_gc_auth";
 
         private Token _token;
 
@@ -107,7 +107,7 @@ namespace GitCandy.Controllers
             if (UserConfiguration.Current.ForceSsl && !Request.IsSecureConnection)
             {
                 var uri = Request.Url;
-                filterContext.Result = Redirect(new Uri(string.Format("https://{0}:{1}{2}", uri.Host, UserConfiguration.Current.SslPort, uri.PathAndQuery)).ToString());
+                filterContext.Result = Redirect(new Uri(String.Format("https://{0}:{1}{2}", uri.Host, UserConfiguration.Current.SslPort, uri.PathAndQuery)).ToString());
                 XTrace.WriteLine("Redirect to SSL from " + uri);
                 return;
             }
@@ -126,9 +126,9 @@ namespace GitCandy.Controllers
             base.OnActionExecuting(filterContext);
         }
 
-        protected virtual ActionResult RedirectToStartPage(string returnUrl = null)
+        protected virtual ActionResult RedirectToStartPage(String returnUrl = null)
         {
-            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl)) return RedirectToAction("Index", "Repository");
+            if (String.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl)) return RedirectToAction("Index", "Repository");
 
             return Redirect(returnUrl);
         }
@@ -139,14 +139,14 @@ namespace GitCandy.Controllers
                 HttpRuntime.Cache.Insert(token.AuthCode.ToString(), token, null, token.Expires, Cache.NoSlidingExpiration);
         }
 
-        private Token GetCachedToken(string key)
+        private Token GetCachedToken(String key)
         {
             return key == null
                 ? null
                 : HttpRuntime.Cache.Get(key) as Token;
         }
 
-        private void RemoveCachedToken(string key)
+        private void RemoveCachedToken(String key)
         {
             if (key != null)
                 HttpRuntime.Cache.Remove(key);

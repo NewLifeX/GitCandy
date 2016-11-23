@@ -14,7 +14,7 @@ namespace GitCandy.Controllers
     public class TeamController : CandyControllerBase
     {
         [Administrator]
-        public ActionResult Index(string query, int? page)
+        public ActionResult Index(String query, int? page)
         {
             var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
@@ -52,20 +52,20 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(string name)
+        public ActionResult Detail(String name)
         {
             var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token.Username);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             return View(model);
         }
 
         [TeamOrSystemAdministrator]
-        public ActionResult Edit(string name)
+        public ActionResult Edit(String name)
         {
             var model = MembershipService.GetTeamModel(name);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             ModelState.Clear();
 
             return View(model);
@@ -73,17 +73,17 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [TeamOrSystemAdministrator]
-        public ActionResult Edit(string name, TeamModel model)
+        public ActionResult Edit(String name, TeamModel model)
         {
             if (ModelState.IsValid)
                 if (!MembershipService.UpdateTeam(model))
-                    throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
 
             return View(model);
         }
 
         [TeamOrSystemAdministrator]
-        public ActionResult Users(string name)
+        public ActionResult Users(String name)
         {
             var model = MembershipService.GetTeamModel(name, true);
             return View(model);
@@ -91,9 +91,9 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [TeamOrSystemAdministrator]
-        public JsonResult ChooseUser(string name, string user, string act)
+        public JsonResult ChooseUser(String name, String user, String act)
         {
-            string message = null;
+            String message = null;
             if (act == "add")
             {
                 if (MembershipService.TeamAddUser(name, user))
@@ -102,7 +102,7 @@ namespace GitCandy.Controllers
             else if (act == "del")
             {
                 if (!Token.IsSystemAdministrator
-                    && string.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                    && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamRemoveUser(name, user))
                     return Json("success");
@@ -111,7 +111,7 @@ namespace GitCandy.Controllers
             {
                 var isAdmin = act == "admin";
                 if (!Token.IsSystemAdministrator
-                    && !isAdmin && string.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                    && !isAdmin && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamUserSetAdministrator(name, user, isAdmin))
                     return Json("success");
@@ -122,9 +122,9 @@ namespace GitCandy.Controllers
         }
 
         [Administrator]
-        public ActionResult Delete(string name, string conform)
+        public ActionResult Delete(String name, String conform)
         {
-            if (string.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 MembershipService.DeleteTeam(name);
                 XTrace.WriteLine("Team {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
@@ -134,7 +134,7 @@ namespace GitCandy.Controllers
         }
 
         [HttpPost]
-        public JsonResult Search(string query)
+        public JsonResult Search(String query)
         {
             var result = MembershipService.SearchTeam(query);
             return Json(result);

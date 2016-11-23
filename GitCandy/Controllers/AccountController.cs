@@ -16,7 +16,7 @@ namespace GitCandy.Controllers
     public class AccountController : CandyControllerBase
     {
         [Administrator]
-        public ActionResult Index(string query, int? page)
+        public ActionResult Index(String query, int? page)
         {
             var model = MembershipService.GetUserList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
@@ -64,26 +64,26 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(string name)
+        public ActionResult Detail(String name)
         {
-            if (string.IsNullOrEmpty(name) && Token != null)
+            if (String.IsNullOrEmpty(name) && Token != null)
                 name = Token.Username;
 
             var model = MembershipService.GetUserModel(name, true, Token == null ? null : Token.Username);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             return View(model);
         }
 
         [AllowAnonymous]
-        public ActionResult Logout(string returnUrl)
+        public ActionResult Logout(String returnUrl)
         {
             Token = null;
             return RedirectToStartPage(returnUrl);
         }
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(String returnUrl)
         {
             if (Token != null)
                 return RedirectToStartPage(returnUrl);
@@ -94,7 +94,7 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model, String returnUrl)
         {
             var user = MembershipService.Login(model.ID, model.Password);
             if (user != null)
@@ -118,11 +118,11 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [CurrentUserOrAdministrator]
-        public ActionResult Change(ChangePasswordModel model, string name)
+        public ActionResult Change(ChangePasswordModel model, String name)
         {
-            if (string.IsNullOrEmpty(name)) name = Token.Username;
+            if (String.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            var isAdmin = Token.IsSystemAdministrator && !String.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
             if (ModelState.IsValid)
             {
                 var user = UserX.Check(isAdmin ? Token.Username : name, model.OldPassword);
@@ -149,14 +149,14 @@ namespace GitCandy.Controllers
         }
 
         [CurrentUserOrAdministrator]
-        public ActionResult Edit(string name)
+        public ActionResult Edit(String name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
                 name = Token.Username;
 
             var model = MembershipService.GetUserModel(name);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             ModelState.Clear();
 
             return View(model);
@@ -164,11 +164,11 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [CurrentUserOrAdministrator]
-        public ActionResult Edit(string name, UserModel model)
+        public ActionResult Edit(String name, UserModel model)
         {
-            if (string.IsNullOrEmpty(name)) name = Token.Username;
+            if (String.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator && !string.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            var isAdmin = Token.IsSystemAdministrator && !String.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
 
             ModelState.Remove("ConformPassword");
             if (ModelState.IsValid)
@@ -180,7 +180,7 @@ namespace GitCandy.Controllers
                     if (!Token.IsSystemAdministrator || isAdmin || model.IsSystemAdministrator)
                     {
                         if (!MembershipService.UpdateUser(model))
-                            throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                            throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                         if (!isAdmin)
                         {
                             Token = MembershipService.GetToken(Token.AuthCode);
@@ -198,9 +198,9 @@ namespace GitCandy.Controllers
 
         [HttpPost]
         [CurrentUserOrAdministrator]
-        public JsonResult ChooseSsh(string user, string sshkey, string act)
+        public JsonResult ChooseSsh(String user, String sshkey, String act)
         {
-            string message = null;
+            String message = null;
             if (act == "add")
             {
                 var fingerprint = MembershipService.AddSshKey(user, sshkey);
@@ -218,25 +218,25 @@ namespace GitCandy.Controllers
         }
 
         [CurrentUserOrAdministrator]
-        public ActionResult Ssh(string name)
+        public ActionResult Ssh(String name)
         {
-            if (string.IsNullOrEmpty(name) && Token != null)
+            if (String.IsNullOrEmpty(name) && Token != null)
                 name = Token.Username;
 
             var model = MembershipService.GetSshList(name);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
             return View(model);
         }
 
         [Administrator]
-        public ActionResult Delete(string name, string conform)
+        public ActionResult Delete(String name, String conform)
         {
-            if (string.Equals(Token.Username, name, StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(Token.Username, name, StringComparison.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("", SR.Account_CantRemoveSelf);
             }
-            else if (string.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
+            else if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 MembershipService.DeleteUser(name);
                 XTrace.WriteLine("User {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
@@ -246,7 +246,7 @@ namespace GitCandy.Controllers
         }
 
         [HttpPost]
-        public JsonResult Search(string query)
+        public JsonResult Search(String query)
         {
             var result = MembershipService.SearchUsers(query);
             return Json(result);

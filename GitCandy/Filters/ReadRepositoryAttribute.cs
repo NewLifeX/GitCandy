@@ -22,12 +22,12 @@ namespace GitCandy.Filters
             if (repoController != null)
             {
                 var username = controller.Token == null ? null : controller.Token.Username;
+                var owner = controller.ValueProvider.GetValue("owner");
                 var field = controller.ValueProvider.GetValue("name");
-                var canRead = field != null && (requireWrite
-                    ? repoController.RepositoryService.CanWriteRepository(field.AttemptedValue, username)
-                    : repoController.RepositoryService.CanReadRepository(field.AttemptedValue, username));
-                if (canRead)
-                    return;
+                var canRead = owner != null && field != null && (requireWrite
+                       ? repoController.RepositoryService.CanWriteRepository(owner.AttemptedValue, field.AttemptedValue, username)
+                       : repoController.RepositoryService.CanReadRepository(owner.AttemptedValue, field.AttemptedValue, username));
+                if (canRead) return;
             }
 
             HandleUnauthorizedRequest(filterContext);

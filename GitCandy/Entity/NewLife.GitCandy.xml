@@ -8,7 +8,8 @@
       <Column Name="Email" DataType="String" Description="邮件" />
       <Column Name="Password" DataType="String" Description="密码" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
-      <Column Name="IsAdmin" DataType="Boolean" Description="系统管理员" />
+      <Column Name="IsTeam" DataType="Boolean" Description="团队" />
+      <Column Name="IsAdmin" DataType="Boolean" Description="管理员" />
       <Column Name="RegisterTime" DataType="DateTime" Description="注册时间" />
       <Column Name="Logins" DataType="Int32" Description="登录" />
       <Column Name="LastLogin" DataType="DateTime" Description="最后登录" />
@@ -25,26 +26,11 @@
       <Index Columns="Name" Unique="True" />
     </Indexes>
   </Table>
-  <Table Name="Team" Description="团队" DbType="SqlServer">
-    <Columns>
-      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="Name" DataType="String" Master="True" Description="名称" />
-      <Column Name="Description" DataType="String" Length="500" Description="描述" />
-      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
-      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
-      <Column Name="CreateIP" DataType="String" Description="创建地址" />
-      <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
-      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
-      <Column Name="UpdateIP" DataType="String" Description="更新地址" />
-    </Columns>
-    <Indexes>
-      <Index Columns="Name" Unique="True" />
-    </Indexes>
-  </Table>
   <Table Name="Repository" Description="仓库" DbType="SqlServer">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="Name" DataType="String" Master="True" Description="名称。登录用户名" />
+      <Column Name="UserID" DataType="Int32" Description="用户" />
+      <Column Name="Name" DataType="String" Master="True" Description="名称" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="IsPrivate" DataType="Boolean" Description="私有" />
       <Column Name="AllowAnonymousRead" DataType="Boolean" Description="匿名读" />
@@ -66,7 +52,9 @@
       <Column Name="UpdateIP" DataType="String" Description="更新地址" />
     </Columns>
     <Indexes>
-      <Index Columns="Name" Unique="True" />
+      <Index Columns="UserID,Name" Unique="True" />
+      <Index Columns="UserID" />
+      <Index Columns="Name" />
     </Indexes>
   </Table>
   <Table Name="UserTeam" Description="用户团队" DbType="SqlServer">
@@ -84,6 +72,8 @@
     </Columns>
     <Indexes>
       <Index Columns="UserID,TeamID" Unique="True" />
+      <Index Columns="UserID" />
+      <Index Columns="TeamID" />
     </Indexes>
   </Table>
   <Table Name="UserRepository" Description="用户仓库" DbType="SqlServer">
@@ -91,8 +81,8 @@
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="UserID" DataType="Int32" Description="用户" />
       <Column Name="RepositoryID" DataType="Int32" Description="仓库" />
-      <Column Name="AllowRead" DataType="Boolean" Description="管理员" />
-      <Column Name="AllowWrite" DataType="Boolean" Description="管理员" />
+      <Column Name="AllowRead" DataType="Boolean" Description="允许读" />
+      <Column Name="AllowWrite" DataType="Boolean" Description="允许写" />
       <Column Name="IsOwner" DataType="Boolean" Description="管理员" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
@@ -103,24 +93,6 @@
     </Columns>
     <Indexes>
       <Index Columns="UserID,RepositoryID" Unique="True" />
-    </Indexes>
-  </Table>
-  <Table Name="TeamRepository" Description="团队仓库" DbType="SqlServer">
-    <Columns>
-      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="TeamID" DataType="Int32" Description="团队" />
-      <Column Name="RepositoryID" DataType="Int32" Description="仓库" />
-      <Column Name="AllowRead" DataType="Boolean" Description="管理员" />
-      <Column Name="AllowWrite" DataType="Boolean" Description="管理员" />
-      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
-      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
-      <Column Name="CreateIP" DataType="String" Description="创建地址" />
-      <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
-      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
-      <Column Name="UpdateIP" DataType="String" Description="更新地址" />
-    </Columns>
-    <Indexes>
-      <Index Columns="TeamID,RepositoryID" Unique="True" />
     </Indexes>
   </Table>
   <Table Name="AuthorizationLog" Description="认证日志" DbType="SqlServer">

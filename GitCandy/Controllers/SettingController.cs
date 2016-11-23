@@ -82,9 +82,9 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
-        public ActionResult Restart(string conform)
+        public ActionResult Restart(String conform)
         {
-            if (string.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 HttpRuntime.UnloadAppDomain();
                 return RedirectToStartPage();
@@ -92,9 +92,9 @@ namespace GitCandy.Controllers
             return View();
         }
 
-        public ActionResult ReGenSsh(string conform)
+        public ActionResult ReGenSsh(String conform)
         {
-            if (string.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 UserConfiguration.Current.HostKeys.Clear();
                 foreach (var type in KeyUtils.SupportedAlgorithms)

@@ -16,11 +16,11 @@ namespace GitCandy.Extensions
             if (routeValues == null)
                 return old;
 
-            var over = new Dictionary<string, object>(old, StringComparer.OrdinalIgnoreCase);
+            var over = new Dictionary<String, object>(old, StringComparer.OrdinalIgnoreCase);
             if (withQuery)
             {
                 var qs = helper.ViewContext.HttpContext.Request.QueryString;
-                foreach (string key in qs)
+                foreach (String key in qs)
                     over[key] = qs[key];
             }
             var values = new RouteValueDictionary(routeValues);
@@ -30,17 +30,17 @@ namespace GitCandy.Extensions
             return new RouteValueDictionary(over);
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, RouteValueDictionary routeValues, object htmlAttributes)
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, RouteValueDictionary routeValues, object htmlAttributes)
         {
             return LinkExtensions.ActionLink(htmlHelper, linkText, actionName, routeValues, htmlAttributes.CastToDictionary());
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, RouteValueDictionary routeValues, object htmlAttributes)
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, String controllerName, RouteValueDictionary routeValues, object htmlAttributes)
         {
             return LinkExtensions.ActionLink(htmlHelper, linkText, actionName, controllerName, routeValues, htmlAttributes.CastToDictionary());
         }
 
-        public static MvcHtmlString CultureActionLink(this HtmlHelper htmlHelper, string langName)
+        public static MvcHtmlString CultureActionLink(this HtmlHelper htmlHelper, String langName)
         {
             var culture = CultureInfo.CreateSpecificCulture(langName);
             var displayName = culture.Name.StartsWith("en")

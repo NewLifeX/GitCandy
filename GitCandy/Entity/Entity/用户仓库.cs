@@ -54,11 +54,11 @@ namespace NewLife.GitCandy.Entity
         }
 
         private Boolean _AllowRead;
-        /// <summary>管理员</summary>
-        [DisplayName("管理员")]
-        [Description("管理员")]
+        /// <summary>允许读</summary>
+        [DisplayName("允许读")]
+        [Description("允许读")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(4, "AllowRead", "管理员", null, "bit", 0, 0, false)]
+        [BindColumn(4, "AllowRead", "允许读", null, "bit", 0, 0, false)]
         public virtual Boolean AllowRead
         {
             get { return _AllowRead; }
@@ -66,11 +66,11 @@ namespace NewLife.GitCandy.Entity
         }
 
         private Boolean _AllowWrite;
-        /// <summary>管理员</summary>
-        [DisplayName("管理员")]
-        [Description("管理员")]
+        /// <summary>允许写</summary>
+        [DisplayName("允许写")]
+        [Description("允许写")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(5, "AllowWrite", "管理员", null, "bit", 0, 0, false)]
+        [BindColumn(5, "AllowWrite", "允许写", null, "bit", 0, 0, false)]
         public virtual Boolean AllowWrite
         {
             get { return _AllowWrite; }
@@ -226,10 +226,10 @@ namespace NewLife.GitCandy.Entity
             ///<summary>仓库</summary>
             public static readonly Field RepositoryID = FindByName(__.RepositoryID);
 
-            ///<summary>管理员</summary>
+            ///<summary>允许读</summary>
             public static readonly Field AllowRead = FindByName(__.AllowRead);
 
-            ///<summary>管理员</summary>
+            ///<summary>允许写</summary>
             public static readonly Field AllowWrite = FindByName(__.AllowWrite);
 
             ///<summary>管理员</summary>
@@ -268,10 +268,10 @@ namespace NewLife.GitCandy.Entity
             ///<summary>仓库</summary>
             public const String RepositoryID = "RepositoryID";
 
-            ///<summary>管理员</summary>
+            ///<summary>允许读</summary>
             public const String AllowRead = "AllowRead";
 
-            ///<summary>管理员</summary>
+            ///<summary>允许写</summary>
             public const String AllowWrite = "AllowWrite";
 
             ///<summary>管理员</summary>
@@ -312,10 +312,10 @@ namespace NewLife.GitCandy.Entity
         /// <summary>仓库</summary>
         Int32 RepositoryID { get; set; }
 
-        /// <summary>管理员</summary>
+        /// <summary>允许读</summary>
         Boolean AllowRead { get; set; }
 
-        /// <summary>管理员</summary>
+        /// <summary>允许写</summary>
         Boolean AllowWrite { get; set; }
 
         /// <summary>管理员</summary>

@@ -15,6 +15,7 @@ using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
+using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -27,17 +28,29 @@ namespace NewLife.GitCandy.Entity
             var df = Meta.Factory.AdditionalFields;
             df.Add(__.Views);
         }
-
-        protected override Int32 OnDelete()
-        {
-            UserRepository.FindAllByRepositoryID(ID).Delete();
-            TeamRepository.FindAllByRepositoryID(ID).Delete();
-
-            return base.OnDelete();
-        }
         #endregion
 
         #region 扩展属性
+        private User _User;
+        /// <summary>团队</summary>
+        public User User
+        {
+            get
+            {
+                //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
+                {
+                    _User = User.FindByID(UserID);
+                    //Dirtys["User"] = true;
+                }
+                return _User;
+            }
+            set { _User = value; }
+        }
+
+        /// <summary>用户名称</summary>
+        [DisplayName("用户")]
+        [Map(__.UserID, typeof(User), "ID")]
+        public String UserName { get { return User + ""; } }
         #endregion
 
         #region 扩展查询
@@ -55,18 +68,37 @@ namespace NewLife.GitCandy.Entity
         /// <param name="name">名称。登录用户名</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static Repository FindByName(String name)
+        public static Repository FindByUserIDAndName(Int32 userid, String name)
         {
-            if (name.IsNullOrEmpty()) return null;
+            if (userid <= 0 || name.IsNullOrEmpty()) return null;
 
             if (Meta.Count >= 1000)
-                return Find(__.Name, name);
+                return Find(new String[] { __.UserID, __.Name }, new Object[] { userid, name });
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.Name, name);
+                return Meta.Cache.Entities.ToList().FirstOrDefault(e => e.UserID == userid && e.Name == name);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
 
+        public static Repository FindByOwnerAndName(String owner, String name)
+        {
+            if (owner.IsNullOrEmpty() || name.IsNullOrEmpty()) return null;
+
+            var user = User.FindByName(owner);
+            if (user == null) return null;
+
+            return FindByUserIDAndName(user.ID, name);
+        }
+
+        public static EntityList<Repository> FindAllByUserID(Int32 userid)
+        {
+            if (userid <= 0) return new EntityList<Repository>();
+
+            if (Meta.Count >= 1000)
+                return FindAll(__.UserID, userid);
+            else
+                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+        }
         #endregion
 
         #region 高级查询
@@ -97,7 +129,18 @@ namespace NewLife.GitCandy.Entity
         {
             if (param == null) param = new PageParameter { PageSize = 20 };
 
-            return FindAll(_.IsPrivate.IsTrue(false), param);
+            return FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
+        }
+
+        public static EntityList<Repository> Search(Boolean pri, IEnumerable<Int32> excludes = null, PageParameter param = null)
+        {
+            if (param == null) param = new PageParameter { PageSize = 20 };
+
+            var exp = _.Enable == true;
+            if (!pri) exp &= _.IsPrivate == false;
+            if (excludes != null) exp &= _.ID.NotIn(excludes);
+
+            return FindAll(exp, param);
         }
         #endregion
 
@@ -107,6 +150,8 @@ namespace NewLife.GitCandy.Entity
         #region 业务
         public Boolean CanViewFor(User user)
         {
+            if (!Enable) return false;
+
             // 公开库
             if (!IsPrivate) return true;
 
@@ -114,29 +159,27 @@ namespace NewLife.GitCandy.Entity
             if (user.IsAdmin) return true;
 
             // 个人
-            var ur = UserRepository.FindByUserIDAndRepositoryID(user.ID, ID);
-            if (ur != null && ur.AllowRead) return true;
+            if (UserID == user.ID) return true;
 
             // 团队
             foreach (var team in user.Teams)
             {
-                var tr = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, ID);
-                if (tr != null && tr.AllowRead) return true;
+                if (team.UserID == UserID) return true;
             }
 
             return false;
         }
 
-        public Boolean CanViewFor(Team team)
-        {
-            // 公开库
-            if (!IsPrivate) return true;
+        //public Boolean CanViewFor(Team team)
+        //{
+        //    // 公开库
+        //    if (!IsPrivate) return true;
 
-            var tr = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, ID);
-            if (tr != null && tr.AllowRead) return true;
+        //    var tr = TeamRepository.FindByTeamIDAndRepositoryID(team.ID, ID);
+        //    if (tr != null && tr.AllowRead) return true;
 
-            return false;
-        }
+        //    return false;
+        //}
         #endregion
     }
 }

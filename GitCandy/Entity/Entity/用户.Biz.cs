@@ -16,10 +16,10 @@ using XCode.Membership;
 
 namespace NewLife.GitCandy.Entity
 {
-    public class MyManageProvider : ManageProvider<User> { }
+    //public class MyManageProvider : ManageProvider<User> { }
 
     /// <summary>用户</summary>
-    public partial class User : User<User>
+    public partial class User : LogEntity<User>
     {
         #region 对象操作
         ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -51,34 +51,35 @@ namespace NewLife.GitCandy.Entity
 
         protected override Int32 OnDelete()
         {
-            UserTeam.FindAllByUserID(ID).Delete();
-            UserRepository.FindAllByUserID(ID).Delete();
+            (Teams as IEntityList)?.Delete(true);
+            (Repositories as IEntityList)?.Delete(true);
+            (SshKeys as IEntityList)?.Delete(true);
+            Repository.FindAllByUserID(ID).Delete();
             AuthorizationLog.FindAllByUserID(ID).Delete();
-            SshKey.FindAllByUserID(ID).Delete();
 
             return base.OnDelete();
         }
         #endregion
 
         #region 扩展属性
-        /// <summary>是否系统管理员</summary>
-        public Boolean IsAdmin
-        {
-            get
-            {
-                if (Role == null) return false;
-                return Role.Name == "管理员";
-            }
-        }
+        ///// <summary>是否系统管理员</summary>
+        //public Boolean IsAdmin
+        //{
+        //    get
+        //    {
+        //        if (Role == null) return false;
+        //        return Role.Name == "管理员";
+        //    }
+        //}
 
-        /// <summary>昵称</summary>
-        public String Nickname { get { return DisplayName; } set { DisplayName = value; } }
+        ///// <summary>昵称</summary>
+        //public String Nickname { get { return DisplayName; } set { DisplayName = value; } }
 
-        /// <summary>邮箱</summary>
-        public String Email { get { return Mail; } set { Mail = value; } }
+        ///// <summary>邮箱</summary>
+        //public String Email { get { return Mail; } set { Mail = value; } }
 
         private List<UserTeam> _Teams;
-        /// <summary>绑定信息</summary>
+        /// <summary>团队关系</summary>
         public List<UserTeam> Teams
         {
             get
@@ -97,7 +98,7 @@ namespace NewLife.GitCandy.Entity
         public String[] TeamNames { get { return Teams?.Select(e => e.TeamName).OrderBy(e => e).ToArray(); } }
 
         private List<UserRepository> _Repositories;
-        /// <summary>绑定信息</summary>
+        /// <summary>仓库关系</summary>
         public List<UserRepository> Repositories
         {
             get
@@ -116,7 +117,7 @@ namespace NewLife.GitCandy.Entity
         public String[] RepositoryNames { get { return Repositories?.Select(e => e.RepositoryName).ToArray(); } }
 
         private List<SshKey> _SshKeys;
-        /// <summary>绑定信息</summary>
+        /// <summary>SSH密钥</summary>
         public List<SshKey> SshKeys
         {
             get
@@ -134,40 +135,40 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展查询
-        //public static User FindByID(Int32 id)
-        //{
-        //    if (id <= 0) return null;
+        public static User FindByID(Int32 id)
+        {
+            if (id <= 0) return null;
 
-        //    if (Meta.Count >= 1000)
-        //        return Find(__.ID, id);
-        //    else // 实体缓存
-        //        return Meta.Cache.Entities.Find(__.ID, id);
-        //}
+            if (Meta.Count >= 1000)
+                return Find(__.ID, id);
+            else // 实体缓存
+                return Meta.Cache.Entities.Find(__.ID, id);
+        }
 
-        ///// <summary>根据名称。登录用户名查找</summary>
-        ///// <param name="name">名称。登录用户名</param>
-        ///// <returns></returns>
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public static User FindByName(String name)
-        //{
-        //    if (name.IsNullOrEmpty()) return null;
+        /// <summary>根据名称。登录用户名查找</summary>
+        /// <param name="name">名称。登录用户名</param>
+        /// <returns></returns>
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public static User FindByName(String name)
+        {
+            if (name.IsNullOrEmpty()) return null;
 
-        //    if (Meta.Count >= 1000)
-        //        return Find(__.Name, name);
-        //    else // 实体缓存
-        //        return Meta.Cache.Entities.Find(__.Name, name);
-        //    // 单对象缓存
-        //    //return Meta.SingleCache[name];
-        //}
+            if (Meta.Count >= 1000)
+                return Find(__.Name, name);
+            else // 实体缓存
+                return Meta.Cache.Entities.Find(__.Name, name);
+            // 单对象缓存
+            //return Meta.SingleCache[name];
+        }
 
         public static User FindByEmail(String email)
         {
-            if (email.IsNullOrEmpty()) return null;
+            if (email.IsNullOrEmpty() || !email.Contains("@") || !email.Contains(".")) return null;
 
             if (Meta.Count >= 1000)
-                return Find("Mail", email);
+                return Find(__.Email, email);
             else // 实体缓存
-                return Meta.Cache.Entities.Find("Mail", email);
+                return Meta.Cache.Entities.Find(__.Email, email);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
@@ -177,7 +178,12 @@ namespace NewLife.GitCandy.Entity
         public static EntityList<User> SearchByName(String name, PageParameter param)
         {
             var fi = Meta.Table.FindByName("Name");
-            return FindAll(fi.Contains(name), param);
+            return FindAll(_.Name.Contains(name), param);
+        }
+
+        public static EntityList<User> SearchTeam(String name, PageParameter param)
+        {
+            return FindAll(_.IsTeam == true & _.Name.Contains(name), param);
         }
 
         /// <summary>查询满足条件的记录集，分页、排序</summary>
@@ -203,6 +209,10 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展操作
+        public override String ToString()
+        {
+            return Nickname ?? Name;
+        }
         #endregion
 
         #region 业务

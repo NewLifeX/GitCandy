@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace GitCandy.Controllers
@@ -17,7 +18,7 @@ namespace GitCandy.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Language(string lang)
+        public ActionResult Language(String lang)
         {
             var cookie = new HttpCookie("Lang", lang);
             Response.Cookies.Set(cookie);

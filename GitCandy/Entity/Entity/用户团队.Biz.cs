@@ -31,7 +31,7 @@ namespace NewLife.GitCandy.Entity
         {
             get
             {
-                //if (_User == null && GatewayID > 0 && !Dirtys.ContainsKey("User"))
+                //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
                 {
                     _User = User.FindByID(UserID);
                     //Dirtys["User"] = true;
@@ -46,15 +46,15 @@ namespace NewLife.GitCandy.Entity
         [Map(__.UserID, typeof(User), "ID")]
         public String UserName { get { return User + ""; } }
 
-        private Team _Team;
+        private User _Team;
         /// <summary>团队</summary>
-        public Team Team
+        public User Team
         {
             get
             {
-                //if (_Team == null && GatewayID > 0 && !Dirtys.ContainsKey("Team"))
+                //if (_Team == null && TeamID > 0 && !Dirtys.ContainsKey("Team"))
                 {
-                    _Team = Team.FindByID(TeamID);
+                    _Team = User.FindByID(TeamID);
                     //Dirtys["Team"] = true;
                 }
                 return _Team;
@@ -64,7 +64,7 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>团队名称</summary>
         [DisplayName("团队")]
-        [Map(__.TeamID, typeof(Team), "ID")]
+        [Map(__.TeamID, typeof(User), "ID")]
         public String TeamName { get { return Team + ""; } }
         #endregion
 

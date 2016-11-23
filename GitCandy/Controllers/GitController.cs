@@ -20,22 +20,22 @@ namespace GitCandy.Controllers
         public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
         [SmartGit]
-        public ActionResult Smart(string project, string service, string verb)
+        public ActionResult Smart(String owner, String project, String service, String verb)
         {
             switch (verb)
             {
                 case "info/refs":
-                    return InfoRefs(project, service);
+                    return InfoRefs(owner, project, service);
                 case "git-upload-pack":
-                    return ExecutePack(project, "git-upload-pack");
+                    return ExecutePack(owner, project, "git-upload-pack");
                 case "git-receive-pack":
-                    return ExecutePack(project, "git-receive-pack");
+                    return ExecutePack(owner, project, "git-receive-pack");
                 default:
-                    return RedirectToAction("Tree", "Repository", new { Name = project });
+                    return RedirectToAction("Tree", "Repository", new { Owner = owner, Name = project });
             }
         }
 
-        protected ActionResult InfoRefs(string project, string service)
+        protected ActionResult InfoRefs(String owner, String project, String service)
         {
             Response.Charset = "";
             Response.ContentType = String.Format(CultureInfo.InvariantCulture, "application/x-{0}-advertisement", service);
@@ -54,15 +54,15 @@ namespace GitCandy.Controllers
             }
             catch (RepositoryNotFoundException e)
             {
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty, e);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty, e);
             }
             catch (Exception e)
             {
-                throw new HttpException((int)HttpStatusCode.InternalServerError, string.Empty, e);
+                throw new HttpException((int)HttpStatusCode.InternalServerError, String.Empty, e);
             }
         }
 
-        protected ActionResult ExecutePack(string project, string service)
+        protected ActionResult ExecutePack(String owner, String project, String service)
         {
             Response.Charset = "";
             Response.ContentType = String.Format(CultureInfo.InvariantCulture, "application/x-{0}-result", service);
@@ -76,23 +76,23 @@ namespace GitCandy.Controllers
                     git.ExecutePack(svc, GetInputStream(), Response.OutputStream);
 
                     // 拦截提交
-                    if (svc == "receive-pack") Task.Run(() => UpdateRepo(project));
+                    if (svc == "receive-pack") Task.Run(() => UpdateRepo(owner, project));
                 }
                 return new EmptyResult();
             }
             catch (RepositoryNotFoundException e)
             {
-                throw new HttpException((int)HttpStatusCode.NotFound, string.Empty, e);
+                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty, e);
             }
             catch (Exception e)
             {
-                throw new HttpException((int)HttpStatusCode.InternalServerError, string.Empty, e);
+                throw new HttpException((int)HttpStatusCode.InternalServerError, String.Empty, e);
             }
         }
 
         /// <summary>更新仓库统计信息</summary>
         /// <param name="project"></param>
-        private void UpdateRepo(String project)
+        private void UpdateRepo(String owner, String project)
         {
             using (var git = new GitService(project))
             {
@@ -110,7 +110,7 @@ namespace GitCandy.Controllers
                         cts++;
                 }
 
-                var repo = NewLife.GitCandy.Entity.Repository.FindByName(project);
+                var repo = NewLife.GitCandy.Entity.Repository.FindByOwnerAndName(owner, project);
                 if (repo != null)
                 {
                     if (cms > 0) repo.Commits = cms;
@@ -170,12 +170,12 @@ namespace GitCandy.Controllers
             return Request.GetBufferlessInputStream(true);
         }
 
-        private static string FormatMessage(string input)
+        private static String FormatMessage(String input)
         {
             return (input.Length + 4).ToString("X4", CultureInfo.InvariantCulture) + input;
         }
 
-        private static string FlushMessage()
+        private static String FlushMessage()
         {
             return "0000";
         }

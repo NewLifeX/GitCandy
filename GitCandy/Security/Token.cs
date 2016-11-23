@@ -5,13 +5,13 @@ namespace GitCandy.Security
 {
     public class Token
     {
-        private const string ContentKey = "GitCandyToken";
+        private const String ContentKey = "GitCandyToken";
         private const double AuthPeriod = 21600; // 15 days
         private const double RenewalPeriod = 1440; // 1 day
 
         private Token() { }
 
-        public Token(String authCode, long userID, string username, string nickname, bool isSystemAdministrator, DateTime? expires = null)
+        public Token(String authCode, Int32 userID, String username, String nickname, bool isSystemAdministrator, DateTime? expires = null)
         {
             AuthCode = new Guid(authCode);
             UserID = userID;
@@ -43,14 +43,14 @@ namespace GitCandy.Security
         }
 
         public Guid AuthCode { get; private set; }
-        public long UserID { get; private set; }
-        public string Username { get; private set; }
-        public string Nickname { get; private set; }
+        public Int32 UserID { get; private set; }
+        public String Username { get; private set; }
+        public String Nickname { get; private set; }
         public bool IsSystemAdministrator { get; private set; }
 
         public DateTime Expires { get; private set; }
         public DateTime IssueDate { get; private set; }
-        public string LastIp { get; set; }
+        public String LastIp { get; set; }
 
         public bool Expired { get { return Expires > DateTime.Now.AddMinutes(AuthPeriod); } }
 

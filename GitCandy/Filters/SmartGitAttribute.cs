@@ -52,11 +52,9 @@ namespace GitCandy.Filters
 
             var right = false;
 
-            var projectField = controller.ValueProvider.GetValue("project");
-            var serviceField = controller.ValueProvider.GetValue("service");
-
-            var project = projectField == null ? null : projectField.AttemptedValue;
-            var service = serviceField == null ? null : serviceField.AttemptedValue;
+            var owner = controller.ValueProvider.GetValue("owner")?.AttemptedValue;
+            var project = controller.ValueProvider.GetValue("project")?.AttemptedValue;
+            var service = controller.ValueProvider.GetValue("service")?.AttemptedValue;
 
             if (String.IsNullOrEmpty(service)) // redirect to git browser
             {
@@ -64,11 +62,11 @@ namespace GitCandy.Filters
             }
             else if (String.Equals(service, "git-receive-pack", StringComparison.OrdinalIgnoreCase)) // git push
             {
-                right = controller.RepositoryService.CanWriteRepository(project, username);
+                right = controller.RepositoryService.CanWriteRepository(owner, project, username);
             }
             else if (String.Equals(service, "git-upload-pack", StringComparison.OrdinalIgnoreCase)) // git fetch
             {
-                right = controller.RepositoryService.CanReadRepository(project, username);
+                right = controller.RepositoryService.CanReadRepository(owner, project, username);
             }
 
             if (!right)

@@ -31,7 +31,7 @@ namespace NewLife.GitCandy.Entity
         {
             get
             {
-                //if (_User == null && GatewayID > 0 && !Dirtys.ContainsKey("User"))
+                //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
                 {
                     _User = User.FindByID(UserID);
                     //Dirtys["User"] = true;

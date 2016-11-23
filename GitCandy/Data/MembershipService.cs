@@ -12,7 +12,7 @@ namespace GitCandy.Data
     public class MembershipService
     {
         #region Account part
-        public User CreateAccount(string name, string nickname, string password, string email, string description, out bool badName, out bool badEmail)
+        public User CreateAccount(String name, String nickname, String password, String email, String description, out bool badName, out bool badEmail)
         {
             badName = false;
             badEmail = false;
@@ -39,7 +39,7 @@ namespace GitCandy.Data
                 Email = email,
                 Password = password.MD5(),
                 Enable = true,
-                Profile = description,
+                Description = description,
                 RegisterTime = DateTime.Now
             };
 
@@ -48,7 +48,7 @@ namespace GitCandy.Data
             return user;
         }
 
-        public UserModel GetUserModel(string name, bool withMembers = false, string viewUser = null)
+        public UserModel GetUserModel(String name, bool withMembers = false, String viewUser = null)
         {
             var user = User.FindByName(name);
             if (user == null) return null;
@@ -58,41 +58,24 @@ namespace GitCandy.Data
                 Name = user.Name,
                 Nickname = user.Nickname,
                 Email = user.Email,
-                Description = user.Profile,
+                Description = user.Description,
                 IsSystemAdministrator = user.IsAdmin,
             };
             if (withMembers)
             {
                 model.Teams = user.TeamNames;
-                var rs = user.Repositories.Where(e => e.IsOwner);
+                var rs = user.Repositories.Select(e => e.Repository).Where(e => e.Enable);
                 if (!viewUser.IsNullOrEmpty())
                 {
                     var vu = User.FindByName(viewUser);
-                    rs = rs.Where(e => e.Repository != null && e.Repository.CanViewFor(vu));
+                    rs = rs.Where(e => e.CanViewFor(vu));
                 }
-                model.Respositories = rs.Select(e => e.RepositoryName).OrderBy(e => e).ToArray();
-                //model.Respositories = ctx.UserRepositoryRoles
-                //    // belong user
-                //    .Where(s => s.User.ID == user.ID && s.IsOwner)
-                //    // can view for viewUser
-                //    .Where(s => !s.Repository.IsPrivate
-                //        || viewUser != null &&
-                //            (ctx.Users.Any(t => t.Name == viewUser && t.IsSystemAdministrator)
-                //            || ctx.UserRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                //                && t.User.Name == viewUser
-                //                && t.AllowRead)
-                //            || ctx.TeamRepositoryRoles.Any(t => t.RepositoryID == s.RepositoryID
-                //                && t.Team.UserTeamRoles.Any(r => r.User.Name == viewUser)
-                //                && t.AllowRead)))
-                //    .Select(s => s.Repository.Name)
-                //    .AsEnumerable()
-                //    .OrderBy(s => s, new StringLogicalComparer())
-                //    .ToArray();
+                model.Respositories = rs.Select(e => e.Name).OrderBy(e => e).ToArray();
             }
             return model;
         }
 
-        public User Login(string id, string password)
+        public User Login(String id, String password)
         {
             var user = User.FindByName(id) ?? User.FindByEmail(id);
             if (user != null && user.Login(password)) return user;
@@ -100,7 +83,7 @@ namespace GitCandy.Data
             return null;
         }
 
-        public void SetPassword(string name, string newPassword)
+        public void SetPassword(String name, String newPassword)
         {
             var user = User.FindByName(name);
             if (user != null)
@@ -124,8 +107,8 @@ namespace GitCandy.Data
             {
                 user.Nickname = model.Nickname;
                 user.Email = model.Email;
-                user.Profile = model.Description;
-                //user.IsAdmin = model.IsSystemAdministrator;
+                user.Description = model.Description;
+                user.IsAdmin = model.IsSystemAdministrator;
 
                 user.Save();
                 return true;
@@ -133,7 +116,7 @@ namespace GitCandy.Data
             return false;
         }
 
-        public AuthorizationLog CreateAuthorization(long userID, DateTime expires, string ip)
+        public AuthorizationLog CreateAuthorization(long userID, DateTime expires, String ip)
         {
             var auth = new AuthorizationLog
             {
@@ -162,7 +145,7 @@ namespace GitCandy.Data
             };
         }
 
-        public void UpdateAuthorization(Guid authCode, DateTime expires, string lastIp)
+        public void UpdateAuthorization(Guid authCode, DateTime expires, String lastIp)
         {
             var auth = AuthorizationLog.FindByAuthCode(authCode + "");
             if (auth != null)
@@ -183,21 +166,13 @@ namespace GitCandy.Data
             }
         }
 
-        public void DeleteUser(string name)
+        public void DeleteUser(String name)
         {
             var user = User.FindByName(name);
-            if (user != null)
-            {
-                //user.UserTeamRoles.Clear();
-                //user.UserRepositoryRoles.Clear();
-                //user.AuthorizationLogs.Clear();
-                //user.SshKeys.Clear();
-
-                user.Delete();
-            }
+            if (user != null) user.Delete();
         }
 
-        public UserListModel GetUserList(string keyword, int page, int pagesize = 20)
+        public UserListModel GetUserList(String keyword, int page, int pagesize = 20)
         {
             var p = new PageParameter();
             p.PageIndex = page;
@@ -211,66 +186,24 @@ namespace GitCandy.Data
                     Name = e.Name,
                     Nickname = e.Nickname,
                     Email = e.Email,
-                    Description = e.Profile,
+                    Description = e.Description,
                     IsSystemAdministrator = e.IsAdmin,
                 }).ToArray(),
                 CurrentPage = page,
                 ItemCount = p.TotalCount
             };
-
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    var query = ctx.Users.AsQueryable();
-            //    if (!string.IsNullOrEmpty(keyword))
-            //        query = query.Where(s => s.Name.Contains(keyword)
-            //            || s.Nickname.Contains(keyword)
-            //            || s.Email.Contains(keyword)
-            //            || s.Description.Contains(keyword));
-            //    query = query.OrderBy(s => s.Name);
-
-            //    var model = new UserListModel
-            //    {
-            //        Users = query
-            //            .Skip((page - 1) * pagesize)
-            //            .Take(pagesize)
-            //            .Select(user => new UserModel
-            //            {
-            //                Name = user.Name,
-            //                Nickname = user.Nickname,
-            //                Email = user.Email,
-            //                Description = user.Description,
-            //                IsSystemAdministrator = user.IsSystemAdministrator,
-            //            })
-            //            .ToArray(),
-            //        CurrentPage = page,
-            //        ItemCount = query.Count(),
-            //    };
-            //    return model;
-            //}
         }
 
-        public string[] SearchUsers(string query)
+        public String[] SearchUsers(String query)
         {
             var p = new PageParameter();
             p.PageSize = 20;
 
             var list = User.Search(query, p);
             return list.ToList().Select(e => e.Name).ToArray();
-
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    var length = query.Length + 0.5;
-            //    return ctx.Users
-            //        .Where(s => s.Name.Contains(query))
-            //        .OrderByDescending(s => length / s.Name.Length)
-            //        .ThenBy(s => s.Name)
-            //        .Take(10)
-            //        .Select(s => s.Name)
-            //        .ToArray();
-            //}
         }
 
-        public string AddSshKey(string name, string sshkey)
+        public String AddSshKey(String name, String sshkey)
         {
             var seg = sshkey.Split();
             var type = seg[0];
@@ -295,7 +228,7 @@ namespace GitCandy.Data
             return fingerprint;
         }
 
-        public void DeleteSshKey(string name, string sshkey)
+        public void DeleteSshKey(String name, String sshkey)
         {
             var user = User.FindByName(name);
             if (user == null) return;
@@ -304,89 +237,57 @@ namespace GitCandy.Data
             if (key == null) return;
 
             if (key.Fingerprint == sshkey) key.Delete();
-
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    var key = ctx.SshKeys.FirstOrDefault(s => s.User.Name == name && s.Fingerprint == sshkey);
-            //    ctx.SshKeys.Remove(key);
-            //    ctx.SaveChanges();
-            //}
         }
 
-        public bool HasSshKey(string fingerprint)
+        public bool HasSshKey(String fingerprint)
         {
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    return ctx.SshKeys.Any(s => s.Fingerprint == fingerprint);
-            //}
-
-            return SshKey.FindCount(SshKey._.Fingerprint, fingerprint) > 0;
+            return SshKey.FindByFingerprint(fingerprint) != null;
         }
 
-        public SshModel GetSshList(string name)
+        public SshModel GetSshList(String name)
         {
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    var keys = ctx.SshKeys
-            //        .Where(s => s.User.Name == name)
-            //        .Select(s => new SshModel.SshKey { Name = s.Fingerprint })
-            //        .ToArray();
-
-            //    return new SshModel { Username = name, SshKeys = keys };
-            //}
-
             var user = User.FindByName(name);
             if (user == null) return null;
 
-            return new Models.SshModel { Username = user.Name, SshKeys = user.SshKeys.Select(s => new SshModel.SshKey { Name = s.Fingerprint }).ToArray() };
+            return new Models.SshModel
+            {
+                Username = user.Name,
+                SshKeys = user.SshKeys.Select(s => new SshModel.SshKey { Name = s.Fingerprint }).ToArray()
+            };
         }
         #endregion
 
         #region Team part
-        public Team CreateTeam(string name, string description, long managerID, out bool badName)
+        public User CreateTeam(String name, String description, long managerID, out bool badName)
         {
             badName = false;
 
-            var team = Team.FindByName(name);
+            var team = User.FindByName(name);
             if (team != null)
             {
                 badName = true;
                 return null;
             }
 
-            team = new Team
+            team = new User
             {
                 Name = name,
                 Description = description,
-                //CreationDate = DateTime.UtcNow,
+                IsTeam = true,
             };
             team.Save();
 
             if (managerID > 0)
             {
                 UserTeam.Add((Int32)managerID, team.ID, true);
-                //team.UserTeamRoles.Add(new UserTeamRole { Team = team, UserID = managerID, IsAdministrator = true });
             }
-            //ctx.SaveChanges();
 
             return team;
         }
 
         public bool UpdateTeam(TeamModel model)
         {
-            //using (var ctx = new GitCandyContext())
-            //{
-            //    var team = ctx.Teams.FirstOrDefault(s => s.Name == model.Name);
-            //    if (team != null)
-            //    {
-            //        team.Description = model.Description;
-            //        ctx.SaveChanges();
-            //        return true;
-            //    }
-            //    return false;
-            //}
-
-            var team = Team.FindByName(model.Name);
+            var team = User.FindByName(model.Name);
             if (team == null) return false;
 
             team.Description = model.Description;
@@ -395,9 +296,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public TeamModel GetTeamModel(string name, bool withMembers = false, string viewUser = null)
+        public TeamModel GetTeamModel(String name, bool withMembers = false, String viewUser = null)
         {
-            var team = Team.FindByName(name);
+            var team = User.FindByName(name);
             if (team == null) return null;
 
             var model = new TeamModel
@@ -419,11 +320,11 @@ namespace GitCandy.Data
                     .Select(s => s.Name)
                     .ToArray();
 
-                var rs = team.Repositories.AsEnumerable();
+                var rs = team.Repositories.Where(e => e.Repository.Enable);
                 if (!viewUser.IsNullOrEmpty())
                 {
                     var vu = User.FindByName(viewUser);
-                    rs = rs.Where(e => e.Repository != null && e.Repository.CanViewFor(vu));
+                    rs = rs.Where(e => e.Repository.CanViewFor(vu));
                 }
                 model.RepositoriesRole = rs.Select(s => new TeamModel.RepositoryRole
                 {
@@ -440,9 +341,9 @@ namespace GitCandy.Data
             return model;
         }
 
-        public bool TeamAddUser(string teamname, string username)
+        public bool TeamAddUser(String teamname, String username)
         {
-            var team = Team.FindByName(teamname);
+            var team = User.FindByName(teamname);
             if (team == null) return false;
 
             var user = User.FindByName(username);
@@ -451,7 +352,7 @@ namespace GitCandy.Data
             var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
             if (tu == null)
             {
-                tu = new NewLife.GitCandy.Entity.UserTeam();
+                tu = new UserTeam();
                 tu.UserID = user.ID;
                 tu.TeamID = team.ID;
                 tu.Save();
@@ -460,9 +361,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public bool TeamRemoveUser(string teamname, string username)
+        public bool TeamRemoveUser(String teamname, String username)
         {
-            var team = Team.FindByName(teamname);
+            var team = User.FindByName(teamname);
             if (team == null) return false;
 
             var user = User.FindByName(username);
@@ -476,9 +377,9 @@ namespace GitCandy.Data
             return true;
         }
 
-        public bool TeamUserSetAdministrator(string teamname, string username, bool isAdmin)
+        public bool TeamUserSetAdministrator(String teamname, String username, bool isAdmin)
         {
-            var team = Team.FindByName(teamname);
+            var team = User.FindByName(teamname);
             if (team == null) return false;
 
             var user = User.FindByName(username);
@@ -493,15 +394,16 @@ namespace GitCandy.Data
             return true;
         }
 
-        public string[] SearchTeam(string query)
+        public String[] SearchTeam(String query)
         {
-            var list = Team.FindAll(Team._.Name.Contains(query), null, null, 0, 10);
+            var p = new PageParameter();
+            var list = User.SearchTeam(query, p);
             return list.ToList().Select(e => e.Name).ToArray();
         }
 
-        public bool IsTeamAdministrator(string teamname, string username)
+        public bool IsTeamAdministrator(String teamname, String username)
         {
-            var team = Team.FindByName(teamname);
+            var team = User.FindByName(teamname);
             if (team == null) return false;
 
             var user = User.FindByName(username);
@@ -513,9 +415,9 @@ namespace GitCandy.Data
             return tu.IsAdmin;
         }
 
-        public Boolean DeleteTeam(string name)
+        public Boolean DeleteTeam(String name)
         {
-            var team = Team.FindByName(name);
+            var team = User.FindByName(name);
             if (team == null) return false;
 
             team.Delete();
@@ -523,12 +425,12 @@ namespace GitCandy.Data
             return true;
         }
 
-        public TeamListModel GetTeamList(string keyword, int page, int pagesize = 20)
+        public TeamListModel GetTeamList(String keyword, int page, int pagesize = 20)
         {
             var p = new PageParameter();
             p.PageIndex = page;
             p.PageSize = pagesize;
-            var list = Team.Search(keyword, p);
+            var list = User.SearchTeam(keyword, p);
 
             var model = new TeamListModel
             {

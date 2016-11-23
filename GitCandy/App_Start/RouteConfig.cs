@@ -29,20 +29,6 @@ namespace GitCandy
                 constraints: new { user = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
-            routes.MapRoute(
-                name: "TeamGitWeb",
-                url: "{team}/{name}/{*path}",
-                defaults: new { controller = "Repository", action = "Tree" },
-                constraints: new { team = new TeamUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
-            routes.MapRoute(
-                name: "TeamGit",
-                url: "{team}/{project}/{*verb}",
-                defaults: new { controller = "Git", action = "Smart" },
-                constraints: new { team = new TeamUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
             #endregion
 
             #region AccountContorller
@@ -63,14 +49,6 @@ namespace GitCandy
             #endregion
 
             #region TeamContorller
-            // 实现团队名直达团队首页
-            routes.MapRoute(
-                name: "TeamIndex",
-                url: "{name}",
-                defaults: new { controller = "Team", action = "Detail" },
-                constraints: new { name = new TeamUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
             routes.MapRoute(
                 name: "Team",
                 url: "Team/{action}/{name}",
@@ -144,35 +122,6 @@ namespace GitCandy
             }
 
             return _cache.GetItem(name, k => User.FindByName(k) != null);
-        }
-    }
-
-    class TeamUrlConstraint : IRouteConstraint
-    {
-        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
-        {
-            var name = values[parameterName] + "";
-            if (name.IsNullOrEmpty()) return false;
-
-            return Match(name);
-            //if (Team.FindByName(name) != null) return true;
-
-            //return false;
-        }
-
-        private static DictionaryCache<String, Boolean> _cache;
-        private static Boolean Match(String name)
-        {
-            if (_cache == null)
-            {
-                _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
-                _cache.Asynchronous = true;
-                _cache.CacheDefault = true;
-                _cache.Expire = 10 * 60;        // 10分钟过期
-                //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
-            }
-
-            return _cache.GetItem(name, k => Team.FindByName(k) != null);
         }
     }
 }
