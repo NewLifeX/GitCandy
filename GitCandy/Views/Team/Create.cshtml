@@ -17,6 +17,14 @@
             </span>
         </dd>
 
+        <dt>@Html.DisplayNameFor(s => s.Nickname)</dt>
+        <dd>@Html.TextBoxFor(s => s.Nickname, new { @class = "form-control" })</dd>
+        <dd>
+            <span class="text-danger">
+                @Html.ValidationMessageFor(s => s.Nickname)
+            </span>
+        </dd>
+
         <dt>@Html.DisplayNameFor(s => s.Description)</dt>
         <dd>@Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" })</dd>
         <dd>

@@ -158,15 +158,6 @@ namespace GitCandy.Data
             };
         }
 
-        public String[] SearchUsers(String query)
-        {
-            var p = new PageParameter();
-            p.PageSize = 20;
-
-            var list = User.Search(query, p);
-            return list.ToList().Select(e => e.Name).ToArray();
-        }
-
         public String AddSshKey(String name, String sshkey)
         {
             var seg = sshkey.Split();
@@ -222,38 +213,12 @@ namespace GitCandy.Data
         #endregion
 
         #region Team part
-        public User CreateTeam(String name, String description, long managerID, out bool badName)
-        {
-            badName = false;
-
-            var team = User.FindByName(name);
-            if (team != null)
-            {
-                badName = true;
-                return null;
-            }
-
-            team = new User
-            {
-                Name = name,
-                Description = description,
-                IsTeam = true,
-            };
-            team.Save();
-
-            if (managerID > 0)
-            {
-                UserTeam.Add((Int32)managerID, team.ID, true);
-            }
-
-            return team;
-        }
-
         public bool UpdateTeam(TeamModel model)
         {
             var team = User.FindByName(model.Name);
             if (team == null) return false;
 
+            team.Nickname = model.Nickname;
             team.Description = model.Description;
             team.Save();
 
@@ -268,6 +233,7 @@ namespace GitCandy.Data
             var model = new TeamModel
             {
                 Name = team.Name,
+                Nickname = team.Nickname,
                 Description = team.Description,
             };
             if (withMembers)
@@ -402,6 +368,7 @@ namespace GitCandy.Data
                 Teams = list.ToList().Select(s => new TeamModel
                 {
                     Name = s.Name,
+                    Nickname = s.Nickname,
                     Description = s.Description,
                 })
                     .ToArray(),

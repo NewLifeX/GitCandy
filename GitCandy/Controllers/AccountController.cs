@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using GitCandy.Configuration;
 using GitCandy.Filters;
 using GitCandy.Models;
 using GitCandy.Security;
+using NewLife.Data;
 using NewLife.Log;
 using UserX = NewLife.GitCandy.Entity.User;
 
@@ -252,8 +254,13 @@ namespace GitCandy.Controllers
         [HttpPost]
         public JsonResult Search(String query)
         {
-            var result = MembershipService.SearchUsers(query);
-            return Json(result);
+            var p = new PageParameter();
+            p.PageSize = 20;
+
+            var list = UserX.SearchUser(query, p);
+            var ns = list.ToList().Select(e => e.Name).ToArray();
+
+            return Json(ns);
         }
     }
 }

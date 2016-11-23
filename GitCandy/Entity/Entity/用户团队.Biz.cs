@@ -22,6 +22,13 @@ namespace NewLife.GitCandy.Entity
     public partial class UserTeam : LogEntity<UserTeam>
     {
         #region 对象操作
+        public override void Valid(Boolean isNew)
+        {
+            if (UserID <= 0) throw new ArgumentNullException(__.UserID);
+            if (TeamID <= 0) throw new ArgumentNullException(__.TeamID);
+
+            base.Valid(isNew);
+        }
         #endregion
 
         #region 扩展属性

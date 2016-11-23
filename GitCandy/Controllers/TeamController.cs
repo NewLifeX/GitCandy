@@ -8,6 +8,7 @@ using GitCandy.Configuration;
 using GitCandy.Filters;
 using GitCandy.Models;
 using NewLife.Log;
+using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
@@ -39,14 +40,20 @@ namespace GitCandy.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool badName;
-                var team = MembershipService.CreateTeam(model.Name, model.Description, Token.UserID, out badName);
-                if (team != null)
+                try
                 {
-                    return RedirectToAction("Detail", "Team", new { team.Name });
+                    var team = UserX.CreateTeam(model.Name, model.Nickname, model.Description);
+                    if (team != null)
+                        return RedirectToAction("Detail", "Team", new { team.Name });
                 }
-                if (badName)
-                    ModelState.AddModelError("Name", SR.Team_AlreadyExists);
+                catch (ArgumentException aex)
+                {
+                    ModelState.AddModelError(aex.ParamName, aex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             return View(model);

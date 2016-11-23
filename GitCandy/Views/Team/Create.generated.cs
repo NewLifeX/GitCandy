@@ -117,7 +117,7 @@ WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 
             
             #line 20 "..\..\Views\Team\Create.cshtml"
-       Write(Html.DisplayNameFor(s => s.Description));
+       Write(Html.DisplayNameFor(s => s.Nickname));
 
             
             #line default
@@ -126,7 +126,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 
             
             #line 21 "..\..\Views\Team\Create.cshtml"
-       Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
+       Write(Html.TextBoxFor(s => s.Nickname, new { @class = "form-control" }));
 
             
             #line default
@@ -141,6 +141,39 @@ WriteLiteral("                ");
 
             
             #line 24 "..\..\Views\Team\Create.cshtml"
+           Write(Html.ValidationMessageFor(s => s.Nickname));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
+
+            
+            #line 28 "..\..\Views\Team\Create.cshtml"
+       Write(Html.DisplayNameFor(s => s.Description));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dt>\r\n        <dd>");
+
+            
+            #line 29 "..\..\Views\Team\Create.cshtml"
+       Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dd>\r\n        <dd>\r\n            <span");
+
+WriteLiteral(" class=\"text-danger\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
+
+            
+            #line 32 "..\..\Views\Team\Create.cshtml"
            Write(Html.ValidationMessageFor(s => s.Description));
 
             
@@ -149,7 +182,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 29 "..\..\Views\Team\Create.cshtml"
+            #line 37 "..\..\Views\Team\Create.cshtml"
        Write(Html.ValidationSummary(true, SR.Team_CreationUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -164,7 +197,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 33 "..\..\Views\Team\Create.cshtml"
+            #line 41 "..\..\Views\Team\Create.cshtml"
                                                      Write(SR.Shared_Create);
 
             
@@ -179,7 +212,7 @@ WriteLiteral(" class=\"btn btn-inverse\"");
 WriteLiteral(">");
 
             
-            #line 34 "..\..\Views\Team\Create.cshtml"
+            #line 42 "..\..\Views\Team\Create.cshtml"
                                                     Write(SR.Shared_Reset);
 
             
@@ -188,7 +221,7 @@ WriteLiteral(">");
 WriteLiteral("</button> &nbsp;\r\n        </dd>\r\n    </dl>\r\n");
 
             
-            #line 37 "..\..\Views\Team\Create.cshtml"
+            #line 45 "..\..\Views\Team\Create.cshtml"
 }
 
             

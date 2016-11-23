@@ -184,6 +184,15 @@ namespace NewLife.GitCandy.Entity
         {
             return FindAll(_.IsTeam == true & _.Name.Contains(name), param);
         }
+
+        /// <summary>搜索用户，不包含团队</summary>
+        /// <param name="key"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static EntityList<User> SearchUser(String key, PageParameter param)
+        {
+            return FindAll(_.IsTeam.IsTrue(false) & (_.Name.Contains(key) | _.Email.Contains(key)), param);
+        }
         #endregion
 
         #region 扩展操作
@@ -209,6 +218,26 @@ namespace NewLife.GitCandy.Entity
                 Email = email,
                 Password = password.MD5(),
                 Enable = true,
+                Description = description,
+                RegisterTime = DateTime.Now
+            };
+
+            user.Save();
+
+            return user;
+        }
+
+        public static User CreateTeam(String name, String nickname, String description)
+        {
+            var user = User.FindByName(name);
+            if (user != null) throw new ArgumentException(_.Name.DisplayName + "已存在", __.Name);
+
+            user = new User
+            {
+                Name = name,
+                Nickname = nickname,
+                Enable = false,
+                IsTeam = true,
                 Description = description,
                 RegisterTime = DateTime.Now
             };

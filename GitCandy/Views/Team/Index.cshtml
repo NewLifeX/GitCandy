@@ -28,6 +28,7 @@
     <thead>
         <tr>
             <th>@SR.Team_Name</th>
+            <th>@SR.Team_Name</th>
             <th>@SR.Team_Description</th>
         </tr>
     </thead>
@@ -36,6 +37,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(item.Name, "Detail", new { name = item.Name })</td>
+                <td>@item.Nickname</td>
                 <td>@item.Description</td>
             </tr>
         }

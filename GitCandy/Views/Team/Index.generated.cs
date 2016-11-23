@@ -167,6 +167,15 @@ WriteLiteral("</th>\r\n            <th>");
 
             
             #line 31 "..\..\Views\Team\Index.cshtml"
+           Write(SR.Team_Name);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</th>\r\n            <th>");
+
+            
+            #line 32 "..\..\Views\Team\Index.cshtml"
            Write(SR.Team_Description);
 
             
@@ -175,13 +184,13 @@ WriteLiteral("</th>\r\n            <th>");
 WriteLiteral("</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
 
             
-            #line 35 "..\..\Views\Team\Index.cshtml"
+            #line 36 "..\..\Views\Team\Index.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Team\Index.cshtml"
+            #line 36 "..\..\Views\Team\Index.cshtml"
          foreach (var item in Model.Teams)
         {
 
@@ -191,7 +200,7 @@ WriteLiteral("</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
 WriteLiteral("            <tr>\r\n                <td>");
 
             
-            #line 38 "..\..\Views\Team\Index.cshtml"
+            #line 39 "..\..\Views\Team\Index.cshtml"
                Write(Html.ActionLink(item.Name, "Detail", new { name = item.Name }));
 
             
@@ -200,7 +209,16 @@ WriteLiteral("            <tr>\r\n                <td>");
 WriteLiteral("</td>\r\n                <td>");
 
             
-            #line 39 "..\..\Views\Team\Index.cshtml"
+            #line 40 "..\..\Views\Team\Index.cshtml"
+               Write(item.Nickname);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td>");
+
+            
+            #line 41 "..\..\Views\Team\Index.cshtml"
                Write(item.Description);
 
             
@@ -209,7 +227,7 @@ WriteLiteral("</td>\r\n                <td>");
 WriteLiteral("</td>\r\n            </tr>\r\n");
 
             
-            #line 41 "..\..\Views\Team\Index.cshtml"
+            #line 43 "..\..\Views\Team\Index.cshtml"
         }
 
             
@@ -218,7 +236,7 @@ WriteLiteral("</td>\r\n            </tr>\r\n");
 WriteLiteral("    </tbody>\r\n</table>\r\n");
 
             
-            #line 44 "..\..\Views\Team\Index.cshtml"
+            #line 46 "..\..\Views\Team\Index.cshtml"
 Write(Html.Partial("_Pager"));
 
             

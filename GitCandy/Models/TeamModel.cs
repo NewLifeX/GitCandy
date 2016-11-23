@@ -14,6 +14,11 @@ namespace GitCandy.Models
         [Display(ResourceType = typeof(SR), Name = "Team_Name")]
         public String Name { get; set; }
 
+        [StringLength(20, MinimumLength = 2, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLength")]
+        [Display(ResourceType = typeof(SR), Name = "Account_Nickname")]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public String Nickname { get; set; }
+
         [StringLength(500, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLength")]
         [Display(ResourceType = typeof(SR), Name = "Team_Description")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
