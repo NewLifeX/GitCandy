@@ -24,8 +24,8 @@ namespace GitCandy.Controllers
 
             Session["Culture"] = null;
 
-            if (Request.UrlReferrer == null)
-                return RedirectToStartPage();
+            if (Request.UrlReferrer == null) return RedirectToStartPage();
+
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
     }

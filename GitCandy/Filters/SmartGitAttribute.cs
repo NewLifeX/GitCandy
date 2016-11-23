@@ -16,18 +16,14 @@ namespace GitCandy.Filters
             base.OnAuthorization(filterContext);
 
             var controller = filterContext.Controller as GitController;
-            if (controller == null)
-                return;
+            if (controller == null) return;
 
             // git.exe not accept cookies as well as no session available
             var username = controller.Session[AuthKey] as string;
             if (username == null)
             {
                 var token = controller.Token;
-                if (token != null)
-                {
-                    username = token.Username;
-                }
+                if (token != null) username = token.Username;
             }
             if (username == null)
             {

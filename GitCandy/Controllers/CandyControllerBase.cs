@@ -128,8 +128,8 @@ namespace GitCandy.Controllers
 
         protected virtual ActionResult RedirectToStartPage(string returnUrl = null)
         {
-            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
-                return RedirectToAction("Index", "Repository");
+            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl)) return RedirectToAction("Index", "Repository");
+
             return Redirect(returnUrl);
         }
 
