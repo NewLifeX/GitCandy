@@ -78,11 +78,11 @@ namespace NewLife.GitCandy.Entity
         }
 
         private Boolean _IsOwner;
-        /// <summary>管理员</summary>
-        [DisplayName("管理员")]
-        [Description("管理员")]
+        /// <summary>拥有者</summary>
+        [DisplayName("拥有者")]
+        [Description("拥有者")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(6, "IsOwner", "管理员", null, "bit", 0, 0, false)]
+        [BindColumn(6, "IsOwner", "拥有者", null, "bit", 0, 0, false)]
         public virtual Boolean IsOwner
         {
             get { return _IsOwner; }
@@ -232,7 +232,7 @@ namespace NewLife.GitCandy.Entity
             ///<summary>允许写</summary>
             public static readonly Field AllowWrite = FindByName(__.AllowWrite);
 
-            ///<summary>管理员</summary>
+            ///<summary>拥有者</summary>
             public static readonly Field IsOwner = FindByName(__.IsOwner);
 
             ///<summary>创建者</summary>
@@ -274,7 +274,7 @@ namespace NewLife.GitCandy.Entity
             ///<summary>允许写</summary>
             public const String AllowWrite = "AllowWrite";
 
-            ///<summary>管理员</summary>
+            ///<summary>拥有者</summary>
             public const String IsOwner = "IsOwner";
 
             ///<summary>创建者</summary>
@@ -318,7 +318,7 @@ namespace NewLife.GitCandy.Entity
         /// <summary>允许写</summary>
         Boolean AllowWrite { get; set; }
 
-        /// <summary>管理员</summary>
+        /// <summary>拥有者</summary>
         Boolean IsOwner { get; set; }
 
         /// <summary>创建者</summary>

@@ -83,7 +83,7 @@
       <Column Name="RepositoryID" DataType="Int32" Description="仓库" />
       <Column Name="AllowRead" DataType="Boolean" Description="允许读" />
       <Column Name="AllowWrite" DataType="Boolean" Description="允许写" />
-      <Column Name="IsOwner" DataType="Boolean" Description="管理员" />
+      <Column Name="IsOwner" DataType="Boolean" Description="拥有者" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" />

@@ -232,13 +232,22 @@ namespace GitCandy.Data
 
             // 个人权限
             var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
-            if (role != null && role.AllowRead && (!write || role.AllowWrite)) return true;
+            //if (role != null && (role.IsOwner || role.AllowRead && (!write || role.AllowWrite))) return true;
+            if (role != null)
+            {
+                if (role.IsOwner) return true;
+                if (role.AllowRead && (!write || role.AllowWrite)) return true;
+            }
 
             // 团队权限
             foreach (var item in user.Teams)
             {
                 role = UserRepository.FindByUserIDAndRepositoryID(item.TeamID, repo.ID);
-                if (role != null && role.AllowRead && (!write || role.AllowWrite)) return true;
+                if (role != null)
+                {
+                    if (role.IsOwner) return true;
+                    if (role.AllowRead && (!write || role.AllowWrite)) return true;
+                }
             }
 
             return false;

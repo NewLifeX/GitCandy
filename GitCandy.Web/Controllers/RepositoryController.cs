@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using GitCandy.Web.App_GlobalResources;
 using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Data;
@@ -12,10 +12,10 @@ using GitCandy.Git;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
 using GitCandy.Ssh;
+using GitCandy.Web.App_GlobalResources;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
 using UserX = NewLife.GitCandy.Entity.User;
-using System.Linq;
 
 namespace GitCandy.Controllers
 {
