@@ -139,7 +139,7 @@ namespace GitCandy.Controllers
         {
             if (String.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator && !String.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            var isAdmin = Token.IsAdmin && !String.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
             if (ModelState.IsValid)
             {
                 var user = UserX.Check(isAdmin ? Token.Username : name, model.OldPassword);
@@ -185,27 +185,35 @@ namespace GitCandy.Controllers
         {
             if (String.IsNullOrEmpty(name)) name = Token.Username;
 
-            var isAdmin = Token.IsSystemAdministrator && !String.Equals(name, Token.Username, StringComparison.OrdinalIgnoreCase);
+            // 是否管理员修改其它用户
+            var isAdmin = Token.IsAdmin && !name.EqualIgnoreCase(Token.Username);
 
             ModelState.Remove("ConformPassword");
             if (ModelState.IsValid)
             {
+                // 校验密码，是否合法修改
                 var user = UserX.Check(isAdmin ? Token.Username : name, model.Password);
                 if (user != null)
                 {
-                    model.IsSystemAdministrator = Token.IsSystemAdministrator && model.IsSystemAdministrator;
-                    if (!Token.IsSystemAdministrator || isAdmin || model.IsSystemAdministrator)
+                    if (isAdmin && user.Name != Token.Username) user = UserX.FindByName(name);
+
+                    // 当前用户必须是管理员，才能设置目标用户为管理员
+                    model.IsAdmin = Token.IsAdmin && model.IsAdmin;
+                    //// 普通用户修改自己，或管理员修改他人，或管理员设置别人为管理员
+                    //if (!Token.IsAdmin || isAdmin || model.IsAdmin)
                     {
-                        if (!MembershipService.UpdateUser(model))
-                            throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
-                        if (!isAdmin)
-                        {
-                            Token = MembershipService.GetToken(Token.AuthCode);
-                        }
+                        user.Nickname = model.Nickname;
+                        user.Email = model.Email;
+                        user.Description = model.Description;
+                        user.IsAdmin = model.IsAdmin;
+
+                        user.Save();
+
+                        if (!isAdmin) Token = MembershipService.GetToken(Token.AuthCode);
 
                         return RedirectToAction("Detail", "Account", new { name });
                     }
-                    ModelState.AddModelError("IsSystemAdministrator", SR.Account_CantRemoveSelf);
+                    ModelState.AddModelError("IsAdmin", SR.Account_CantRemoveSelf);
                 }
                 else
                     ModelState.AddModelError("Password", SR.Account_PasswordError);
