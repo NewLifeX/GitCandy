@@ -1,8 +1,9 @@
-﻿using GitCandy.Controllers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using GitCandy.Controllers;
 
 namespace GitCandy.Filters
 {
+    /// <summary>系统管理员</summary>
     public class AdministratorAttribute : SmartAuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)

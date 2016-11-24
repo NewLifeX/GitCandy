@@ -1,9 +1,10 @@
-﻿using GitCandy.Configuration;
+﻿using System.Web.Mvc;
+using GitCandy.Configuration;
 using GitCandy.Controllers;
-using System.Web.Mvc;
 
 namespace GitCandy.Filters
 {
+    /// <summary>允许注册</summary>
     public class AllowRegisterUserAttribute : SmartAuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)

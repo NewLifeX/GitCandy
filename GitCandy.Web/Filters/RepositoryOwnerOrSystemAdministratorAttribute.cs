@@ -1,8 +1,9 @@
-﻿using GitCandy.Controllers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using GitCandy.Controllers;
 
 namespace GitCandy.Filters
 {
+    /// <summary>拥有代码库</summary>
     public class RepositoryOwnerOrSystemAdministratorAttribute : SmartAuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -12,8 +13,7 @@ namespace GitCandy.Filters
             var controller = filterContext.Controller as CandyControllerBase;
             if (controller != null && controller.Token != null)
             {
-                if (controller.Token.IsAdmin)
-                    return;
+                if (controller.Token.IsAdmin) return;
 
                 var repoController = controller as RepositoryController;
                 if (repoController != null)

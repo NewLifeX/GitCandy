@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using GitCandy.Web.App_GlobalResources;
+using System.Web.Mvc;
 using GitCandy.Base;
+using GitCandy.Web.App_GlobalResources;
 
 namespace GitCandy.Models
 {
@@ -34,7 +35,7 @@ namespace GitCandy.Models
 
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
         [StringLength(20, MinimumLength = 6, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
-        [Compare("Password", ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Compare")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Compare")]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(SR), Name = "Account_ConformPassword")]
         public String ConformPassword { get; set; }
@@ -50,12 +51,12 @@ namespace GitCandy.Models
 
         [Display(ResourceType = typeof(SR), Name = "Account_Teams")]
         [UIHint("Maps")]
-        [System.Web.Mvc.AdditionalMetadata("Controller", "Team")]
+        [AdditionalMetadata("Controller", "Team")]
         public IDictionary<String, String> Teams { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Repositories")]
         [UIHint("Members")]
-        [System.Web.Mvc.AdditionalMetadata("Controller", "Repository")]
+        [AdditionalMetadata("Controller", "Repository")]
         public String[] Respositories { get; set; }
     }
 }

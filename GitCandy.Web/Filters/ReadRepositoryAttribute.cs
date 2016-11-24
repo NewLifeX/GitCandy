@@ -3,6 +3,7 @@ using GitCandy.Controllers;
 
 namespace GitCandy.Filters
 {
+    /// <summary>读写代码库</summary>
     public class ReadRepositoryAttribute : SmartAuthorizeAttribute
     {
         private bool requireWrite;

@@ -1,31 +1,30 @@
-﻿using GitCandy.Configuration;
+﻿using System.Web.Mvc;
+using GitCandy.Configuration;
 using GitCandy.Controllers;
-using System.Web.Mvc;
 
 namespace GitCandy.Filters
 {
+    /// <summary>开放服务</summary>
     public class PublicServerAttribute : SmartAuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (UserConfiguration.Current.IsPublicServer)
-                return;
+            if (UserConfiguration.Current.IsPublicServer) return;
 
-            bool skipAuthorization = 
-                   filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
-                || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
-                || filterContext.ActionDescriptor.IsDefined(typeof(SmartGitAttribute), true)
-                || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(SmartGitAttribute), true);
+            var des = filterContext.ActionDescriptor;
+            bool skipAuthorization =
+                   des.IsDefined(typeof(AllowAnonymousAttribute), true)
+                || des.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
+                || des.IsDefined(typeof(SmartGitAttribute), true)
+                || des.ControllerDescriptor.IsDefined(typeof(SmartGitAttribute), true);
 
-            if (skipAuthorization)
-                return;
+            if (skipAuthorization) return;
 
             base.OnAuthorization(filterContext);
 
             var controller = filterContext.Controller as CandyControllerBase;
-            if (controller != null && controller.Token != null)
-                return;
-            
+            if (controller != null && controller.Token != null) return;
+
             HandleUnauthorizedRequest(filterContext);
         }
     }

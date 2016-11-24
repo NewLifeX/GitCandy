@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace GitCandy.Filters
 {
+    /// <summary>智能验证，主要处理验证失败时的系统逻辑</summary>
     public class SmartAuthorizeAttribute : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
