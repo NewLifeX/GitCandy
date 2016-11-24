@@ -66,29 +66,29 @@ namespace GitCandy.Git.Cache
 
             cachePath.EnsureDirectory(false);
 
-            var expectation = GetExpectation();
-            var reality = new String[accessors.Length];
-            var filename = Path.Combine(cachePath, "version");
-            if (File.Exists(filename))
-            {
-                var lines = File.ReadAllLines(filename);
-                Array.Copy(lines, reality, Math.Min(lines.Length, reality.Length));
-            }
+            //var expectation = GetExpectation();
+            //var reality = new String[accessors.Length];
+            //var filename = Path.Combine(cachePath, "version");
+            //if (File.Exists(filename))
+            //{
+            //    var lines = File.ReadAllLines(filename);
+            //    Array.Copy(lines, reality, Math.Min(lines.Length, reality.Length));
+            //}
 
-            for (int i = 0; i < reality.Length && i < expectation.Length; i++)
-            {
-                if (reality[i] != expectation[i])
-                {
-                    var path = Path.Combine(cachePath, (i + 1).ToString());
-                    if (Directory.Exists(path))
-                    {
-                        var tmpPath = path + "." + DateTime.Now.Ticks + ".del";
-                        Directory.Move(path, tmpPath);
-                    }
-                }
-            }
+            //for (int i = 0; i < reality.Length && i < expectation.Length; i++)
+            //{
+            //    if (reality[i] != expectation[i])
+            //    {
+            //        var path = Path.Combine(cachePath, (i + 1).ToString());
+            //        if (Directory.Exists(path))
+            //        {
+            //            var tmpPath = path + "." + DateTime.Now.Ticks + ".del";
+            //            Directory.Move(path, tmpPath);
+            //        }
+            //    }
+            //}
 
-            File.WriteAllLines(filename, expectation);
+            //File.WriteAllLines(filename, expectation);
 
             new TimerX(s =>
             {
@@ -103,16 +103,16 @@ namespace GitCandy.Git.Cache
             enabled = true;
         }
 
-        private static String[] GetExpectation()
-        {
-            var assembly = typeof(AppInfomation).Assembly;
-            var name = assembly.GetManifestResourceNames().Single(s => s.EndsWith(".CacheVersion"));
-            using (var stream = assembly.GetManifestResourceStream(name))
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            }
-        }
+        //private static String[] GetExpectation()
+        //{
+        //    var assembly = typeof(AppInfomation).Assembly;
+        //    var name = assembly.GetManifestResourceNames().Single(s => s.EndsWith(".CacheVersion"));
+        //    using (var stream = assembly.GetManifestResourceStream(name))
+        //    using (var reader = new StreamReader(stream))
+        //    {
+        //        return reader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        //    }
+        //}
 
         public static void Delete(String project)
         {

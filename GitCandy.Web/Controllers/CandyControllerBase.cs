@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Caching;
@@ -7,6 +8,7 @@ using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Security;
 using NewLife.Log;
+using NewLife.Reflection;
 
 namespace GitCandy.Controllers
 {
@@ -102,6 +104,7 @@ namespace GitCandy.Controllers
             base.OnAuthorization(filterContext);
         }
 
+        static AssemblyX asm = AssemblyX.Create(Assembly.GetExecutingAssembly());
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (UserConfiguration.Current.ForceSsl && !Request.IsSecureConnection)
@@ -121,7 +124,7 @@ namespace GitCandy.Controllers
             ViewBag.Lang = culture.Name;
             ViewBag.Identity = 0;
 
-            Response.AddHeader("X-GitCandy-Version", AppInfomation.Version.ToString());
+            Response.AddHeader("X-GitCandy-Version", asm.Version);
 
             base.OnActionExecuting(filterContext);
         }

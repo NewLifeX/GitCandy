@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -88,10 +89,7 @@ WriteLiteral("@ [MIT License](http://github.com/twbs/bootstrap/blob/master/LICEN
 "ap-switch](http://github.com/nostalgiaz/bootstrap-switch) ");
 
 WriteLiteral("@ [Apache License 2.0](http://github.com/nostalgiaz/bootstrap-switch/blob/master/" +
-"LICENSE)\r\n* [EntityFramework](http://entityframework.codeplex.com/) ");
-
-WriteLiteral("@ [Apache License 2.0](http://entityframework.codeplex.com/license)\r\n* [FxSsh](ht" +
-"tp://github.com/Aimeast/FxSsh) ");
+"LICENSE)\r\n* [FxSsh](http://github.com/Aimeast/FxSsh) ");
 
 WriteLiteral("@ [MIT license](http://github.com/Aimeast/FxSsh/blob/master/LICENSE.md)\r\n* [Highl" +
 "ight.js](http://github.com/isagalaev/highlight.js) ");
@@ -105,53 +103,11 @@ WriteLiteral("@ [MIT License](http://github.com/jquery/jquery/blob/master/MIT-LI
 WriteLiteral("@ [MIT License](http://github.com/libgit2/libgit2sharp/blob/master/LICENSE.md)\r\n*" +
 " [marked](http://github.com/chjj/marked) ");
 
-WriteLiteral("@ [MIT License](http://github.com/chjj/marked/blob/master/LICENSE)\r\n* [Microsoft." +
-"Composition (MEF2)](http://mef.codeplex.com/) ");
-
-WriteLiteral("@ [Microsoft Public License](http://mef.codeplex.com/license)\r\n* [Newtonsoft.Json" +
-"](http://json.codeplex.com/) ");
-
-WriteLiteral("@ [MIT License](http://json.codeplex.com/license)\r\n* [SharpZipLib](http://github." +
-"com/icsharpcode/SharpZipLib) ");
+WriteLiteral("@ [MIT License](http://github.com/chjj/marked/blob/master/LICENSE)\r\n* [SharpZipLi" +
+"b](http://github.com/icsharpcode/SharpZipLib) ");
 
 WriteLiteral("@ [GPL License v2](http://github.com/icsharpcode/SharpZipLib/blob/master/doc/COPY" +
-"ING.txt)\r\n</div>\r\n<!--\r\n");
-
-            
-            #line 23 "..\..\Views\Home\About.cshtml"
-Write(AppInfomation.BuildingInformation);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\r\nVersion: ");
-
-            
-            #line 25 "..\..\Views\Home\About.cshtml"
-    Write(AppInfomation.Version);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\r\nTracing: ");
-
-            
-            #line 27 "..\..\Views\Home\About.cshtml"
-    Write(AppInfomation.DateTimeOffsetFormatedNow);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\r\nStarting: ");
-
-            
-            #line 29 "..\..\Views\Home\About.cshtml"
-     Write(AppInfomation.StartingTime);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n-->");
+"ING.txt)\r\n</div>");
 
         }
     }
