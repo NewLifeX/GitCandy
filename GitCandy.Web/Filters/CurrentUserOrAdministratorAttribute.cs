@@ -13,7 +13,7 @@ namespace GitCandy.Filters
             var controller = filterContext.Controller as CandyControllerBase;
             if (controller != null && controller.Token != null)
             {
-                if (controller.Token.IsSystemAdministrator)
+                if (controller.Token.IsAdmin)
                     return;
 
                 var field = filterContext.Controller.ValueProvider.GetValue("name");

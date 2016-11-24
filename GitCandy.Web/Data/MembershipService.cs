@@ -23,7 +23,7 @@ namespace GitCandy.Data
                 Nickname = user.Nickname,
                 Email = user.Email,
                 Description = user.Description,
-                IsSystemAdministrator = user.IsAdmin,
+                IsAdmin = user.IsAdmin,
             };
             if (withMembers)
             {
@@ -72,7 +72,7 @@ namespace GitCandy.Data
                 user.Nickname = model.Nickname;
                 user.Email = model.Email;
                 user.Description = model.Description;
-                user.IsAdmin = model.IsSystemAdministrator;
+                user.IsAdmin = model.IsAdmin;
 
                 user.Save();
                 return true;
@@ -151,7 +151,7 @@ namespace GitCandy.Data
                     Nickname = e.Nickname,
                     Email = e.Email,
                     Description = e.Description,
-                    IsSystemAdministrator = e.IsAdmin,
+                    IsAdmin = e.IsAdmin,
                 }).ToArray(),
                 CurrentPage = page,
                 ItemCount = p.TotalCount

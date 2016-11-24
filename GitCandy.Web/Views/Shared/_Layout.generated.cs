@@ -215,7 +215,7 @@ WriteLiteral("</li>\r\n");
             #line hidden
             
             #line 31 "..\..\Views\Shared\_Layout.cshtml"
-                     if (token != null && token.IsSystemAdministrator)
+                     if (token != null && token.IsAdmin)
                     {
 
             

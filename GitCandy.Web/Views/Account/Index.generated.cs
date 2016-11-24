@@ -237,7 +237,7 @@ WriteLiteral("</td>\r\n                <td>");
 
             
             #line 43 "..\..\Views\Account\Index.cshtml"
-               Write(item.IsSystemAdministrator.ToFlagString(SR.Shared_Yes, SR.Shared_No));
+               Write(item.IsAdmin.ToFlagString(SR.Shared_Yes, SR.Shared_No));
 
             
             #line default

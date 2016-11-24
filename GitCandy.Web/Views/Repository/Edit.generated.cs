@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -361,7 +362,7 @@ WriteLiteral("</button> &nbsp;\r\n");
             #line hidden
             
             #line 61 "..\..\Views\Repository\Edit.cshtml"
-             if (token != null && (Model.CurrentUserIsOwner || token.IsSystemAdministrator))
+             if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin))
             {
                 
             

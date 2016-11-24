@@ -17,7 +17,7 @@ namespace GitCandy.Security
             UserID = userID;
             Username = username;
             Nickname = nickname;
-            IsSystemAdministrator = isSystemAdministrator;
+            IsAdmin = isSystemAdministrator;
 
             var now = DateTime.Now;
             IssueDate = now;
@@ -46,7 +46,7 @@ namespace GitCandy.Security
         public Int32 UserID { get; private set; }
         public String Username { get; private set; }
         public String Nickname { get; private set; }
-        public bool IsSystemAdministrator { get; private set; }
+        public bool IsAdmin { get; private set; }
 
         public DateTime Expires { get; private set; }
         public DateTime IssueDate { get; private set; }

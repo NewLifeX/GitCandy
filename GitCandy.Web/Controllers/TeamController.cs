@@ -108,7 +108,7 @@ namespace GitCandy.Controllers
             }
             else if (act == "del")
             {
-                if (!Token.IsSystemAdministrator
+                if (!Token.IsAdmin
                     && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamRemoveUser(name, user))
@@ -117,7 +117,7 @@ namespace GitCandy.Controllers
             else if (act == "admin" || act == "member")
             {
                 var isAdmin = act == "admin";
-                if (!Token.IsSystemAdministrator
+                if (!Token.IsAdmin
                     && !isAdmin && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamUserSetAdministrator(name, user, isAdmin))

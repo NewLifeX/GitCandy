@@ -28,13 +28,13 @@
         <dt>@Html.DisplayNameFor(s => s.Description)</dt>
         <dd>@Model.Description</dd>
 
-        @if (token != null && token.IsSystemAdministrator)
+        @if (token != null && token.IsAdmin)
         {
-            <dt>@Html.DisplayNameFor(s => s.IsSystemAdministrator)</dt>
-            <dd>@Html.DisplayFor(s => s.IsSystemAdministrator)</dd>
+            <dt>@Html.DisplayNameFor(s => s.IsAdmin)</dt>
+            <dd>@Html.DisplayFor(s => s.IsAdmin)</dd>
         }
 
-        @if (token != null && (token.Username == Model.Name || token.IsSystemAdministrator))
+        @if (token != null && (token.Username == Model.Name || token.IsAdmin))
         {
             <dt></dt>
             <dd>

@@ -10,7 +10,7 @@ namespace GitCandy.Filters
             base.OnAuthorization(filterContext);
 
             var controller = filterContext.Controller as CandyControllerBase;
-            if (controller == null || controller.Token == null || !controller.Token.IsSystemAdministrator)
+            if (controller == null || controller.Token == null || !controller.Token.IsAdmin)
                 HandleUnauthorizedRequest(filterContext);
         }
     }

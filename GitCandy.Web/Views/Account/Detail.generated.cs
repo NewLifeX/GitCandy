@@ -199,7 +199,7 @@ WriteLiteral("</dd>\r\n\r\n");
             #line hidden
             
             #line 31 "..\..\Views\Account\Detail.cshtml"
-         if (token != null && token.IsSystemAdministrator)
+         if (token != null && token.IsAdmin)
         {
 
             
@@ -209,7 +209,7 @@ WriteLiteral("            <dt>");
 
             
             #line 33 "..\..\Views\Account\Detail.cshtml"
-           Write(Html.DisplayNameFor(s => s.IsSystemAdministrator));
+           Write(Html.DisplayNameFor(s => s.IsAdmin));
 
             
             #line default
@@ -220,7 +220,7 @@ WriteLiteral("            <dd>");
 
             
             #line 34 "..\..\Views\Account\Detail.cshtml"
-           Write(Html.DisplayFor(s => s.IsSystemAdministrator));
+           Write(Html.DisplayFor(s => s.IsAdmin));
 
             
             #line default
@@ -244,7 +244,7 @@ WriteLiteral("\r\n");
             #line hidden
             
             #line 37 "..\..\Views\Account\Detail.cshtml"
-         if (token != null && (token.Username == Model.Name || token.IsSystemAdministrator))
+         if (token != null && (token.Username == Model.Name || token.IsAdmin))
         {
 
             

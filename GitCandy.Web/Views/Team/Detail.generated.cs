@@ -181,7 +181,7 @@ WriteLiteral("</dd>\r\n\r\n");
             #line hidden
             
             #line 30 "..\..\Views\Team\Detail.cshtml"
-         if (token != null &&  token.IsSystemAdministrator)
+         if (token != null &&  token.IsAdmin)
         {
 
             

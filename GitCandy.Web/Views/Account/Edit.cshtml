@@ -23,6 +23,12 @@
             <span class="text-danger">
                 @Html.ValidationMessageFor(s => s.Password)
             </span>
+            @if (token.IsAdmin)
+            {
+                <span class="text-info">
+                    使用当前管理员密码确认是否合法操作
+                </span>
+            }
         </dd>
 
         <dt>@Html.DisplayNameFor(s => s.Nickname)</dt>
@@ -49,14 +55,14 @@
             </span>
         </dd>
 
-        @if (token.IsSystemAdministrator)
+        @if (token.IsAdmin)
         {
-        <dt>@Html.DisplayNameFor(s => s.IsSystemAdministrator)</dt>
-        <dd>
-            <div class="switch" data-on-label="@SR.Shared_Yes" data-off-label="@SR.Shared_No">
-                @Html.CheckBoxFor(s => s.IsSystemAdministrator, new { data_size = "small" })
-            </div>
-        </dd>
+            <dt>@Html.DisplayNameFor(s => s.IsAdmin)</dt>
+            <dd>
+                <div class="switch" data-on-label="@SR.Shared_Yes" data-off-label="@SR.Shared_No">
+                    @Html.CheckBoxFor(s => s.IsAdmin, new { data_size = "small" })
+                </div>
+            </dd>
         }
 
         <dt></dt>
@@ -68,7 +74,7 @@
         <dd>
             <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
             <button type="reset" class="btn btn-inverse">@SR.Shared_Reset</button> &nbsp;
-            @if (token != null && token.IsSystemAdministrator)
+            @if (token != null && token.IsAdmin)
             {
                 @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" })
             }

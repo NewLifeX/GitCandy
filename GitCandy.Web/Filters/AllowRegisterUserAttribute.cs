@@ -12,7 +12,7 @@ namespace GitCandy.Filters
 
             var controller = filterContext.Controller as CandyControllerBase;
             var currentUser = controller == null ? null : controller.Token;
-            if (currentUser != null && currentUser.IsSystemAdministrator)
+            if (currentUser != null && currentUser.IsAdmin)
                 return;
 
             if (currentUser == null && UserConfiguration.Current.AllowRegisterUser)

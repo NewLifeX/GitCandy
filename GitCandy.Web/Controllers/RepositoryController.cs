@@ -29,9 +29,9 @@ namespace GitCandy.Controllers
             p.PageSize = 20;
 
             // 管理员可以看到其他人私有仓库
-            var model = RepositoryService.GetRepositories(username, Token != null && Token.IsSystemAdministrator, p);
+            var model = RepositoryService.GetRepositories(username, Token != null && Token.IsAdmin, p);
 
-            model.CanCreateRepository = Token != null && (UserConfiguration.Current.AllowRepositoryCreation || Token.IsSystemAdministrator);
+            model.CanCreateRepository = Token != null && (UserConfiguration.Current.AllowRepositoryCreation || Token.IsAdmin);
 
             return View(model);
         }
@@ -149,7 +149,7 @@ namespace GitCandy.Controllers
             }
             else if (act == "del")
             {
-                if (!Token.IsSystemAdministrator
+                if (!Token.IsAdmin
                      && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (RepositoryService.RepositoryRemoveUser(owner, name, user))
@@ -158,7 +158,7 @@ namespace GitCandy.Controllers
             else if (act == "read" || act == "write" || act == "owner")
             {
                 var val = String.Equals(bool.TrueString, value, StringComparison.OrdinalIgnoreCase);
-                if (!Token.IsSystemAdministrator
+                if (!Token.IsAdmin
                      && (act == "owner" && !val)
                      && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
@@ -403,7 +403,7 @@ namespace GitCandy.Controllers
                 //    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
-                model.CanDelete = Token != null && Token.IsSystemAdministrator
+                model.CanDelete = Token != null && Token.IsAdmin
                     || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
                 return View(model);
             }
@@ -430,7 +430,7 @@ namespace GitCandy.Controllers
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
-                model.CanDelete = Token != null && Token.IsSystemAdministrator
+                model.CanDelete = Token != null && Token.IsAdmin
                     || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
                 return View(model);
             }

@@ -246,7 +246,7 @@ WriteLiteral("\r\n        </dt>\r\n        <dd>\r\n");
             #line hidden
             
             #line 42 "..\..\Views\Repository\Detail.cshtml"
-         if (token != null && (Model.CurrentUserIsOwner || token.IsSystemAdministrator))
+         if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin))
         {
             
             

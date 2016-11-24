@@ -13,7 +13,7 @@ namespace GitCandy.Filters
             var controller = filterContext.Controller as CandyControllerBase;
             if (controller != null && controller.Token != null
                 && (UserConfiguration.Current.AllowRepositoryCreation
-                    || controller.Token.IsSystemAdministrator))
+                    || controller.Token.IsAdmin))
                 return;
 
             HandleUnauthorizedRequest(filterContext);

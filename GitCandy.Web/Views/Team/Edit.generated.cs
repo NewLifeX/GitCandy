@@ -238,7 +238,7 @@ WriteLiteral("</button> &nbsp;\r\n");
             #line hidden
             
             #line 45 "..\..\Views\Team\Edit.cshtml"
-             if (token != null && token.IsSystemAdministrator)
+             if (token != null && token.IsAdmin)
             {
                 
             
