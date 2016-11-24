@@ -91,10 +91,21 @@ namespace GitCandy.Controllers
         [AllowAnonymous]
         public ActionResult Login(String returnUrl)
         {
-            if (Token != null)
-                return RedirectToStartPage(returnUrl);
+            if (Token != null) return RedirectToStartPage(returnUrl);
 
             ViewBag.ReturnUrl = returnUrl;
+
+            // 只有一个管理员时，显示默认用户名密码
+            if (UserX.Meta.Count == 1)
+            {
+                // 如果没有修改默认密码，则就用它显示
+                var user = UserX.Meta.Cache.Entities.ToList().FirstOrDefault();
+                if (user != null && user.Password == user.Name.MD5())
+                {
+                    ViewBag.ShowAdmin = user.Name;
+                }
+            }
+
             return View();
         }
 

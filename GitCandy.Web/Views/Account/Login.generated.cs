@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -53,6 +54,8 @@ namespace ASP
             #line 3 "..\..\Views\Account\Login.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Account_LoginTitle);
+    var showadmin = ViewBag.ShowAdmin as String;
+    var adminstr = "默认管理员 {0}/{0}".F(showadmin);
 
             
             #line default
@@ -60,7 +63,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 7 "..\..\Views\Account\Login.cshtml"
+            #line 9 "..\..\Views\Account\Login.cshtml"
 Write(SR.Account_LoginTitle);
 
             
@@ -69,7 +72,7 @@ Write(SR.Account_LoginTitle);
 WriteLiteral("</h3>\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Account\Login.cshtml"
+            #line 11 "..\..\Views\Account\Login.cshtml"
  using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post))
 {
 
@@ -83,7 +86,7 @@ WriteLiteral(" class=\"dl-horizontal col-md-8\"");
 WriteLiteral(">\r\n        <dt>");
 
             
-            #line 12 "..\..\Views\Account\Login.cshtml"
+            #line 14 "..\..\Views\Account\Login.cshtml"
        Write(Html.DisplayNameFor(s => s.ID));
 
             
@@ -92,7 +95,7 @@ WriteLiteral(">\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 13 "..\..\Views\Account\Login.cshtml"
+            #line 15 "..\..\Views\Account\Login.cshtml"
        Write(Html.TextBoxFor(s => s.ID, new { @class = "form-control" }));
 
             
@@ -101,7 +104,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 15 "..\..\Views\Account\Login.cshtml"
+            #line 17 "..\..\Views\Account\Login.cshtml"
        Write(Html.DisplayNameFor(s => s.Password));
 
             
@@ -110,7 +113,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 16 "..\..\Views\Account\Login.cshtml"
+            #line 18 "..\..\Views\Account\Login.cshtml"
        Write(Html.PasswordFor(s => s.Password, new { @class = "form-control" }));
 
             
@@ -119,7 +122,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 19 "..\..\Views\Account\Login.cshtml"
+            #line 21 "..\..\Views\Account\Login.cshtml"
        Write(Html.ValidationSummary(true, SR.Account_LoginFailed, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -134,7 +137,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 23 "..\..\Views\Account\Login.cshtml"
+            #line 25 "..\..\Views\Account\Login.cshtml"
                                                      Write(SR.Shared_Login);
 
             
@@ -145,16 +148,47 @@ WriteLiteral("</button>\r\n");
 WriteLiteral("            ");
 
             
-            #line 24 "..\..\Views\Account\Login.cshtml"
+            #line 26 "..\..\Views\Account\Login.cshtml"
        Write(Html.ActionLink(SR.Account_ForgotPassword, "Forgot"));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </dd>\r\n    </dl>\r\n");
+WriteLiteral("\r\n");
 
             
             #line 27 "..\..\Views\Account\Login.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 27 "..\..\Views\Account\Login.cshtml"
+             if (!showadmin.IsNullOrEmpty())
+            {
+                
+            
+            #line default
+            #line hidden
+            
+            #line 29 "..\..\Views\Account\Login.cshtml"
+           Write(adminstr);
+
+            
+            #line default
+            #line hidden
+            
+            #line 29 "..\..\Views\Account\Login.cshtml"
+                         
+            }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("        </dd>\r\n    </dl>\r\n");
+
+            
+            #line 33 "..\..\Views\Account\Login.cshtml"
 }
 
             
