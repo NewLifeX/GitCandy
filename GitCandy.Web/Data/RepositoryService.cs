@@ -336,7 +336,7 @@ namespace GitCandy.Data
                 q3 = q3.OrderByDescending(e => e.LastCommit);
 
                 model.Collaborations = ToRepositoryArray(q3);
-                var list = Repository.Search(!showAll, q3.Select(e => e.ID), param);
+                var list = Repository.Search(showAll, q3.Select(e => e.ID), param);
                 model.Repositories = ToRepositoryArray(list);
             }
 
