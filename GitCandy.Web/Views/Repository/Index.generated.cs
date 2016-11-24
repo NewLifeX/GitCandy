@@ -53,7 +53,8 @@ namespace ASP
             
             #line 3 "..\..\Views\Repository\Index.cshtml"
   
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
+    //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
+    ViewBag.Title = "";
 
             
             #line default
@@ -61,7 +62,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h4>");
 
             
-            #line 7 "..\..\Views\Repository\Index.cshtml"
+            #line 8 "..\..\Views\Repository\Index.cshtml"
 Write(SR.Repository_ListTitle);
 
             
@@ -74,13 +75,13 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n");
 
             
-            #line 10 "..\..\Views\Repository\Index.cshtml"
+            #line 11 "..\..\Views\Repository\Index.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Repository\Index.cshtml"
+            #line 11 "..\..\Views\Repository\Index.cshtml"
      if (Model.CanCreateRepository)
     {
 
@@ -94,7 +95,7 @@ WriteLiteral(" class=\"pull-right\"");
 WriteLiteral(">");
 
             
-            #line 12 "..\..\Views\Repository\Index.cshtml"
+            #line 13 "..\..\Views\Repository\Index.cshtml"
                            Write(Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" }));
 
             
@@ -103,7 +104,7 @@ WriteLiteral(">");
 WriteLiteral("</div>\r\n");
 
             
-            #line 13 "..\..\Views\Repository\Index.cshtml"
+            #line 14 "..\..\Views\Repository\Index.cshtml"
     }
 
             
@@ -124,7 +125,7 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n            <thead>");
 
             
-            #line 18 "..\..\Views\Repository\Index.cshtml"
+            #line 19 "..\..\Views\Repository\Index.cshtml"
               Write(SR.Repository_Collaborations);
 
             
@@ -133,13 +134,13 @@ WriteLiteral(">\r\n            <thead>");
 WriteLiteral("</thead>\r\n");
 
             
-            #line 19 "..\..\Views\Repository\Index.cshtml"
+            #line 20 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Repository\Index.cshtml"
+            #line 20 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Collaborations)
             {
 
@@ -149,7 +150,7 @@ WriteLiteral("</thead>\r\n");
 WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div>");
 
             
-            #line 23 "..\..\Views\Repository\Index.cshtml"
+            #line 24 "..\..\Views\Repository\Index.cshtml"
                         Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
 
             
@@ -158,7 +159,7 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
 WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 24 "..\..\Views\Repository\Index.cshtml"
+            #line 25 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
@@ -167,7 +168,7 @@ WriteLiteral("</div>\r\n                        <div>");
 WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 26 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Commits);
 
             
@@ -176,7 +177,7 @@ WriteLiteral("</div>\r\n                        <div>");
 WriteLiteral(" 提交，");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 26 "..\..\Views\Repository\Index.cshtml"
                                          Write(repo.Branches);
 
             
@@ -185,7 +186,7 @@ WriteLiteral(" 提交，");
 WriteLiteral(" 分支，");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 26 "..\..\Views\Repository\Index.cshtml"
                                                            Write(repo.Contributors);
 
             
@@ -194,7 +195,7 @@ WriteLiteral(" 分支，");
 WriteLiteral(" 参与，");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 26 "..\..\Views\Repository\Index.cshtml"
                                                                                  Write(repo.Views);
 
             
@@ -203,7 +204,7 @@ WriteLiteral(" 参与，");
 WriteLiteral(" 浏览，");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 26 "..\..\Views\Repository\Index.cshtml"
                                                                                                 Write(repo.LastCommit.ToFullString());
 
             
@@ -212,7 +213,7 @@ WriteLiteral(" 浏览，");
 WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
 
             
-            #line 28 "..\..\Views\Repository\Index.cshtml"
+            #line 29 "..\..\Views\Repository\Index.cshtml"
             }
 
             
@@ -229,7 +230,7 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n            <thead>");
 
             
-            #line 34 "..\..\Views\Repository\Index.cshtml"
+            #line 35 "..\..\Views\Repository\Index.cshtml"
               Write(SR.Repository_PopularRepositories);
 
             
@@ -238,13 +239,13 @@ WriteLiteral(">\r\n            <thead>");
 WriteLiteral("</thead>\r\n");
 
             
-            #line 35 "..\..\Views\Repository\Index.cshtml"
+            #line 36 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Repository\Index.cshtml"
+            #line 36 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Repositories)
             {
 
@@ -254,7 +255,7 @@ WriteLiteral("</thead>\r\n");
 WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div>");
 
             
-            #line 39 "..\..\Views\Repository\Index.cshtml"
+            #line 40 "..\..\Views\Repository\Index.cshtml"
                         Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
 
             
@@ -263,7 +264,7 @@ WriteLiteral("                <tr>\r\n                    <td>\r\n              
 WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 40 "..\..\Views\Repository\Index.cshtml"
+            #line 41 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
@@ -272,7 +273,7 @@ WriteLiteral("</div>\r\n                        <div>");
 WriteLiteral("</div>\r\n                        <div>");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 42 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Commits);
 
             
@@ -281,7 +282,7 @@ WriteLiteral("</div>\r\n                        <div>");
 WriteLiteral(" 提交，");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 42 "..\..\Views\Repository\Index.cshtml"
                                          Write(repo.Branches);
 
             
@@ -290,7 +291,7 @@ WriteLiteral(" 提交，");
 WriteLiteral(" 分支，");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 42 "..\..\Views\Repository\Index.cshtml"
                                                            Write(repo.Contributors);
 
             
@@ -299,7 +300,7 @@ WriteLiteral(" 分支，");
 WriteLiteral(" 参与，");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 42 "..\..\Views\Repository\Index.cshtml"
                                                                                  Write(repo.Views);
 
             
@@ -308,7 +309,7 @@ WriteLiteral(" 参与，");
 WriteLiteral(" 浏览，");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 42 "..\..\Views\Repository\Index.cshtml"
                                                                                                 Write(repo.LastCommit.ToFullString());
 
             
@@ -317,7 +318,7 @@ WriteLiteral(" 浏览，");
 WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
 
             
-            #line 44 "..\..\Views\Repository\Index.cshtml"
+            #line 45 "..\..\Views\Repository\Index.cshtml"
             }
 
             

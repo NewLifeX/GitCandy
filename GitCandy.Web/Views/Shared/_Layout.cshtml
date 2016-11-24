@@ -1,12 +1,16 @@
 ﻿@{
     var token = GitCandy.Security.Token.Current;
+    var cfg = NewLife.Common.SysConfig.Current;
+    var title = ViewBag.Title + "";
+    if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
+    title += cfg.DisplayName;
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="@ViewBag.Lang">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewBag.Title</title>
+    <title>@title</title>
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <link rel="stylesheet" href="~/Content/bootstrap-switch.css" />
     <link rel="stylesheet" href="~/Content/highlight.css" />
@@ -22,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">@SR.Shared_AppTitle<sub>Alpha</sub></a>
+                <a class="navbar-brand" href="/">@cfg.DisplayName<sub>@cfg.Name</sub></a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
@@ -66,7 +70,7 @@
                     <li>@Html.CultureActionLink("fr-fr")</li>
                 </ul>
             </div>
-            <div class="pull-left"><p class="muted" title="@Profiler.Current.Elapsed">&copy; 2002-@DateTime.Now.Year 新生命开发团队</p></div>
+            <div class="pull-left"><p class="muted" title="@Profiler.Current.Elapsed">&copy; 2002-@DateTime.Now.Year @cfg.Company</p></div>
         </div>
     </div>
 

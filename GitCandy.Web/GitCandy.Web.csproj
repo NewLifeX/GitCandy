@@ -426,6 +426,7 @@
     <Compile Include="Models\TreeModel.cs" />
     <Compile Include="Models\UserListModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Change.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

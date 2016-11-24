@@ -530,7 +530,7 @@
     <value>显示参与者的条目数</value>
   </data>
   <data name="Setting_ReGenSsh" xml:space="preserve">
-   <value>重新生成SSH密钥</value>
+    <value>重新生成SSH密钥</value>
   </data>
   <data name="Setting_ReGenSshTitle" xml:space="preserve">
     <value>确认重新生成SSH密钥</value>
@@ -629,7 +629,7 @@
     <value>团队</value>
   </data>
   <data name="Shared_TitleFormat" xml:space="preserve">
-    <value>{0} - GitCandy</value>
+    <value>{0} - </value>
   </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>用户</value>
