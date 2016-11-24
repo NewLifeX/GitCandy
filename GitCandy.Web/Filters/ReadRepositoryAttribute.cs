@@ -1,5 +1,5 @@
-﻿using GitCandy.Controllers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using GitCandy.Controllers;
 
 namespace GitCandy.Filters
 {
@@ -21,7 +21,7 @@ namespace GitCandy.Filters
             var repoController = controller as RepositoryController;
             if (repoController != null)
             {
-                var username = controller.Token == null ? null : controller.Token.Username;
+                var username = controller.Token?.Username;
                 var owner = controller.ValueProvider.GetValue("owner");
                 var field = controller.ValueProvider.GetValue("name");
                 var canRead = owner != null && field != null && (requireWrite

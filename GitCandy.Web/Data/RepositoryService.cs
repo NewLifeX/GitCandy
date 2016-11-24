@@ -257,7 +257,7 @@ namespace GitCandy.Data
         {
             var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return false;
-            if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
+            if (repo.AllowAnonymousRead) return true;
 
             var user = User.FindByName(username);
             if (user == null) return false;
