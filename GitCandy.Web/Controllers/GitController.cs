@@ -45,7 +45,7 @@ namespace GitCandy.Controllers
 
             try
             {
-                using (var git = new GitService(project))
+                using (var git = new GitService(owner, project))
                 {
                     var svc = service.Substring(4);
                     git.InfoRefs(svc, GetInputStream(), Response.OutputStream);
@@ -70,7 +70,7 @@ namespace GitCandy.Controllers
 
             try
             {
-                using (var git = new GitService(project))
+                using (var git = new GitService(owner, project))
                 {
                     var svc = service.Substring(4);
                     git.ExecutePack(svc, GetInputStream(), Response.OutputStream);
@@ -94,7 +94,7 @@ namespace GitCandy.Controllers
         /// <param name="project"></param>
         private void UpdateRepo(String owner, String project)
         {
-            using (var git = new GitService(project))
+            using (var git = new GitService(owner, project))
             {
                 // 修正提交数、分支、参与人等
                 var commit = git.Repository.Head.Tip;

@@ -59,7 +59,7 @@ namespace GitCandy.Controllers
                 var repo = RepositoryService.Create(model, Token.UserID, out badName);
                 if (repo != null)
                 {
-                    var success = GitService.CreateRepository(model.Name);
+                    var success = GitService.CreateRepository(model.Owner, model.Name);
                     if (!success)
                     {
                         RepositoryService.Delete(Token.Username, model.Name);
@@ -83,7 +83,7 @@ namespace GitCandy.Controllers
             var model = RepositoryService.Get(owner, name, true, Token?.Username);
             if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
 
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 model.DefaultBranch = git.GetHeadBranch();
             }
@@ -96,7 +96,7 @@ namespace GitCandy.Controllers
             var model = RepositoryService.Get(owner, name, username: Token.Username);
             if (model == null)
                 throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 model.DefaultBranch = git.GetHeadBranch();
                 model.LocalBranches = git.GetLocalBranches();
@@ -115,7 +115,7 @@ namespace GitCandy.Controllers
             {
                 if (!RepositoryService.Update(owner, model))
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
-                using (var git = new GitService(name))
+                using (var git = new GitService(owner, name))
                 {
                     git.SetHeadBranch(model.DefaultBranch);
                 }
@@ -202,8 +202,8 @@ namespace GitCandy.Controllers
             if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 RepositoryService.Delete(owner, name);
-                GitService.DeleteRepository(name);
-                GitCacheAccessor.Delete(name);
+                GitService.DeleteRepository(owner, name);
+                GitCacheAccessor.Delete(owner, name);
                 XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
@@ -214,7 +214,7 @@ namespace GitCandy.Controllers
         public ActionResult Tree(String owner, String name, String path)
         {
             var repo = Repository.FindByOwnerAndName(owner, name);
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetTree(path);
                 if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
@@ -253,9 +253,9 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Blob(String name, String path)
+        public ActionResult Blob(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlob(path);
                 if (model == null)
@@ -268,7 +268,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Blame(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlame(path);
                 if (model == null)
@@ -280,9 +280,9 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Raw(String name, String path)
+        public ActionResult Raw(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlob(path);
                 if (model == null)
@@ -297,7 +297,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Commit(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetCommit(path);
                 if (model == null)
@@ -311,7 +311,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Compare(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var start = "";
                 var end = "";
@@ -341,7 +341,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Commits(String owner, String name, String path, int? page)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
                 //if (model == null)
@@ -360,9 +360,9 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Archive(String name, String path, String eol = null)
+        public ActionResult Archive(String owner, String name, String path, String eol = null)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 String newline = null;
                 switch (eol)
@@ -396,7 +396,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Tags(String owner, String name)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetTags();
                 //if (model == null)
@@ -413,7 +413,7 @@ namespace GitCandy.Controllers
         [ReadRepository(requireWrite: true)]
         public ActionResult Tags(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 git.DeleteTag(path);
                 return Json("success");
@@ -423,7 +423,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Branches(String owner, String name)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetBranches();
                 if (model == null)
@@ -440,7 +440,7 @@ namespace GitCandy.Controllers
         [ReadRepository(requireWrite: true)]
         public JsonResult Branches(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 git.DeleteBranch(path);
                 return Json("success");
@@ -450,7 +450,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Contributors(String owner, String name, String path)
         {
-            using (var git = new GitService(name))
+            using (var git = new GitService(owner, name))
             {
                 var model = git.GetContributors(path);
                 if (model == null)

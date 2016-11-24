@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,19 +29,18 @@ namespace GitCandy.Git
         public String Name { get; private set; }
         public Repository Repository { get { return _repository; } }
 
-        public GitService(String name)
+        public GitService(String owner, String name)
         {
-            //var info = GetDirectoryInfo(name);
-            var info = UserConfiguration.Current.RepositoryPath.CombinePath(name).GetFullPath().AsDirectory();
+            var info = GetPath(owner, name).AsDirectory();
             _repositoryPath = info.FullName;
             _repoId = Name = info.Name;
 
-            if (!Repository.IsValid(_repositoryPath))
-            {
-                CreateRepository(name);
-            }
+            // 如果版本库无效，则创建
+            if (!Repository.IsValid(_repositoryPath)) CreateRepository(owner, name);
 
             _repository = new Repository(_repositoryPath);
+
+            // 延迟加载编码
             _i18n = new Lazy<Encoding>(() =>
             {
                 var entry = _repository.Config.Get<String>("i18n.commitEncoding");
@@ -74,8 +74,7 @@ namespace GitCandy.Git
             {
                 if (isEmptyPath)
                 {
-                    var branch = _repository.Branches["master"]
-                        ?? _repository.Branches.FirstOrDefault();
+                    var branch = _repository.Branches["master"] ?? _repository.Branches.FirstOrDefault();
                     return new TreeModel
                     {
                         ReferenceName = branch == null ? "HEAD" : branch.FriendlyName,
@@ -84,6 +83,7 @@ namespace GitCandy.Git
                 return null;
             }
 
+            // 基本信息
             var model = new TreeModel
             {
                 ReferenceName = referenceName,
@@ -98,14 +98,15 @@ namespace GitCandy.Git
                 },
             };
 
+            // 树结构
             var tree = String.IsNullOrEmpty(path)
                 ? commit.Tree
                 : commit[path] == null
                     ? null
                     : commit[path].Target as Tree;
-            if (tree == null)
-                return null;
+            if (tree == null) return null;
 
+            // 缓存加载摘要
             var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
             var items = summaryAccessor.Result.Value;
             var entries = (from entry in tree
@@ -130,10 +131,10 @@ namespace GitCandy.Git
                            .ToList();
 
             model.Entries = entries;
+
+            // 加载说明文件
             model.Readme = entries.FirstOrDefault(s => s.EntryType == TreeEntryTargetType.Blob
-                && (String.Equals(s.Name, "readme", StringComparison.OrdinalIgnoreCase)
-                    //|| String.Equals(s.Name, "readme.txt", StringComparison.OrdinalIgnoreCase)
-                    || String.Equals(s.Name, "readme.md", StringComparison.OrdinalIgnoreCase)));
+                && (s.Name.EqualIgnoreCase("readme.{0}.md".F(CultureInfo.CurrentCulture.Name), "readme", "readme.md")));
 
             if (model.Readme != null)
             {
@@ -672,9 +673,21 @@ namespace GitCandy.Git
         #endregion
 
         #region Static Methods
-        public static bool CreateRepository(String name)
+        /// <summary>获取版本库的路径</summary>
+        /// <param name="owner"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static String GetPath(String owner, String name)
         {
-            var path = UserConfiguration.Current.RepositoryPath.GetFullPath().CombinePath(name);
+            var p = UserConfiguration.Current.RepositoryPath;
+            p = p.CombinePath(owner, name).GetFullPath();
+
+            return p;
+        }
+
+        public static bool CreateRepository(String owner, String name)
+        {
+            var path = GetPath(owner, name);
             try
             {
                 using (var repo = new Repository(Repository.Init(path, true)))
@@ -694,9 +707,9 @@ namespace GitCandy.Git
             }
         }
 
-        public static bool DeleteRepository(String name)
+        public static bool DeleteRepository(String owner, String name)
         {
-            var path = UserConfiguration.Current.RepositoryPath.GetFullPath().CombinePath(name);
+            var path = GetPath(owner, name);
             var temp = path + "." + DateTime.Now.Ticks + ".del";
 
             var retry = 3;

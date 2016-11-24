@@ -114,12 +114,12 @@ namespace GitCandy.Git.Cache
         //    }
         //}
 
-        public static void Delete(String project)
+        public static void Delete(String owner, String project)
         {
             var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
             for (int i = 0; i < accessors.Length; i++)
             {
-                var path = Path.Combine(cachePath, (i + 1).ToString(), project);
+                var path = cachePath.CombinePath((i + 1).ToString(), owner, project);
                 if (Directory.Exists(path)) Directory.Delete(path, true);
             }
         }
