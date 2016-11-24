@@ -22,6 +22,13 @@ namespace NewLife.GitCandy.Entity
     public partial class UserRepository : LogEntity<UserRepository>
     {
         #region 对象操作
+        public override void Valid(Boolean isNew)
+        {
+            if (UserID <= 0) throw new ArgumentNullException(__.UserID, _.UserID.DisplayName);
+            if (RepositoryID <= 0) throw new ArgumentNullException(__.RepositoryID, _.RepositoryID.DisplayName);
+
+            base.Valid(isNew);
+        }
         #endregion
 
         #region 扩展属性

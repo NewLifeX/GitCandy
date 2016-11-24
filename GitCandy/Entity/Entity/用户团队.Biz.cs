@@ -24,8 +24,8 @@ namespace NewLife.GitCandy.Entity
         #region 对象操作
         public override void Valid(Boolean isNew)
         {
-            if (UserID <= 0) throw new ArgumentNullException(__.UserID);
-            if (TeamID <= 0) throw new ArgumentNullException(__.TeamID);
+            if (UserID <= 0) throw new ArgumentNullException(__.UserID, _.UserID.DisplayName);
+            if (TeamID <= 0) throw new ArgumentNullException(__.TeamID, _.TeamID.DisplayName);
 
             base.Valid(isNew);
         }

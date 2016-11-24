@@ -55,23 +55,29 @@ namespace GitCandy.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool badName;
-                var repo = RepositoryService.Create(model, Token.UserID, out badName);
-                if (repo != null)
+                try
                 {
-                    var success = GitService.CreateRepository(model.Owner, model.Name);
-                    if (!success)
+                    var repo = RepositoryService.Create(model, Token.UserID);
+                    if (repo != null)
                     {
-                        RepositoryService.Delete(Token.Username, model.Name);
-                        repo = null;
+                        var success = GitService.CreateRepository(model.Owner, model.Name);
+                        if (!success)
+                        {
+                            RepositoryService.Delete(Token.Username, model.Name);
+                            repo = null;
+                        }
                     }
+                    if (repo != null) return RedirectToAction("Tree", "Repository", new { owner = model.Owner, name = repo.Name });
                 }
-                if (repo != null)
+                catch (ArgumentException ex)
                 {
-                    return RedirectToAction("Detail", "Repository", new { name = repo.Name });
+                    //ModelState.AddModelError(ex.ParamName, SR.Repository_AlreadyExists);
+                    ModelState.AddModelError(ex.ParamName, ex.Message);
                 }
-                if (badName)
-                    ModelState.AddModelError("Name", SR.Repository_AlreadyExists);
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex);
+                }
             }
 
             return View(model);

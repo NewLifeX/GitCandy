@@ -12,8 +12,8 @@ namespace NewLife.GitCandy.Entity
     [Serializable]
     [DataObject]
     [Description("仓库")]
-    [BindIndex("IU_Repository_UserID_Name", true, "UserID,Name")]
-    [BindIndex("IX_Repository_UserID", false, "UserID")]
+    [BindIndex("IU_Repository_OwnerID_Name", true, "OwnerID,Name")]
+    [BindIndex("IX_Repository_OwnerID", false, "OwnerID")]
     [BindIndex("IX_Repository_Name", false, "Name")]
     [BindTable("Repository", Description = "仓库", ConnName = "GitCandy", DbType = DatabaseType.SqlServer)]
     public partial class Repository : IRepository

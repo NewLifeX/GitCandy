@@ -10,33 +10,34 @@ namespace GitCandy.Data
 {
     public class RepositoryService
     {
-        public Repository Create(RepositoryModel model, Int32 uid, out Boolean badName)
+        public Repository Create(RepositoryModel model, Int32 uid)
         {
-            badName = false;
             var repo = Repository.FindByOwnerIDAndName(uid, model.Name);
-            if (repo != null)
+            if (repo != null) throw new ArgumentException("已存在名为 {0} 的仓库".F(model.Name), "Name");
+
+            using (var trans = Repository.Meta.CreateTrans())
             {
-                badName = true;
-                return null;
+                repo = new Repository
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    OwnerID = uid,
+                    Enable = true,
+                    CreateTime = DateTime.UtcNow,
+                    IsPrivate = model.IsPrivate,
+                    AllowAnonymousRead = model.AllowAnonymousRead,
+                    AllowAnonymousWrite = model.AllowAnonymousWrite,
+                };
+                repo.Save();
+
+                var ur = new UserRepository();
+                ur.UserID = uid;
+                ur.RepositoryID = repo.ID;
+                ur.IsOwner = true;
+                ur.Save();
+
+                trans.Commit();
             }
-
-            repo = new Repository
-            {
-                Name = model.Name,
-                Description = model.Description,
-                OwnerID = uid,
-                CreateTime = DateTime.UtcNow,
-                IsPrivate = model.IsPrivate,
-                AllowAnonymousRead = model.AllowAnonymousRead,
-                AllowAnonymousWrite = model.AllowAnonymousWrite,
-            };
-            repo.Save();
-
-            var ur = new UserRepository();
-            ur.UserID = uid;
-            ur.RepositoryID = repo.ID;
-            ur.IsOwner = true;
-            ur.Save();
 
             return repo;
         }
