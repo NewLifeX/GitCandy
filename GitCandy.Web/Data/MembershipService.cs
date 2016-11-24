@@ -103,7 +103,7 @@ namespace GitCandy.Data
 
             var user = auth.User;
 
-            return new Token(auth.AuthCode, auth.ID, user.Name, user.Nickname, user.IsAdmin, auth.Expires)
+            return new Token(auth.AuthCode, auth.UserID, user.Name, user.Nickname, user.IsAdmin, auth.Expires)
             {
                 LastIp = auth.LastIp
             };

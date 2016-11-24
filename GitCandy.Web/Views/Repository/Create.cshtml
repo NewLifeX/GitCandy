@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_CreateTitle);
+    var owners = ViewBag.Owners as IDictionary<String, String>;
 }
 
 <h3>@SR.Repository_CreateTitle</h3>
@@ -10,6 +11,14 @@
 @using (Html.BeginForm("Create", "Repository", FormMethod.Post))
 {
     <dl class="dl-horizontal col-md-8">
+
+        <dt>@Html.DisplayNameFor(s => s.Owner)</dt>
+        <dd>@Html.DropDownListFor(s => s.Owner, owners.Select(e => new SelectListItem { Value = e.Key, Text = e.Value }), new { @class = "form-control" })</dd>
+        <dd>
+            <span class="text-danger">
+                @Html.ValidationMessageFor(s => s.Owner)
+            </span>
+        </dd>
 
         <dt>@Html.DisplayNameFor(s => s.Name)</dt>
         <dd>@Html.TextBoxFor(s => s.Name, new { @class = "form-control" })</dd>
@@ -49,7 +58,7 @@
         </dd>
 
         <dt></dt>
-        <dd>@Html.ValidationSummary(true, SR.Repository_CreationUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" })</dd>
+        <dd>@Html.ValidationSummary(false, null, new { @class = "alert alert-dismissable alert-danger" })</dd>
 
         <dt></dt>
         <dd>

@@ -9,6 +9,8 @@ namespace GitCandy.Models
 {
     public class RepositoryModel
     {
+        [Display(Name = "拥有者")]
+        [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
         public String Owner { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]

@@ -10,10 +10,13 @@ namespace GitCandy.Data
 {
     public class RepositoryService
     {
-        public Repository Create(RepositoryModel model, Int32 uid)
+        public Repository Create(RepositoryModel model)
         {
-            var repo = Repository.FindByOwnerIDAndName(uid, model.Name);
-            if (repo != null) throw new ArgumentException("已存在名为 {0} 的仓库".F(model.Name), "Name");
+            var owner = User.FindByName(model.Owner);
+            if (owner == null) throw new ArgumentNullException("拥有者 {0} 不存在".F(model.Owner), "Owner");
+
+            var repo = Repository.FindByOwnerAndName(model.Owner, model.Name);
+            if (repo != null) throw new ArgumentException("{0} 已存在名为 {1} 的仓库".F(model.Owner, model.Name), "Name");
 
             using (var trans = Repository.Meta.CreateTrans())
             {
@@ -21,7 +24,7 @@ namespace GitCandy.Data
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    OwnerID = uid,
+                    OwnerID = owner.ID,
                     Enable = true,
                     CreateTime = DateTime.UtcNow,
                     IsPrivate = model.IsPrivate,
@@ -31,9 +34,11 @@ namespace GitCandy.Data
                 repo.Save();
 
                 var ur = new UserRepository();
-                ur.UserID = uid;
+                ur.UserID = owner.ID;
                 ur.RepositoryID = repo.ID;
                 ur.IsOwner = true;
+                ur.AllowRead = true;
+                ur.AllowWrite = true;
                 ur.Save();
 
                 trans.Commit();

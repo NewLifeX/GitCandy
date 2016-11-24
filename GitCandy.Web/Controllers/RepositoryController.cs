@@ -14,6 +14,8 @@ using GitCandy.Models;
 using GitCandy.Ssh;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
+using UserX = NewLife.GitCandy.Entity.User;
+using System.Linq;
 
 namespace GitCandy.Controllers
 {
@@ -46,7 +48,19 @@ namespace GitCandy.Controllers
                 AllowAnonymousWrite = false,
             };
 
-            return View(model);
+            return CreateView(model);
+        }
+
+        private ActionResult CreateView(RepositoryModel model)
+        {
+            var user = UserX.FindByID(Token.UserID);
+            // 拥有者
+            var owners = user.Teams.Where(e => e.Team != null).ToDictionary(e => e.Team.Name, e => e.TeamName);
+            // 加上自己
+            owners[user.Name] = user + "";
+            ViewBag.Owners = owners;
+
+            return View("Create", model);
         }
 
         [HttpPost]
@@ -57,7 +71,7 @@ namespace GitCandy.Controllers
             {
                 try
                 {
-                    var repo = RepositoryService.Create(model, Token.UserID);
+                    var repo = RepositoryService.Create(model);
                     if (repo != null)
                     {
                         var success = GitService.CreateRepository(model.Owner, model.Name);
@@ -80,7 +94,7 @@ namespace GitCandy.Controllers
                 }
             }
 
-            return View(model);
+            return CreateView(model);
         }
 
         [ReadRepository]
