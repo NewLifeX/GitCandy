@@ -32,7 +32,8 @@ namespace GitCandy.Filters
             }
             else
             {
-                throw new UnauthorizedAccessException();
+                //throw new UnauthorizedAccessException();
+                filterContext.Result = new ContentResult { Content = "无权操作！" };
             }
         }
     }

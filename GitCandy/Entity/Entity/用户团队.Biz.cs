@@ -84,10 +84,25 @@ namespace NewLife.GitCandy.Entity
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public static UserTeam FindByUserIDAndTeamID(Int32 userid, Int32 teamid)
         {
+            if (userid <= 0 || teamid <= 0) return null;
+
             if (Meta.Count >= 1000)
                 return Find(new String[] { __.UserID, __.TeamID }, new Object[] { userid, teamid });
             else // 实体缓存
                 return Meta.Cache.Entities.Find(e => e.UserID == userid && e.TeamID == teamid);
+        }
+
+        public static UserTeam FindByUserAndTeam(String username, String teamname)
+        {
+            if (username.IsNullOrEmpty() || teamname.IsNullOrEmpty()) return null;
+
+            var team = User.FindByName(teamname);
+            if (team == null) return null;
+
+            var user = User.FindByName(username);
+            if (user == null) return null;
+
+            return FindByUserIDAndTeamID(user.ID, team.ID);
         }
 
         public static EntityList<UserTeam> FindAllByUserID(Int32 userid)

@@ -59,6 +59,7 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
+        [TeamOrSystemAdministrator]
         public ActionResult Detail(String name)
         {
             var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token.Username);
@@ -67,7 +68,7 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
-        [TeamOrSystemAdministrator]
+        [TeamOrSystemAdministrator(RequireAdmin = true)]
         public ActionResult Edit(String name)
         {
             var model = MembershipService.GetTeamModel(name);
@@ -79,7 +80,7 @@ namespace GitCandy.Controllers
         }
 
         [HttpPost]
-        [TeamOrSystemAdministrator]
+        [TeamOrSystemAdministrator(RequireAdmin = true)]
         public ActionResult Edit(String name, TeamModel model)
         {
             if (ModelState.IsValid)
@@ -97,7 +98,7 @@ namespace GitCandy.Controllers
         }
 
         [HttpPost]
-        [TeamOrSystemAdministrator]
+        [TeamOrSystemAdministrator(RequireAdmin = true)]
         public JsonResult ChooseUser(String name, String user, String act)
         {
             String message = null;

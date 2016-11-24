@@ -330,7 +330,7 @@ namespace GitCandy.Data
             return list.ToList().Select(e => e.Name).ToArray();
         }
 
-        public bool IsTeamAdministrator(String teamname, String username)
+        public bool InTeam(String teamname, String username)
         {
             var team = User.FindByName(teamname);
             if (team == null) return false;
@@ -339,9 +339,7 @@ namespace GitCandy.Data
             if (user == null) return false;
 
             var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
-            if (tu == null) return false;
-
-            return tu.IsAdmin;
+            return tu != null;
         }
 
         public Boolean DeleteTeam(String name)
