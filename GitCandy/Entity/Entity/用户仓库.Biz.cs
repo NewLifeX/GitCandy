@@ -4,14 +4,14 @@
  * 时间：2016-11-21 15:48:51
  * 版权：版权所有 (C) 新生命开发团队 2002~2016
 */
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
 using NewLife.Log;
 using NewLife.Web;
-﻿using NewLife.Data;
+using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
@@ -140,6 +140,10 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 业务
+        public override String ToString()
+        {
+            return "{0},{1}".F(UserName, RepositoryName);
+        }
         #endregion
     }
 }

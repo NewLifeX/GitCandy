@@ -6,8 +6,8 @@
 
 @for (var i = 0; i < Model.Length; i++)
 {
-    var item = Model[i];
+    var ss = Model[i].Split("@");
     if (i != 0)
     {<text> , </text>}
-    @Html.ActionLink(item, "Detail", controller, new { name = item }, null)
+    @Html.ActionLink(ss[1], "Tree", controller, new { owner = ss[0], name = ss[1] }, null)
 }

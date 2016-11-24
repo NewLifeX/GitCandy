@@ -34,7 +34,7 @@ namespace GitCandy.Data
                     var vu = User.FindByName(viewUser);
                     rs = rs.Where(e => e.CanViewFor(vu));
                 }
-                model.Respositories = rs.Select(e => e.Name).OrderBy(e => e).ToArray();
+                model.Respositories = rs.Select(e => e.Owner.Name + "@" + e.Name).ToArray();
             }
             return model;
         }
@@ -238,7 +238,7 @@ namespace GitCandy.Data
             };
             if (withMembers)
             {
-                var list = UserTeam.FindAllByTeamID(team.ID).ToList().Where(e => e.User != null);
+                var list = UserTeam.FindAllByTeamID(team.ID).ToList().Where(e => e.User != null).ToList();
                 model.MembersRole = list
                     .Select(s => new TeamModel.UserRole
                     {
@@ -249,11 +249,11 @@ namespace GitCandy.Data
                     .ToArray();
                 model.Members = list.ToDictionary(e => e.User.Name, e => e.User.Nickname);
 
-                var rs = team.Repositories.Where(e => e.Repository.Enable);
+                var rs = team.Repositories.Where(e => e.Repository.Enable).ToList();
                 if (!viewUser.IsNullOrEmpty())
                 {
                     var vu = User.FindByName(viewUser);
-                    rs = rs.Where(e => e.Repository.CanViewFor(vu));
+                    rs = rs.Where(e => e.Repository.CanViewFor(vu)).ToList();
                 }
                 model.RepositoriesRole = rs.Select(s => new TeamModel.RepositoryRole
                 {
@@ -263,8 +263,8 @@ namespace GitCandy.Data
                 })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray();
-                model.Repositories = model.RepositoriesRole
-                    .Select(s => s.Name)
+                model.Repositories = rs
+                    .Select(s => s.Repository.Owner.Name + "@" + s.Repository.Name)
                     .ToArray();
             }
             return model;

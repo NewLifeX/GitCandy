@@ -172,7 +172,7 @@ namespace NewLife.GitCandy.Entity
             // 团队
             foreach (var team in user.Teams)
             {
-                if (team.UserID == OwnerID) return true;
+                if (team.TeamID == OwnerID) return true;
             }
 
             return false;

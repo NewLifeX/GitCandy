@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -63,7 +64,7 @@ WriteLiteral("\r\n\r\n");
             #line 7 "..\..\Views\Shared\DisplayTemplates\Members.cshtml"
  for (var i = 0; i < Model.Length; i++)
 {
-    var item = Model[i];
+    var ss = Model[i].Split("@");
     if (i != 0)
     {
             
@@ -80,14 +81,14 @@ WriteLiteral(" , ");
             #line hidden
             
             #line 12 "..\..\Views\Shared\DisplayTemplates\Members.cshtml"
-Write(Html.ActionLink(item, "Detail", controller, new { name = item }, null));
+Write(Html.ActionLink(ss[1], "Tree", controller, new { owner = ss[0], name = ss[1] }, null));
 
             
             #line default
             #line hidden
             
             #line 12 "..\..\Views\Shared\DisplayTemplates\Members.cshtml"
-                                                                           
+                                                                                          
 }
             
             #line default

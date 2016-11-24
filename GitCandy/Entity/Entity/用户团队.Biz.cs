@@ -166,6 +166,11 @@ namespace NewLife.GitCandy.Entity
 
             return ut;
         }
+
+        public override String ToString()
+        {
+            return "{0},{1}".F(UserName, TeamName);
+        }
         #endregion
     }
 }
