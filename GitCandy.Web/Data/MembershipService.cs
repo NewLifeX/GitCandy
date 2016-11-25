@@ -28,7 +28,7 @@ namespace GitCandy.Data
             if (withMembers)
             {
                 model.Teams = user.Teams.ToDictionary(e => e.Team.Name, e => e.Team.Nickname);
-                var rs = user.Repositories.Select(e => e.Repository).Where(e => e.Enable);
+                var rs = user.Repositories.Where(e => e.Repository != null && e.Repository.Enable).Select(e => e.Repository);
                 if (!viewUser.IsNullOrEmpty())
                 {
                     var vu = User.FindByName(viewUser);

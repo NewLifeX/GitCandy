@@ -35,6 +35,13 @@ namespace NewLife.GitCandy.Entity
 
             base.Valid(isNew);
         }
+
+        protected override Int32 OnDelete()
+        {
+            UserRepository.FindAllByRepositoryID(ID).Delete();
+
+            return base.OnDelete();
+        }
         #endregion
 
         #region 扩展属性
