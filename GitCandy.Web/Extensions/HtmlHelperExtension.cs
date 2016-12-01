@@ -62,7 +62,11 @@ namespace GitCandy.Extensions
 
         public static MvcHtmlString Link(this HtmlHelper html, RepositoryModelBase repo)
         {
+            if (repo == null) return null;
+
             var user = User.FindByName(repo.Owner);
+            if (user == null) return null;
+
             var link1 = html.ActionLink(repo.Owner, "Detail", user.IsTeam ? "Team" : "Account", new { name = repo.Owner }, null);
             var link2 = html.ActionLink(repo.Name, "Tree", html.OverRoute(new { path = "" }));
 
