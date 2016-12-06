@@ -404,13 +404,16 @@
             <summary>实例化一个字典缓存</summary>
             <param name="comparer"></param>
         </member>
+        <member name="M:NewLife.Collections.DictionaryCache`2.Finalize">
+            <summary>销毁资源</summary>
+        </member>
         <member name="M:NewLife.Collections.DictionaryCache`2.Dispose">
             <summary>销毁字典，关闭</summary>
         </member>
         <member name="T:NewLife.Collections.DictionaryCache`2.CacheItem">
             <summary>缓存项</summary>
         </member>
-        <member name="F:NewLife.Collections.DictionaryCache`2.CacheItem.Value">
+        <member name="P:NewLife.Collections.DictionaryCache`2.CacheItem.Value">
             <summary>数值</summary>
         </member>
         <member name="P:NewLife.Collections.DictionaryCache`2.CacheItem.ExpiredTime">
@@ -430,114 +433,11 @@
             <param name="func">获取值的委托，该委托以键作为参数</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.GetItem``1(`0,``0,System.Func{`0,``0,`1})">
-            <summary>扩展获取数据项，当数据项不存在时，通过调用委托获取数据项。线程安全。</summary>
-            <typeparam name="TArg">参数类型</typeparam>
-            <param name="key">键</param>
-            <param name="arg">参数</param>
-            <param name="func">获取值的委托，该委托除了键参数外，还有一个泛型参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.GetItem``2(`0,``0,``1,System.Func{`0,``0,``1,`1})">
-            <summary>扩展获取数据项，当数据项不存在时，通过调用委托获取数据项。线程安全。</summary>
-            <typeparam name="TArg">参数类型</typeparam>
-            <typeparam name="TArg2">参数类型2</typeparam>
-            <param name="key">键</param>
-            <param name="arg">参数</param>
-            <param name="arg2">参数2</param>
-            <param name="func">获取值的委托，该委托除了键参数外，还有两个泛型参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.GetItem``3(`0,``0,``1,``2,System.Func{`0,``0,``1,``2,`1})">
-            <summary>扩展获取数据项，当数据项不存在时，通过调用委托获取数据项。线程安全。</summary>
-            <typeparam name="TArg">参数类型</typeparam>
-            <typeparam name="TArg2">参数类型2</typeparam>
-            <typeparam name="TArg3">参数类型3</typeparam>
-            <param name="key">键</param>
-            <param name="arg">参数</param>
-            <param name="arg2">参数2</param>
-            <param name="arg3">参数3</param>
-            <param name="func">获取值的委托，该委托除了键参数外，还有三个泛型参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.GetItem``4(`0,``0,``1,``2,``3,System.Func{`0,``0,``1,``2,``3,`1})">
-            <summary>扩展获取数据项，当数据项不存在时，通过调用委托获取数据项。线程安全。</summary>
-            <typeparam name="TArg">参数类型</typeparam>
-            <typeparam name="TArg2">参数类型2</typeparam>
-            <typeparam name="TArg3">参数类型3</typeparam>
-            <typeparam name="TArg4">参数类型4</typeparam>
-            <param name="key">键</param>
-            <param name="arg">参数</param>
-            <param name="arg2">参数2</param>
-            <param name="arg3">参数3</param>
-            <param name="arg4">参数4</param>
-            <param name="func">获取值的委托，该委托除了键参数外，还有三个泛型参数</param>
-            <returns></returns>
-        </member>
         <member name="F:NewLife.Collections.DictionaryCache`2.clearTimer">
             <summary>清理会话计时器</summary>
         </member>
         <member name="M:NewLife.Collections.DictionaryCache`2.RemoveNotAlive(System.Object)">
             <summary>移除过期的缓存项</summary>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Add(`0,`1)">
-            <summary></summary>
-            <param name="key"></param>
-            <param name="value">数值</param>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.ContainsKey(`0)">
-            <summary></summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.Collections.DictionaryCache`2.Keys">
-            <summary></summary>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Remove(`0)">
-            <summary></summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.TryGetValue(`0,`1@)">
-            <summary></summary>
-            <param name="key"></param>
-            <param name="value">数值</param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.Collections.DictionaryCache`2.Values">
-            <summary></summary>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
-            <summary></summary>
-            <param name="item"></param>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Clear">
-            <summary></summary>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
-            <summary></summary>
-            <param name="item"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
-            <summary></summary>
-            <param name="array"></param>
-            <param name="arrayIndex"></param>
-        </member>
-        <member name="P:NewLife.Collections.DictionaryCache`2.Count">
-            <summary></summary>
-        </member>
-        <member name="P:NewLife.Collections.DictionaryCache`2.IsReadOnly">
-            <summary></summary>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
-            <summary></summary>
-            <param name="item"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Collections.DictionaryCache`2.GetEnumerator">
-            <summary></summary>
-            <returns></returns>
         </member>
         <member name="T:NewLife.Collections.ListBase`1">
             <summary>泛型列表基类。主要提供一个重载实现自定义列表的基类实现。</summary>
@@ -2508,6 +2408,28 @@
         <member name="P:NewLife.Net.NetSessionEventArgs.Session">
             <summary>会话</summary>
         </member>
+        <member name="T:NewLife.Net.IPacket">
+            <summary>封包接口</summary>
+        </member>
+        <member name="M:NewLife.Net.IPacket.Valid(System.IO.Stream)">
+            <summary>验证数据包是否完整</summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Net.HeaderLengthPacket">
+            <summary>头部指明长度的封包格式</summary>
+        </member>
+        <member name="P:NewLife.Net.HeaderLengthPacket.Offset">
+            <summary>长度所在位置，默认0</summary>
+        </member>
+        <member name="P:NewLife.Net.HeaderLengthPacket.Size">
+            <summary>长度占据字节数，1/2/4个字节，默认0表示压缩编码整数</summary>
+        </member>
+        <member name="M:NewLife.Net.HeaderLengthPacket.Valid(System.IO.Stream)">
+            <summary>验证数据包是否完整</summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Net.ISocket">
             <summary>基础Socket接口</summary>
             <remarks>
@@ -2765,11 +2687,6 @@
         <member name="M:NewLife.Net.NetException.#ctor(System.Exception)">
             <summary>初始化</summary>
             <param name="innerException"></param>
-        </member>
-        <member name="M:NewLife.Net.NetException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>初始化</summary>
-            <param name="info"></param>
-            <param name="context"></param>
         </member>
         <member name="T:NewLife.Net.NetServer">
             <summary>网络服务器。可同时支持多个Socket服务器，同时支持IPv4和IPv6，同时支持Tcp和Udp</summary>
@@ -3176,6 +3093,9 @@
         <member name="T:NewLife.Net.ITransport">
             <summary>帧数据传输接口</summary>
             <remarks>实现者确保数据以包的形式传输，屏蔽数据的粘包和拆包</remarks>
+        </member>
+        <member name="P:NewLife.Net.ITransport.Timeout">
+            <summary>超时</summary>
         </member>
         <member name="M:NewLife.Net.ITransport.Open">
             <summary>打开</summary>
@@ -3628,12 +3548,6 @@
             <summary>处理收到的数据</summary>
             <param name="data"></param>
             <param name="count"></param>
-        </member>
-        <member name="P:NewLife.Net.TcpSession.Packet">
-            <summary>用于粘包处理的数据流缓冲区，指针位于末端，便于附加数据。前面是7位压缩编码整数表示的报文长度</summary>
-        </member>
-        <member name="P:NewLife.Net.TcpSession.PacketSize">
-            <summary>所期望的报文大小</summary>
         </member>
         <member name="F:NewLife.Net.TcpSession._Reconnect">
             <summary>重连次数</summary>
@@ -4185,6 +4099,9 @@
             <summary>开始监听</summary>
             <returns>是否成功</returns>
         </member>
+        <member name="P:NewLife.Net.SessionBase.Packet">
+            <summary>封包算法</summary>
+        </member>
         <member name="M:NewLife.Net.SessionBase.OnReceiveError(System.Net.Sockets.SocketAsyncEventArgs)">
             <summary>收到异常时如何处理。默认关闭会话</summary>
             <param name="se"></param>
@@ -4467,11 +4384,6 @@
         <member name="M:NewLife.XException.#ctor(System.Exception)">
             <summary>初始化</summary>
             <param name="innerException"></param>
-        </member>
-        <member name="M:NewLife.XException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>初始化</summary>
-            <param name="info"></param>
-            <param name="context"></param>
         </member>
         <member name="T:NewLife.ExceptionEventArgs">
             <summary>异常事件参数</summary>

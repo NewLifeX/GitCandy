@@ -36,7 +36,7 @@
         <member name="T:NewLife.Cube.Admin.Controllers.FileController">
             <summary>文件管理</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Index(System.String)">
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Index(System.String,System.String)">
             <summary>文件管理主视图</summary>
             <returns></returns>
         </member>
@@ -53,6 +53,43 @@
         <member name="M:NewLife.Cube.Admin.Controllers.FileController.Decompress(System.String)">
             <summary>解压缩</summary>
             <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Upload(System.String,System.Web.HttpPostedFileBase)">
+            <summary>上传文件</summary>
+            <param name="r"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Download(System.String)">
+            <summary>下载文件</summary>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Copy(System.String,System.String)">
+            <summary>复制文件到剪切板</summary>
+            <param name="r"></param>
+            <param name="f"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.CancelCopy(System.String,System.String)">
+            <summary>从剪切板移除</summary>
+            <param name="r"></param>
+            <param name="f"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Paste(System.String)">
+            <summary>粘贴文件到当前目录</summary>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.Move(System.String)">
+            <summary>移动文件到当前目录</summary>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.FileController.ClearClipboard(System.String)">
+            <summary>清空剪切板</summary>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.RoleController">
@@ -193,6 +230,9 @@
         </member>
         <member name="P:NewLife.Cube.Admin.FileItem.FullName">
             <summary>全路径</summary>
+        </member>
+        <member name="P:NewLife.Cube.Admin.FileItem.Raw">
+            <summary>原始路径</summary>
         </member>
         <member name="P:NewLife.Cube.Admin.FileItem.Directory">
             <summary>是否目录</summary>
@@ -565,6 +605,9 @@
         <member name="P:NewLife.Cube.AreaRegistrationBase.PrecompiledEngines">
             <summary>预编译引擎集合。便于外部设置属性</summary>
         </member>
+        <member name="P:NewLife.Cube.AreaRegistrationBase.Areas">
+            <summary>所有区域类型</summary>
+        </member>
         <member name="M:NewLife.Cube.AreaRegistrationBase.#ctor">
             <summary>实例化区域注册</summary>
         </member>
@@ -579,6 +622,11 @@
         <member name="M:NewLife.Cube.AreaRegistrationBase.ScanController">
             <summary>自动扫描控制器，并添加到菜单</summary>
             <remarks>默认操作当前注册区域的下一级Controllers命名空间</remarks>
+        </member>
+        <member name="M:NewLife.Cube.AreaRegistrationBase.Contains(System.Web.Mvc.IController)">
+            <summary>判断控制器是否归属于魔方管辖</summary>
+            <param name="controller"></param>
+            <returns></returns>
         </member>
         <member name="T:NewLife.Cube.EntityModelBinder">
             <summary>实体模型绑定器。特殊处理XCode实体类</summary>
@@ -878,7 +926,7 @@
         </member>
         <member name="M:NewLife.Cube.MvcHandleErrorAttribute.OnException(System.Web.Mvc.ExceptionContext)">
             <summary>拦截异常</summary>
-            <param name="filterContext"></param>
+            <param name="ctx"></param>
         </member>
         <member name="T:NewLife.Cube.MvcApplication">
             <summary>
