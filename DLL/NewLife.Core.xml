@@ -2409,11 +2409,18 @@
             <summary>会话</summary>
         </member>
         <member name="T:NewLife.Net.IPacket">
-            <summary>封包接口</summary>
+            <summary>粘包处理接口</summary>
         </member>
-        <member name="M:NewLife.Net.IPacket.Valid(System.IO.Stream)">
-            <summary>验证数据包是否完整</summary>
+        <member name="M:NewLife.Net.IPacket.Parse(System.IO.Stream)">
+            <summary>分析数据流，得到一帧数据</summary>
             <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Net.IPacketFactory">
+            <summary>粘包处理接口工厂</summary>
+        </member>
+        <member name="M:NewLife.Net.IPacketFactory.Create">
+            <summary>创建粘包处理实例，内含缓冲区，不同会话不能共用</summary>
             <returns></returns>
         </member>
         <member name="T:NewLife.Net.HeaderLengthPacket">
@@ -2425,10 +2432,52 @@
         <member name="P:NewLife.Net.HeaderLengthPacket.Size">
             <summary>长度占据字节数，1/2/4个字节，默认0表示压缩编码整数</summary>
         </member>
-        <member name="M:NewLife.Net.HeaderLengthPacket.Valid(System.IO.Stream)">
-            <summary>验证数据包是否完整</summary>
+        <member name="P:NewLife.Net.HeaderLengthPacket.Expire">
+            <summary>过期时间，超过该时间后按废弃数据处理，默认3000ms</summary>
+        </member>
+        <member name="F:NewLife.Net.HeaderLengthPacket._ms">
+            <summary>内部缓存</summary>
+        </member>
+        <member name="M:NewLife.Net.HeaderLengthPacket.Parse(System.IO.Stream)">
+            <summary>分析数据流，得到一帧数据</summary>
             <param name="stream"></param>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Net.HeaderLengthPacket.GetLength(System.IO.Stream)">
+            <summary>从数据流中获取整帧数据长度</summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Net.HeaderLengthPacket.Sub(System.IO.Stream,System.Int32)">
+            <summary>创建子数据流</summary>
+            <param name="stream"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Net.HeaderLengthPacketFactory">
+            <summary>头部长度粘包处理工厂</summary>
+        </member>
+        <member name="P:NewLife.Net.HeaderLengthPacketFactory.Offset">
+            <summary>长度所在位置，默认0</summary>
+        </member>
+        <member name="P:NewLife.Net.HeaderLengthPacketFactory.Size">
+            <summary>长度占据字节数，1/2/4个字节，默认0表示压缩编码整数</summary>
+        </member>
+        <member name="P:NewLife.Net.HeaderLengthPacketFactory.Expire">
+            <summary>过期时间，超过该时间后按废弃数据处理，默认3000ms</summary>
+        </member>
+        <member name="M:NewLife.Net.HeaderLengthPacketFactory.Create">
+            <summary>创建粘包处理实例，内含缓冲区，不同会话不能共用</summary>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Net.StreamSegment">
+            <summary>数据流包装，表示一个数据流的子数据流</summary>
+        </member>
+        <member name="F:NewLife.Net.StreamSegment._s">
+            <summary>主数据流</summary>
+        </member>
+        <member name="F:NewLife.Net.StreamSegment._offset">
+            <summary>子数据流在主数据流中的偏移</summary>
         </member>
         <member name="T:NewLife.Net.ISocket">
             <summary>基础Socket接口</summary>
@@ -2453,6 +2502,10 @@
         </member>
         <member name="P:NewLife.Net.ISocket.ThrowException">
             <summary>是否抛出异常，默认false不抛出。Send/Receive时可能发生异常，该设置决定是直接抛出异常还是通过<see cref="E:NewLife.Net.ISocket.Error"/>事件</summary>
+        </member>
+        <member name="P:NewLife.Net.ISocket.ProcessAsync">
+            <summary>异步处理接收到的数据。</summary>
+            <remarks>异步处理有可能造成数据包乱序，特别是Tcp。true利于提升网络吞吐量。false避免拷贝，提升处理速度</remarks>
         </member>
         <member name="P:NewLife.Net.ISocket.StatSend">
             <summary>发送统计</summary>
@@ -2488,6 +2541,12 @@
         </member>
         <member name="P:NewLife.Net.ISocketRemote.LastTime">
             <summary>最后一次通信时间，主要表示会话活跃时间，包括收发</summary>
+        </member>
+        <member name="P:NewLife.Net.ISocketRemote.BufferSize">
+            <summary>缓冲区大小</summary>
+        </member>
+        <member name="P:NewLife.Net.ISocketRemote.Packet">
+            <summary>粘包处理接口</summary>
         </member>
         <member name="M:NewLife.Net.ISocketRemote.Send(System.Byte[],System.Int32,System.Int32)">
             <summary>发送数据</summary>
@@ -2574,6 +2633,9 @@
             <remarks>
             对于每一个会话连接，如果超过该时间仍然没有收到任何数据，则断开会话连接。
             </remarks>
+        </member>
+        <member name="P:NewLife.Net.ISocketServer.SessionPacket">
+            <summary>粘包处理接口</summary>
         </member>
         <member name="P:NewLife.Net.ISocketServer.StatSession">
             <summary>会话统计</summary>
@@ -2739,6 +2801,9 @@
             <remarks>
             对于每一个会话连接，如果超过该时间仍然没有收到任何数据，则断开会话连接。
             </remarks>
+        </member>
+        <member name="P:NewLife.Net.NetServer.SessionPacket">
+            <summary>粘包处理接口</summary>
         </member>
         <member name="P:NewLife.Net.NetServer.UseSession">
             <summary>使用会话集合，允许遍历会话。默认false</summary>
@@ -3056,7 +3121,7 @@
             <summary>收到数据时的事件参数</summary>
         </member>
         <member name="P:NewLife.Net.ReceivedEventArgs.Data">
-            <summary>数据。设置数据时会修改Length属性</summary>
+            <summary>数据</summary>
         </member>
         <member name="P:NewLife.Net.ReceivedEventArgs.Length">
             <summary>数据长度</summary>
@@ -3074,8 +3139,8 @@
             <summary>使用字节数组实例化一个数据事件参数</summary>
             <param name="data"></param>
         </member>
-        <member name="M:NewLife.Net.ReceivedEventArgs.GetStream">
-            <summary>为数据区创建一个新的数据流实例</summary>
+        <member name="M:NewLife.Net.ReceivedEventArgs.GetData">
+            <summary>读取数据，不改变数据流指针</summary>
             <returns></returns>
         </member>
         <member name="M:NewLife.Net.ReceivedEventArgs.ToStr(System.Text.Encoding)">
@@ -3539,15 +3604,14 @@
             <param name="count">数量</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Net.TcpSession.OnReceive(System.Byte[],System.Net.IPEndPoint)">
+        <member name="M:NewLife.Net.TcpSession.OnReceive(System.IO.Stream,System.Net.IPEndPoint)">
             <summary>处理收到的数据</summary>
-            <param name="data"></param>
+            <param name="stream"></param>
             <param name="remote"></param>
         </member>
-        <member name="M:NewLife.Net.TcpSession.OnReceive(System.Byte[],System.Int32)">
+        <member name="M:NewLife.Net.TcpSession.OnReceive(System.IO.Stream)">
             <summary>处理收到的数据</summary>
-            <param name="data"></param>
-            <param name="count"></param>
+            <param name="stream"></param>
         </member>
         <member name="F:NewLife.Net.TcpSession._Reconnect">
             <summary>重连次数</summary>
@@ -3585,11 +3649,12 @@
             </remarks>
         </member>
         <member name="P:NewLife.Net.TcpServer.AutoReceiveAsync">
-            <summary>自动开始会话的异步接收，默认true。
-            接受连接请求后，自动开始会话的异步接收，默认打开，如果会话需要同步接收数据，需要关闭该选项。</summary>
+            <summary>自动开始会话的异步接收，默认true。</summary>
+            <remarks>接受连接请求后，自动开始会话的异步接收，默认打开，如果会话需要同步接收数据，需要关闭该选项。</remarks>
         </member>
-        <member name="P:NewLife.Net.TcpServer.UseProcessAsync">
-            <summary>是否异步处理接收到的数据，默认true利于提升网络吞吐量。异步处理有可能造成数据包乱序，特别是Tcp</summary>
+        <member name="P:NewLife.Net.TcpServer.ProcessAsync">
+            <summary>异步处理接收到的数据，默认false。</summary>
+            <remarks>异步处理有可能造成数据包乱序，特别是Tcp。true利于提升网络吞吐量。false避免拷贝，提升处理速度</remarks>
         </member>
         <member name="P:NewLife.Net.TcpServer.Client">
             <summary>底层Socket</summary>
@@ -3602,6 +3667,9 @@
         </member>
         <member name="P:NewLife.Net.TcpServer.MaxAsync">
             <summary>最大并行数。默认CPU*1.6</summary>
+        </member>
+        <member name="P:NewLife.Net.TcpServer.SessionPacket">
+            <summary>粘包处理接口</summary>
         </member>
         <member name="P:NewLife.Net.TcpServer.StatSession">
             <summary>会话统计</summary>
@@ -3728,6 +3796,9 @@
         <member name="P:NewLife.Net.UdpServer.StatSession">
             <summary>会话统计</summary>
         </member>
+        <member name="P:NewLife.Net.UdpServer.SessionPacket">
+            <summary>粘包处理接口</summary>
+        </member>
         <member name="M:NewLife.Net.UdpServer.#ctor">
             <summary>实例化增强UDP</summary>
         </member>
@@ -3768,9 +3839,9 @@
             <param name="count">数量</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Net.UdpServer.OnReceive(System.Byte[],System.Net.IPEndPoint)">
+        <member name="M:NewLife.Net.UdpServer.OnReceive(System.IO.Stream,System.Net.IPEndPoint)">
             <summary>处理收到的数据</summary>
-            <param name="data"></param>
+            <param name="stream"></param>
             <param name="remote"></param>
         </member>
         <member name="M:NewLife.Net.UdpServer.OnReceiveError(System.Net.Sockets.SocketAsyncEventArgs)">
@@ -3872,6 +3943,10 @@
         <member name="P:NewLife.Net.UdpSession.ThrowException">
             <summary>是否抛出异常，默认false不抛出。Send/Receive时可能发生异常，该设置决定是直接抛出异常还是通过<see cref="E:NewLife.Net.UdpSession.Error"/>事件</summary>
         </member>
+        <member name="P:NewLife.Net.UdpSession.ProcessAsync">
+            <summary>异步处理接收到的数据，默认true利于提升网络吞吐量。</summary>
+            <remarks>异步处理有可能造成数据包乱序，特别是Tcp。false避免拷贝，提升处理速度</remarks>
+        </member>
         <member name="P:NewLife.Net.UdpSession.StatSend">
             <summary>发送数据包统计信息，默认关闭，通过<see cref="P:NewLife.Net.IStatistics.Enable"/>打开。</summary>
         </member>
@@ -3883,6 +3958,9 @@
         </member>
         <member name="P:NewLife.Net.UdpSession.LastTime">
             <summary>最后一次通信时间，主要表示活跃时间，包括收发</summary>
+        </member>
+        <member name="P:NewLife.Net.UdpSession.BufferSize">
+            <summary>缓冲区大小。默认8k</summary>
         </member>
         <member name="M:NewLife.Net.UdpSession.NewLife#Net#ISocketRemote#SendAsync(System.Byte[],System.Net.IPEndPoint)">
             <summary>异步发送数据</summary>
@@ -3897,6 +3975,9 @@
         </member>
         <member name="M:NewLife.Net.UdpSession.ReceiveAsync">
             <summary>开始异步接收数据</summary>
+        </member>
+        <member name="P:NewLife.Net.UdpSession.Packet">
+            <summary>粘包处理接口</summary>
         </member>
         <member name="E:NewLife.Net.UdpSession.Error">
             <summary>错误发生/断开连接时</summary>
@@ -4025,6 +4106,13 @@
         <member name="P:NewLife.Net.SessionBase.MaxAsync">
             <summary>最大并行接收数。默认1</summary>
         </member>
+        <member name="P:NewLife.Net.SessionBase.ProcessAsync">
+            <summary>异步处理接收到的数据，默认true。</summary>
+            <remarks>异步处理有可能造成数据包乱序，特别是Tcp。true利于提升网络吞吐量。false避免拷贝，提升处理速度</remarks>
+        </member>
+        <member name="P:NewLife.Net.SessionBase.BufferSize">
+            <summary>缓冲区大小。默认8k</summary>
+        </member>
         <member name="M:NewLife.Net.SessionBase.#ctor">
             <summary>构造函数，初始化默认名称</summary>
         </member>
@@ -4100,16 +4188,16 @@
             <returns>是否成功</returns>
         </member>
         <member name="P:NewLife.Net.SessionBase.Packet">
-            <summary>封包算法</summary>
+            <summary>粘包处理接口</summary>
         </member>
         <member name="M:NewLife.Net.SessionBase.OnReceiveError(System.Net.Sockets.SocketAsyncEventArgs)">
             <summary>收到异常时如何处理。默认关闭会话</summary>
             <param name="se"></param>
             <returns>是否当作异常处理并结束会话</returns>
         </member>
-        <member name="M:NewLife.Net.SessionBase.OnReceive(System.Byte[],System.Net.IPEndPoint)">
+        <member name="M:NewLife.Net.SessionBase.OnReceive(System.IO.Stream,System.Net.IPEndPoint)">
             <summary>处理收到的数据</summary>
-            <param name="data"></param>
+            <param name="stream"></param>
             <param name="remote"></param>
         </member>
         <member name="E:NewLife.Net.SessionBase.Received">
