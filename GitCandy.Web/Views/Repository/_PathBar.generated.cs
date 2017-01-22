@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -49,15 +50,23 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("<ul");
+            
+            #line 2 "..\..\Views\Repository\_PathBar.cshtml"
+  
+    var branch = (Model.ReferenceName ?? Model.ReferenceSha);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n<ul");
 
 WriteLiteral(" class=\"breadcrumb\"");
 
 WriteLiteral(">\r\n    <li>");
 
             
-            #line 4 "..\..\Views\Repository\_PathBar.cshtml"
-   Write(Html.ActionLink(Model.Name, Model.Action, Html.OverRoute(new { path = (Model.ReferenceName ?? Model.ReferenceSha) })));
+            #line 7 "..\..\Views\Repository\_PathBar.cshtml"
+   Write(Html.ActionLink(Model.Name, Model.Action, Html.OverRoute(new { branch, path = "" })));
 
             
             #line default
@@ -65,13 +74,13 @@ WriteLiteral(">\r\n    <li>");
 WriteLiteral("</li>\r\n\r\n");
 
             
-            #line 6 "..\..\Views\Repository\_PathBar.cshtml"
+            #line 9 "..\..\Views\Repository\_PathBar.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 6 "..\..\Views\Repository\_PathBar.cshtml"
+            #line 9 "..\..\Views\Repository\_PathBar.cshtml"
      if (!String.IsNullOrEmpty(Model.Path))
     {
         var dirs = Model.Path.Split('/');
@@ -102,7 +111,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 24 "..\..\Views\Repository\_PathBar.cshtml"
+            #line 27 "..\..\Views\Repository\_PathBar.cshtml"
                Write(dirs[i]);
 
             
@@ -111,7 +120,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </li>\r\n");
 
             
-            #line 26 "..\..\Views\Repository\_PathBar.cshtml"
+            #line 29 "..\..\Views\Repository\_PathBar.cshtml"
             }
             else
             {
@@ -122,8 +131,8 @@ WriteLiteral("\r\n                </li>\r\n");
 WriteLiteral("                <li>");
 
             
-            #line 29 "..\..\Views\Repository\_PathBar.cshtml"
-               Write(Html.ActionLink(dirs[i], Model.Action, Html.OverRoute(new { path = (Model.ReferenceName ?? Model.ReferenceSha) + "/" + currentPath })));
+            #line 32 "..\..\Views\Repository\_PathBar.cshtml"
+               Write(Html.ActionLink(dirs[i], Model.Action, Html.OverRoute(new { branch, path = currentPath })));
 
             
             #line default
@@ -131,7 +140,7 @@ WriteLiteral("                <li>");
 WriteLiteral(" </li>\r\n");
 
             
-            #line 30 "..\..\Views\Repository\_PathBar.cshtml"
+            #line 33 "..\..\Views\Repository\_PathBar.cshtml"
             }
         }
     }

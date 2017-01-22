@@ -1,4 +1,5 @@
 ﻿@model GitCandy.Models.TreeModel
+@using LibGit2Sharp;
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TreeTitle, Model.Name, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
@@ -22,10 +23,10 @@ else
             <h5>@Model.Description</h5>
             <div class="border-area">
                 <ul class="nav nav-justified">
-                    <li>@Html.ActionLink(Model.Scope.Commits + " " + SR.Repository_Commits, "Commits", Html.OverRoute())</li>
-                    <li>@Html.ActionLink(Model.Scope.Branches + " " + SR.Repository_Branches, "Branches", Html.OverRoute(new { path = "" }))</li>
-                    <li>@Html.ActionLink(Model.Scope.Tags + " " + SR.Repository_Tags, "Tags", Html.OverRoute(new { path = "" }))</li>
-                    <li>@Html.ActionLink(Model.Scope.Contributors + " " + SR.Repository_Contributors, "Contributors", Html.OverRoute())</li>
+                    <li>@Html.ActionLink(Model.Scope.Commits + " " + SR.Repository_Commits, "Commits")</li>
+                    <li>@Html.ActionLink(Model.Scope.Branches + " " + SR.Repository_Branches, "Branches")</li>
+                    <li>@Html.ActionLink(Model.Scope.Tags + " " + SR.Repository_Tags, "Tags")</li>
+                    <li>@Html.ActionLink(Model.Scope.Contributors + " " + SR.Repository_Contributors, "Contributors")</li>
                 </ul>
             </div>
         }
@@ -73,18 +74,18 @@ else
                         <tr>
                             <td>
                                 <span title="@entry.Name">
-                                    @if (entry.EntryType == LibGit2Sharp.TreeEntryTargetType.Tree)
+                                    @if (entry.EntryType == TreeEntryTargetType.Tree)
                                     { <span class="glyphicon glyphicon-folder-close"></span> }
-                                    else if (entry.EntryType == LibGit2Sharp.TreeEntryTargetType.Blob)
+                                    else if (entry.EntryType == TreeEntryTargetType.Blob)
                                     { <span class="glyphicon glyphicon-file"></span> }
-                                    else if (entry.EntryType == LibGit2Sharp.TreeEntryTargetType.GitLink)
+                                    else if (entry.EntryType == TreeEntryTargetType.GitLink)
                                     { <i class="glyphicon glyphicon-bookmark"></i> }
                                     else
                                     { <span class="glyphicon glyphicon-leaf"></span> }
-                                    @if (entry.EntryType == LibGit2Sharp.TreeEntryTargetType.GitLink)
+                                    @if (entry.EntryType == TreeEntryTargetType.GitLink)
                                     { @entry.Name.ShortString(25) }
                                     else
-                                    { @Html.ActionLink(entry.Name.ShortString(25), entry.EntryType.ToString(), Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + entry.Path })) }
+                                    { <a href="@Model.GetUrl(entry.EntryType + "", entry.Path)">@entry.Name.ShortString(25)</a> }
                                 </span>
                             </td>
                             <td><span title="@entry.Commit.CommitMessageShort">@(entry.Commit.Sha == null ? Html.Raw(entry.Commit.CommitMessageShort) : Html.ActionLink(entry.Commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = entry.Commit.Sha })))</span></td>

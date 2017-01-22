@@ -6,7 +6,7 @@ namespace GitCandy.Models
 {
     public class TreeEntryModel : RepositoryModelBase
     {
-        public String Name { get; set; }
+        //public String Name { get; set; }
         public String Path { get; set; }
         public String ReferenceName { get; set; }
         public CommitModel Commit { get; set; }

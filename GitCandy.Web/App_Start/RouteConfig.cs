@@ -17,20 +17,6 @@ namespace GitCandy
 
             #region GitController
             routes.MapRoute(
-                name: "UserGitWeb",
-                url: "{owner}/{name}",
-                defaults: new { controller = "Repository", action = "Tree" },
-                constraints: new { owner = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
-            //routes.MapRoute(
-            //    name: "UserGitWeb2",
-            //    url: "{owner}/{name}/{*path}",
-            //    defaults: new { controller = "Repository", action = "Tree", path = UrlParameter.Optional },
-            //    constraints: new { owner = new UserUrlConstraint() },
-            //    namespaces: new[] { typeof(AccountController).Namespace }
-            //);
-            routes.MapRoute(
                 name: "UserGit",
                 url: "{owner}/{project}/{*verb}",
                 defaults: new { controller = "Git", action = "Smart" },
@@ -38,9 +24,23 @@ namespace GitCandy
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
             routes.MapRoute(
-                name: "UserGitAct",
-                url: "{owner}/{name}/{action}/{*path}",
+                name: "GitAct",
+                url: "{owner}/{name}/{action}/{branch}/{*path}",
                 defaults: new { controller = "Repository", path = UrlParameter.Optional },
+                constraints: new { owner = new UserUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
+            //routes.MapRoute(
+            //    name: "UserGitAct",
+            //    url: "{owner}/{name}/{action}/{*path}",
+            //    defaults: new { controller = "Repository", path = UrlParameter.Optional },
+            //    constraints: new { owner = new UserUrlConstraint() },
+            //    namespaces: new[] { typeof(AccountController).Namespace }
+            //);
+            routes.MapRoute(
+                name: "UserGitWeb",
+                url: "{owner}/{name}",
+                defaults: new { controller = "Repository", action = "Tree" },
                 constraints: new { owner = new UserUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
@@ -167,35 +167,4 @@ namespace GitCandy
             return _cache.Contains(name);
         }
     }
-
-    //class TeamUrlConstraint : IRouteConstraint
-    //{
-    //    public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
-    //    {
-    //        var name = values[parameterName] + "";
-    //        if (name.IsNullOrEmpty()) return false;
-
-    //        return Match(name);
-    //    }
-
-    //    private static DictionaryCache<String, Boolean> _cache;
-    //    private static Boolean Match(String name)
-    //    {
-    //        if (_cache == null)
-    //        {
-    //            _cache = new DictionaryCache<String, Boolean>(StringComparer.OrdinalIgnoreCase);
-    //            _cache.Asynchronous = true;
-    //            _cache.CacheDefault = true;
-    //            _cache.Expire = 10 * 60;        // 10分钟过期
-    //            //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
-    //        }
-
-    //        return _cache.GetItem(name, k =>
-    //        {
-    //            var user = User.FindByName(k);
-    //            if (user == null) return false;
-    //            return user.IsTeam;
-    //        });
-    //    }
-    //}
 }

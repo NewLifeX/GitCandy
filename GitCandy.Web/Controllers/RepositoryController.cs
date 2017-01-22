@@ -231,11 +231,12 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Tree(String owner, String name, String path)
+        public ActionResult Tree(String owner, String name, String branch, String path)
         {
             var repo = Repository.FindByOwnerAndName(owner, name);
             using (var git = new GitService(owner, name))
             {
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
                 var model = git.GetTree(path);
                 if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
 
@@ -273,13 +274,12 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Blob(String owner, String name, String path)
+        public ActionResult Blob(String owner, String name, String branch, String path)
         {
             using (var git = new GitService(owner, name))
             {
-                var model = git.GetBlob(path);
-                if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                var model = git.GetBlob($"{branch}/{path}");
+                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                 model.Name = name;
                 return View(model);
             }

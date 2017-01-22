@@ -26,6 +26,7 @@ namespace GitCandy.Git
         private bool _disposed;
 
         public Encoding I18n { get { return _i18n.Value; } }
+        public String Owner { get; private set; }
         public String Name { get; private set; }
         public Repository Repository { get { return _repository; } }
 
@@ -34,6 +35,7 @@ namespace GitCandy.Git
             var info = GetPath(owner, name).AsDirectory();
             _repositoryPath = info.FullName;
             _repoId = Name = info.Name;
+            Owner = owner;
 
             // 如果版本库无效，则创建
             if (!Repository.IsValid(_repositoryPath)) CreateRepository(owner, name);
@@ -86,6 +88,8 @@ namespace GitCandy.Git
             // 基本信息
             var model = new TreeModel
             {
+                Owner = Owner,
+                Name = Name,
                 ReferenceName = referenceName,
                 Path = String.IsNullOrEmpty(path) ? "" : path,
                 Commit = new CommitModel
@@ -178,12 +182,10 @@ namespace GitCandy.Git
         {
             String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
             var entry = commit[path];
-            if (entry == null || entry.TargetType != TreeEntryTargetType.Blob)
-                return null;
+            if (entry == null || entry.TargetType != TreeEntryTargetType.Blob) return null;
 
             var blob = (Blob)entry.Target;
 
@@ -246,8 +248,7 @@ namespace GitCandy.Git
         {
             String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
             var treeEntry = commit[path];
             var isBlob = treeEntry != null && treeEntry.TargetType == TreeEntryTargetType.Blob;
@@ -311,8 +312,7 @@ namespace GitCandy.Git
         {
             String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
             var commitsAccessor = GitCacheAccessor.Singleton(new CommitsAccessor(_repoId, _repository, commit, path, page, pagesize));
             var scopeAccessor = GitCacheAccessor.Singleton(new ScopeAccessor(_repoId, _repository, commit, path));

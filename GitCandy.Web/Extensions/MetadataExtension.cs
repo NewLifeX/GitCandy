@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
 using LibGit2Sharp;
 
@@ -190,5 +191,15 @@ namespace GitCandy.Extensions
                 return null;
             return obj.ToString();
         }
+
+        public static String GetUrl(this TreeModel model, String action, String path)
+        {
+            return $"/{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
+        }
+
+        //public static String GetUrl(this PathBarModel model, String action, String path)
+        //{
+        //    return $"/{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.ReferenceSha}/{path}";
+        //}
     }
 }

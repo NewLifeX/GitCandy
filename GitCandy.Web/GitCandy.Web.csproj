@@ -114,8 +114,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\GitCandy\Views\web.config" />
     <None Include="packages.config">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\GitCandy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
