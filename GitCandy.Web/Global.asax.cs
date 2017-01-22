@@ -22,11 +22,11 @@ namespace GitCandy
             //XTrace.WriteLine(AppInfomation.GetAppStartingInfo());
             XTrace.WriteVersion(this.GetType().Assembly);
 
-            AreaRegistration.RegisterAllAreas();
-
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AreaRegistration.RegisterAllAreas();
 
             //MefConfig.RegisterMef();
             //ScheduleConfig.RegisterScheduler();
