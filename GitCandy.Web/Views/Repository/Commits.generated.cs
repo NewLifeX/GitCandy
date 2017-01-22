@@ -123,21 +123,21 @@ WriteLiteral(">");
 
             
             #line 16 "..\..\Views\Repository\Commits.cshtml"
-                                                   Write(Html.ActionLink(commit.CommitMessageShort.ShortString(100), "Commit", Html.OverRoute(new { path = commit.Sha + "/" + Model.Path })));
+                                                   Write(Html.ActionLink(commit.CommitMessageShort.ShortString(100), "Commit", new { branch = commit.Sha, path = Model.Path }));
 
             
             #line default
             #line hidden
 WriteLiteral("</div>\r\n                <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 656), Tuple.Create("\"", 678)
+WriteAttribute("title", Tuple.Create(" title=\"", 642), Tuple.Create("\"", 664)
             
             #line 17 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 664), Tuple.Create<System.Object, System.Int32>(commit.Author
+, Tuple.Create(Tuple.Create("", 650), Tuple.Create<System.Object, System.Int32>(commit.Author
             
             #line default
             #line hidden
-, 664), false)
+, 650), false)
 );
 
 WriteLiteral(">");
@@ -160,14 +160,14 @@ WriteLiteral("</strong>\r\n                <span>");
             #line hidden
 WriteLiteral("</span>\r\n                <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 793), Tuple.Create("\"", 820)
+WriteAttribute("title", Tuple.Create(" title=\"", 779), Tuple.Create("\"", 806)
             
             #line 19 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 801), Tuple.Create<System.Object, System.Int32>(commit.Author.When
+, Tuple.Create(Tuple.Create("", 787), Tuple.Create<System.Object, System.Int32>(commit.Author.When
             
             #line default
             #line hidden
-, 801), false)
+, 787), false)
 );
 
 WriteLiteral(">");
@@ -197,14 +197,14 @@ WriteLiteral("</span>\r\n");
             #line hidden
 WriteLiteral("                    <strong");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 982), Tuple.Create("\"", 1007)
+WriteAttribute("title", Tuple.Create(" title=\"", 968), Tuple.Create("\"", 993)
             
             #line 22 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 990), Tuple.Create<System.Object, System.Int32>(commit.Committer
+, Tuple.Create(Tuple.Create("", 976), Tuple.Create<System.Object, System.Int32>(commit.Committer
             
             #line default
             #line hidden
-, 990), false)
+, 976), false)
 );
 
 WriteLiteral(">");
@@ -231,14 +231,14 @@ WriteLiteral("</span>\r\n");
 
 WriteLiteral("                    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1134), Tuple.Create("\"", 1164)
+WriteAttribute("title", Tuple.Create(" title=\"", 1120), Tuple.Create("\"", 1150)
             
             #line 24 "..\..\Views\Repository\Commits.cshtml"
-, Tuple.Create(Tuple.Create("", 1142), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
+, Tuple.Create(Tuple.Create("", 1128), Tuple.Create<System.Object, System.Int32>(commit.Committer.When
             
             #line default
             #line hidden
-, 1142), false)
+, 1128), false)
 );
 
 WriteLiteral(">");
@@ -271,7 +271,7 @@ WriteLiteral(">");
 
             
             #line 28 "..\..\Views\Repository\Commits.cshtml"
-                                   Write(Html.ActionLink(commit.Sha.ToShortSha(), "Commit", Html.OverRoute(new { path = commit.Sha })));
+                                   Write(Html.ActionLink(commit.Sha.ToShortSha(), "Commit", new { branch = commit.Sha }));
 
             
             #line default
@@ -284,7 +284,7 @@ WriteLiteral(">");
 
             
             #line 29 "..\..\Views\Repository\Commits.cshtml"
-                                   Write(Html.ActionLink(SR.Repository_Tree, "Tree", Html.OverRoute(new { path = commit.Sha })));
+                                   Write(Html.ActionLink(SR.Repository_Tree, "Tree", new { branch = commit.Sha }));
 
             
             #line default

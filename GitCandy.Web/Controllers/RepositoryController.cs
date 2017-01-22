@@ -278,7 +278,8 @@ namespace GitCandy.Controllers
         {
             using (var git = new GitService(owner, name))
             {
-                var model = git.GetBlob($"{branch}/{path}");
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
+                var model = git.GetBlob(path);
                 if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                 model.Name = name;
                 return View(model);
@@ -286,10 +287,11 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Blame(String owner, String name, String path)
+        public ActionResult Blame(String owner, String name, String branch, String path)
         {
             using (var git = new GitService(owner, name))
             {
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
                 var model = git.GetBlame(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
@@ -300,10 +302,11 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Raw(String owner, String name, String path)
+        public ActionResult Raw(String owner, String name, String branch, String path)
         {
             using (var git = new GitService(owner, name))
             {
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
                 var model = git.GetBlob(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
@@ -315,10 +318,11 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Commit(String owner, String name, String path)
+        public ActionResult Commit(String owner, String name, String branch, String path)
         {
             using (var git = new GitService(owner, name))
             {
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
                 var model = git.GetCommit(path);
                 if (model == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
@@ -359,10 +363,11 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Commits(String owner, String name, String path, int? page)
+        public ActionResult Commits(String owner, String name, String branch, String path, int? page)
         {
             using (var git = new GitService(owner, name))
             {
+                if (!path.IsNullOrEmpty()) path = $"{branch}/{path}";
                 var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
                 //if (model == null)
                 //    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
