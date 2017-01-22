@@ -36,9 +36,9 @@ namespace NewLife.GitCandy.Entity
             if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(User).Name, Meta.Table.DataTable.DisplayName);
 
             var entity = new User();
-            entity.Name = "gitadmin";
+            entity.Name = "admin";
             entity.Nickname = "管理员";
-            entity.Password = "gitadmin".MD5();
+            entity.Password = "gitcandy".MD5();
             entity.Email = "admin@newlifex.com";
             entity.Enable = true;
             entity.IsAdmin = true;
