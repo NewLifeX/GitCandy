@@ -236,7 +236,7 @@ WriteLiteral(">");
 
             
             #line 26 "..\..\Views\Repository\Commit.cshtml"
-                 Write(Html.ActionLink(Model.Sha.ToShortSha(), "Commit", Html.OverRoute(new { path = Model.Sha })));
+                 Write(Html.ActionLink(Model.Sha.ToShortSha(), "Commit", new { path = Model.Sha }));
 
             
             #line default
@@ -249,7 +249,7 @@ WriteLiteral(">");
 
             
             #line 27 "..\..\Views\Repository\Commit.cshtml"
-                 Write(Html.ActionLink(SR.Repository_Tree, "Tree", Html.OverRoute(new { path = Model.Sha })));
+                 Write(Html.ActionLink(SR.Repository_Tree, "Tree", new { path = Model.Sha }));
 
             
             #line default
@@ -310,14 +310,14 @@ WriteLiteral("\r\n");
             #line hidden
             
             #line 36 "..\..\Views\Repository\Commit.cshtml"
-       Write(Html.ActionLink(parent.ToShortSha(), "Commit", Html.OverRoute(new { path = parent })));
+       Write(Html.ActionLink(parent.ToShortSha(), "Commit", new { path = parent }));
 
             
             #line default
             #line hidden
             
             #line 36 "..\..\Views\Repository\Commit.cshtml"
-                                                                                                  
+                                                                                  
         }
 
             

@@ -23,20 +23,20 @@ namespace GitCandy
                 constraints: new { owner = new UserUrlConstraint(), verb = new GitUrlConstraint() },
                 namespaces: new[] { typeof(AccountController).Namespace }
             );
-            routes.MapRoute(
-                name: "GitAct",
-                url: "{owner}/{name}/{action}/{branch}/{*path}",
-                defaults: new { controller = "Repository", path = UrlParameter.Optional },
-                constraints: new { owner = new UserUrlConstraint() },
-                namespaces: new[] { typeof(AccountController).Namespace }
-            );
             //routes.MapRoute(
-            //    name: "UserGitAct",
-            //    url: "{owner}/{name}/{action}/{*path}",
+            //    name: "GitAct",
+            //    url: "{owner}/{name}/{action}/{branch}/{*path}",
             //    defaults: new { controller = "Repository", path = UrlParameter.Optional },
             //    constraints: new { owner = new UserUrlConstraint() },
             //    namespaces: new[] { typeof(AccountController).Namespace }
             //);
+            routes.MapRoute(
+                name: "UserGitAct",
+                url: "{owner}/{name}/{action}/{*path}",
+                defaults: new { controller = "Repository", path = UrlParameter.Optional },
+                constraints: new { owner = new UserUrlConstraint() },
+                namespaces: new[] { typeof(AccountController).Namespace }
+            );
             routes.MapRoute(
                 name: "UserGitWeb",
                 url: "{owner}/{name}",

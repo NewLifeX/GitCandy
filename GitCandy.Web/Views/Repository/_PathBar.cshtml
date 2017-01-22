@@ -4,7 +4,7 @@
 }
 
 <ul class="breadcrumb">
-    <li>@Html.ActionLink(Model.Name, Model.Action, Html.OverRoute(new { branch, path = "" }))</li>
+    <li>@Html.ActionLink(Model.Name, Model.Action, new { path = branch })</li>
 
     @if (!String.IsNullOrEmpty(Model.Path))
     {
@@ -29,7 +29,7 @@
             }
             else
             {
-                <li>@Html.ActionLink(dirs[i], Model.Action, Html.OverRoute(new { branch, path = currentPath })) </li>
+                <li>@Html.ActionLink(dirs[i], Model.Action, new { path = branch + "/" + currentPath }) </li>
             }
         }
     }

@@ -23,8 +23,8 @@
     </div>
 
     <div class="col-md-3 text-right">
-        <div class="">@Html.ActionLink(Model.Sha.ToShortSha(), "Commit", Html.OverRoute(new { path = Model.Sha }))</div>
-        <div class="">@Html.ActionLink(SR.Repository_Tree, "Tree", Html.OverRoute(new { path = Model.Sha }))</div>
+        <div class="">@Html.ActionLink(Model.Sha.ToShortSha(), "Commit", new { path = Model.Sha })</div>
+        <div class="">@Html.ActionLink(SR.Repository_Tree, "Tree", new { path = Model.Sha })</div>
         @Model.Parents.Length @SR.Repository_Parents
         @for (var index = 0; index < Model.Parents.Length; index++)
         {
@@ -33,7 +33,7 @@
                 @Html.Raw(" + ")
             }
             var parent = Model.Parents[index];
-            @Html.ActionLink(parent.ToShortSha(), "Commit", Html.OverRoute(new { path = parent }))
+            @Html.ActionLink(parent.ToShortSha(), "Commit", new { path = parent })
         }
     </div>
 </div>

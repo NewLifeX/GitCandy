@@ -66,7 +66,7 @@ WriteLiteral(">\r\n    <li>");
 
             
             #line 7 "..\..\Views\Repository\_PathBar.cshtml"
-   Write(Html.ActionLink(Model.Name, Model.Action, Html.OverRoute(new { branch, path = "" })));
+   Write(Html.ActionLink(Model.Name, Model.Action, new { path = branch }));
 
             
             #line default
@@ -132,7 +132,7 @@ WriteLiteral("                <li>");
 
             
             #line 32 "..\..\Views\Repository\_PathBar.cshtml"
-               Write(Html.ActionLink(dirs[i], Model.Action, Html.OverRoute(new { branch, path = currentPath })));
+               Write(Html.ActionLink(dirs[i], Model.Action, new { path = branch + "/" + currentPath }));
 
             
             #line default
