@@ -51,3 +51,7 @@ Go to [changes page](http://github.com/Aimeast/GitCandy/blob/dev/CHANGES.md)
 ---
 ### License
 The MIT license
+
+## 项目源码位置
+国内 https://git.NewLifeX.com/NewLife/GitCandy  
+国外 https://github.com/NewLifeX/GitCandy  
