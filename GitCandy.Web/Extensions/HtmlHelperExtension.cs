@@ -68,7 +68,8 @@ namespace GitCandy.Extensions
             if (user == null) return null;
 
             var link1 = html.ActionLink(repo.Owner, "Detail", user.IsTeam ? "Team" : "Account", new { name = repo.Owner }, null);
-            var link2 = html.ActionLink(repo.Name, "Tree", html.OverRoute(new { path = "" }));
+            //var link2 = html.ActionLink(repo.Name, "Tree", new { owner = repo.Owner, name = repo.Name, path = "" });
+            var link2 = html.RouteLink(repo.Name, "UserGitWeb", new { owner = repo.Owner, name = repo.Name });
 
             return new MvcHtmlString(link1.ToHtmlString() + "/" + link2.ToHtmlString());
         }
