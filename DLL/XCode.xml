@@ -233,6 +233,12 @@
         <member name="P:XCode.Cache.FieldCache`1.MaxRows">
             <summary>最大行数。默认20</summary>
         </member>
+        <member name="P:XCode.Cache.FieldCache`1.GetDisplay">
+            <summary>获取显示名的委托</summary>
+        </member>
+        <member name="P:XCode.Cache.FieldCache`1.DisplayFormat">
+            <summary>显示名格式化字符串，两个参数是名称和个数</summary>
+        </member>
         <member name="M:XCode.Cache.FieldCache`1.#ctor(XCode.Configuration.FieldItem)">
             <summary>对指定字段使用实体缓存</summary>
             <param name="field"></param>

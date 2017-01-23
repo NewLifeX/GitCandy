@@ -543,7 +543,7 @@
             <param name="name"></param>
             <param name="items"></param>
             <param name="selectedValue"></param>
-            <param name="optionLabel"></param>
+            <param name="optionLabel">默认空项的文本。此参数可以为 null。</param>
             <param name="autoPostback">自动回发</param>
             <returns></returns>
         </member>
