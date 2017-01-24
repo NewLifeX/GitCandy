@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
-using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Git.Cache;
-using ICSharpCode.SharpZipLib.Zip;
 using LibGit2Sharp;
+using NewLife.Reflection;
 
 namespace GitCandy.Git
 {
@@ -15,9 +15,8 @@ namespace GitCandy.Git
     {
         private readonly Commit commit;
         private readonly Encoding[] encodings;
-        private readonly String newline;
 
-        public ArchiverAccessor(String repoId, Repository repo, Commit commit, String newline, params Encoding[] encodings)
+        public ArchiverAccessor(String repoId, Repository repo, Commit commit, params Encoding[] encodings)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -25,14 +24,13 @@ namespace GitCandy.Git
 
             this.commit = commit;
             this.encodings = encodings;
-            this.newline = newline;
         }
 
         public override bool IsAsync { get { return false; } }
 
         protected override String GetCacheKey()
         {
-            return GetCacheKey(commit.Sha, newline);
+            return GetCacheKey(commit.Sha);
         }
 
         protected override void Init()
@@ -46,7 +44,7 @@ namespace GitCandy.Git
 
         protected override void Calculate()
         {
-            using (var zipOutputStream = new ZipOutputStream(new FileStream(result, FileMode.Create)))
+            using (var zip = ZipFile.Open(result, ZipArchiveMode.Create))
             {
                 var stack = new Stack<Tree>();
 
@@ -56,39 +54,41 @@ namespace GitCandy.Git
                     var tree = stack.Pop();
                     foreach (var entry in tree)
                     {
-                        byte[] bytes;
                         switch (entry.TargetType)
                         {
                             case TreeEntryTargetType.Blob:
-                                zipOutputStream.PutNextEntry(new ZipEntry(entry.Path));
-                                var blob = (Blob)entry.Target;
-                                bytes = blob.GetContentStream().ReadBytes();
-                                if (newline == null)
-                                    zipOutputStream.Write(bytes, 0, bytes.Length);
-                                else
                                 {
-                                    var encoding = FileHelper.DetectEncoding(bytes, encodings);
-                                    if (encoding == null)
-                                        zipOutputStream.Write(bytes, 0, bytes.Length);
-                                    else
-                                    {
-                                        bytes = FileHelper.ReplaceNewline(bytes, encoding, newline);
-                                        zipOutputStream.Write(bytes, 0, bytes.Length);
-                                    }
+                                    var zipEntry = zip.CreateEntry(entry.Path);
+                                    var ms = zipEntry.Open();
+                                    var blob = (Blob)entry.Target;
+                                    blob.GetContentStream().CopyTo(ms);
+                                    ms.Close();
+                                    break;
                                 }
-                                break;
                             case TreeEntryTargetType.Tree:
                                 stack.Push((Tree)entry.Target);
                                 break;
                             case TreeEntryTargetType.GitLink:
-                                zipOutputStream.PutNextEntry(new ZipEntry(entry.Path + "/.gitsubmodule"));
-                                bytes = Encoding.ASCII.GetBytes(entry.Target.Sha);
-                                zipOutputStream.Write(bytes, 0, bytes.Length);
-                                break;
+                                {
+                                    var zipEntry = zip.CreateEntry(entry.Path + "/.gitsubmodule");
+                                    var ms = zipEntry.Open();
+                                    ms.Write(entry.Target.Sha.GetBytes());
+                                    ms.Close();
+                                    break;
+                                }
                         }
                     }
                 }
-                zipOutputStream.SetComment(commit.Sha);
+                //zip.SetComment(commit.Sha);
+                var sb = new StringBuilder();
+                sb.AppendLine(commit.Sha);
+                sb.AppendLine(commit.Message);
+
+                var au = commit.Author;
+                if (au != null) sb.AppendFormat("{0}({1}) {2}", au.Name, au.Email, au.When.DateTime.ToFullString());
+
+                var enc = Encoding.Default;
+                zip.SetValue("_archiveComment", sb.ToString().GetBytes(enc));
             }
             resultDone = true;
         }

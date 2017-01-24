@@ -386,14 +386,14 @@ namespace GitCandy.Git
             return model;
         }
 
-        public String GetArchiveFilename(String path, String newline, out String referenceName)
+        public String GetArchiveFilename(String path, out String referenceName)
         {
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null) return null;
 
             if (referenceName == null) referenceName = commit.Sha;
 
-            var accessor = GitCacheAccessor.Singleton(new ArchiverAccessor(_repoId, _repository, commit, newline, CpToEncoding(commit.Encoding), _i18n.Value));
+            var accessor = GitCacheAccessor.Singleton(new ArchiverAccessor(_repoId, _repository, commit, CpToEncoding(commit.Encoding), _i18n.Value));
 
             return accessor.Result.Value;
         }

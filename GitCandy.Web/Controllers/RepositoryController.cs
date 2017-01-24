@@ -379,35 +379,16 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Archive(String owner, String name, String path, String eol = null)
+        public ActionResult Archive(String owner, String name, String path)
         {
             using (var git = new GitService(owner, name))
             {
-                String newline = null;
-                switch (eol)
-                {
-                    case "LF":
-                        newline = "\n";
-                        break;
-                    case "CR":
-                        newline = "\r";
-                        break;
-                    case "CRLF":
-                        newline = "\r\n";
-                        break;
-                    default:
-                        eol = null;
-                        break;
-                }
-
                 String referenceName;
-                var cacheFile = git.GetArchiveFilename(path, newline, out referenceName);
+                var cacheFile = git.GetArchiveFilename(path, out referenceName);
                 if (cacheFile == null)
                     throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
 
                 var filename = name + "-" + referenceName;
-                if (eol != null)
-                    filename += "-" + eol;
                 return File(cacheFile, "application/zip", filename + ".zip");
             }
         }

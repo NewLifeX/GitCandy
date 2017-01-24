@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -80,50 +81,7 @@ WriteLiteral("></span>");
             
             #line default
             #line hidden
-WriteLiteral("</a>\r\n    <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(" class=\"btn btn-default dropdown-toggle\"");
-
-WriteLiteral(" data-toggle=\"dropdown\"");
-
-WriteLiteral("><span");
-
-WriteLiteral(" class=\"caret\"");
-
-WriteLiteral("></span></a>\r\n    <ul");
-
-WriteLiteral(" class=\"dropdown-menu\"");
-
-WriteLiteral(">\r\n        <li>");
-
-            
-            #line 7 "..\..\Views\Repository\_ZipButton.cshtml"
-       Write(Html.ActionLink(SR.Repository_ZipLF, "Archive", Html.OverRoute(new { path = Model, eol = "LF" })));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n        <li>");
-
-            
-            #line 8 "..\..\Views\Repository\_ZipButton.cshtml"
-       Write(Html.ActionLink(SR.Repository_ZipCR, "Archive", Html.OverRoute(new { path = Model, eol = "CR" })));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n        <li>");
-
-            
-            #line 9 "..\..\Views\Repository\_ZipButton.cshtml"
-       Write(Html.ActionLink(SR.Repository_ZipCRLF, "Archive", Html.OverRoute(new { path = Model, eol = "CRLF" })));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n    </ul>\r\n</div>\r\n");
+WriteLiteral("</a>\r\n</div>\r\n");
 
         }
     }
