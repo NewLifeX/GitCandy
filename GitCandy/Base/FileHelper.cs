@@ -78,7 +78,7 @@ namespace GitCandy.Base
                 { ".scala", "scala" },
                 { ".vb", "vbnet" },
                 { ".vbs", "vbscript" },
-                
+
                 { ".xml", "xml" },
                 { ".htm", "xml" },
                 { ".html", "xml" },
@@ -254,5 +254,32 @@ namespace GitCandy.Base
             catch { }
             return false;
         }
+
+        //public static String ReadMarkdown(Byte[] bytes, Encoding encoding, String baseurl, String path)
+        //{
+        //    var txt = bytes.ToStr(encoding);
+
+        //    // 预处理Markdown链接和图片
+        //    var p = 0;
+        //    var ps = new Int32[] { 0, 0 };
+        //    while (true)
+        //    {
+        //        var url = txt.Substring("](", ")", p, ps);
+        //        if (url.IsNullOrEmpty() || ps[0] < 0) break;
+
+        //        if (!url.IsNullOrEmpty() && !url.StartsWithIgnoreCase("http://", "https://", "/"))
+        //        {
+        //            // 处理Url。找到当前文件路径
+
+        //            // 重新拼接
+        //            txt = txt.Substring(0, ps[0]) + url + txt.Substring(ps[1]);
+        //        }
+
+        //        // 下一次
+        //        p = ps[0];
+        //    }
+
+        //    return txt;
+        //}
     }
 }

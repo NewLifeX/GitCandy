@@ -15,6 +15,7 @@ using GitCandy.Ssh;
 using GitCandy.Web.App_GlobalResources;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
+using GitCandy.Extensions;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
@@ -269,6 +270,10 @@ namespace GitCandy.Controllers
                         model.Description = repo.Description;
                     }
                 }
+
+                // 修正Markdown
+                if (model.Readme != null) model.Readme.FixMarkdown($"/{owner}/{name}");
+
                 return View(model);
             }
         }
@@ -280,7 +285,12 @@ namespace GitCandy.Controllers
             {
                 var model = git.GetBlob(path);
                 if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+
+                // 修正Markdown
+                if (model.Name.EndsWithIgnoreCase(".md")) model.FixMarkdown($"/{owner}/{name}");
+
                 model.Name = name;
+
                 return View(model);
             }
         }
@@ -305,8 +315,7 @@ namespace GitCandy.Controllers
             using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlob(path);
-                if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
 
                 return model.BlobType == BlobType.Binary
                     ? new RawResult(model.RawData, FileHelper.BinaryMimeType, model.Name)

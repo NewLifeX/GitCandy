@@ -32,10 +32,12 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.*")]
-[assembly: AssemblyFileVersion("1.1.2016.1124")]
+[assembly: AssemblyVersion("1.2.*")]
+[assembly: AssemblyFileVersion("1.2.2017.0124")]
 
 /*
+ * v1.2.2017.0124   Markdown语法增强，支持相对路径引用图片和链接
+ * 
  * v1.1.2016.1124   仓库归属于个人或团队
  * 
  * v1.0.2016.1122   迁移到XCode，合并魔方

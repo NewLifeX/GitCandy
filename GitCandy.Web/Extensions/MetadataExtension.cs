@@ -201,5 +201,40 @@ namespace GitCandy.Extensions
         //{
         //    return $"/{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.ReferenceSha}/{path}";
         //}
+
+        public static void FixMarkdown(this TreeEntryModel model, String baseurl)
+        {
+            var txt = model.TextContent;
+
+            // 预处理Markdown链接和图片
+            var p = 0;
+            var ps = new Int32[] { 0, 0 };
+            while (true)
+            {
+                var url = txt.Substring("](", ")", p, ps);
+                if (url.IsNullOrEmpty() || ps[0] < 0) break;
+
+                if (!url.IsNullOrEmpty() && !url.StartsWithIgnoreCase("http://", "https://", "/"))
+                {
+                    // 处理Url。找到当前文件路径
+                    var path = model.Path;
+                    var p2 = path.LastIndexOf("/");
+                    if (p2 >= 0)
+                        path = path.Substring(0, p2 + 1);
+                    else
+                        path = "";
+
+                    url = $"{baseurl}/Raw/{model.ReferenceName ?? model.Commit.Sha}/{path}{url}";
+
+                    // 重新拼接
+                    txt = txt.Substring(0, ps[0]) + url + txt.Substring(ps[1]);
+                }
+
+                // 下一次
+                p = ps[0];
+            }
+
+            model.TextContent = txt;
+        }
     }
 }

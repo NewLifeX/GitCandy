@@ -142,19 +142,28 @@ namespace GitCandy.Git
 
             if (model.Readme != null)
             {
-                var data = ((Blob)tree[model.Readme.Name].Target).GetContentStream().ToBytes();
+                var rm = model.Readme;
+                var entry = tree[rm.Name];
+                var blob = (Blob)entry.Target;
+                var data = blob.GetContentStream().ToBytes();
                 var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);
                 if (encoding == null)
                 {
-                    model.Readme.BlobType = BlobType.Binary;
+                    rm.BlobType = BlobType.Binary;
+                }
+                else if (rm.Name.EndsWithIgnoreCase(".md"))
+                {
+                    rm.BlobType = BlobType.MarkDown;
+                    //rm.TextContent = FileHelper.ReadMarkdown(data, encoding, $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}");
+                    //rm.Path = $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}";
+                    rm.TextContent = data.ToStr(encoding);
+                    rm.TextBrush = "no-highlight";
                 }
                 else
                 {
-                    model.Readme.BlobType = model.Readme.Name.EndsWith(".md", StringComparison.OrdinalIgnoreCase)
-                        ? BlobType.MarkDown
-                        : BlobType.Text;
-                    model.Readme.TextContent = FileHelper.ReadToEnd(data, encoding);
-                    model.Readme.TextBrush = "no-highlight";
+                    rm.BlobType = BlobType.Text;
+                    rm.TextContent = data.ToStr(encoding);
+                    rm.TextBrush = "no-highlight";
                 }
             }
 
@@ -215,9 +224,7 @@ namespace GitCandy.Git
                 EntryType = entry.TargetType,
                 RawData = data,
                 SizeString = FileHelper.GetSizeString(data.Length),
-                TextContent = encoding == null
-                    ? null
-                    : FileHelper.ReadToEnd(data, encoding),
+                TextContent = data.ToStr(encoding),
                 TextBrush = FileHelper.BrushMapping.ContainsKey(extension)
                     ? FileHelper.BrushMapping[extension]
                     : "no-highlight",
