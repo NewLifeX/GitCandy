@@ -103,11 +103,7 @@ WriteLiteral("@ [MIT License](http://github.com/jquery/jquery/blob/master/MIT-LI
 WriteLiteral("@ [MIT License](http://github.com/libgit2/libgit2sharp/blob/master/LICENSE.md)\r\n*" +
 " [marked](http://github.com/chjj/marked) ");
 
-WriteLiteral("@ [MIT License](http://github.com/chjj/marked/blob/master/LICENSE)\r\n* [SharpZipLi" +
-"b](http://github.com/icsharpcode/SharpZipLib) ");
-
-WriteLiteral("@ [GPL License v2](http://github.com/icsharpcode/SharpZipLib/blob/master/doc/COPY" +
-"ING.txt)\r\n</div>");
+WriteLiteral("@ [MIT License](http://github.com/chjj/marked/blob/master/LICENSE)\r\n</div>");
 
         }
     }

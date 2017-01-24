@@ -1,9 +1,9 @@
 ﻿## GitCandy
-GitCandy© 是一个基于 ASP.NET MVC 的 [Git](http://git-scm.com/documentation) 版本控制服务端，支持公有和私有代码库，可不受限制的创建代码代码库，随时随地的与团队进行协作。
+GitCandy© 是一个基于 ASP.NET MVC 的 [Git](http://git-scm.com/documentation) 版本控制服务端，支持公有和私有代码库，可不受限制的创建代码代码库，随时随地的与团队进行协作。  
 
-GitCandy© 由团队成员[Aimeast](https://github.com/Aimeast/GitCandy)创建，本分支引入[魔方](https://git.newlifex.com/NewLife/X)并进行功能调整，主要改进为免部署，以及支持团队个人下属源码库两级管理。
+GitCandy© 由团队成员[Aimeast](https://github.com/Aimeast/GitCandy)创建，本分支引入[魔方](https://git.newlifex.com/NewLife/X/Tree/master/NewLife.Cube)并进行功能调整，主要改进为免部署，以及支持团队个人下属源码库两级管理。  
 
-演示网站：[https://git.newlifex.com/](https://git.newlifex.com/)
+演示：[https://git.newlifex.com/](https://git.newlifex.com/)
 
 源码： https://git.NewLifeX.com/NewLife/GitCandy  
 海外： https://github.com/NewLifeX/GitCandy  
@@ -39,7 +39,6 @@ GitCandy© 由团队成员[Aimeast](https://github.com/Aimeast/GitCandy)创建�
 * [jQuery](http://github.com/jquery/jquery) @ [MIT License](http://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt)
 * [LibGit2Sharp](http://github.com/libgit2/libgit2sharp) @ [MIT License](http://github.com/libgit2/libgit2sharp/blob/master/LICENSE.md)
 * [marked](http://github.com/chjj/marked) @ [MIT License](http://github.com/chjj/marked/blob/master/LICENSE)
-* [SharpZipLib](http://github.com/icsharpcode/SharpZipLib) @ [GPL License v2](http://github.com/icsharpcode/SharpZipLib/blob/master/doc/COPYING.txt)
 
 ---
 ### 协议
