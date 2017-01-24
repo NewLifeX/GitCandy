@@ -253,17 +253,18 @@ namespace GitCandy.Controllers
                     // 修正提交数、分支、参与人等
                     if (repo != null)
                     {
-                        if (model.Scope != null)
+                        var ms = model?.Scope;
+                        if (ms != null && ms.Commits > 0)
                         {
-                            repo.Commits = model.Scope.Commits;
-                            repo.Branches = model.Scope.Branches;
-                            repo.Contributors = model.Scope.Contributors;
+                            repo.Commits = ms.Commits;
+                            repo.Branches = ms.Branches;
+                            repo.Contributors = ms.Contributors;
                         }
                         if (model.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
 
                         repo.Views++;
                         repo.LastView = DateTime.Now;
-                        repo.SaveAsync();
+                        repo.Save();
 
                         model.Description = repo.Description;
                     }
@@ -387,7 +388,7 @@ namespace GitCandy.Controllers
                 if (repo != null)
                 {
                     repo.Downloads++;
-                    repo.SaveAsync();
+                    repo.Save();
                 }
 
                 String referenceName;

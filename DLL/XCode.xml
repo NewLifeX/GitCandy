@@ -4960,15 +4960,11 @@
             <summary>日志实体类基类</summary>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="M:XCode.Membership.LogEntity`1.Save">
-            <summary>调用Save时写日志</summary>
-            <returns></returns>
-        </member>
         <member name="M:XCode.Membership.LogEntity`1.Insert">
             <summary>添加时写日志</summary>
             <returns></returns>
         </member>
-        <member name="M:XCode.Membership.LogEntity`1.OnUpdate">
+        <member name="M:XCode.Membership.LogEntity`1.Update">
             <summary>修改时写日志</summary>
             <returns></returns>
         </member>
