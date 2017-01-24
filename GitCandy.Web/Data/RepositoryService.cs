@@ -52,15 +52,7 @@ namespace GitCandy.Data
             var repo = Repository.FindByOwnerAndName(owner, reponame);
             if (repo == null) return null;
 
-            var model = new RepositoryModel
-            {
-                Owner = repo.Owner.Name,
-                Name = repo.Name,
-                Description = repo.Description,
-                IsPrivate = repo.IsPrivate,
-                AllowAnonymousRead = repo.AllowAnonymousRead,
-                AllowAnonymousWrite = repo.AllowAnonymousWrite,
-            };
+            var model = ToModel(repo);
             if (withShipment || username != null)
             {
                 var tempList = UserRepository.FindAllByRepositoryID(repo.ID).ToList().Where(e => e.User != null);
@@ -325,7 +317,7 @@ namespace GitCandy.Data
             if (String.IsNullOrEmpty(username))
             {
                 model.Collaborations = new RepositoryModel[0];
-                model.Repositories = ToRepositoryArray(Repository.GetPublics(param));
+                model.Repositories = ToModels(Repository.GetPublics(param));
             }
             else
             {
@@ -335,28 +327,34 @@ namespace GitCandy.Data
                 var q3 = q1.Union(q2).Where(e => e.Enable);
                 q3 = q3.OrderByDescending(e => e.LastCommit);
 
-                model.Collaborations = ToRepositoryArray(q3);
+                model.Collaborations = ToModels(q3);
                 var list = Repository.Search(showAll, q3.Select(e => e.ID), param);
-                model.Repositories = ToRepositoryArray(list);
+                model.Repositories = ToModels(list);
             }
 
             return model;
         }
 
-        private RepositoryModel[] ToRepositoryArray(IEnumerable<Repository> source)
+        private RepositoryModel[] ToModels(IEnumerable<Repository> source)
         {
-            return source.Select(s => new RepositoryModel
+            return source.Select(ToModel).ToArray();
+        }
+
+        private RepositoryModel ToModel(Repository repo)
+        {
+            return new RepositoryModel
             {
-                Owner = s.Owner.Name,
-                Name = s.Name,
-                Description = s.Description,
-                Commits = s.Commits,
-                Branches = s.Branches,
-                Contributors = s.Contributors,
-                LastCommit = s.LastCommit,
-                Views = s.Views,
-                LastView = s.LastView,
-            }).ToArray();
+                Owner = repo.Owner.Name,
+                Name = repo.Name,
+                Description = repo.Description,
+                Commits = repo.Commits,
+                Branches = repo.Branches,
+                Contributors = repo.Contributors,
+                LastCommit = repo.LastCommit,
+                Views = repo.Views,
+                LastView = repo.LastView,
+                Downloads = repo.Downloads
+            };
         }
     }
 }

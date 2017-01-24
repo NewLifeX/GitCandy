@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -225,12 +226,48 @@ WriteLiteral("</dt>\r\n        <dd>");
             
             #line default
             #line hidden
+WriteLiteral("</dd>\r\n\r\n        <dt>");
+
+            
+            #line 38 "..\..\Views\Repository\Detail.cshtml"
+       Write(Html.DisplayNameFor(s => s.Views));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dt>\r\n        <dd>");
+
+            
+            #line 39 "..\..\Views\Repository\Detail.cshtml"
+       Write(Html.DisplayFor(s => s.Views));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dd>\r\n\r\n        <dt>");
+
+            
+            #line 41 "..\..\Views\Repository\Detail.cshtml"
+       Write(Html.DisplayNameFor(s => s.Downloads));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dt>\r\n        <dd>");
+
+            
+            #line 42 "..\..\Views\Repository\Detail.cshtml"
+       Write(Html.DisplayFor(s => s.Downloads));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("</dd>\r\n\r\n        <dt>\r\n");
 
 WriteLiteral("            ");
 
             
-            #line 39 "..\..\Views\Repository\Detail.cshtml"
+            #line 45 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.ActionLink(SR.Repository_Tree, "Tree", new { Model.Name }, new { @class = "btn btn-default pull-left" }));
 
             
@@ -239,13 +276,13 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </dt>\r\n        <dd>\r\n");
 
             
-            #line 42 "..\..\Views\Repository\Detail.cshtml"
+            #line 48 "..\..\Views\Repository\Detail.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Repository\Detail.cshtml"
+            #line 48 "..\..\Views\Repository\Detail.cshtml"
          if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin))
         {
             
@@ -253,14 +290,14 @@ WriteLiteral("\r\n        </dt>\r\n        <dd>\r\n");
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\Repository\Detail.cshtml"
+            #line 50 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { Model.Name }, new { @class = "btn btn-primary" }));
 
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\Repository\Detail.cshtml"
+            #line 50 "..\..\Views\Repository\Detail.cshtml"
                                                                                                             
 
             
@@ -271,20 +308,20 @@ WriteLiteral("            ");
 WriteLiteral("\r\n");
 
             
-            #line 46 "..\..\Views\Repository\Detail.cshtml"
+            #line 52 "..\..\Views\Repository\Detail.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 46 "..\..\Views\Repository\Detail.cshtml"
+            #line 52 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.ActionLink(SR.Repository_Relationship, "Coop", new { Model.Name }, new { @class = "btn btn-info" }));
 
             
             #line default
             #line hidden
             
-            #line 46 "..\..\Views\Repository\Detail.cshtml"
+            #line 52 "..\..\Views\Repository\Detail.cshtml"
                                                                                                                      
         }
 
@@ -294,7 +331,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        </dd>\r\n    </dl>\r\n");
 
             
-            #line 50 "..\..\Views\Repository\Detail.cshtml"
+            #line 56 "..\..\Views\Repository\Detail.cshtml"
 }
 
             

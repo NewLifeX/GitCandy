@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using GitCandy.Base;
 using GitCandy.Web.App_GlobalResources;
+using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Models
 {
@@ -57,7 +58,10 @@ namespace GitCandy.Models
         public Int32 Branches { get; set; }
         public Int32 Contributors { get; set; }
         public DateTime LastCommit { get; set; }
+        [Display(Name = "浏览数")]
         public Int32 Views { get; set; }
         public DateTime LastView { get; set; }
+        [Display(Name = "下载数")]
+        public Int32 Downloads { get; set; }
     }
 }
