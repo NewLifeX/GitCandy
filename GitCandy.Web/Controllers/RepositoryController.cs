@@ -383,6 +383,13 @@ namespace GitCandy.Controllers
         {
             using (var git = new GitService(owner, name))
             {
+                var repo = Repository.FindByOwnerAndName(owner, name);
+                if (repo != null)
+                {
+                    repo.Downloads++;
+                    repo.SaveAsync();
+                }
+
                 String referenceName;
                 var cacheFile = git.GetArchiveFilename(path, out referenceName);
                 if (cacheFile == null)

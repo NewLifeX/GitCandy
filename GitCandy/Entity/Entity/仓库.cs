@@ -187,12 +187,24 @@ namespace NewLife.GitCandy.Entity
             set { if (OnPropertyChanging(__.Views, value)) { _Views = value; OnPropertyChanged(__.Views); } }
         }
 
+        private Int32 _Downloads;
+        /// <summary>下载数</summary>
+        [DisplayName("下载数")]
+        [Description("下载数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(15, "Downloads", "下载数", null, "int", 10, 0, false)]
+        public virtual Int32 Downloads
+        {
+            get { return _Downloads; }
+            set { if (OnPropertyChanging(__.Downloads, value)) { _Downloads = value; OnPropertyChanged(__.Downloads); } }
+        }
+
         private DateTime _LastView;
         /// <summary>最后浏览</summary>
         [DisplayName("最后浏览")]
         [Description("最后浏览")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(15, "LastView", "最后浏览", null, "datetime", 3, 0, false)]
+        [BindColumn(16, "LastView", "最后浏览", null, "datetime", 3, 0, false)]
         public virtual DateTime LastView
         {
             get { return _LastView; }
@@ -204,7 +216,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("描述")]
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(16, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(17, "Description", "描述", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Description
         {
             get { return _Description; }
@@ -216,7 +228,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(17, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(18, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -228,7 +240,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(18, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(19, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -240,7 +252,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(19, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(20, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -252,7 +264,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(20, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(21, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -264,7 +276,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(21, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(22, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -276,7 +288,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(22, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(23, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
@@ -312,6 +324,7 @@ namespace NewLife.GitCandy.Entity
                     case __.Size : return _Size;
                     case __.LastCommit : return _LastCommit;
                     case __.Views : return _Views;
+                    case __.Downloads : return _Downloads;
                     case __.LastView : return _LastView;
                     case __.Description : return _Description;
                     case __.CreateUserID : return _CreateUserID;
@@ -341,6 +354,7 @@ namespace NewLife.GitCandy.Entity
                     case __.Size : _Size = Convert.ToInt64(value); break;
                     case __.LastCommit : _LastCommit = Convert.ToDateTime(value); break;
                     case __.Views : _Views = Convert.ToInt32(value); break;
+                    case __.Downloads : _Downloads = Convert.ToInt32(value); break;
                     case __.LastView : _LastView = Convert.ToDateTime(value); break;
                     case __.Description : _Description = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
@@ -400,6 +414,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>浏览数</summary>
             public static readonly Field Views = FindByName(__.Views);
+
+            ///<summary>下载数</summary>
+            public static readonly Field Downloads = FindByName(__.Downloads);
 
             ///<summary>最后浏览</summary>
             public static readonly Field LastView = FindByName(__.LastView);
@@ -472,6 +489,9 @@ namespace NewLife.GitCandy.Entity
 
             ///<summary>浏览数</summary>
             public const String Views = "Views";
+
+            ///<summary>下载数</summary>
+            public const String Downloads = "Downloads";
 
             ///<summary>最后浏览</summary>
             public const String LastView = "LastView";
@@ -546,6 +566,9 @@ namespace NewLife.GitCandy.Entity
 
         /// <summary>浏览数</summary>
         Int32 Views { get; set; }
+
+        /// <summary>下载数</summary>
+        Int32 Downloads { get; set; }
 
         /// <summary>最后浏览</summary>
         DateTime LastView { get; set; }

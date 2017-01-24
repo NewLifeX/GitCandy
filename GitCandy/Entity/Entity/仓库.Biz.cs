@@ -7,15 +7,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Xml.Serialization;
-using NewLife.Log;
-using NewLife.Web;
+using System.Linq;
 using NewLife.Data;
 using XCode;
-using XCode.Configuration;
 using XCode.Membership;
-using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -27,6 +22,7 @@ namespace NewLife.GitCandy.Entity
         {
             var df = Meta.Factory.AdditionalFields;
             df.Add(__.Views);
+            df.Add(__.Downloads);
         }
 
         public override void Valid(Boolean isNew)
