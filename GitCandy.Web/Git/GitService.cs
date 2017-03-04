@@ -12,6 +12,7 @@ using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
 using LibGit2Sharp;
+using NewLife.Log;
 
 namespace GitCandy.Git
 {
@@ -775,6 +776,10 @@ namespace GitCandy.Git
                 args += " --advertise-refs";
             args += " \"" + _repositoryPath + "\"";
 
+            WriteLog("git.exe {0}", args);
+            var sw = new Stopwatch();
+            sw.Start();
+
             var cfg = UserConfiguration.Current;
             var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
             {
@@ -786,14 +791,20 @@ namespace GitCandy.Git
                 WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()),
             };
 
+            var rs = 0;
             using (var process = Process.Start(info))
             {
                 inStream.CopyTo(process.StandardInput.BaseStream);
                 process.StandardInput.Close();
                 process.StandardOutput.BaseStream.CopyTo(outStream);
 
-                process.WaitForExit();
+                process.WaitForExit(10 * 60 * 1000);
+
+                rs = process.ExitCode;
             }
+
+            sw.Stop();
+            WriteLog("git.exe 完成 {0} 耗时 {1}", rs, sw.Elapsed);
         }
         #endregion
 
@@ -823,6 +834,19 @@ namespace GitCandy.Git
         ~GitService()
         {
             Dispose(false);
+        }
+        #endregion
+
+        #region 日志
+        /// <summary>日志</summary>
+        public ILog Log { get; set; } = Logger.Null;
+
+        /// <summary>写日志</summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void WriteLog(String format, params Object[] args)
+        {
+            if (Log != null && Log.Enable) Log.Info(format, args);
         }
         #endregion
     }

@@ -436,6 +436,23 @@
             <param name="func">获取值的委托，该委托以键作为参数</param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Collections.DictionaryCache`2.Remove(`0)">
+            <summary>移除指定缓存项</summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.Collections.DictionaryCache`2.Count">
+            <summary>缓存项</summary>
+        </member>
+        <member name="M:NewLife.Collections.DictionaryCache`2.ContainsKey(`0)">
+            <summary>是否包含指定键</summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Collections.DictionaryCache`2.CopyTo(NewLife.Collections.DictionaryCache{`0,`1})">
+            <summary>赋值到目标缓存</summary>
+            <param name="cache"></param>
+        </member>
         <member name="F:NewLife.Collections.DictionaryCache`2.clearTimer">
             <summary>清理会话计时器</summary>
         </member>
@@ -963,6 +980,9 @@
         </member>
         <member name="M:NewLife.Common.SysConfig`1.#ctor">
             <summary>实例化</summary>
+        </member>
+        <member name="M:NewLife.Common.SysConfig`1.OnNew">
+            <summary>新建配置</summary>
         </member>
         <member name="F:NewLife.Common.SysConfig`1.SysAssembly">
             <summary>系统主程序集</summary>
@@ -2099,7 +2119,7 @@
             <param name="maxLines">最大行数</param>
         </member>
         <member name="P:NewLife.Log.XTrace.Debug">
-            <summary>是否调试。如果代码指定了值，则只会使用代码指定的值，否则每次都读取配置。</summary>
+            <summary>是否调试。</summary>
         </member>
         <member name="P:NewLife.Log.XTrace.LogPath">
             <summary>文本日志目录</summary>
@@ -4804,6 +4824,66 @@
             <param name="ex"></param>
             <returns></returns>
         </member>
+        <member name="T:NewLife.Reflection.DynamicInternal">
+            <summary>包装程序集内部类的动态对象</summary>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicInternal.TryConvert(System.Dynamic.ConvertBinder,System.Object@)">
+            <summary>类型转换</summary>
+            <param name="binder"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicInternal.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>成员取值</summary>
+            <param name="binder"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicInternal.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
+            <summary>调用成员</summary>
+            <param name="binder"></param>
+            <param name="args"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicInternal.Wrap(System.Object)">
+            <summary>包装</summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicInternal.ToString">
+            <summary>已重载。</summary>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Reflection.DynamicXml">
+            <summary>动态Xml</summary>
+        </member>
+        <member name="P:NewLife.Reflection.DynamicXml.Node">
+            <summary>节点</summary>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicXml.#ctor">
+            <summary>实例化</summary>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicXml.#ctor(System.Xml.Linq.XElement)">
+            <summary>实例化</summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicXml.#ctor(System.String)">
+            <summary>实例化</summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicXml.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+            <summary>设置</summary>
+            <param name="binder"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Reflection.DynamicXml.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>获取</summary>
+            <param name="binder"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Reflection.IReflect">
             <summary>反射接口</summary>
             <remarks>该接口仅用于扩展，不建议外部使用</remarks>
@@ -5416,8 +5496,11 @@
         <member name="P:NewLife.Reflection.ScriptEngine.FinalCode">
             <summary>最终代码</summary>
         </member>
+        <member name="P:NewLife.Reflection.ScriptEngine.Type">
+            <summary>编译得到的类型</summary>
+        </member>
         <member name="P:NewLife.Reflection.ScriptEngine.Method">
-            <summary>根据代码编译出来可供直接调用的方法</summary>
+            <summary>根据代码编译出来可供直接调用的入口方法，Eval/Main</summary>
         </member>
         <member name="P:NewLife.Reflection.ScriptEngine.NameSpaces">
             <summary>命名空间集合</summary>
@@ -5761,6 +5844,9 @@
         <member name="P:NewLife.Remoting.ApiAction.Name">
             <summary>动作名称</summary>
         </member>
+        <member name="P:NewLife.Remoting.ApiAction.Type">
+            <summary>动作所在类型</summary>
+        </member>
         <member name="P:NewLife.Remoting.ApiAction.Method">
             <summary>方法</summary>
         </member>
@@ -5774,7 +5860,7 @@
         <member name="P:NewLife.Remoting.ApiAction.ExceptionFilters">
             <summary>异常过滤器</summary>
         </member>
-        <member name="M:NewLife.Remoting.ApiAction.#ctor(System.Reflection.MethodInfo)">
+        <member name="M:NewLife.Remoting.ApiAction.#ctor(System.Reflection.MethodInfo,System.Type)">
             <summary>实例化</summary>
         </member>
         <member name="M:NewLife.Remoting.ApiAction.ToString">
@@ -6162,8 +6248,9 @@
         <member name="P:NewLife.Remoting.IApiManager.Services">
             <summary>可提供服务的方法</summary>
         </member>
-        <member name="M:NewLife.Remoting.IApiManager.Register``1">
+        <member name="M:NewLife.Remoting.IApiManager.Register``1(System.Boolean)">
             <summary>注册服务提供类。该类的所有公开方法将直接暴露</summary>
+            <param name="requireApi">是否要求Api特性</param>
             <typeparam name="TService"></typeparam>
         </member>
         <member name="M:NewLife.Remoting.IApiManager.Register(System.Object,System.String)">
@@ -6183,9 +6270,10 @@
         <member name="P:NewLife.Remoting.ApiManager.Services">
             <summary>可提供服务的方法</summary>
         </member>
-        <member name="M:NewLife.Remoting.ApiManager.Register``1">
+        <member name="M:NewLife.Remoting.ApiManager.Register``1(System.Boolean)">
             <summary>注册服务提供类。该类的所有公开方法将直接暴露</summary>
             <typeparam name="TService"></typeparam>
+            <param name="requireApi">是否要求Api特性</param>
         </member>
         <member name="M:NewLife.Remoting.ApiManager.Register(System.Object,System.String)">
             <summary>注册服务</summary>
@@ -6476,11 +6564,6 @@
         </member>
         <member name="T:NewLife.Remoting.IEncoder">
             <summary>编码器</summary>
-        </member>
-        <member name="M:NewLife.Remoting.IEncoder.Encode(System.Object)">
-            <summary>编码对象</summary>
-            <param name="obj"></param>
-            <returns></returns>
         </member>
         <member name="M:NewLife.Remoting.IEncoder.Encode(System.String,System.Object)">
             <summary>编码请求</summary>
@@ -8199,7 +8282,7 @@
             <summary>核心设置</summary>
         </member>
         <member name="P:NewLife.Setting.Debug">
-            <summary>是否启用全局调试。默认为不启用</summary>
+            <summary>是否启用全局调试。默认启用</summary>
         </member>
         <member name="P:NewLife.Setting.LogLevel">
             <summary>日志等级，只输出大于等于该级别的日志</summary>
@@ -8214,13 +8297,13 @@
             <summary>临时目录</summary>
         </member>
         <member name="P:NewLife.Setting.PluginPath">
-            <summary>扩展插件存放目录</summary>
+            <summary>插件目录</summary>
         </member>
         <member name="P:NewLife.Setting.PluginServer">
-            <summary>扩展插件服务器。将从该网页上根据关键字分析链接并下载插件</summary>
+            <summary>插件服务器。将从该网页上根据关键字分析链接并下载插件</summary>
         </member>
         <member name="P:NewLife.Setting.PluginCache">
-            <summary>下载扩展插件的缓存目录。默认位于系统盘的X\Cache</summary>
+            <summary>插件缓存目录。默认位于系统盘的X\Cache</summary>
         </member>
         <member name="P:NewLife.Setting.NetDebug">
             <summary>网络调试</summary>
@@ -8847,7 +8930,7 @@
             <summary>引用页面</summary>
         </member>
         <member name="P:NewLife.Web.WebClientX.Timeout">
-            <summary>超时，毫秒</summary>
+            <summary>超时，默认3000毫秒</summary>
         </member>
         <member name="P:NewLife.Web.WebClientX.AutomaticDecompression">
             <summary>自动解压缩模式。</summary>
@@ -8856,7 +8939,7 @@
             <summary>User-Agent 标头，指定有关客户端代理的信息</summary>
         </member>
         <member name="P:NewLife.Web.WebClientX.Encoding">
-            <summary>编码</summary>
+            <summary>编码。网络时代，绝大部分使用utf8编码</summary>
         </member>
         <member name="M:NewLife.Web.WebClientX.#ctor">
             <summary>实例化</summary>
@@ -9271,6 +9354,34 @@
             <summary>获取已注册的所有键值</summary>
             <returns></returns>
         </member>
+        <member name="T:NewLife.Windows.ISpeech">
+            <summary>语音接口</summary>
+        </member>
+        <member name="E:NewLife.Windows.ISpeech.SpeechRecognized">
+            <summary>语音识别事件</summary>
+        </member>
+        <member name="M:NewLife.Windows.ISpeech.Init">
+            <summary>初始化</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Windows.ISpeech.SetChoices(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>设置识别短语</summary>
+            <param name="phrases"></param>
+        </member>
+        <member name="T:NewLife.Windows.RecognitionEventArgs">
+            <summary>识别事件参数</summary>
+        </member>
+        <member name="P:NewLife.Windows.RecognitionEventArgs.Confidence">
+            <summary>获取识别器分配的值，此值表示与给定输入匹配的可能性</summary>
+        </member>
+        <member name="P:NewLife.Windows.RecognitionEventArgs.Text">
+            <summary>获取语音识别器从识别的输入生成的规范化文本</summary>
+        </member>
+        <member name="M:NewLife.Windows.RecognitionEventArgs.#ctor(System.Single,System.String)">
+            <summary>实例化</summary>
+            <param name="conf"></param>
+            <param name="text"></param>
+        </member>
         <member name="T:NewLife.Xml.SerializableDictionary`2">
             <summary>支持Xml序列化的泛型字典类 </summary>
             <typeparam name="TKey"></typeparam>
@@ -9510,6 +9621,22 @@
         <member name="M:System.Collections.Generic.CollectionHelper.ToArray``1(System.Collections.Generic.ICollection{``0},System.Int32)">
             <summary>集合转为数组</summary>
             <typeparam name="T"></typeparam>
+            <param name="collection"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToKeyArray``2(System.Collections.Generic.IDictionary{``0,``1},System.Int32)">
+            <summary>集合转为数组</summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="collection"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToValueArray``2(System.Collections.Generic.IDictionary{``0,``1},System.Int32)">
+            <summary>集合转为数组</summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
             <param name="collection"></param>
             <param name="index"></param>
             <returns></returns>

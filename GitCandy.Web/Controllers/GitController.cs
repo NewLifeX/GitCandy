@@ -12,6 +12,7 @@ using GitCandy.Data;
 using GitCandy.Filters;
 using GitCandy.Git;
 using LibGit2Sharp;
+using NewLife.Log;
 
 namespace GitCandy.Controllers
 {
@@ -72,6 +73,7 @@ namespace GitCandy.Controllers
             {
                 using (var git = new GitService(owner, project))
                 {
+                    git.Log = XTrace.Log;
                     var svc = service.Substring(4);
                     git.ExecutePack(svc, GetInputStream(), Response.OutputStream);
 
