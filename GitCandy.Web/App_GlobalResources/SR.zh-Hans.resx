@@ -476,7 +476,7 @@
     <value>浏览</value>
   </data>
   <data name="Repository_TreeTitle" xml:space="preserve">
-    <value>{2} 在 {1} · {0}</value>
+    <value>{0}</value>
   </data>
   <data name="Repository_UpdateUnsuccessfull" xml:space="preserve">
     <value>更新代码库失败，请纠正后再次尝试。</value>
