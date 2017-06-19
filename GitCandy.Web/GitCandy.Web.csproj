@@ -290,9 +290,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Layout.cshtml">
+    <Content Include="Views\Shared\_FrontLayout.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+      <LastGenOutput>_FrontLayout.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\_Pager.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -614,10 +614,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Error.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Layout.generated.cs">
+    <Compile Include="Views\Shared\_FrontLayout.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Layout.cshtml</DependentUpon>
+      <DependentUpon>_FrontLayout.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\_Pager.generated.cs">
       <AutoGen>True</AutoGen>
