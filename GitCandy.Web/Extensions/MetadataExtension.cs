@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
@@ -194,7 +195,10 @@ namespace GitCandy.Extensions
 
         public static String GetUrl(this TreeModel model, String action, String path)
         {
-            return $"/{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
+            var root = HttpRuntime.AppDomainAppVirtualPath;
+            root = root.EnsureEnd("/");
+
+            return root + $"{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
         }
 
         //public static String GetUrl(this PathBarModel model, String action, String path)
