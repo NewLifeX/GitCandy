@@ -52,6 +52,7 @@ namespace NewLife.GitCandy.Entity
         protected override Int32 OnDelete()
         {
             (Teams as IEntityList)?.Delete(true);
+            UserTeam.FindAllByTeamID(ID).Delete(true);
             (Repositories as IEntityList)?.Delete(true);
             (SshKeys as IEntityList)?.Delete(true);
             Repository.FindAllByOwnerID(ID).Delete();
@@ -62,22 +63,6 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
-        ///// <summary>是否系统管理员</summary>
-        //public Boolean IsAdmin
-        //{
-        //    get
-        //    {
-        //        if (Role == null) return false;
-        //        return Role.Name == "管理员";
-        //    }
-        //}
-
-        ///// <summary>昵称</summary>
-        //public String Nickname { get { return DisplayName; } set { DisplayName = value; } }
-
-        ///// <summary>邮箱</summary>
-        //public String Email { get { return Mail; } set { Mail = value; } }
-
         private List<UserTeam> _Teams;
         /// <summary>团队关系</summary>
         public List<UserTeam> Teams

@@ -322,8 +322,10 @@ namespace GitCandy.Data
             else
             {
                 var user = User.FindByName(username);
+                if (user == null) return model;
+
                 var q1 = user.Repositories.Select(e => e.Repository);
-                var q2 = user.Teams.SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
+                var q2 = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
                 var q3 = q1.Union(q2).Where(e => e.Enable);
                 q3 = q3.OrderByDescending(e => e.LastCommit);
 
