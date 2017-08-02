@@ -22,7 +22,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("编号")]
         [Description("编号")]
         [DataObjectField(true, true, false, 10)]
-        [BindColumn(1, "ID", "编号", null, "int", 10, 0, false)]
+        [BindColumn("ID", "编号", "int", 10, 0)]
         public virtual Int32 ID
         {
             get { return _ID; }
@@ -33,8 +33,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>用户</summary>
         [DisplayName("用户")]
         [Description("用户")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(2, "UserID", "用户", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("UserID", "用户", "int", 10, 0)]
         public virtual Int32 UserID
         {
             get { return _UserID; }
@@ -45,8 +45,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>仓库</summary>
         [DisplayName("仓库")]
         [Description("仓库")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(3, "RepositoryID", "仓库", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("RepositoryID", "仓库", "int", 10, 0)]
         public virtual Int32 RepositoryID
         {
             get { return _RepositoryID; }
@@ -57,8 +57,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>允许读</summary>
         [DisplayName("允许读")]
         [Description("允许读")]
-        [DataObjectField(false, false, true, 1)]
-        [BindColumn(4, "AllowRead", "允许读", null, "bit", 0, 0, false)]
+        [DataObjectField(false, false, false, 1)]
+        [BindColumn("AllowRead", "允许读", "bit", 0, 0)]
         public virtual Boolean AllowRead
         {
             get { return _AllowRead; }
@@ -69,8 +69,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>允许写</summary>
         [DisplayName("允许写")]
         [Description("允许写")]
-        [DataObjectField(false, false, true, 1)]
-        [BindColumn(5, "AllowWrite", "允许写", null, "bit", 0, 0, false)]
+        [DataObjectField(false, false, false, 1)]
+        [BindColumn("AllowWrite", "允许写", "bit", 0, 0)]
         public virtual Boolean AllowWrite
         {
             get { return _AllowWrite; }
@@ -81,8 +81,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>拥有者</summary>
         [DisplayName("拥有者")]
         [Description("拥有者")]
-        [DataObjectField(false, false, true, 1)]
-        [BindColumn(6, "IsOwner", "拥有者", null, "bit", 0, 0, false)]
+        [DataObjectField(false, false, false, 1)]
+        [BindColumn("IsOwner", "拥有者", "bit", 0, 0)]
         public virtual Boolean IsOwner
         {
             get { return _IsOwner; }
@@ -93,8 +93,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(7, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -106,7 +106,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(8, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -118,7 +118,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(9, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -129,8 +129,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(10, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -142,7 +142,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(11, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -154,7 +154,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(12, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }

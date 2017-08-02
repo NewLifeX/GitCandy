@@ -141,7 +141,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.Name, name);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.Name, name);
+                return Meta.Cache.Entities.FindIgnoreCase(__.Name, name);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
@@ -153,7 +153,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.Email, email);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.Email, email);
+                return Meta.Cache.Entities.FindIgnoreCase(__.Email, email);
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
@@ -255,7 +255,7 @@ namespace NewLife.GitCandy.Entity
 
         public static User Check(String name, String pass)
         {
-            var user = User.FindByName(name) ?? User.FindByEmail(name);
+            var user = FindByName(name) ?? FindByEmail(name);
             if (user == null) return null;
 
             if (!user.Enable) return null;

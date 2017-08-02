@@ -154,7 +154,7 @@ namespace GitCandy.Data
                     IsAdmin = e.IsAdmin,
                 }).ToArray(),
                 CurrentPage = page,
-                ItemCount = p.TotalCount
+                ItemCount = (Int32)p.TotalCount
             };
         }
 
@@ -369,7 +369,7 @@ namespace GitCandy.Data
                 })
                     .ToArray(),
                 CurrentPage = page,
-                ItemCount = p.TotalCount,
+                ItemCount = (Int32)p.TotalCount,
             };
             return model;
         }

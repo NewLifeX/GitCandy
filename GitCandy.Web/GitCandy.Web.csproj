@@ -118,6 +118,7 @@
     <None Include="Properties\PublishProfiles\GitCandy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="index.html" />
     <Content Include="Views\Shared\DisplayTemplates\Maps.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Maps.generated.cs</LastGenOutput>

@@ -24,7 +24,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("编号")]
         [Description("编号")]
         [DataObjectField(true, true, false, 10)]
-        [BindColumn(1, "ID", "编号", null, "int", 10, 0, false)]
+        [BindColumn("ID", "编号", "int", 10, 0)]
         public virtual Int32 ID
         {
             get { return _ID; }
@@ -35,8 +35,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>用户</summary>
         [DisplayName("用户")]
         [Description("用户")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(2, "UserID", "用户", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("UserID", "用户", "int", 10, 0)]
         public virtual Int32 UserID
         {
             get { return _UserID; }
@@ -47,8 +47,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>团队</summary>
         [DisplayName("团队")]
         [Description("团队")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(3, "TeamID", "团队", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("TeamID", "团队", "int", 10, 0)]
         public virtual Int32 TeamID
         {
             get { return _TeamID; }
@@ -59,8 +59,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>管理员</summary>
         [DisplayName("管理员")]
         [Description("管理员")]
-        [DataObjectField(false, false, true, 1)]
-        [BindColumn(4, "IsAdmin", "管理员", null, "bit", 0, 0, false)]
+        [DataObjectField(false, false, false, 1)]
+        [BindColumn("IsAdmin", "管理员", "bit", 0, 0)]
         public virtual Boolean IsAdmin
         {
             get { return _IsAdmin; }
@@ -71,8 +71,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(5, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -84,7 +84,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(6, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -96,7 +96,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(7, "CreateIP", "创建地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
         public virtual String CreateIP
         {
             get { return _CreateIP; }
@@ -107,8 +107,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
-        [DataObjectField(false, false, true, 10)]
-        [BindColumn(8, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [DataObjectField(false, false, false, 10)]
+        [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -120,7 +120,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(9, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -132,7 +132,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(10, "UpdateIP", "更新地址", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
         public virtual String UpdateIP
         {
             get { return _UpdateIP; }
