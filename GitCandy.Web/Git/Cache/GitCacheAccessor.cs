@@ -57,6 +57,7 @@ namespace GitCandy.Git.Cache
             }
         }
 
+        private static TimerX _timer;
         public static void Initialize()
         {
             enabled = false;
@@ -90,7 +91,7 @@ namespace GitCandy.Git.Cache
 
             //File.WriteAllLines(filename, expectation);
 
-            new TimerX(s =>
+            _timer = new TimerX(s =>
             {
                 var dirs = Directory.GetDirectories(cachePath, "*.del");
                 foreach (var dir in dirs)
@@ -117,9 +118,9 @@ namespace GitCandy.Git.Cache
         public static void Delete(String owner, String project)
         {
             var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
-            for (int i = 0; i < accessors.Length; i++)
+            foreach (var item in accessors)
             {
-                var path = cachePath.CombinePath((i + 1).ToString(), owner, project);
+                var path = cachePath.CombinePath(item.Name, owner, project);
                 if (Directory.Exists(path)) Directory.Delete(path, true);
             }
         }
@@ -208,7 +209,8 @@ namespace GitCandy.Git.Cache
     public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
         where TAccessor : GitCacheAccessor<TReturn, TAccessor>
     {
-        public static int AccessorId { get; private set; }
+        public static String Name { get; set; }
+        //public static int AccessorId { get; private set; }
 
         protected readonly String repoId;
         protected readonly Repository repo;
@@ -230,20 +232,7 @@ namespace GitCandy.Git.Cache
 
         static GitCacheAccessor()
         {
-            var selfType = typeof(TAccessor);
-            for (int i = 0; i < accessors.Length; i++)
-            {
-                if (accessors[i] == selfType)
-                {
-                    AccessorId = i + 1;
-                    break;
-                }
-            }
-            if (AccessorId == 0)
-            {
-                AccessorId = selfType.GetHashCode() % 10000000 + 10000000;
-                XTrace.Log.Error("Not found the register of type '{0}', assign id {1} to '{2}'", selfType.FullName, AccessorId, selfType.Name);
-            }
+            Name = typeof(TAccessor).Name.TrimEnd("Accessor");
         }
 
         public GitCacheAccessor(String repoId, Repository repo)
@@ -253,7 +242,7 @@ namespace GitCandy.Git.Cache
 
             this.repoId = repoId;
             this.repo = repo;
-            this.repoPath = repo.Info.Path;
+            repoPath = repo.Info.Path;
         }
 
         protected abstract String GetCacheKey();
@@ -274,7 +263,7 @@ namespace GitCandy.Git.Cache
 
         protected virtual String GetCacheFile()
         {
-            return AccessorId + "\\" + repoId + "\\" + GetCacheKey();
+            return Name + "\\" + repoId + "\\" + GetCacheKey();
         }
 
         protected override bool Load()
@@ -303,12 +292,10 @@ namespace GitCandy.Git.Cache
 
         protected override void Save()
         {
-            if (!resultDone)
-                return;
+            if (!resultDone) return;
 
             var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
-            if (!info.Directory.Exists)
-                info.Directory.Create();
+            if (!info.Directory.Exists) info.Directory.Create();
 
             using (var fs = info.Create())
             {

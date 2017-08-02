@@ -56,7 +56,6 @@
     <Compile Include="Base\Profiler.cs" />
     <Compile Include="Base\RegularExpression.cs" />
     <Compile Include="Base\StringLogicalComparer.cs" />
-    <Compile Include="Configuration\HostKey.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Entity\Entity\仓库.Biz.cs" />
     <Compile Include="Entity\Entity\仓库.cs" />

@@ -67,12 +67,12 @@ namespace GitCandy.Configuration
         [DisplayName("显示参与者数")]
         public int Contributors { get; set; } = 50;
 
-        public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
+        //public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
         #endregion
 
-        public UserConfiguration()
-        {
-        }
+        //public UserConfiguration()
+        //{
+        //}
 
         protected override void OnNew()
         {

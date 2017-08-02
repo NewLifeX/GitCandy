@@ -35,8 +35,9 @@ namespace GitCandy.Git
         {
             var info = GetPath(owner, name).AsDirectory();
             _repositoryPath = info.FullName;
-            _repoId = Name = info.Name;
+            Name = info.Name;
             Owner = owner;
+            _repoId = "{0}\\{1}".F(Owner, Name);
 
             // 如果版本库无效，则创建
             if (!Repository.IsValid(_repositoryPath)) CreateRepository(owner, name);
