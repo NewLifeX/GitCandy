@@ -53,7 +53,7 @@ namespace GitCandy.Controllers
                         if (Token != null) return RedirectToAction("Detail", "Account", new { name = user.Name });
 
                         var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
+                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.NickName, user.IsAdmin);
                         return RedirectToStartPage();
                     }
                 }
@@ -117,7 +117,10 @@ namespace GitCandy.Controllers
             if (user != null)
             {
                 var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
+                Token = new Token(auth.AuthCode, user.ID, user.Name, user.NickName, user.IsAdmin);
+
+                // 设置上下文
+
 
                 return RedirectToStartPage(returnUrl);
             }
@@ -149,7 +152,7 @@ namespace GitCandy.Controllers
                     if (!isAdmin)
                     {
                         var auth = MembershipService.CreateAuthorization(user.ID, Token.AuthorizationExpires, Request.UserHostAddress);
-                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.Nickname, user.IsAdmin);
+                        Token = new Token(auth.AuthCode, user.ID, user.Name, user.NickName, user.IsAdmin);
                     }
 
                     return RedirectToAction("Detail", "Account", new { name });
@@ -208,7 +211,7 @@ namespace GitCandy.Controllers
             // 验证成功
             if (user != null)
             {
-                user.Nickname = model.Nickname;
+                user.NickName = model.Nickname;
                 user.Email = model.Email;
                 user.Description = model.Description;
 

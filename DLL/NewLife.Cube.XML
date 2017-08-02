@@ -1277,6 +1277,12 @@
         <member name="P:NewLife.Cube.Setting.LoginTip">
             <summary>登录提示。留空表示不显示登录提示信息</summary>
         </member>
+        <member name="P:NewLife.Cube.Setting.WebOnline">
+            <summary>用户在线。记录用户在线状态</summary>
+        </member>
+        <member name="P:NewLife.Cube.Setting.WebBehavior">
+            <summary>用户行为。记录用户所有操作</summary>
+        </member>
         <member name="M:NewLife.Cube.Setting.#ctor">
             <summary>实例化</summary>
         </member>

@@ -62,11 +62,11 @@ namespace GitCandy.Data
                     model.Collaborators = tempList
                         .Where(s => !s.User.IsTeam)
                         .OrderBy(s => s.User.Name)
-                        .ToDictionary(e => e.User.Name, e => e.User.Nickname);
+                        .ToDictionary(e => e.User.Name, e => e.User.NickName);
                     model.Teams = tempList
                         .Where(s => s.User.IsTeam)
                         .OrderBy(s => s.User.Name)
-                        .ToDictionary(e => e.User.Name, e => e.User.Nickname);
+                        .ToDictionary(e => e.User.Name, e => e.User.NickName);
                 }
                 if (username != null)
                 {

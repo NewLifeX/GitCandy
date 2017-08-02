@@ -8,18 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using NewLife.Data;
 using NewLife.Log;
+using NewLife.Model;
 using NewLife.Web;
 using XCode;
 using XCode.Membership;
 
 namespace NewLife.GitCandy.Entity
 {
-    //public class MyManageProvider : ManageProvider<User> { }
-
     /// <summary>用户</summary>
-    public partial class User : LogEntity<User>
+    public partial class User : LogEntity<User>, IManageUser, IIdentity
     {
         #region 对象操作
         /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -37,7 +38,7 @@ namespace NewLife.GitCandy.Entity
 
             var entity = new User();
             entity.Name = "admin";
-            entity.Nickname = "管理员";
+            entity.NickName = "管理员";
             entity.Password = "gitcandy".MD5();
             entity.Email = "admin@newlifex.com";
             entity.Enable = true;
@@ -54,7 +55,6 @@ namespace NewLife.GitCandy.Entity
             (Teams as IEntityList)?.Delete(true);
             UserTeam.FindAllByTeamID(ID).Delete(true);
             (Repositories as IEntityList)?.Delete(true);
-            //(SshKeys as IEntityList)?.Delete(true);
             Repository.FindAllByOwnerID(ID).Delete();
             AuthorizationLog.FindAllByUserID(ID).Delete();
 
@@ -101,22 +101,28 @@ namespace NewLife.GitCandy.Entity
 
         public String[] RepositoryNames { get { return Repositories?.Select(e => e.RepositoryName).ToArray(); } }
 
-        //private List<SshKey> _SshKeys;
-        ///// <summary>SSH密钥</summary>
-        //public List<SshKey> SshKeys
-        //{
-        //    get
-        //    {
-        //        if (_SshKeys == null && !Dirtys.ContainsKey("SshKeys"))
-        //        {
-        //            _SshKeys = SshKey.FindAllByUserID(ID);
+        /// <summary>当前登录用户</summary>
+        public static User Current
+        {
+            get
+            {
+                var ss = HttpContext.Current?.Session;
+                if (ss == null) return null;
 
-        //            Dirtys["SshKeys"] = true;
-        //        }
-        //        return _SshKeys;
-        //    }
-        //    set { _SshKeys = value; }
-        //}
+                return ss["CandyUser"] as User;
+            }
+            set
+            {
+                var ss = HttpContext.Current?.Session;
+                if (ss == null) return;
+
+                ss["CandyUser"] = value;
+            }
+        }
+
+        String IIdentity.AuthenticationType => "GitCandy";
+
+        Boolean IIdentity.IsAuthenticated => true;
         #endregion
 
         #region 扩展查询
@@ -183,7 +189,7 @@ namespace NewLife.GitCandy.Entity
         #region 扩展操作
         public override String ToString()
         {
-            return Nickname ?? Name;
+            return NickName ?? Name;
         }
         #endregion
 
@@ -199,7 +205,7 @@ namespace NewLife.GitCandy.Entity
             user = new User
             {
                 Name = name,
-                Nickname = nickname,
+                NickName = nickname,
                 Email = email,
                 Password = password.MD5(),
                 Enable = true,
@@ -214,13 +220,13 @@ namespace NewLife.GitCandy.Entity
 
         public static User CreateTeam(String name, String nickname, String description)
         {
-            var user = User.FindByName(name);
+            var user = FindByName(name);
             if (user != null) throw new ArgumentException(_.Name.DisplayName + "已存在", __.Name);
 
             user = new User
             {
                 Name = name,
-                Nickname = nickname,
+                NickName = nickname,
                 Enable = false,
                 IsTeam = true,
                 Description = description,

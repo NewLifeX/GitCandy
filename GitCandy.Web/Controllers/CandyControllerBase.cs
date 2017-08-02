@@ -1,4 +1,6 @@
 ﻿using System;
+using NewLife.GitCandy;
+using XCode.Membership;
 using System.Reflection;
 using System.Threading;
 using System.Web;
@@ -6,9 +8,11 @@ using System.Web.Caching;
 using System.Web.Mvc;
 using GitCandy.Configuration;
 using GitCandy.Data;
+using GitCandy.Entity;
 using GitCandy.Security;
 using NewLife.Log;
 using NewLife.Reflection;
+using gcUser = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
@@ -92,6 +96,9 @@ namespace GitCandy.Controllers
                         MembershipService.UpdateAuthorization(token.AuthCode, token.Expires, token.LastIp);
                     }
                     // else // DO NOT set token = null here
+
+                    if (gcUser.Current == null) gcUser.Current = gcUser.FindByID(token.UserID);
+                    CandyManageProvider.Provider.SetPrincipal();
 
                     Token = token;
                 }

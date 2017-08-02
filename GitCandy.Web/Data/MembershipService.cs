@@ -19,14 +19,14 @@ namespace GitCandy.Data
             var model = new UserModel
             {
                 Name = user.Name,
-                Nickname = user.Nickname,
+                Nickname = user.NickName,
                 Email = user.Email,
                 Description = user.Description,
                 IsAdmin = user.IsAdmin,
             };
             if (withMembers)
             {
-                model.Teams = user.Teams.ToDictionary(e => e.Team.Name, e => e.Team.Nickname);
+                model.Teams = user.Teams.ToDictionary(e => e.Team.Name, e => e.Team.NickName);
                 var rs = user.Repositories.Where(e => e.Repository != null && e.Repository.Enable).Select(e => e.Repository);
                 if (!viewUser.IsNullOrEmpty())
                 {
@@ -68,7 +68,7 @@ namespace GitCandy.Data
             var user = User.FindByName(model.Name);
             if (user != null)
             {
-                user.Nickname = model.Nickname;
+                user.NickName = model.Nickname;
                 user.Email = model.Email;
                 user.Description = model.Description;
                 user.IsAdmin = model.IsAdmin;
@@ -102,7 +102,7 @@ namespace GitCandy.Data
 
             var user = auth.User;
 
-            return new Token(auth.AuthCode, auth.UserID, user.Name, user.Nickname, user.IsAdmin, auth.Expires)
+            return new Token(auth.AuthCode, auth.UserID, user.Name, user.NickName, user.IsAdmin, auth.Expires)
             {
                 LastIp = auth.LastIp
             };
@@ -147,7 +147,7 @@ namespace GitCandy.Data
                 Users = list.ToList().Select(e => new UserModel
                 {
                     Name = e.Name,
-                    Nickname = e.Nickname,
+                    Nickname = e.NickName,
                     Email = e.Email,
                     Description = e.Description,
                     IsAdmin = e.IsAdmin,
@@ -217,7 +217,7 @@ namespace GitCandy.Data
             var team = User.FindByName(model.Name);
             if (team == null) return false;
 
-            team.Nickname = model.Nickname;
+            team.NickName = model.Nickname;
             team.Description = model.Description;
             team.Save();
 
@@ -232,7 +232,7 @@ namespace GitCandy.Data
             var model = new TeamModel
             {
                 Name = team.Name,
-                Nickname = team.Nickname,
+                Nickname = team.NickName,
                 Description = team.Description,
             };
             if (withMembers)
@@ -246,7 +246,7 @@ namespace GitCandy.Data
                     })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
                     .ToArray();
-                model.Members = list.ToDictionary(e => e.User.Name, e => e.User.Nickname);
+                model.Members = list.ToDictionary(e => e.User.Name, e => e.User.NickName);
 
                 var rs = team.Repositories.Where(e => e.Repository.Enable).ToList();
                 if (!viewUser.IsNullOrEmpty())
@@ -363,7 +363,7 @@ namespace GitCandy.Data
                 Teams = list.ToList().Select(s => new TeamModel
                 {
                     Name = s.Name,
-                    Nickname = s.Nickname,
+                    Nickname = s.NickName,
                     Description = s.Description,
                 })
                     .ToArray(),

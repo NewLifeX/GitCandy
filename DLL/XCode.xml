@@ -6409,12 +6409,6 @@
         <member name="P:XCode.Setting.ExtendExpire">
             <summary>扩展属性过期。默认10秒</summary>
         </member>
-        <member name="P:XCode.Setting.WebOnline">
-            <summary>用户在线。记录用户在线状态</summary>
-        </member>
-        <member name="P:XCode.Setting.WebBehavior">
-            <summary>用户行为。记录用户所有操作</summary>
-        </member>
         <member name="P:XCode.Setting.Negative">
             <summary>反向工程</summary>
         </member>
@@ -9675,6 +9669,12 @@
         <member name="M:XCode.Web.UserBehaviorModule.System#Web#IHttpModule#Init(System.Web.HttpApplication)">
             <summary>初始化模块，准备拦截请求。</summary>
             <param name="context"></param>
+        </member>
+        <member name="P:XCode.Web.UserBehaviorModule.WebOnline">
+            <summary>Web在线</summary>
+        </member>
+        <member name="P:XCode.Web.UserBehaviorModule.WebBehavior">
+            <summary>Web在线</summary>
         </member>
         <member name="M:XCode.Web.UserBehaviorModule.OnPost(System.Object,System.EventArgs)">
             <summary>输出运行时间</summary>
