@@ -4,6 +4,8 @@
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
     title += cfg.DisplayName;
+    var title2 = ViewBag.Title2 + "";
+    if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="@ViewBag.Lang">

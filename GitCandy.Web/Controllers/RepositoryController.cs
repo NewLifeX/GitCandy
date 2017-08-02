@@ -38,6 +38,19 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+
+            var owner = filterContext.RouteData.Values["owner"] + "";
+            var name = filterContext.RouteData.Values["name"] + "";
+            var repo = Repository.FindByOwnerAndName(owner, name);
+            if (repo != null)
+            {
+                ViewBag.Title2 = repo.Description;
+            }
+        }
+
         [AllowRepositoryCreation]
         public ActionResult Create()
         {

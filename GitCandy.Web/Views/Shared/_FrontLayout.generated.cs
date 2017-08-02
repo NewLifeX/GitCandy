@@ -58,6 +58,8 @@ namespace ASP
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
     title += cfg.DisplayName;
+    var title2 = ViewBag.Title2 + "";
+    if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
 
             
             #line default
@@ -66,14 +68,14 @@ WriteLiteral("\r\n<!DOCTYPE html>\r\n<html");
 
 WriteLiteral(" xmlns=\"http://www.w3.org/1999/xhtml\"");
 
-WriteAttribute("lang", Tuple.Create(" lang=\"", 301), Tuple.Create("\"", 321)
+WriteAttribute("lang", Tuple.Create(" lang=\"", 403), Tuple.Create("\"", 423)
             
-            #line 9 "..\..\Views\Shared\_FrontLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 308), Tuple.Create<System.Object, System.Int32>(ViewBag.Lang
+            #line 11 "..\..\Views\Shared\_FrontLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 410), Tuple.Create<System.Object, System.Int32>(ViewBag.Lang
             
             #line default
             #line hidden
-, 308), false)
+, 410), false)
 );
 
 WriteLiteral(">\r\n<head>\r\n    <meta");
@@ -89,7 +91,7 @@ WriteLiteral(" content=\"width=device-width, initial-scale=1.0\"");
 WriteLiteral(" />\r\n    <title>");
 
             
-            #line 13 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 15 "..\..\Views\Shared\_FrontLayout.cshtml"
       Write(title);
 
             
@@ -99,36 +101,36 @@ WriteLiteral("</title>\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 494), Tuple.Create("\"", 524)
-, Tuple.Create(Tuple.Create("", 501), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap.css")
-, 501), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 596), Tuple.Create("\"", 626)
+, Tuple.Create(Tuple.Create("", 603), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap.css")
+, 603), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 556), Tuple.Create("\"", 593)
-, Tuple.Create(Tuple.Create("", 563), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap-switch.css")
-, 563), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 658), Tuple.Create("\"", 695)
+, Tuple.Create(Tuple.Create("", 665), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap-switch.css")
+, 665), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 625), Tuple.Create("\"", 655)
-, Tuple.Create(Tuple.Create("", 632), Tuple.Create<System.Object, System.Int32>(Href("~/Content/highlight.css")
-, 632), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 727), Tuple.Create("\"", 757)
+, Tuple.Create(Tuple.Create("", 734), Tuple.Create<System.Object, System.Int32>(Href("~/Content/highlight.css")
+, 734), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 687), Tuple.Create("\"", 712)
-, Tuple.Create(Tuple.Create("", 694), Tuple.Create<System.Object, System.Int32>(Href("~/Content/site.css")
-, 694), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 789), Tuple.Create("\"", 814)
+, Tuple.Create(Tuple.Create("", 796), Tuple.Create<System.Object, System.Int32>(Href("~/Content/site.css")
+, 796), false)
 );
 
 WriteLiteral(" />\r\n</head>\r\n<body>\r\n    <div");
@@ -173,15 +175,15 @@ WriteLiteral("></span>\r\n                </button>\r\n                <a");
 
 WriteLiteral(" class=\"navbar-brand\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1250), Tuple.Create("\"", 1259)
-, Tuple.Create(Tuple.Create("", 1257), Tuple.Create<System.Object, System.Int32>(Href("~/")
-, 1257), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 1352), Tuple.Create("\"", 1361)
+, Tuple.Create(Tuple.Create("", 1359), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 1359), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 29 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 31 "..\..\Views\Shared\_FrontLayout.cshtml"
                                              Write(cfg.DisplayName);
 
             
@@ -190,7 +192,7 @@ WriteLiteral(">");
 WriteLiteral("<sub>");
 
             
-            #line 29 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 31 "..\..\Views\Shared\_FrontLayout.cshtml"
                                                                   Write(cfg.Name);
 
             
@@ -207,7 +209,7 @@ WriteLiteral(" class=\"nav navbar-nav\"");
 WriteLiteral(">\r\n                    <li>");
 
             
-            #line 33 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 35 "..\..\Views\Shared\_FrontLayout.cshtml"
                    Write(Html.ActionLink(SR.Shared_Repositories, "Index", "Repository"));
 
             
@@ -216,13 +218,13 @@ WriteLiteral(">\r\n                    <li>");
 WriteLiteral("</li>\r\n");
 
             
-            #line 34 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 36 "..\..\Views\Shared\_FrontLayout.cshtml"
                     
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 36 "..\..\Views\Shared\_FrontLayout.cshtml"
                      if (token != null && token.IsAdmin)
                     {
 
@@ -236,7 +238,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 36 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 38 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Users, "Index", "Account"));
 
             
@@ -251,7 +253,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 37 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 39 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Teams, "Index", "Team"));
 
             
@@ -266,7 +268,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 38 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 40 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Settings, "Edit", "Setting"));
 
             
@@ -275,7 +277,7 @@ WriteLiteral(">");
 WriteLiteral("</li>\r\n");
 
             
-            #line 39 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 41 "..\..\Views\Shared\_FrontLayout.cshtml"
                     }
 
             
@@ -284,7 +286,7 @@ WriteLiteral("</li>\r\n");
 WriteLiteral("                    <li>");
 
             
-            #line 40 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 42 "..\..\Views\Shared\_FrontLayout.cshtml"
                    Write(Html.ActionLink(SR.Shared_About, "About", "Home"));
 
             
@@ -297,13 +299,13 @@ WriteLiteral(" class=\"nav navbar-nav navbar-right\"");
 WriteLiteral(">\r\n");
 
             
-            #line 43 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 45 "..\..\Views\Shared\_FrontLayout.cshtml"
                     
             
             #line default
             #line hidden
             
-            #line 43 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 45 "..\..\Views\Shared\_FrontLayout.cshtml"
                      if (token == null)
                     {
 
@@ -317,7 +319,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 45 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 47 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Register, "Create", "Account"));
 
             
@@ -332,7 +334,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 46 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 48 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null));
 
             
@@ -341,7 +343,7 @@ WriteLiteral(">");
 WriteLiteral("</li>\r\n");
 
             
-            #line 47 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 49 "..\..\Views\Shared\_FrontLayout.cshtml"
                     }
                     else
                     {
@@ -356,7 +358,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 50 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 52 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(token.Nickname, "Detail", "Account", new { name = token.Username }, null));
 
             
@@ -371,7 +373,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 51 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 53 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Logout, "Logout", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null));
 
             
@@ -380,7 +382,7 @@ WriteLiteral(">");
 WriteLiteral("</li>\r\n");
 
             
-            #line 52 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 54 "..\..\Views\Shared\_FrontLayout.cshtml"
                     }
 
             
@@ -396,7 +398,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 59 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 61 "..\..\Views\Shared\_FrontLayout.cshtml"
    Write(RenderBody());
 
             
@@ -429,7 +431,7 @@ WriteLiteral(" href=\"#\"");
 WriteLiteral(">");
 
             
-            #line 66 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 68 "..\..\Views\Shared\_FrontLayout.cshtml"
                                                                       Write(ViewBag.Language);
 
             
@@ -446,7 +448,7 @@ WriteLiteral(" class=\"dropdown-menu\"");
 WriteLiteral(">\r\n                    <li>");
 
             
-            #line 68 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 70 "..\..\Views\Shared\_FrontLayout.cshtml"
                    Write(Html.CultureActionLink("zh-cn"));
 
             
@@ -455,7 +457,7 @@ WriteLiteral(">\r\n                    <li>");
 WriteLiteral("</li>\r\n                    <li>");
 
             
-            #line 69 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 71 "..\..\Views\Shared\_FrontLayout.cshtml"
                    Write(Html.CultureActionLink("en-us"));
 
             
@@ -464,7 +466,7 @@ WriteLiteral("</li>\r\n                    <li>");
 WriteLiteral("</li>\r\n                    <li>");
 
             
-            #line 70 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 72 "..\..\Views\Shared\_FrontLayout.cshtml"
                    Write(Html.CultureActionLink("fr-fr"));
 
             
@@ -478,20 +480,20 @@ WriteLiteral("><p");
 
 WriteLiteral(" class=\"muted\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3596), Tuple.Create("\"", 3629)
+WriteAttribute("title", Tuple.Create(" title=\"", 3698), Tuple.Create("\"", 3731)
             
-            #line 73 "..\..\Views\Shared\_FrontLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3604), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
+            #line 75 "..\..\Views\Shared\_FrontLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 3706), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
             
             #line default
             #line hidden
-, 3604), false)
+, 3706), false)
 );
 
 WriteLiteral(">&copy; 2002-");
 
             
-            #line 73 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 75 "..\..\Views\Shared\_FrontLayout.cshtml"
                                                                                              Write(DateTime.Now.Year);
 
             
@@ -500,7 +502,7 @@ WriteLiteral(">&copy; 2002-");
 WriteLiteral(" ");
 
             
-            #line 73 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 75 "..\..\Views\Shared\_FrontLayout.cshtml"
                                                                                                                 Write(cfg.Company);
 
             
@@ -508,51 +510,51 @@ WriteLiteral(" ");
             #line hidden
 WriteLiteral("</p></div>\r\n        </div>\r\n    </div>\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3727), Tuple.Create("\"", 3758)
-, Tuple.Create(Tuple.Create("", 3733), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
-, 3733), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3829), Tuple.Create("\"", 3860)
+, Tuple.Create(Tuple.Create("", 3835), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
+, 3835), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3782), Tuple.Create("\"", 3810)
-, Tuple.Create(Tuple.Create("", 3788), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
-, 3788), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3884), Tuple.Create("\"", 3912)
+, Tuple.Create(Tuple.Create("", 3890), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
+, 3890), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3834), Tuple.Create("\"", 3869)
-, Tuple.Create(Tuple.Create("", 3840), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
-, 3840), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3936), Tuple.Create("\"", 3971)
+, Tuple.Create(Tuple.Create("", 3942), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
+, 3942), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3893), Tuple.Create("\"", 3932)
-, Tuple.Create(Tuple.Create("", 3899), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
-, 3899), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3995), Tuple.Create("\"", 4034)
+, Tuple.Create(Tuple.Create("", 4001), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
+, 4001), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3956), Tuple.Create("\"", 3989)
-, Tuple.Create(Tuple.Create("", 3962), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
-, 3962), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4058), Tuple.Create("\"", 4091)
+, Tuple.Create(Tuple.Create("", 4064), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
+, 4064), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4013), Tuple.Create("\"", 4038)
-, Tuple.Create(Tuple.Create("", 4019), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
-, 4019), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4115), Tuple.Create("\"", 4140)
+, Tuple.Create(Tuple.Create("", 4121), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
+, 4121), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4062), Tuple.Create("\"", 4087)
-, Tuple.Create(Tuple.Create("", 4068), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
-, 4068), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4164), Tuple.Create("\"", 4189)
+, Tuple.Create(Tuple.Create("", 4170), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
+, 4170), false)
 );
 
 WriteLiteral("></script>\r\n");
@@ -560,7 +562,7 @@ WriteLiteral("></script>\r\n");
 WriteLiteral("    ");
 
             
-            #line 84 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 86 "..\..\Views\Shared\_FrontLayout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
