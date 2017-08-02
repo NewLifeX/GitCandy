@@ -198,9 +198,6 @@
   <data name="Account_Repositories" xml:space="preserve">
     <value>代码库</value>
   </data>
-  <data name="Account_SshKeys" xml:space="preserve">
-    <value>SSH密钥</value>
-  </data>
   <data name="Account_Teams" xml:space="preserve">
     <value>团队</value>
   </data>
@@ -216,15 +213,12 @@
   <data name="Account_UsersFound" xml:space="preserve">
     <value>发现 {0} 个用户</value>
   </data>
-  <data name="Account_SSH" xml:space="preserve">
-    <value>SSH</value>
-  </data>
   <data name="Home_AboutDescription" xml:space="preserve">
     <value>GitCandy&amp;copy; 是一个基于ASP.NET MVC的[Git](http://git-scm.com/documentation)分布式版本控制平台，支持公共和私有代码库。可以不受限制的创建代码库，与你的团队一块协作。
 
-演示：[https://git.newlifex.com]()
+演示地址：[http://gitcandy.com](http://gitcandy.com)
 
-源码：[https://git.newlifex.com/NewLife/GitCandy]()
+获取源码并衍生：[http://github.com/Aimeast/GitCandy](http://github.com/Aimeast/GitCandy)
 
 ---
 #### 鸣谢 (字母序)</value>
@@ -371,7 +365,7 @@
     <value>编辑代码库 {0}</value>
   </data>
   <data name="Repository_EmptyWords" xml:space="preserve">
-    <value>推送一个代码库到 HEAD(master) 分支才能在此显示。</value>
+    <value>这是个空仓库或导入远程仓库尚未完成。推送一个代码库到 HEAD(master) 分支才能在此显示。</value>
   </data>
   <data name="Repository_FileAdded" xml:space="preserve">
     <value>增加</value>
@@ -412,8 +406,17 @@
   <data name="Repository_HistoryFor" xml:space="preserve">
     <value>提交记录 ·</value>
   </data>
+  <data name="Repository_HowInit" xml:space="preserve">
+    <value>如何初始化仓库</value>
+  </data>
   <data name="Repository_IsPrivate" xml:space="preserve">
     <value>私有代码库</value>
+  </data>
+  <data name="Repository_Import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Repository_ImportTips" xml:space="preserve">
+    <value>仅支持http(s)协议</value>
   </data>
   <data name="Repository_ListTitle" xml:space="preserve">
     <value>代码库列表</value>
@@ -438,6 +441,9 @@
   </data>
   <data name="Repository_Relationship" xml:space="preserve">
     <value>关联</value>
+  </data>
+  <data name="Repository_RemoteUrlTitle" xml:space="preserve">
+    <value>远程仓库地址</value>
   </data>
   <data name="Repository_RepositorySize" xml:space="preserve">
     <value>代码库大小</value>
@@ -466,6 +472,9 @@
   <data name="Repository_Tags" xml:space="preserve">
     <value>标签</value>
   </data>
+  <data name="Repository_TagDeletionWords" xml:space="preserve">
+    <value>你确认要删除标签 "{0}" 吗？</value>
+  </data>
   <data name="Repository_TagsTitle" xml:space="preserve">
     <value>标签 · {0}</value>
   </data>
@@ -476,7 +485,7 @@
     <value>浏览</value>
   </data>
   <data name="Repository_TreeTitle" xml:space="preserve">
-    <value>{0}</value>
+    <value>{2} 在 {1} · {0}</value>
   </data>
   <data name="Repository_UpdateUnsuccessfull" xml:space="preserve">
     <value>更新代码库失败，请纠正后再次尝试。</value>
@@ -598,6 +607,9 @@
   <data name="Shared_No" xml:space="preserve">
     <value>否</value>
   </data>
+  <data name="Shared_None" xml:space="preserve">
+    <value>无</value>
+  </data>
   <data name="Shared_Register" xml:space="preserve">
     <value>注册</value>
   </data>
@@ -629,7 +641,7 @@
     <value>团队</value>
   </data>
   <data name="Shared_TitleFormat" xml:space="preserve">
-    <value>{0} - </value>
+    <value>{0} - GitCandy</value>
   </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>用户</value>
@@ -711,8 +723,5 @@
   </data>
   <data name="Validation_StringLengthRange" xml:space="preserve">
     <value>"{0}" 必须介于 {1} 和 {2} 个字符之间</value>
-  </data>
-  <data name="Repository_TagDeletionWords" xml:space="preserve">
-    <value>你确认要删除标签 "{0}" 吗？</value>
   </data>
 </root>

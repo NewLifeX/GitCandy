@@ -693,7 +693,7 @@ namespace GitCandy.Git
             return p;
         }
 
-        public static bool CreateRepository(String owner, String name)
+        public static bool CreateRepository(String owner, String name, String remoteUrl = null)
         {
             var path = GetPath(owner, name);
             try
@@ -701,6 +701,28 @@ namespace GitCandy.Git
                 using (var repo = new Repository(Repository.Init(path, true)))
                 {
                     repo.Config.Set("core.logallrefupdates", true);
+                    if (remoteUrl != null)
+                    {
+                        repo.Network.Remotes.Add("origin", remoteUrl, "+refs/*:refs/*");
+                        Task.Run(() =>
+                        {
+                            XTrace.WriteLine("[{0}/{1}]准备从远程拉取 {2}", owner, name, remoteUrl);
+                            try
+                            {
+                                var sw = Stopwatch.StartNew();
+                                using (var fetch_repo = new Repository(repo.Info.Path))
+                                {
+                                    fetch_repo.Fetch("origin");
+                                }
+                                sw.Stop();
+                                XTrace.WriteLine("远程拉取成功，耗时 {0:n0}毫秒", sw.ElapsedMilliseconds);
+                            }
+                            catch (Exception ex)
+                            {
+                                XTrace.WriteException(ex);
+                            }
+                        });
+                    }
                 }
                 return true;
             }

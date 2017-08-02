@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -269,17 +270,6 @@ WriteLiteral("                ");
 
             
             #line 42 "..\..\Views\Account\Detail.cshtml"
-           Write(Html.ActionLink(SR.Account_SSH, "Ssh", new { Model.Name }, new { @class = "btn btn-info" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                ");
-
-            
-            #line 43 "..\..\Views\Account\Detail.cshtml"
            Write(Html.ActionLink(SR.Account_ChangePassword, "Change", new { Model.Name }, new { @class = "btn btn-info" }));
 
             
@@ -288,7 +278,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </dd>\r\n");
 
             
-            #line 45 "..\..\Views\Account\Detail.cshtml"
+            #line 44 "..\..\Views\Account\Detail.cshtml"
         }
 
             
@@ -297,7 +287,7 @@ WriteLiteral("\r\n            </dd>\r\n");
 WriteLiteral("    </dl>\r\n");
 
             
-            #line 47 "..\..\Views\Account\Detail.cshtml"
+            #line 46 "..\..\Views\Account\Detail.cshtml"
 }
 
             

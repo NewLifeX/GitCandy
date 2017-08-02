@@ -175,10 +175,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Login.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Account\Ssh.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Ssh.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Home\About.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>About.generated.cs</LastGenOutput>
@@ -457,11 +453,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\Ssh.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Ssh.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\About.generated.cs">
       <AutoGen>True</AutoGen>

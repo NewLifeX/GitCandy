@@ -74,7 +74,9 @@ namespace GitCandy.Controllers
                     var repo = RepositoryService.Create(model);
                     if (repo != null)
                     {
-                        var success = GitService.CreateRepository(model.Owner, model.Name);
+                        //var success = GitService.CreateRepository(model.Owner, model.Name);
+                        var remoteUrl = model.HowInit.EqualIgnoreCase("Import") ? model.RemoteUrl : null;
+                        var success = GitService.CreateRepository(model.Owner, model.Name, remoteUrl);
                         if (!success)
                         {
                             RepositoryService.Delete(Token.Username, model.Name);

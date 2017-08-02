@@ -70,8 +70,8 @@
             return args[0].replace(/{(\d+)}/g, function (match, number) {
                 var index = parseInt(number);
                 return typeof args[index + 1] !== 'undefined'
-                  ? args[index + 1]
-                  : match;
+                    ? args[index + 1]
+                    : match;
             });
         }
     });
@@ -141,8 +141,8 @@
             append = last != '' && last.indexOf('...') == -1;
 
         append
-        ? window.location.href += '/' + relative
-        : window.location.href = relative;
+            ? window.location.href += '/' + relative
+            : window.location.href = relative;
     });
 
     $(".switch input:checkbox").bootstrapSwitch();
@@ -183,6 +183,19 @@
                 $this.closest('div .row').remove();
             });
         }
+    });
+    // init repository
+    $('label[data-repo-init]').click(function () {
+        var $this = $(this),
+            how = $this.data('repo-init');
+        $this.parent().siblings('input').val(how);
+        $('div[data-repo-init]').each(function () {
+            var $panel = $(this),
+                belong = $panel.data('repo-init');
+            how == belong
+                ? $panel.collapse('show')
+                : $panel.collapse('hide');
+        });
     });
     // chooser
     typeof chooser_params !== 'undefined'
@@ -235,8 +248,8 @@
                 var row_html = '<div class="row border-area">',
                     alter_row_html = '<div>',
                     name_html = '<p class="lead">' + (params.controller
-                            ? '<a href="/' + params.controller + '/Detail/' + item.Name + '">' + item.Name + '</a>'
-                            : item.Name) + '</p>',
+                        ? '<a href="/' + params.controller + '/Detail/' + item.Name + '">' + item.Name + '</a>'
+                        : item.Name) + '</p>',
                     remover_html = '<a href="#" class="remover btn btn-danger">' + params.del_label + '</a>',
                     $row = $(row_html),
                     $first_row = $(alter_row_html),
@@ -252,10 +265,10 @@
                     var xhr = $.post(params.del_action.url, params.del_action.query(item.Name), function (data) {
                         $row.remove();
                     })
-                    .fail(function () {
-                        $mask.remove();
-                        warning(parseResponseJson(xhr.responseText));
-                    });
+                        .fail(function () {
+                            $mask.remove();
+                            warning(parseResponseJson(xhr.responseText));
+                        });
                 });
 
                 console.log(item);
@@ -278,12 +291,12 @@
                         var xhr = $.post(state ? action.checked.url : action.unchecked.url,
                             state ? action.checked.query(item.Name) : action.unchecked.query(item.Name),
                             function (data) { })
-                        .fail(function () {
-                            tobe = !state;
-                            $checkbox.bootstrapSwitch('state', tobe);
-                            warning(parseResponseJson(xhr.responseText));
-                        })
-                        .always(function () { $checkbox.bootstrapSwitch('readonly', false); });
+                            .fail(function () {
+                                tobe = !state;
+                                $checkbox.bootstrapSwitch('state', tobe);
+                                warning(parseResponseJson(xhr.responseText));
+                            })
+                            .always(function () { $checkbox.bootstrapSwitch('readonly', false); });
                     });
 
                     $second_row.append($cell);
@@ -312,9 +325,9 @@
                     add_row(params.use_ret_val ? { Name: data } : $.extend({ Name: name }, data));
                     $searcher.val('');
                 })
-                .fail(function () {
-                    warning(parseResponseJson(xhr.responseText));
-                });
+                    .fail(function () {
+                        warning(parseResponseJson(xhr.responseText));
+                    });
             });
 
             var $row = $('<div class="form-group">');

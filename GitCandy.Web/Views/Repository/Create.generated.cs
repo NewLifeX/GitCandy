@@ -286,10 +286,121 @@ WriteLiteral("                ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
+WriteLiteral("\r\n            </div>\r\n        </dd>\r\n        <dt>");
 
             
-            #line 52 "..\..\Views\Repository\Create.cshtml"
+            #line 51 "..\..\Views\Repository\Create.cshtml"
+       Write(Html.DisplayNameFor(s => s.HowInit));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dt>\r\n        <dd>\r\n            <div");
+
+WriteLiteral(" class=\"btn-group\"");
+
+WriteLiteral(" data-toggle=\"buttons\"");
+
+WriteLiteral(">\r\n                <label");
+
+WriteLiteral(" class=\"btn btn-primary\"");
+
+WriteLiteral(" data-repo-init=\"None\"");
+
+WriteLiteral(">\r\n                    <input");
+
+WriteLiteral(" type=\"radio\"");
+
+WriteLiteral(" autocomplete=\"off\"");
+
+WriteLiteral(">");
+
+            
+            #line 55 "..\..\Views\Repository\Create.cshtml"
+                                                      Write(SR.Shared_None);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                </label>\r\n                <label");
+
+WriteLiteral(" class=\"btn btn-primary\"");
+
+WriteLiteral(" data-repo-init=\"Import\"");
+
+WriteLiteral(">\r\n                    <input");
+
+WriteLiteral(" type=\"radio\"");
+
+WriteLiteral(" autocomplete=\"off\"");
+
+WriteLiteral(">");
+
+            
+            #line 58 "..\..\Views\Repository\Create.cshtml"
+                                                      Write(SR.Repository_Import);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                </label>\r\n            </div>\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 61 "..\..\Views\Repository\Create.cshtml"
+       Write(Html.TextBoxFor(s => s.HowInit, new { @class = "hide" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n            <div");
+
+WriteLiteral(" class=\"collapse\"");
+
+WriteLiteral(" data-repo-init=\"Import\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" class=\"well\"");
+
+WriteLiteral(">\r\n                    <div>");
+
+            
+            #line 64 "..\..\Views\Repository\Create.cshtml"
+                    Write(Html.DisplayNameFor(s => s.RemoteUrl));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</div>\r\n");
+
+WriteLiteral("                    ");
+
+            
+            #line 65 "..\..\Views\Repository\Create.cshtml"
+               Write(Html.TextBoxFor(s => s.RemoteUrl, new { @class = "form-control", placeholder = "http(s)://" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                    <p");
+
+WriteLiteral(" class=\"text-warning\"");
+
+WriteLiteral(">");
+
+            
+            #line 66 "..\..\Views\Repository\Create.cshtml"
+                                       Write(SR.Repository_ImportTips);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</p>\r\n                </div>\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
+
+            
+            #line 71 "..\..\Views\Repository\Create.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -298,7 +409,7 @@ WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 53 "..\..\Views\Repository\Create.cshtml"
+            #line 72 "..\..\Views\Repository\Create.cshtml"
        Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
 
             
@@ -313,7 +424,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 56 "..\..\Views\Repository\Create.cshtml"
+            #line 75 "..\..\Views\Repository\Create.cshtml"
            Write(Html.ValidationMessageFor(s => s.Description));
 
             
@@ -322,7 +433,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 61 "..\..\Views\Repository\Create.cshtml"
+            #line 80 "..\..\Views\Repository\Create.cshtml"
        Write(Html.ValidationSummary(false, null, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -337,7 +448,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 65 "..\..\Views\Repository\Create.cshtml"
+            #line 84 "..\..\Views\Repository\Create.cshtml"
                                                      Write(SR.Shared_Create);
 
             
@@ -352,7 +463,7 @@ WriteLiteral(" class=\"btn btn-inverse\"");
 WriteLiteral(">");
 
             
-            #line 66 "..\..\Views\Repository\Create.cshtml"
+            #line 85 "..\..\Views\Repository\Create.cshtml"
                                                     Write(SR.Shared_Reset);
 
             
@@ -361,7 +472,7 @@ WriteLiteral(">");
 WriteLiteral("</button> &nbsp;\r\n        </dd>\r\n    </dl>\r\n");
 
             
-            #line 69 "..\..\Views\Repository\Create.cshtml"
+            #line 88 "..\..\Views\Repository\Create.cshtml"
 }
 
             
