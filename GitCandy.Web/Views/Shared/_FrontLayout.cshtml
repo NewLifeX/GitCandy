@@ -4,7 +4,7 @@
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
     title += cfg.DisplayName;
-    var title2 = ViewBag.Title2 + "";
+    var title2 = ViewBag.Title2 as String;
     if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
 }
 <!DOCTYPE html>

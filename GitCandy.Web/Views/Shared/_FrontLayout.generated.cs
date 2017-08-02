@@ -58,7 +58,7 @@ namespace ASP
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
     title += cfg.DisplayName;
-    var title2 = ViewBag.Title2 + "";
+    var title2 = ViewBag.Title2 as String;
     if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
 
             
@@ -68,14 +68,14 @@ WriteLiteral("\r\n<!DOCTYPE html>\r\n<html");
 
 WriteLiteral(" xmlns=\"http://www.w3.org/1999/xhtml\"");
 
-WriteAttribute("lang", Tuple.Create(" lang=\"", 403), Tuple.Create("\"", 423)
+WriteAttribute("lang", Tuple.Create(" lang=\"", 408), Tuple.Create("\"", 428)
             
             #line 11 "..\..\Views\Shared\_FrontLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 410), Tuple.Create<System.Object, System.Int32>(ViewBag.Lang
+, Tuple.Create(Tuple.Create("", 415), Tuple.Create<System.Object, System.Int32>(ViewBag.Lang
             
             #line default
             #line hidden
-, 410), false)
+, 415), false)
 );
 
 WriteLiteral(">\r\n<head>\r\n    <meta");
@@ -101,36 +101,36 @@ WriteLiteral("</title>\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 596), Tuple.Create("\"", 626)
-, Tuple.Create(Tuple.Create("", 603), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap.css")
-, 603), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 601), Tuple.Create("\"", 631)
+, Tuple.Create(Tuple.Create("", 608), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap.css")
+, 608), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 658), Tuple.Create("\"", 695)
-, Tuple.Create(Tuple.Create("", 665), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap-switch.css")
-, 665), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 663), Tuple.Create("\"", 700)
+, Tuple.Create(Tuple.Create("", 670), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap-switch.css")
+, 670), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 727), Tuple.Create("\"", 757)
-, Tuple.Create(Tuple.Create("", 734), Tuple.Create<System.Object, System.Int32>(Href("~/Content/highlight.css")
-, 734), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 732), Tuple.Create("\"", 762)
+, Tuple.Create(Tuple.Create("", 739), Tuple.Create<System.Object, System.Int32>(Href("~/Content/highlight.css")
+, 739), false)
 );
 
 WriteLiteral(" />\r\n    <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 789), Tuple.Create("\"", 814)
-, Tuple.Create(Tuple.Create("", 796), Tuple.Create<System.Object, System.Int32>(Href("~/Content/site.css")
-, 796), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 794), Tuple.Create("\"", 819)
+, Tuple.Create(Tuple.Create("", 801), Tuple.Create<System.Object, System.Int32>(Href("~/Content/site.css")
+, 801), false)
 );
 
 WriteLiteral(" />\r\n</head>\r\n<body>\r\n    <div");
@@ -175,9 +175,9 @@ WriteLiteral("></span>\r\n                </button>\r\n                <a");
 
 WriteLiteral(" class=\"navbar-brand\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1352), Tuple.Create("\"", 1361)
-, Tuple.Create(Tuple.Create("", 1359), Tuple.Create<System.Object, System.Int32>(Href("~/")
-, 1359), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 1357), Tuple.Create("\"", 1366)
+, Tuple.Create(Tuple.Create("", 1364), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 1364), false)
 );
 
 WriteLiteral(">");
@@ -480,14 +480,14 @@ WriteLiteral("><p");
 
 WriteLiteral(" class=\"muted\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3698), Tuple.Create("\"", 3731)
+WriteAttribute("title", Tuple.Create(" title=\"", 3703), Tuple.Create("\"", 3736)
             
             #line 75 "..\..\Views\Shared\_FrontLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3706), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
+, Tuple.Create(Tuple.Create("", 3711), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
             
             #line default
             #line hidden
-, 3706), false)
+, 3711), false)
 );
 
 WriteLiteral(">&copy; 2002-");
@@ -510,51 +510,51 @@ WriteLiteral(" ");
             #line hidden
 WriteLiteral("</p></div>\r\n        </div>\r\n    </div>\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3829), Tuple.Create("\"", 3860)
-, Tuple.Create(Tuple.Create("", 3835), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
-, 3835), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3834), Tuple.Create("\"", 3865)
+, Tuple.Create(Tuple.Create("", 3840), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
+, 3840), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3884), Tuple.Create("\"", 3912)
-, Tuple.Create(Tuple.Create("", 3890), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
-, 3890), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3889), Tuple.Create("\"", 3917)
+, Tuple.Create(Tuple.Create("", 3895), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
+, 3895), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3936), Tuple.Create("\"", 3971)
-, Tuple.Create(Tuple.Create("", 3942), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
-, 3942), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 3941), Tuple.Create("\"", 3976)
+, Tuple.Create(Tuple.Create("", 3947), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
+, 3947), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3995), Tuple.Create("\"", 4034)
-, Tuple.Create(Tuple.Create("", 4001), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
-, 4001), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4000), Tuple.Create("\"", 4039)
+, Tuple.Create(Tuple.Create("", 4006), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
+, 4006), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4058), Tuple.Create("\"", 4091)
-, Tuple.Create(Tuple.Create("", 4064), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
-, 4064), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4063), Tuple.Create("\"", 4096)
+, Tuple.Create(Tuple.Create("", 4069), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
+, 4069), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4115), Tuple.Create("\"", 4140)
-, Tuple.Create(Tuple.Create("", 4121), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
-, 4121), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4120), Tuple.Create("\"", 4145)
+, Tuple.Create(Tuple.Create("", 4126), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
+, 4126), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4164), Tuple.Create("\"", 4189)
-, Tuple.Create(Tuple.Create("", 4170), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
-, 4170), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4169), Tuple.Create("\"", 4194)
+, Tuple.Create(Tuple.Create("", 4175), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
+, 4175), false)
 );
 
 WriteLiteral("></script>\r\n");
