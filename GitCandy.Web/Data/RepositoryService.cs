@@ -271,37 +271,37 @@ namespace GitCandy.Data
             return CheckReadWrite(repo, user, true);
         }
 
-        public Boolean CanReadRepository(String owner, String reponame, String fingerprint, String publickey)
-        {
-            var repo = Repository.FindByOwnerAndName(owner, reponame);
-            if (repo == null) return false;
-            if (repo.AllowAnonymousRead) return true;
+        //public Boolean CanReadRepository(String owner, String reponame, String fingerprint, String publickey)
+        //{
+        //    var repo = Repository.FindByOwnerAndName(owner, reponame);
+        //    if (repo == null) return false;
+        //    if (repo.AllowAnonymousRead) return true;
 
-            var ssh = SshKey.FindByFingerprint(fingerprint);
-            if (ssh == null || ssh.PublicKey != publickey) return false;
+        //    var ssh = SshKey.FindByFingerprint(fingerprint);
+        //    if (ssh == null || ssh.PublicKey != publickey) return false;
 
-            var user = ssh.User;
-            if (user == null) return false;
-            if (user.IsAdmin) return true;
+        //    var user = ssh.User;
+        //    if (user == null) return false;
+        //    if (user.IsAdmin) return true;
 
-            return CheckReadWrite(repo, user, false);
-        }
+        //    return CheckReadWrite(repo, user, false);
+        //}
 
-        public Boolean CanWriteRepository(String owner, String reponame, String fingerprint, String publickey)
-        {
-            var repo = Repository.FindByOwnerAndName(owner, reponame);
-            if (repo == null) return false;
-            if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
+        //public Boolean CanWriteRepository(String owner, String reponame, String fingerprint, String publickey)
+        //{
+        //    var repo = Repository.FindByOwnerAndName(owner, reponame);
+        //    if (repo == null) return false;
+        //    if (repo.AllowAnonymousRead && repo.AllowAnonymousWrite) return true;
 
-            var ssh = SshKey.FindByFingerprint(fingerprint);
-            if (ssh == null || ssh.PublicKey != publickey) return false;
+        //    var ssh = SshKey.FindByFingerprint(fingerprint);
+        //    if (ssh == null || ssh.PublicKey != publickey) return false;
 
-            var user = ssh.User;
-            if (user == null) return false;
-            if (user.IsAdmin) return true;
+        //    var user = ssh.User;
+        //    if (user == null) return false;
+        //    if (user.IsAdmin) return true;
 
-            return CheckReadWrite(repo, user, true);
-        }
+        //    return CheckReadWrite(repo, user, true);
+        //}
 
         public RepositoryListModel GetRepositories(String username, Boolean showAll, PageParameter param)
         {

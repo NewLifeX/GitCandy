@@ -3,7 +3,6 @@ using System.Linq;
 using GitCandy.Base;
 using GitCandy.Models;
 using GitCandy.Security;
-using GitCandy.Ssh;
 using NewLife.Data;
 using NewLife.GitCandy.Entity;
 
@@ -158,58 +157,58 @@ namespace GitCandy.Data
             };
         }
 
-        public String AddSshKey(String name, String sshkey)
-        {
-            var seg = sshkey.Split();
-            var type = seg[0];
-            sshkey = seg[1];
-            var fingerprint = KeyUtils.GetFingerprint(sshkey);
+        //public String AddSshKey(String name, String sshkey)
+        //{
+        //    var seg = sshkey.Split();
+        //    var type = seg[0];
+        //    sshkey = seg[1];
+        //    var fingerprint = KeyUtils.GetFingerprint(sshkey);
 
-            var user = User.FindByName(name);
-            if (user == null) return null;
+        //    var user = User.FindByName(name);
+        //    if (user == null) return null;
 
-            var key = new SshKey
-            {
-                UserID = user.ID,
-                KeyType = type,
-                Fingerprint = fingerprint,
-                PublicKey = sshkey,
-                ImportData = DateTime.UtcNow,
-                LastUse = DateTime.UtcNow,
-            };
+        //    var key = new SshKey
+        //    {
+        //        UserID = user.ID,
+        //        KeyType = type,
+        //        Fingerprint = fingerprint,
+        //        PublicKey = sshkey,
+        //        ImportData = DateTime.UtcNow,
+        //        LastUse = DateTime.UtcNow,
+        //    };
 
-            key.Save();
+        //    key.Save();
 
-            return fingerprint;
-        }
+        //    return fingerprint;
+        //}
 
-        public void DeleteSshKey(String name, String sshkey)
-        {
-            var user = User.FindByName(name);
-            if (user == null) return;
+        //public void DeleteSshKey(String name, String sshkey)
+        //{
+        //    var user = User.FindByName(name);
+        //    if (user == null) return;
 
-            var key = SshKey.FindByUserID(user.ID);
-            if (key == null) return;
+        //    var key = SshKey.FindByUserID(user.ID);
+        //    if (key == null) return;
 
-            if (key.Fingerprint == sshkey) key.Delete();
-        }
+        //    if (key.Fingerprint == sshkey) key.Delete();
+        //}
 
-        public bool HasSshKey(String fingerprint)
-        {
-            return SshKey.FindByFingerprint(fingerprint) != null;
-        }
+        //public bool HasSshKey(String fingerprint)
+        //{
+        //    return SshKey.FindByFingerprint(fingerprint) != null;
+        //}
 
-        public SshModel GetSshList(String name)
-        {
-            var user = User.FindByName(name);
-            if (user == null) return null;
+        //public SshModel GetSshList(String name)
+        //{
+        //    var user = User.FindByName(name);
+        //    if (user == null) return null;
 
-            return new Models.SshModel
-            {
-                Username = user.Name,
-                SshKeys = user.SshKeys.Select(s => new SshModel.SshKey { Name = s.Fingerprint }).ToArray()
-            };
-        }
+        //    return new Models.SshModel
+        //    {
+        //        Username = user.Name,
+        //        SshKeys = user.SshKeys.Select(s => new SshModel.SshKey { Name = s.Fingerprint }).ToArray()
+        //    };
+        //}
         #endregion
 
         #region Team part

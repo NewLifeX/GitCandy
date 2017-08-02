@@ -213,25 +213,16 @@ WriteLiteral(">\r\n                    <li>");
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                    <li>");
-
-            
-            #line 34 "..\..\Views\Shared\_FrontLayout.cshtml"
-                   Write(Html.ActionLink(SR.Shared_About, "About", "Home"));
-
-            
-            #line default
-            #line hidden
 WriteLiteral("</li>\r\n");
 
             
-            #line 35 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 34 "..\..\Views\Shared\_FrontLayout.cshtml"
                     
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 34 "..\..\Views\Shared\_FrontLayout.cshtml"
                      if (token != null && token.IsAdmin)
                     {
 
@@ -245,7 +236,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 37 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 36 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Users, "Index", "Account"));
 
             
@@ -260,7 +251,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 38 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 37 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Teams, "Index", "Team"));
 
             
@@ -275,7 +266,7 @@ WriteLiteral(" class=\"\"");
 WriteLiteral(">");
 
             
-            #line 39 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 38 "..\..\Views\Shared\_FrontLayout.cshtml"
                                 Write(Html.ActionLink(SR.Shared_Settings, "Edit", "Setting"));
 
             
@@ -284,13 +275,22 @@ WriteLiteral(">");
 WriteLiteral("</li>\r\n");
 
             
-            #line 40 "..\..\Views\Shared\_FrontLayout.cshtml"
+            #line 39 "..\..\Views\Shared\_FrontLayout.cshtml"
                     }
 
             
             #line default
             #line hidden
-WriteLiteral("                </ul>\r\n                <ul");
+WriteLiteral("                    <li>");
+
+            
+            #line 40 "..\..\Views\Shared\_FrontLayout.cshtml"
+                   Write(Html.ActionLink(SR.Shared_About, "About", "Home"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</li>\r\n                </ul>\r\n                <ul");
 
 WriteLiteral(" class=\"nav navbar-nav navbar-right\"");
 

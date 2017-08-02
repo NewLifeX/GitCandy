@@ -31,13 +31,13 @@
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(SR.Shared_Repositories, "Index", "Repository")</li>
-                    <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
                     @if (token != null && token.IsAdmin)
                     {
                         <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
                         <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
                         <li class="">@Html.ActionLink(SR.Shared_Settings, "Edit", "Setting")</li>
                     }
+                    <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)

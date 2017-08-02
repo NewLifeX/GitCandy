@@ -14,7 +14,7 @@ namespace GitCandy
     {
         protected void Application_Start()
         {
-            XTrace.WriteVersion(this.GetType().Assembly);
+            XTrace.WriteVersion(GetType().Assembly);
 
             AreaRegistration.RegisterAllAreas();
 
@@ -22,7 +22,7 @@ namespace GitCandy
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             GitCacheAccessor.Initialize();
-            SshServerConfig.StartSshServer();
+            //SshServerConfig.StartSshServer();
         }
 
         protected void Application_AcquireRequestState()

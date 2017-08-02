@@ -54,7 +54,7 @@ namespace NewLife.GitCandy.Entity
             (Teams as IEntityList)?.Delete(true);
             UserTeam.FindAllByTeamID(ID).Delete(true);
             (Repositories as IEntityList)?.Delete(true);
-            (SshKeys as IEntityList)?.Delete(true);
+            //(SshKeys as IEntityList)?.Delete(true);
             Repository.FindAllByOwnerID(ID).Delete();
             AuthorizationLog.FindAllByUserID(ID).Delete();
 
@@ -101,22 +101,22 @@ namespace NewLife.GitCandy.Entity
 
         public String[] RepositoryNames { get { return Repositories?.Select(e => e.RepositoryName).ToArray(); } }
 
-        private List<SshKey> _SshKeys;
-        /// <summary>SSH密钥</summary>
-        public List<SshKey> SshKeys
-        {
-            get
-            {
-                if (_SshKeys == null && !Dirtys.ContainsKey("SshKeys"))
-                {
-                    _SshKeys = SshKey.FindAllByUserID(ID);
+        //private List<SshKey> _SshKeys;
+        ///// <summary>SSH密钥</summary>
+        //public List<SshKey> SshKeys
+        //{
+        //    get
+        //    {
+        //        if (_SshKeys == null && !Dirtys.ContainsKey("SshKeys"))
+        //        {
+        //            _SshKeys = SshKey.FindAllByUserID(ID);
 
-                    Dirtys["SshKeys"] = true;
-                }
-                return _SshKeys;
-            }
-            set { _SshKeys = value; }
-        }
+        //            Dirtys["SshKeys"] = true;
+        //        }
+        //        return _SshKeys;
+        //    }
+        //    set { _SshKeys = value; }
+        //}
         #endregion
 
         #region 扩展查询

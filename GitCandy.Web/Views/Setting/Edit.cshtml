@@ -24,19 +24,8 @@
             </div>
         </dd>
 
-        <dt>@Html.DisplayNameFor(s => s.EnableSsh)</dt>
-        <dd>
-            <div class="switch" data-on-label="@SR.Shared_Yes" data-off-label="@SR.Shared_No">
-                @Html.CheckBoxFor(s => s.EnableSsh, new { data_size = "small" })
-            </div>
-        </dd>
-
         <dt>@Html.DisplayNameFor(s => s.SslPort)</dt>
         <dd>@Html.TextBoxFor(s => s.SslPort, new { @class = "form-control" })</dd>
-
-        <dt>@Html.DisplayNameFor(s => s.SshPort)</dt>
-        <dd>@Html.TextBoxFor(s => s.SshPort, new { @class = "form-control" })</dd>
-
 
         <dt>@Html.DisplayNameFor(s => s.LocalSkipCustomError)</dt>
         <dd>
@@ -87,7 +76,6 @@
         <dd>
             <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
             <button type="reset" class="btn btn-inverse">@SR.Shared_Reset</button> &nbsp;
-            @Html.ActionLink(SR.Setting_ReGenSsh, "ReGenSsh", null, new { @class = "btn btn-danger" }) &nbsp;
             @Html.ActionLink(SR.Shared_Restart, "Restart", null, new { @class = "btn btn-danger" }) &nbsp;
         </dd>
     </dl>

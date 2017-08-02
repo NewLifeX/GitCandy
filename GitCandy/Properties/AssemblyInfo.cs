@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GitCandy")]
-[assembly: AssemblyCopyright("Copyright © 新生命开发团队 2002-2016")]
+[assembly: AssemblyCopyright("Copyright © 新生命开发团队 2002-2017")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
@@ -34,9 +34,15 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.2.*")]
-[assembly: AssemblyFileVersion("1.2.2016.0124")]
+[assembly: AssemblyVersion("1.3.*")]
+[assembly: AssemblyFileVersion("1.3.2017.0824")]
 
 /*
+ * v1.3.2017.0824   全面停用SSH
+ * 
+ * v1.2.2017.0124   Markdown语法增强，支持相对路径引用图片和链接
+ * 
+ * v1.1.2016.1124   仓库归属于个人或团队
+ * 
  * v1.0.2016.1122   迁移到XCode，合并魔方
  */

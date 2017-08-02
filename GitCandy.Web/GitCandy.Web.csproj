@@ -271,10 +271,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Edit.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Setting\ReGenSsh.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ReGenSsh.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Setting\Restart.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Restart.generated.cs</LastGenOutput>
@@ -344,10 +340,8 @@
     <Compile Include="App_Start\AppInfomation.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\SshServerConfig.cs" />
     <Compile Include="Areas\GitCandy\Controllers\RepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
-    <Compile Include="Areas\GitCandy\Controllers\SshKeyController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserRepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
@@ -383,7 +377,6 @@
     <Compile Include="Git\CommitsAccessor.cs" />
     <Compile Include="Git\ContributorsAccessor.cs" />
     <Compile Include="Git\GitService.cs" />
-    <Compile Include="Git\GitSshService.cs" />
     <Compile Include="Git\HistoryDivergenceAccessor.cs" />
     <Compile Include="Git\LastCommitAccessor.cs" />
     <Compile Include="Git\RepositorySizeAccessor.cs" />
@@ -584,11 +577,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\ReGenSsh.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReGenSsh.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Setting\Restart.generated.cs">
       <AutoGen>True</AutoGen>

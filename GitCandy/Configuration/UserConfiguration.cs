@@ -23,13 +23,13 @@ namespace GitCandy.Configuration
         [DisplayName("SSL端口")]
         public int SslPort { get; set; } = 443;
 
-        /// <summary>开启SSH</summary>
-        [DisplayName("开启SSH")]
-        public bool EnableSsh { get; set; } = true;
+        ///// <summary>开启SSH</summary>
+        //[DisplayName("开启SSH")]
+        //public bool EnableSsh { get; set; } = true;
 
-        /// <summary>SSH端口</summary>
-        [DisplayName("SSH端口")]
-        public int SshPort { get; set; } = 22;
+        ///// <summary>SSH端口</summary>
+        //[DisplayName("SSH端口")]
+        //public int SshPort { get; set; } = 22;
 
         /// <summary>跳过本地错误</summary>
         [DisplayName("跳过本地错误")]

@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using GitCandy.Configuration;
 using GitCandy.Filters;
 using GitCandy.Models;
-using GitCandy.Ssh;
 using NewLife.Log;
 
 namespace GitCandy.Controllers
@@ -21,8 +20,8 @@ namespace GitCandy.Controllers
                 IsPublicServer = config.IsPublicServer,
                 ForceSsl = config.ForceSsl,
                 SslPort = config.SslPort,
-                SshPort = config.SshPort,
-                EnableSsh = config.EnableSsh,
+                //SshPort = config.SshPort,
+                //EnableSsh = config.EnableSsh,
                 LocalSkipCustomError = config.LocalSkipCustomError,
                 AllowRegisterUser = config.AllowRegisterUser,
                 AllowRepositoryCreation = config.AllowRepositoryCreation,
@@ -40,20 +39,20 @@ namespace GitCandy.Controllers
         public ActionResult Edit(SettingModel model)
         {
             var needRestart = false;
-            var needRestartSshServer = false;
+            //var needRestartSshServer = false;
 
             if (ModelState.IsValid)
             {
                 var config = UserConfiguration.Current;
 
                 needRestart = (config.CachePath != model.CachePath);
-                needRestartSshServer = config.SshPort != model.SshPort || config.EnableSsh != model.EnableSsh;
+                //needRestartSshServer = config.SshPort != model.SshPort || config.EnableSsh != model.EnableSsh;
 
                 config.IsPublicServer = model.IsPublicServer;
                 config.ForceSsl = model.ForceSsl;
                 config.SslPort = model.SslPort;
-                config.SshPort = model.SshPort;
-                config.EnableSsh = model.EnableSsh;
+                //config.SshPort = model.SshPort;
+                //config.EnableSsh = model.EnableSsh;
                 config.LocalSkipCustomError = model.LocalSkipCustomError;
                 config.AllowRegisterUser = model.AllowRegisterUser;
                 config.AllowRepositoryCreation = model.AllowRepositoryCreation;
@@ -71,13 +70,13 @@ namespace GitCandy.Controllers
 
             if (needRestart)
             {
-                SshServerConfig.StopSshServer();
+                //SshServerConfig.StopSshServer();
                 HttpRuntime.UnloadAppDomain();
             }
-            else if (needRestartSshServer)
-            {
-                SshServerConfig.RestartSshServer();
-            }
+            //else if (needRestartSshServer)
+            //{
+            //    SshServerConfig.RestartSshServer();
+            //}
 
             return View(model);
         }
@@ -92,22 +91,22 @@ namespace GitCandy.Controllers
             return View();
         }
 
-        public ActionResult ReGenSsh(String conform)
-        {
-            if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
-            {
-                UserConfiguration.Current.HostKeys.Clear();
-                foreach (var type in KeyUtils.SupportedAlgorithms)
-                {
-                    UserConfiguration.Current.HostKeys.Add(new HostKey { KeyType = type, KeyXml = KeyUtils.GeneratePrivateKey(type) });
-                }
-                UserConfiguration.Current.Save();
+        //public ActionResult ReGenSsh(String conform)
+        //{
+        //    if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        UserConfiguration.Current.HostKeys.Clear();
+        //        foreach (var type in KeyUtils.SupportedAlgorithms)
+        //        {
+        //            UserConfiguration.Current.HostKeys.Add(new HostKey { KeyType = type, KeyXml = KeyUtils.GeneratePrivateKey(type) });
+        //        }
+        //        UserConfiguration.Current.Save();
 
-                SshServerConfig.RestartSshServer();
+        //        SshServerConfig.RestartSshServer();
 
-                return RedirectToAction("Edit");
-            }
-            return View();
-        }
+        //        return RedirectToAction("Edit");
+        //    }
+        //    return View();
+        //}
     }
 }

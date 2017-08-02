@@ -226,38 +226,38 @@ namespace GitCandy.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [CurrentUserOrAdministrator]
-        public JsonResult ChooseSsh(String user, String sshkey, String act)
-        {
-            String message = null;
-            if (act == "add")
-            {
-                var fingerprint = MembershipService.AddSshKey(user, sshkey);
-                if (fingerprint != null)
-                    return Json(fingerprint);
-            }
-            else if (act == "del")
-            {
-                MembershipService.DeleteSshKey(user, sshkey);
-                return Json("success");
-            }
+        //[HttpPost]
+        //[CurrentUserOrAdministrator]
+        //public JsonResult ChooseSsh(String user, String sshkey, String act)
+        //{
+        //    String message = null;
+        //    if (act == "add")
+        //    {
+        //        var fingerprint = MembershipService.AddSshKey(user, sshkey);
+        //        if (fingerprint != null)
+        //            return Json(fingerprint);
+        //    }
+        //    else if (act == "del")
+        //    {
+        //        MembershipService.DeleteSshKey(user, sshkey);
+        //        return Json("success");
+        //    }
 
-            Response.StatusCode = 400;
-            return Json(message ?? SR.Shared_SomethingWrong);
-        }
+        //    Response.StatusCode = 400;
+        //    return Json(message ?? SR.Shared_SomethingWrong);
+        //}
 
-        [CurrentUserOrAdministrator]
-        public ActionResult Ssh(String name)
-        {
-            if (String.IsNullOrEmpty(name) && Token != null)
-                name = Token.Username;
+        //[CurrentUserOrAdministrator]
+        //public ActionResult Ssh(String name)
+        //{
+        //    if (String.IsNullOrEmpty(name) && Token != null)
+        //        name = Token.Username;
 
-            var model = MembershipService.GetSshList(name);
-            if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
-            return View(model);
-        }
+        //    var model = MembershipService.GetSshList(name);
+        //    if (model == null)
+        //        throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+        //    return View(model);
+        //}
 
         [Administrator]
         public ActionResult Delete(String name, String conform)

@@ -7,15 +7,14 @@ using System.Web.Mvc;
 using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Data;
+using GitCandy.Extensions;
 using GitCandy.Filters;
 using GitCandy.Git;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
-using GitCandy.Ssh;
 using GitCandy.Web.App_GlobalResources;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
-using GitCandy.Extensions;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
@@ -494,15 +493,15 @@ namespace GitCandy.Controllers
             UriBuilder ub = new UriBuilder(url.Scheme, url.Host, url.Port, path);
             var httpUrl = ub.Uri.ToString();
 
-            var sshPort = UserConfiguration.Current.SshPort;
-            var sshUrl = sshPort == StartingInfo.DefaultPort
-                ? String.Format("git@{0}:git/{1}.git", url.Host, name)
-                : String.Format("ssh://git@{0}:{1}/git/{2}.git", url.Host, sshPort, name);
+            //var sshPort = UserConfiguration.Current.SshPort;
+            //var sshUrl = sshPort == StartingInfo.DefaultPort
+            //    ? String.Format("git@{0}:git/{1}.git", url.Host, name)
+            //    : String.Format("ssh://git@{0}:{1}/git/{2}.git", url.Host, sshPort, name);
 
             var result = new List<GitUrl>(4);
             result.Add(new GitUrl { Type = url.Scheme, Url = httpUrl });
-            if (UserConfiguration.Current.EnableSsh)
-                result.Add(new GitUrl { Type = "ssh", Url = sshUrl });
+            //if (UserConfiguration.Current.EnableSsh)
+            //    result.Add(new GitUrl { Type = "ssh", Url = sshUrl });
 
             return result.ToArray();
         }

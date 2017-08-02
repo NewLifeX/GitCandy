@@ -89,10 +89,7 @@ WriteLiteral("@ [MIT License](http://github.com/twbs/bootstrap/blob/master/LICEN
 "ap-switch](http://github.com/nostalgiaz/bootstrap-switch) ");
 
 WriteLiteral("@ [Apache License 2.0](http://github.com/nostalgiaz/bootstrap-switch/blob/master/" +
-"LICENSE)\r\n* [FxSsh](http://github.com/Aimeast/FxSsh) ");
-
-WriteLiteral("@ [MIT license](http://github.com/Aimeast/FxSsh/blob/master/LICENSE.md)\r\n* [Highl" +
-"ight.js](http://github.com/isagalaev/highlight.js) ");
+"LICENSE)\r\n* [Highlight.js](http://github.com/isagalaev/highlight.js) ");
 
 WriteLiteral("@ [New BSD License](http://github.com/isagalaev/highlight.js/blob/master/LICENSE)" +
 "\r\n* [jQuery](http://github.com/jquery/jquery) ");
