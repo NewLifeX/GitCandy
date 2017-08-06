@@ -32,42 +32,16 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
-        private User _User;
         /// <summary>团队</summary>
-        public User User
-        {
-            get
-            {
-                //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
-                {
-                    _User = User.FindByID(UserID);
-                    //Dirtys["User"] = true;
-                }
-                return _User;
-            }
-            set { _User = value; }
-        }
+        public User User { get { return Extends.Get(nameof(User), k => User.FindByID(UserID)); } }
 
         /// <summary>用户名称</summary>
         [DisplayName("用户")]
         [Map(__.UserID, typeof(User), "ID")]
         public String UserName { get { return User + ""; } }
 
-        private Repository _Repository;
         /// <summary>仓库</summary>
-        public Repository Repository
-        {
-            get
-            {
-                //if (_Repository == null && RepositoryID > 0 && !Dirtys.ContainsKey("Repository"))
-                {
-                    _Repository = Repository.FindByID(RepositoryID);
-                    //Dirtys["Repository"] = true;
-                }
-                return _Repository;
-            }
-            set { _Repository = value; }
-        }
+        public Repository Repository { get { return Extends.Get(nameof(Repository), k => Repository.FindByID(RepositoryID)); } }
 
         /// <summary>仓库名称</summary>
         [DisplayName("仓库")]
