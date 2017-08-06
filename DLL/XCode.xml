@@ -200,6 +200,185 @@
             <summary>指定一个表内关联关系</summary>
             <param name="relationcolumn"></param>
         </member>
+        <member name="T:XCode.Code.ClassBuilder">
+            <summary>类代码生成器</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Writer">
+            <summary>写入器</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Table">
+            <summary>数据表</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Namespace">
+            <summary>命名空间</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Usings">
+            <summary>引用命名空间</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Pure">
+            <summary>纯净类</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Interface">
+            <summary>生成接口</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.BaseClass">
+            <summary>基类</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.#ctor">
+            <summary>实例化</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.Execute">
+            <summary>执行生成</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.OnExecuting">
+            <summary>生成头部</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.BuildClassHeader">
+            <summary>实体类头部</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.GetClassName">
+            <summary>获取类名</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.GetBaseClass">
+            <summary>获取基类</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.BuildAttribute">
+            <summary>实体类头部</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.OnExecuted">
+            <summary>生成尾部</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.BuildItems">
+            <summary>生成主体</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.BuildItem(XCode.DataAccessLayer.IDataColumn)">
+            <summary>生成每一项</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.SetIndent(System.Boolean)">
+            <summary>设置缩进</summary>
+            <param name="add"></param>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.WriteLine(System.String)">
+            <summary>写入</summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.WriteLine(System.String,System.Object[])">
+            <summary>写入</summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.Clear">
+            <summary>清空，重新生成</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.ToString">
+            <summary>输出结果</summary>
+            <returns></returns>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Output">
+            <summary>输出目录</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.Save(System.String,System.Boolean)">
+            <summary>保存文件</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.Log">
+            <summary>日志</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.WriteLog(System.String,System.Object[])">
+            <summary>写日志</summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:XCode.Code.EntityBuilder">
+            <summary>实体类生成器</summary>
+        </member>
+        <member name="P:XCode.Code.EntityBuilder.ConnName">
+            <summary>连接名</summary>
+        </member>
+        <member name="P:XCode.Code.EntityBuilder.GenericType">
+            <summary>泛型实体类。泛型参数名TEntity</summary>
+        </member>
+        <member name="P:XCode.Code.EntityBuilder.Business">
+            <summary>业务类。</summary>
+        </member>
+        <member name="P:XCode.Code.EntityBuilder.AllTables">
+            <summary>所有表类型名。用于扩展属性</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.#ctor">
+            <summary>实例化</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.Build(System.String,System.String,System.String,System.String)">
+            <summary>为Xml模型文件生成实体类</summary>
+            <param name="xmlFile">模型文件</param>
+            <param name="output">输出目录</param>
+            <param name="nameSpace">命名空间</param>
+            <param name="connName">连接名</param>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.Execute">
+            <summary>执行生成</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildClassHeader">
+            <summary>实体类头部</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.GetClassName">
+            <summary>获取类名</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.GetBaseClass">
+            <summary>获取基类</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.Save(System.String,System.Boolean)">
+            <summary>保存</summary>
+            <param name="ext"></param>
+            <param name="overwrite"></param>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.OnExecuted">
+            <summary>生成尾部</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.AddNameSpace">
+            <summary>增加常用命名空间</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildAttribute">
+            <summary>实体类头部</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildItem(XCode.DataAccessLayer.IDataColumn)">
+            <summary>生成每一项</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildItems">
+            <summary>生成主体</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildBiz">
+            <summary>生成实体类业务部分</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildAction">
+            <summary>对象操作</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildCctor">
+            <summary>生成静态构造函数</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildValid">
+            <summary>数据验证</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildInitData">
+            <summary>初始化数据</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildOverride">
+            <summary>重写添删改</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildExtendProperty">
+            <summary>扩展属性</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildExtendSearch">
+            <summary>扩展查询</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildSearch">
+            <summary>高级查询</summary>
+        </member>
+        <member name="M:XCode.Code.EntityBuilder.BuildBusiness">
+            <summary>业务操作</summary>
+        </member>
         <member name="T:XCode.Code.EntityAssembly">
             <summary>实体程序集</summary>
             <example>
@@ -519,6 +698,12 @@
             <summary>聚合</summary>
             <param name="field">字段</param>
             <param name="action"></param>
+            <param name="newName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.FieldExtension.As(XCode.Configuration.FieldItem,System.String)">
+            <summary>作为新的列</summary>
+            <param name="field"></param>
             <param name="newName"></param>
             <returns></returns>
         </member>
@@ -4747,11 +4932,7 @@
             <summary>详细信息</summary>
         </member>
         <member name="P:XCode.Membership.Log`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -4886,7 +5067,7 @@
             <summary>详细信息</summary>
         </member>
         <member name="P:XCode.Membership.ILog.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5129,11 +5310,7 @@
             <summary>配置信息</summary>
         </member>
         <member name="P:XCode.Membership.User`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5355,7 +5532,7 @@
             <summary>配置信息</summary>
         </member>
         <member name="P:XCode.Membership.IUser.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5447,11 +5624,7 @@
             <summary>修改时间</summary>
         </member>
         <member name="P:XCode.Membership.UserOnline`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5555,7 +5728,7 @@
             <summary>修改时间</summary>
         </member>
         <member name="P:XCode.Membership.IUserOnline.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5740,11 +5913,7 @@
             <summary>备注</summary>
         </member>
         <member name="P:XCode.Membership.Menu`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -5920,6 +6089,11 @@
         <member name="P:XCode.Membership.IMenu.Remark">
             <summary>备注</summary>
         </member>
+        <member name="P:XCode.Membership.IMenu.Item(System.String)">
+            <summary>获取/设置 字段值</summary>
+            <param name="name">字段名</param>
+            <returns></returns>
+        </member>
         <member name="T:XCode.Membership.PermissionFlags">
             <summary>操作权限</summary>
         </member>
@@ -6048,11 +6222,7 @@
             <summary>权限。对不同资源的权限，逗号分隔，每个资源的权限子项竖线分隔</summary>
         </member>
         <member name="P:XCode.Membership.Role`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -6152,7 +6322,7 @@
             <summary>权限。对不同资源的权限，逗号分隔，每个资源的权限子项竖线分隔</summary>
         </member>
         <member name="P:XCode.Membership.IRole.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -6435,155 +6605,144 @@
         </member>
         <member name="T:XCode.Sharding.Shard">
             <summary>分片</summary>
-        </member>
-        <member name="T:XCode.Sharding.Shard`1">
-            <summary>分片</summary>
             <summary>分片</summary>
         </member>
-        <member name="M:XCode.Sharding.Shard`1.Valid(System.Boolean)">
+        <member name="M:XCode.Sharding.Shard.Valid(System.Boolean)">
             <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-            <param name="isNew"></param>
+            <param name="isNew">是否插入</param>
         </member>
-        <member name="M:XCode.Sharding.Shard`1.FindAllByName(System.String)">
+        <member name="M:XCode.Sharding.Shard.FindByID(System.Int32)">
+            <summary>根据编号查找</summary>
+            <param name="id">编号</param>
+            <returns>实体对象</returns>
+        </member>
+        <member name="M:XCode.Sharding.Shard.FindByName(System.String)">
             <summary>根据名称查找</summary>
             <param name="name">名称</param>
-            <returns></returns>
+            <returns>实体对象</returns>
         </member>
-        <member name="M:XCode.Sharding.Shard`1.FindAllByEntityType(System.String)">
+        <member name="M:XCode.Sharding.Shard.FindByEntityType(System.String)">
             <summary>根据实体类查找</summary>
             <param name="entitytype">实体类</param>
-            <returns></returns>
+            <returns>实体对象</returns>
         </member>
-        <member name="M:XCode.Sharding.Shard`1.Search(System.Int32,System.DateTime,System.DateTime,System.String,NewLife.Data.PageParameter)">
-            <summary>查询满足条件的记录集，分页、排序</summary>
-            <param name="userid">用户编号</param>
-            <param name="start">开始时间</param>
-            <param name="end">结束时间</param>
-            <param name="key">关键字</param>
-            <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
-            <returns>实体集</returns>
-        </member>
-        <member name="P:XCode.Sharding.Shard`1.ID">
+        <member name="P:XCode.Sharding.Shard.ID">
             <summary>编号</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.Name">
+        <member name="P:XCode.Sharding.Shard.Name">
             <summary>名称</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.EntityType">
+        <member name="P:XCode.Sharding.Shard.EntityType">
             <summary>实体类</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.ConnName">
+        <member name="P:XCode.Sharding.Shard.ConnName">
             <summary>连接名</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.TableName">
+        <member name="P:XCode.Sharding.Shard.TableName">
             <summary>表名</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.CreateUserID">
+        <member name="P:XCode.Sharding.Shard.CreateUserID">
             <summary>创建者</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.CreateIP">
+        <member name="P:XCode.Sharding.Shard.CreateIP">
             <summary>创建地址</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.CreateTime">
+        <member name="P:XCode.Sharding.Shard.CreateTime">
             <summary>创建时间</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.UpdateUserID">
+        <member name="P:XCode.Sharding.Shard.UpdateUserID">
             <summary>更新者</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.UpdateIP">
+        <member name="P:XCode.Sharding.Shard.UpdateIP">
             <summary>更新地址</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.UpdateTime">
+        <member name="P:XCode.Sharding.Shard.UpdateTime">
             <summary>更新时间</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.Remark">
+        <member name="P:XCode.Sharding.Shard.Remark">
             <summary>备注</summary>
         </member>
-        <member name="P:XCode.Sharding.Shard`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
+        <member name="P:XCode.Sharding.Shard.Item(System.String)">
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
-        <member name="T:XCode.Sharding.Shard`1._">
+        <member name="T:XCode.Sharding.Shard._">
             <summary>取得分片字段信息的快捷方式</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.ID">
+        <member name="F:XCode.Sharding.Shard._.ID">
             <summary>编号</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.Name">
+        <member name="F:XCode.Sharding.Shard._.Name">
             <summary>名称</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.EntityType">
+        <member name="F:XCode.Sharding.Shard._.EntityType">
             <summary>实体类</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.ConnName">
+        <member name="F:XCode.Sharding.Shard._.ConnName">
             <summary>连接名</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.TableName">
+        <member name="F:XCode.Sharding.Shard._.TableName">
             <summary>表名</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.CreateUserID">
+        <member name="F:XCode.Sharding.Shard._.CreateUserID">
             <summary>创建者</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.CreateIP">
+        <member name="F:XCode.Sharding.Shard._.CreateIP">
             <summary>创建地址</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.CreateTime">
+        <member name="F:XCode.Sharding.Shard._.CreateTime">
             <summary>创建时间</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.UpdateUserID">
+        <member name="F:XCode.Sharding.Shard._.UpdateUserID">
             <summary>更新者</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.UpdateIP">
+        <member name="F:XCode.Sharding.Shard._.UpdateIP">
             <summary>更新地址</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.UpdateTime">
+        <member name="F:XCode.Sharding.Shard._.UpdateTime">
             <summary>更新时间</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1._.Remark">
+        <member name="F:XCode.Sharding.Shard._.Remark">
             <summary>备注</summary>
         </member>
-        <member name="T:XCode.Sharding.Shard`1.__">
+        <member name="T:XCode.Sharding.Shard.__">
             <summary>取得分片字段名称的快捷方式</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.ID">
+        <member name="F:XCode.Sharding.Shard.__.ID">
             <summary>编号</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.Name">
+        <member name="F:XCode.Sharding.Shard.__.Name">
             <summary>名称</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.EntityType">
+        <member name="F:XCode.Sharding.Shard.__.EntityType">
             <summary>实体类</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.ConnName">
+        <member name="F:XCode.Sharding.Shard.__.ConnName">
             <summary>连接名</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.TableName">
+        <member name="F:XCode.Sharding.Shard.__.TableName">
             <summary>表名</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.CreateUserID">
+        <member name="F:XCode.Sharding.Shard.__.CreateUserID">
             <summary>创建者</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.CreateIP">
+        <member name="F:XCode.Sharding.Shard.__.CreateIP">
             <summary>创建地址</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.CreateTime">
+        <member name="F:XCode.Sharding.Shard.__.CreateTime">
             <summary>创建时间</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.UpdateUserID">
+        <member name="F:XCode.Sharding.Shard.__.UpdateUserID">
             <summary>更新者</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.UpdateIP">
+        <member name="F:XCode.Sharding.Shard.__.UpdateIP">
             <summary>更新地址</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.UpdateTime">
+        <member name="F:XCode.Sharding.Shard.__.UpdateTime">
             <summary>更新时间</summary>
         </member>
-        <member name="F:XCode.Sharding.Shard`1.__.Remark">
+        <member name="F:XCode.Sharding.Shard.__.Remark">
             <summary>备注</summary>
         </member>
         <member name="T:XCode.Sharding.IShard">
@@ -6626,7 +6785,7 @@
             <summary>备注</summary>
         </member>
         <member name="P:XCode.Sharding.IShard.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
+            <summary>获取/设置 字段值</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
@@ -9233,7 +9392,7 @@
             <returns></returns>
         </member>
         <member name="M:XCode.OrderExpression.op_BitwiseAnd(XCode.OrderExpression,System.Object)">
-            <summary>重载运算符实现And操作，同时通过布尔型支持AndIf</summary>
+            <summary>重载运算符实现And操作</summary>
             <param name="exp"></param>
             <param name="value">数值</param>
             <returns></returns>
@@ -9272,6 +9431,12 @@
             <summary>输出条件表达式的字符串表示，遍历表达式集合并拼接起来</summary>
             <param name="needBracket">外部是否需要括号。如果外部要求括号，而内部又有Or，则加上括号</param>
             <param name="ps">参数字典</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.WhereExpression.op_Addition(XCode.WhereExpression,XCode.Expression)">
+            <summary>重载运算符实现+操作</summary>
+            <param name="exp"></param>
+            <param name="value">数值</param>
             <returns></returns>
         </member>
         <member name="M:XCode.WhereExpression.GroupBy(System.String[])">

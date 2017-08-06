@@ -74,16 +74,16 @@
   <ItemGroup>
     <Content Include="Entity\GitCandy数据字典.htm" />
     <Content Include="Entity\NewLife.GitCandy.xml" />
-    <Content Include="Entity\XCoder.tt">
+    <Content Include="Entity\生成.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>XCoder.log</LastGenOutput>
+      <LastGenOutput>生成.log</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entity\XCoder.log">
+    <None Include="Entity\生成.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>XCoder.tt</DependentUpon>
+      <DependentUpon>生成.tt</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

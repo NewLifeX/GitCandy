@@ -1,7 +1,6 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Xml.Serialization;
 using XCode;
 using XCode.Configuration;
 using XCode.DataAccessLayer;
@@ -23,23 +22,15 @@ namespace NewLife.GitCandy.Entity
         [Description("编号")]
         [DataObjectField(true, true, false, 10)]
         [BindColumn("ID", "编号", "int", 10, 0)]
-        public virtual Int32 ID
-        {
-            get { return _ID; }
-            set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } }
-        }
+        public Int32 ID { get { return _ID; } set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
 
         private String _Name;
         /// <summary>名称。登录用户名</summary>
         [DisplayName("名称")]
         [Description("名称。登录用户名")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Name", "名称。登录用户名", "nvarchar(50)", 0, 0, Master=true)]
-        public virtual String Name
-        {
-            get { return _Name; }
-            set { if (OnPropertyChanging(__.Name, value)) { _Name = value; OnPropertyChanged(__.Name); } }
-        }
+        [BindColumn("Name", "名称。登录用户名", "nvarchar(50)", 0, 0, Master = true)]
+        public String Name { get { return _Name; } set { if (OnPropertyChanging(__.Name, value)) { _Name = value; OnPropertyChanged(__.Name); } } }
 
         private String _NickName;
         /// <summary>显示名。昵称、中文名等</summary>
@@ -47,11 +38,7 @@ namespace NewLife.GitCandy.Entity
         [Description("显示名。昵称、中文名等")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("NickName", "显示名。昵称、中文名等", "nvarchar(50)", 0, 0)]
-        public virtual String NickName
-        {
-            get { return _NickName; }
-            set { if (OnPropertyChanging(__.NickName, value)) { _NickName = value; OnPropertyChanged(__.NickName); } }
-        }
+        public String NickName { get { return _NickName; } set { if (OnPropertyChanging(__.NickName, value)) { _NickName = value; OnPropertyChanged(__.NickName); } } }
 
         private String _Email;
         /// <summary>邮件</summary>
@@ -59,11 +46,7 @@ namespace NewLife.GitCandy.Entity
         [Description("邮件")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("Email", "邮件", "nvarchar(50)", 0, 0)]
-        public virtual String Email
-        {
-            get { return _Email; }
-            set { if (OnPropertyChanging(__.Email, value)) { _Email = value; OnPropertyChanged(__.Email); } }
-        }
+        public String Email { get { return _Email; } set { if (OnPropertyChanging(__.Email, value)) { _Email = value; OnPropertyChanged(__.Email); } } }
 
         private String _Password;
         /// <summary>密码</summary>
@@ -71,11 +54,7 @@ namespace NewLife.GitCandy.Entity
         [Description("密码")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("Password", "密码", "nvarchar(50)", 0, 0)]
-        public virtual String Password
-        {
-            get { return _Password; }
-            set { if (OnPropertyChanging(__.Password, value)) { _Password = value; OnPropertyChanged(__.Password); } }
-        }
+        public String Password { get { return _Password; } set { if (OnPropertyChanging(__.Password, value)) { _Password = value; OnPropertyChanged(__.Password); } } }
 
         private Boolean _Enable;
         /// <summary>启用</summary>
@@ -83,11 +62,7 @@ namespace NewLife.GitCandy.Entity
         [Description("启用")]
         [DataObjectField(false, false, false, 1)]
         [BindColumn("Enable", "启用", "bit", 0, 0)]
-        public virtual Boolean Enable
-        {
-            get { return _Enable; }
-            set { if (OnPropertyChanging(__.Enable, value)) { _Enable = value; OnPropertyChanged(__.Enable); } }
-        }
+        public Boolean Enable { get { return _Enable; } set { if (OnPropertyChanging(__.Enable, value)) { _Enable = value; OnPropertyChanged(__.Enable); } } }
 
         private Boolean _IsTeam;
         /// <summary>团队</summary>
@@ -95,11 +70,7 @@ namespace NewLife.GitCandy.Entity
         [Description("团队")]
         [DataObjectField(false, false, false, 1)]
         [BindColumn("IsTeam", "团队", "bit", 0, 0)]
-        public virtual Boolean IsTeam
-        {
-            get { return _IsTeam; }
-            set { if (OnPropertyChanging(__.IsTeam, value)) { _IsTeam = value; OnPropertyChanged(__.IsTeam); } }
-        }
+        public Boolean IsTeam { get { return _IsTeam; } set { if (OnPropertyChanging(__.IsTeam, value)) { _IsTeam = value; OnPropertyChanged(__.IsTeam); } } }
 
         private Boolean _IsAdmin;
         /// <summary>管理员</summary>
@@ -107,11 +78,7 @@ namespace NewLife.GitCandy.Entity
         [Description("管理员")]
         [DataObjectField(false, false, false, 1)]
         [BindColumn("IsAdmin", "管理员", "bit", 0, 0)]
-        public virtual Boolean IsAdmin
-        {
-            get { return _IsAdmin; }
-            set { if (OnPropertyChanging(__.IsAdmin, value)) { _IsAdmin = value; OnPropertyChanged(__.IsAdmin); } }
-        }
+        public Boolean IsAdmin { get { return _IsAdmin; } set { if (OnPropertyChanging(__.IsAdmin, value)) { _IsAdmin = value; OnPropertyChanged(__.IsAdmin); } } }
 
         private Boolean _Online;
         /// <summary>在线</summary>
@@ -119,11 +86,7 @@ namespace NewLife.GitCandy.Entity
         [Description("在线")]
         [DataObjectField(false, false, false, 1)]
         [BindColumn("Online", "在线", "bit", 0, 0)]
-        public virtual Boolean Online
-        {
-            get { return _Online; }
-            set { if (OnPropertyChanging(__.Online, value)) { _Online = value; OnPropertyChanged(__.Online); } }
-        }
+        public Boolean Online { get { return _Online; } set { if (OnPropertyChanging(__.Online, value)) { _Online = value; OnPropertyChanged(__.Online); } } }
 
         private DateTime _RegisterTime;
         /// <summary>注册时间</summary>
@@ -131,11 +94,7 @@ namespace NewLife.GitCandy.Entity
         [Description("注册时间")]
         [DataObjectField(false, false, true, 3)]
         [BindColumn("RegisterTime", "注册时间", "datetime", 3, 0)]
-        public virtual DateTime RegisterTime
-        {
-            get { return _RegisterTime; }
-            set { if (OnPropertyChanging(__.RegisterTime, value)) { _RegisterTime = value; OnPropertyChanged(__.RegisterTime); } }
-        }
+        public DateTime RegisterTime { get { return _RegisterTime; } set { if (OnPropertyChanging(__.RegisterTime, value)) { _RegisterTime = value; OnPropertyChanged(__.RegisterTime); } } }
 
         private String _RegisterIP;
         /// <summary>注册IP</summary>
@@ -143,11 +102,7 @@ namespace NewLife.GitCandy.Entity
         [Description("注册IP")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("RegisterIP", "注册IP", "nvarchar(50)", 0, 0)]
-        public virtual String RegisterIP
-        {
-            get { return _RegisterIP; }
-            set { if (OnPropertyChanging(__.RegisterIP, value)) { _RegisterIP = value; OnPropertyChanged(__.RegisterIP); } }
-        }
+        public String RegisterIP { get { return _RegisterIP; } set { if (OnPropertyChanging(__.RegisterIP, value)) { _RegisterIP = value; OnPropertyChanged(__.RegisterIP); } } }
 
         private Int32 _Logins;
         /// <summary>登录</summary>
@@ -155,11 +110,7 @@ namespace NewLife.GitCandy.Entity
         [Description("登录")]
         [DataObjectField(false, false, false, 10)]
         [BindColumn("Logins", "登录", "int", 10, 0)]
-        public virtual Int32 Logins
-        {
-            get { return _Logins; }
-            set { if (OnPropertyChanging(__.Logins, value)) { _Logins = value; OnPropertyChanged(__.Logins); } }
-        }
+        public Int32 Logins { get { return _Logins; } set { if (OnPropertyChanging(__.Logins, value)) { _Logins = value; OnPropertyChanged(__.Logins); } } }
 
         private DateTime _LastLogin;
         /// <summary>最后登录</summary>
@@ -167,11 +118,7 @@ namespace NewLife.GitCandy.Entity
         [Description("最后登录")]
         [DataObjectField(false, false, true, 3)]
         [BindColumn("LastLogin", "最后登录", "datetime", 3, 0)]
-        public virtual DateTime LastLogin
-        {
-            get { return _LastLogin; }
-            set { if (OnPropertyChanging(__.LastLogin, value)) { _LastLogin = value; OnPropertyChanged(__.LastLogin); } }
-        }
+        public DateTime LastLogin { get { return _LastLogin; } set { if (OnPropertyChanging(__.LastLogin, value)) { _LastLogin = value; OnPropertyChanged(__.LastLogin); } } }
 
         private String _LastLoginIP;
         /// <summary>最后登录IP</summary>
@@ -179,11 +126,7 @@ namespace NewLife.GitCandy.Entity
         [Description("最后登录IP")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("LastLoginIP", "最后登录IP", "nvarchar(50)", 0, 0)]
-        public virtual String LastLoginIP
-        {
-            get { return _LastLoginIP; }
-            set { if (OnPropertyChanging(__.LastLoginIP, value)) { _LastLoginIP = value; OnPropertyChanged(__.LastLoginIP); } }
-        }
+        public String LastLoginIP { get { return _LastLoginIP; } set { if (OnPropertyChanging(__.LastLoginIP, value)) { _LastLoginIP = value; OnPropertyChanged(__.LastLoginIP); } } }
 
         private String _Description;
         /// <summary>描述</summary>
@@ -191,11 +134,7 @@ namespace NewLife.GitCandy.Entity
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
         [BindColumn("Description", "描述", "nvarchar(500)", 0, 0)]
-        public virtual String Description
-        {
-            get { return _Description; }
-            set { if (OnPropertyChanging(__.Description, value)) { _Description = value; OnPropertyChanged(__.Description); } }
-        }
+        public String Description { get { return _Description; } set { if (OnPropertyChanging(__.Description, value)) { _Description = value; OnPropertyChanged(__.Description); } } }
 
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
@@ -203,11 +142,7 @@ namespace NewLife.GitCandy.Entity
         [Description("创建者")]
         [DataObjectField(false, false, false, 10)]
         [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
-        public virtual Int32 CreateUserID
-        {
-            get { return _CreateUserID; }
-            set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } }
-        }
+        public Int32 CreateUserID { get { return _CreateUserID; } set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } } }
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
@@ -215,11 +150,7 @@ namespace NewLife.GitCandy.Entity
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
         [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
-        public virtual DateTime CreateTime
-        {
-            get { return _CreateTime; }
-            set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } }
-        }
+        public DateTime CreateTime { get { return _CreateTime; } set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
 
         private String _CreateIP;
         /// <summary>创建地址</summary>
@@ -227,11 +158,7 @@ namespace NewLife.GitCandy.Entity
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
-        public virtual String CreateIP
-        {
-            get { return _CreateIP; }
-            set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } }
-        }
+        public String CreateIP { get { return _CreateIP; } set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
 
         private Int32 _UpdateUserID;
         /// <summary>更新者</summary>
@@ -239,11 +166,7 @@ namespace NewLife.GitCandy.Entity
         [Description("更新者")]
         [DataObjectField(false, false, false, 10)]
         [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
-        public virtual Int32 UpdateUserID
-        {
-            get { return _UpdateUserID; }
-            set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } }
-        }
+        public Int32 UpdateUserID { get { return _UpdateUserID; } set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
@@ -251,11 +174,7 @@ namespace NewLife.GitCandy.Entity
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
         [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
-        public virtual DateTime UpdateTime
-        {
-            get { return _UpdateTime; }
-            set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } }
-        }
+        public DateTime UpdateTime { get { return _UpdateTime; } set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
 
         private String _UpdateIP;
         /// <summary>更新地址</summary>
@@ -263,19 +182,11 @@ namespace NewLife.GitCandy.Entity
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
-        public virtual String UpdateIP
-        {
-            get { return _UpdateIP; }
-            set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } }
-        }
+        public String UpdateIP { get { return _UpdateIP; } set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
         #endregion
 
         #region 获取/设置 字段值
-        /// <summary>
-        /// 获取/设置 字段值。
-        /// 一个索引，基类使用反射实现。
-        /// 派生实体类可重写该索引，以避免反射带来的性能损耗
-        /// </summary>
+        /// <summary>获取/设置 字段值</summary>
         /// <param name="name">字段名</param>
         /// <returns></returns>
         public override Object this[String name]
@@ -343,138 +254,137 @@ namespace NewLife.GitCandy.Entity
         /// <summary>取得用户字段信息的快捷方式</summary>
         public partial class _
         {
-            ///<summary>编号</summary>
+            /// <summary>编号</summary>
             public static readonly Field ID = FindByName(__.ID);
 
-            ///<summary>名称。登录用户名</summary>
+            /// <summary>名称。登录用户名</summary>
             public static readonly Field Name = FindByName(__.Name);
 
-            ///<summary>显示名。昵称、中文名等</summary>
+            /// <summary>显示名。昵称、中文名等</summary>
             public static readonly Field NickName = FindByName(__.NickName);
 
-            ///<summary>邮件</summary>
+            /// <summary>邮件</summary>
             public static readonly Field Email = FindByName(__.Email);
 
-            ///<summary>密码</summary>
+            /// <summary>密码</summary>
             public static readonly Field Password = FindByName(__.Password);
 
-            ///<summary>启用</summary>
+            /// <summary>启用</summary>
             public static readonly Field Enable = FindByName(__.Enable);
 
-            ///<summary>团队</summary>
+            /// <summary>团队</summary>
             public static readonly Field IsTeam = FindByName(__.IsTeam);
 
-            ///<summary>管理员</summary>
+            /// <summary>管理员</summary>
             public static readonly Field IsAdmin = FindByName(__.IsAdmin);
 
-            ///<summary>在线</summary>
+            /// <summary>在线</summary>
             public static readonly Field Online = FindByName(__.Online);
 
-            ///<summary>注册时间</summary>
+            /// <summary>注册时间</summary>
             public static readonly Field RegisterTime = FindByName(__.RegisterTime);
 
-            ///<summary>注册IP</summary>
+            /// <summary>注册IP</summary>
             public static readonly Field RegisterIP = FindByName(__.RegisterIP);
 
-            ///<summary>登录</summary>
+            /// <summary>登录</summary>
             public static readonly Field Logins = FindByName(__.Logins);
 
-            ///<summary>最后登录</summary>
+            /// <summary>最后登录</summary>
             public static readonly Field LastLogin = FindByName(__.LastLogin);
 
-            ///<summary>最后登录IP</summary>
+            /// <summary>最后登录IP</summary>
             public static readonly Field LastLoginIP = FindByName(__.LastLoginIP);
 
-            ///<summary>描述</summary>
+            /// <summary>描述</summary>
             public static readonly Field Description = FindByName(__.Description);
 
-            ///<summary>创建者</summary>
+            /// <summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
 
-            ///<summary>创建时间</summary>
+            /// <summary>创建时间</summary>
             public static readonly Field CreateTime = FindByName(__.CreateTime);
 
-            ///<summary>创建地址</summary>
+            /// <summary>创建地址</summary>
             public static readonly Field CreateIP = FindByName(__.CreateIP);
 
-            ///<summary>更新者</summary>
+            /// <summary>更新者</summary>
             public static readonly Field UpdateUserID = FindByName(__.UpdateUserID);
 
-            ///<summary>更新时间</summary>
+            /// <summary>更新时间</summary>
             public static readonly Field UpdateTime = FindByName(__.UpdateTime);
 
-            ///<summary>更新地址</summary>
+            /// <summary>更新地址</summary>
             public static readonly Field UpdateIP = FindByName(__.UpdateIP);
 
             static Field FindByName(String name) { return Meta.Table.FindByName(name); }
         }
 
         /// <summary>取得用户字段名称的快捷方式</summary>
-        partial class __
+        public partial class __
         {
-            ///<summary>编号</summary>
+            /// <summary>编号</summary>
             public const String ID = "ID";
 
-            ///<summary>名称。登录用户名</summary>
+            /// <summary>名称。登录用户名</summary>
             public const String Name = "Name";
 
-            ///<summary>显示名。昵称、中文名等</summary>
+            /// <summary>显示名。昵称、中文名等</summary>
             public const String NickName = "NickName";
 
-            ///<summary>邮件</summary>
+            /// <summary>邮件</summary>
             public const String Email = "Email";
 
-            ///<summary>密码</summary>
+            /// <summary>密码</summary>
             public const String Password = "Password";
 
-            ///<summary>启用</summary>
+            /// <summary>启用</summary>
             public const String Enable = "Enable";
 
-            ///<summary>团队</summary>
+            /// <summary>团队</summary>
             public const String IsTeam = "IsTeam";
 
-            ///<summary>管理员</summary>
+            /// <summary>管理员</summary>
             public const String IsAdmin = "IsAdmin";
 
-            ///<summary>在线</summary>
+            /// <summary>在线</summary>
             public const String Online = "Online";
 
-            ///<summary>注册时间</summary>
+            /// <summary>注册时间</summary>
             public const String RegisterTime = "RegisterTime";
 
-            ///<summary>注册IP</summary>
+            /// <summary>注册IP</summary>
             public const String RegisterIP = "RegisterIP";
 
-            ///<summary>登录</summary>
+            /// <summary>登录</summary>
             public const String Logins = "Logins";
 
-            ///<summary>最后登录</summary>
+            /// <summary>最后登录</summary>
             public const String LastLogin = "LastLogin";
 
-            ///<summary>最后登录IP</summary>
+            /// <summary>最后登录IP</summary>
             public const String LastLoginIP = "LastLoginIP";
 
-            ///<summary>描述</summary>
+            /// <summary>描述</summary>
             public const String Description = "Description";
 
-            ///<summary>创建者</summary>
+            /// <summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
 
-            ///<summary>创建时间</summary>
+            /// <summary>创建时间</summary>
             public const String CreateTime = "CreateTime";
 
-            ///<summary>创建地址</summary>
+            /// <summary>创建地址</summary>
             public const String CreateIP = "CreateIP";
 
-            ///<summary>更新者</summary>
+            /// <summary>更新者</summary>
             public const String UpdateUserID = "UpdateUserID";
 
-            ///<summary>更新时间</summary>
+            /// <summary>更新时间</summary>
             public const String UpdateTime = "UpdateTime";
 
-            ///<summary>更新地址</summary>
+            /// <summary>更新地址</summary>
             public const String UpdateIP = "UpdateIP";
-
         }
         #endregion
     }
@@ -548,7 +458,7 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 获取/设置 字段值
-        /// <summary>获取/设置 字段值。</summary>
+        /// <summary>获取/设置 字段值</summary>
         /// <param name="name">字段名</param>
         /// <returns></returns>
         Object this[String name] { get; set; }

@@ -5976,6 +5976,11 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Reflection.Reflect.IsInt(System.Type)">
+            <summary>是否整数</summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Reflection.Reflect.As(System.Type,System.Type)">
             <summary>是否能够转为指定基类</summary>
             <param name="type"></param>
@@ -11377,6 +11382,48 @@
             </remarks>
             <param name="word"></param>
             <param name="keys">多个关键字。长度必须大于0，必须按照字符串长度升序排列。</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.LCS``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String})">
+            <summary>根据列表项成员计算距离</summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="keys"></param>
+            <param name="keySelector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.LCSSearch``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Int32)">
+            <summary>在列表项中进行模糊搜索</summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="keys"></param>
+            <param name="keySelector"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Match``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String})">
+            <summary>模糊匹配</summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="keys"></param>
+            <param name="keySelector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Match(System.String,System.String,System.Int32)">
+            <summary>模糊匹配</summary>
+            <param name="str"></param>
+            <param name="key"></param>
+            <param name="maxError"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Match``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Int32,System.Double)">
+            <summary>模糊匹配</summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">列表项</param>
+            <param name="keys">关键字</param>
+            <param name="keySelector">匹配字符串选择</param>
+            <param name="count">获取个数</param>
+            <param name="confidence">权重阀值</param>
             <returns></returns>
         </member>
         <member name="M:System.StringHelper.Speak(System.String)">
