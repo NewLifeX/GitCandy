@@ -21,16 +21,16 @@ namespace NewLife.GitCandy.Entity
         /// <summary>编号</summary>
         [DisplayName("编号")]
         [Description("编号")]
-        [DataObjectField(true, true, false, 10)]
-        [BindColumn("ID", "编号", "int", 10, 0)]
+        [DataObjectField(true, true, false, 0)]
+        [BindColumn("ID", "编号", "int")]
         public Int32 ID { get { return _ID; } set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
 
         private Int32 _UserID;
         /// <summary>用户</summary>
         [DisplayName("用户")]
         [Description("用户")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("UserID", "用户", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UserID", "用户", "int")]
         public Int32 UserID { get { return _UserID; } set { if (OnPropertyChanging(__.UserID, value)) { _UserID = value; OnPropertyChanged(__.UserID); } } }
 
         private String _KeyType;
@@ -38,7 +38,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("密钥类型")]
         [Description("密钥类型")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("KeyType", "密钥类型", "nvarchar(50)", 0, 0)]
+        [BindColumn("KeyType", "密钥类型", "nvarchar(50)")]
         public String KeyType { get { return _KeyType; } set { if (OnPropertyChanging(__.KeyType, value)) { _KeyType = value; OnPropertyChanged(__.KeyType); } } }
 
         private String _Fingerprint;
@@ -46,7 +46,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("指纹")]
         [Description("指纹")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Fingerprint", "指纹", "nvarchar(50)", 0, 0)]
+        [BindColumn("Fingerprint", "指纹", "nvarchar(50)")]
         public String Fingerprint { get { return _Fingerprint; } set { if (OnPropertyChanging(__.Fingerprint, value)) { _Fingerprint = value; OnPropertyChanged(__.Fingerprint); } } }
 
         private String _PublicKey;
@@ -54,39 +54,39 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("公钥")]
         [Description("公钥")]
         [DataObjectField(false, false, true, 600)]
-        [BindColumn("PublicKey", "公钥", "nvarchar(600)", 0, 0)]
+        [BindColumn("PublicKey", "公钥", "nvarchar(600)")]
         public String PublicKey { get { return _PublicKey; } set { if (OnPropertyChanging(__.PublicKey, value)) { _PublicKey = value; OnPropertyChanged(__.PublicKey); } } }
 
         private DateTime _ImportData;
         /// <summary>导入数据</summary>
         [DisplayName("导入数据")]
         [Description("导入数据")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("ImportData", "导入数据", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("ImportData", "导入数据", "datetime")]
         public DateTime ImportData { get { return _ImportData; } set { if (OnPropertyChanging(__.ImportData, value)) { _ImportData = value; OnPropertyChanged(__.ImportData); } } }
 
         private DateTime _LastUse;
         /// <summary>最后使用</summary>
         [DisplayName("最后使用")]
         [Description("最后使用")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("LastUse", "最后使用", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("LastUse", "最后使用", "datetime")]
         public DateTime LastUse { get { return _LastUse; } set { if (OnPropertyChanging(__.LastUse, value)) { _LastUse = value; OnPropertyChanged(__.LastUse); } } }
 
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("CreateUserID", "创建者", "int")]
         public Int32 CreateUserID { get { return _CreateUserID; } set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } } }
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
         [DisplayName("创建时间")]
         [Description("创建时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("CreateTime", "创建时间", "datetime")]
         public DateTime CreateTime { get { return _CreateTime; } set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
 
         private String _CreateIP;
@@ -94,23 +94,23 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("CreateIP", "创建地址", "nvarchar(50)")]
         public String CreateIP { get { return _CreateIP; } set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
 
         private Int32 _UpdateUserID;
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UpdateUserID", "更新者", "int")]
         public Int32 UpdateUserID { get { return _UpdateUserID; } set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
         [DisplayName("更新时间")]
         [Description("更新时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("UpdateTime", "更新时间", "datetime")]
         public DateTime UpdateTime { get { return _UpdateTime; } set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
 
         private String _UpdateIP;
@@ -118,7 +118,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)")]
         public String UpdateIP { get { return _UpdateIP; } set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
         #endregion
 

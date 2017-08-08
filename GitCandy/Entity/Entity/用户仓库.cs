@@ -20,64 +20,64 @@ namespace NewLife.GitCandy.Entity
         /// <summary>编号</summary>
         [DisplayName("编号")]
         [Description("编号")]
-        [DataObjectField(true, true, false, 10)]
-        [BindColumn("ID", "编号", "int", 10, 0)]
+        [DataObjectField(true, true, false, 0)]
+        [BindColumn("ID", "编号", "int")]
         public Int32 ID { get { return _ID; } set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
 
         private Int32 _UserID;
         /// <summary>用户</summary>
         [DisplayName("用户")]
         [Description("用户")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("UserID", "用户", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UserID", "用户", "int")]
         public Int32 UserID { get { return _UserID; } set { if (OnPropertyChanging(__.UserID, value)) { _UserID = value; OnPropertyChanged(__.UserID); } } }
 
         private Int32 _RepositoryID;
         /// <summary>仓库</summary>
         [DisplayName("仓库")]
         [Description("仓库")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("RepositoryID", "仓库", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("RepositoryID", "仓库", "int")]
         public Int32 RepositoryID { get { return _RepositoryID; } set { if (OnPropertyChanging(__.RepositoryID, value)) { _RepositoryID = value; OnPropertyChanged(__.RepositoryID); } } }
 
         private Boolean _AllowRead;
         /// <summary>允许读</summary>
         [DisplayName("允许读")]
         [Description("允许读")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("AllowRead", "允许读", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("AllowRead", "允许读", "bit")]
         public Boolean AllowRead { get { return _AllowRead; } set { if (OnPropertyChanging(__.AllowRead, value)) { _AllowRead = value; OnPropertyChanged(__.AllowRead); } } }
 
         private Boolean _AllowWrite;
         /// <summary>允许写</summary>
         [DisplayName("允许写")]
         [Description("允许写")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("AllowWrite", "允许写", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("AllowWrite", "允许写", "bit")]
         public Boolean AllowWrite { get { return _AllowWrite; } set { if (OnPropertyChanging(__.AllowWrite, value)) { _AllowWrite = value; OnPropertyChanged(__.AllowWrite); } } }
 
         private Boolean _IsOwner;
         /// <summary>拥有者</summary>
         [DisplayName("拥有者")]
         [Description("拥有者")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("IsOwner", "拥有者", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("IsOwner", "拥有者", "bit")]
         public Boolean IsOwner { get { return _IsOwner; } set { if (OnPropertyChanging(__.IsOwner, value)) { _IsOwner = value; OnPropertyChanged(__.IsOwner); } } }
 
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("CreateUserID", "创建者", "int")]
         public Int32 CreateUserID { get { return _CreateUserID; } set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } } }
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
         [DisplayName("创建时间")]
         [Description("创建时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("CreateTime", "创建时间", "datetime")]
         public DateTime CreateTime { get { return _CreateTime; } set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
 
         private String _CreateIP;
@@ -85,23 +85,23 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("CreateIP", "创建地址", "nvarchar(50)")]
         public String CreateIP { get { return _CreateIP; } set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
 
         private Int32 _UpdateUserID;
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UpdateUserID", "更新者", "int")]
         public Int32 UpdateUserID { get { return _UpdateUserID; } set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
         [DisplayName("更新时间")]
         [Description("更新时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("UpdateTime", "更新时间", "datetime")]
         public DateTime UpdateTime { get { return _UpdateTime; } set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
 
         private String _UpdateIP;
@@ -109,7 +109,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)")]
         public String UpdateIP { get { return _UpdateIP; } set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
         #endregion
 

@@ -20,8 +20,8 @@ namespace NewLife.GitCandy.Entity
         /// <summary>编号</summary>
         [DisplayName("编号")]
         [Description("编号")]
-        [DataObjectField(true, true, false, 10)]
-        [BindColumn("ID", "编号", "int", 10, 0)]
+        [DataObjectField(true, true, false, 0)]
+        [BindColumn("ID", "编号", "int")]
         public Int32 ID { get { return _ID; } set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
 
         private String _Name;
@@ -29,7 +29,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("名称")]
         [Description("名称。登录用户名")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Name", "名称。登录用户名", "nvarchar(50)", 0, 0, Master = true)]
+        [BindColumn("Name", "名称。登录用户名", "nvarchar(50)", Master = true)]
         public String Name { get { return _Name; } set { if (OnPropertyChanging(__.Name, value)) { _Name = value; OnPropertyChanged(__.Name); } } }
 
         private String _NickName;
@@ -37,7 +37,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("显示名")]
         [Description("显示名。昵称、中文名等")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("NickName", "显示名。昵称、中文名等", "nvarchar(50)", 0, 0)]
+        [BindColumn("NickName", "显示名。昵称、中文名等", "nvarchar(50)")]
         public String NickName { get { return _NickName; } set { if (OnPropertyChanging(__.NickName, value)) { _NickName = value; OnPropertyChanged(__.NickName); } } }
 
         private String _Email;
@@ -45,7 +45,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("邮件")]
         [Description("邮件")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Email", "邮件", "nvarchar(50)", 0, 0)]
+        [BindColumn("Email", "邮件", "nvarchar(50)")]
         public String Email { get { return _Email; } set { if (OnPropertyChanging(__.Email, value)) { _Email = value; OnPropertyChanged(__.Email); } } }
 
         private String _Password;
@@ -53,47 +53,47 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("密码")]
         [Description("密码")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Password", "密码", "nvarchar(50)", 0, 0)]
+        [BindColumn("Password", "密码", "nvarchar(50)")]
         public String Password { get { return _Password; } set { if (OnPropertyChanging(__.Password, value)) { _Password = value; OnPropertyChanged(__.Password); } } }
 
         private Boolean _Enable;
         /// <summary>启用</summary>
         [DisplayName("启用")]
         [Description("启用")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("Enable", "启用", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Enable", "启用", "bit")]
         public Boolean Enable { get { return _Enable; } set { if (OnPropertyChanging(__.Enable, value)) { _Enable = value; OnPropertyChanged(__.Enable); } } }
 
         private Boolean _IsTeam;
         /// <summary>团队</summary>
         [DisplayName("团队")]
         [Description("团队")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("IsTeam", "团队", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("IsTeam", "团队", "bit")]
         public Boolean IsTeam { get { return _IsTeam; } set { if (OnPropertyChanging(__.IsTeam, value)) { _IsTeam = value; OnPropertyChanged(__.IsTeam); } } }
 
         private Boolean _IsAdmin;
         /// <summary>管理员</summary>
         [DisplayName("管理员")]
         [Description("管理员")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("IsAdmin", "管理员", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("IsAdmin", "管理员", "bit")]
         public Boolean IsAdmin { get { return _IsAdmin; } set { if (OnPropertyChanging(__.IsAdmin, value)) { _IsAdmin = value; OnPropertyChanged(__.IsAdmin); } } }
 
         private Boolean _Online;
         /// <summary>在线</summary>
         [DisplayName("在线")]
         [Description("在线")]
-        [DataObjectField(false, false, false, 1)]
-        [BindColumn("Online", "在线", "bit", 0, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Online", "在线", "bit")]
         public Boolean Online { get { return _Online; } set { if (OnPropertyChanging(__.Online, value)) { _Online = value; OnPropertyChanged(__.Online); } } }
 
         private DateTime _RegisterTime;
         /// <summary>注册时间</summary>
         [DisplayName("注册时间")]
         [Description("注册时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("RegisterTime", "注册时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("RegisterTime", "注册时间", "datetime")]
         public DateTime RegisterTime { get { return _RegisterTime; } set { if (OnPropertyChanging(__.RegisterTime, value)) { _RegisterTime = value; OnPropertyChanged(__.RegisterTime); } } }
 
         private String _RegisterIP;
@@ -101,23 +101,23 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("注册IP")]
         [Description("注册IP")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("RegisterIP", "注册IP", "nvarchar(50)", 0, 0)]
+        [BindColumn("RegisterIP", "注册IP", "nvarchar(50)")]
         public String RegisterIP { get { return _RegisterIP; } set { if (OnPropertyChanging(__.RegisterIP, value)) { _RegisterIP = value; OnPropertyChanged(__.RegisterIP); } } }
 
         private Int32 _Logins;
         /// <summary>登录</summary>
         [DisplayName("登录")]
         [Description("登录")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("Logins", "登录", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Logins", "登录", "int")]
         public Int32 Logins { get { return _Logins; } set { if (OnPropertyChanging(__.Logins, value)) { _Logins = value; OnPropertyChanged(__.Logins); } } }
 
         private DateTime _LastLogin;
         /// <summary>最后登录</summary>
         [DisplayName("最后登录")]
         [Description("最后登录")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("LastLogin", "最后登录", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("LastLogin", "最后登录", "datetime")]
         public DateTime LastLogin { get { return _LastLogin; } set { if (OnPropertyChanging(__.LastLogin, value)) { _LastLogin = value; OnPropertyChanged(__.LastLogin); } } }
 
         private String _LastLoginIP;
@@ -125,7 +125,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("最后登录IP")]
         [Description("最后登录IP")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("LastLoginIP", "最后登录IP", "nvarchar(50)", 0, 0)]
+        [BindColumn("LastLoginIP", "最后登录IP", "nvarchar(50)")]
         public String LastLoginIP { get { return _LastLoginIP; } set { if (OnPropertyChanging(__.LastLoginIP, value)) { _LastLoginIP = value; OnPropertyChanged(__.LastLoginIP); } } }
 
         private String _Description;
@@ -133,23 +133,23 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("描述")]
         [Description("描述")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn("Description", "描述", "nvarchar(500)", 0, 0)]
+        [BindColumn("Description", "描述", "nvarchar(500)")]
         public String Description { get { return _Description; } set { if (OnPropertyChanging(__.Description, value)) { _Description = value; OnPropertyChanged(__.Description); } } }
 
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("CreateUserID", "创建者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("CreateUserID", "创建者", "int")]
         public Int32 CreateUserID { get { return _CreateUserID; } set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } } }
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
         [DisplayName("创建时间")]
         [Description("创建时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("CreateTime", "创建时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("CreateTime", "创建时间", "datetime")]
         public DateTime CreateTime { get { return _CreateTime; } set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
 
         private String _CreateIP;
@@ -157,23 +157,23 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("CreateIP", "创建地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("CreateIP", "创建地址", "nvarchar(50)")]
         public String CreateIP { get { return _CreateIP; } set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
 
         private Int32 _UpdateUserID;
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
-        [DataObjectField(false, false, false, 10)]
-        [BindColumn("UpdateUserID", "更新者", "int", 10, 0)]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UpdateUserID", "更新者", "int")]
         public Int32 UpdateUserID { get { return _UpdateUserID; } set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
         [DisplayName("更新时间")]
         [Description("更新时间")]
-        [DataObjectField(false, false, true, 3)]
-        [BindColumn("UpdateTime", "更新时间", "datetime", 3, 0)]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("UpdateTime", "更新时间", "datetime")]
         public DateTime UpdateTime { get { return _UpdateTime; } set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
 
         private String _UpdateIP;
@@ -181,7 +181,7 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)", 0, 0)]
+        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)")]
         public String UpdateIP { get { return _UpdateIP; } set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
         #endregion
 

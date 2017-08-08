@@ -349,6 +349,7 @@ namespace GitCandy.Data
                 Owner = repo.Owner.Name,
                 Name = repo.Name,
                 Description = repo.Description,
+                IsPrivate = repo.IsPrivate,
                 Commits = repo.Commits,
                 Branches = repo.Branches,
                 Contributors = repo.Contributors,

@@ -72,18 +72,17 @@
     <Compile Include="Security\Token.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entity\GitCandy数据字典.htm" />
     <Content Include="Entity\NewLife.GitCandy.xml" />
-    <Content Include="Entity\生成.tt">
+    <Content Include="Entity\生成实体类.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>生成.log</LastGenOutput>
+      <LastGenOutput>生成实体类.log</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entity\生成.log">
+    <None Include="Entity\生成实体类.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>生成.tt</DependentUpon>
+      <DependentUpon>生成实体类.tt</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
