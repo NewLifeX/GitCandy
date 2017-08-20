@@ -277,7 +277,7 @@ namespace GitCandy.Controllers
                             repo.Branches = ms.Branches;
                             repo.Contributors = ms.Contributors;
                         }
-                        if (model.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
+                        //if (model.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
 
                         repo.Views++;
                         repo.LastView = DateTime.Now;

@@ -55,6 +55,11 @@ namespace ASP
   
     //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
     ViewBag.Title = "";
+    if (Model.Collaborations.Length == 0)
+    {
+        Model.Collaborations = Model.Repositories;
+        Model.Repositories = new RepositoryModel[0];
+    }
 
             
             #line default
@@ -74,15 +79,16 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n");
 
             
-            #line 10 "..\..\Views\Repository\Index.cshtml"
+            #line 15 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Repository\Index.cshtml"
+            #line 15 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Collaborations)
             {
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
 
             
             #line default
@@ -90,40 +96,31 @@ WriteLiteral(">\r\n");
 WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div><h3>" +
 "<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 409), Tuple.Create("\"", 440)
-, Tuple.Create(Tuple.Create("", 416), Tuple.Create<System.Object, System.Int32>(Href("~/")
-, 416), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 681), Tuple.Create("\"", 712)
+, Tuple.Create(Tuple.Create("", 688), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 688), false)
             
-            #line 14 "..\..\Views\Repository\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 418), Tuple.Create<System.Object, System.Int32>(repo.Owner
-            
-            #line default
-            #line hidden
-, 418), false)
-, Tuple.Create(Tuple.Create("", 429), Tuple.Create("/", 429), true)
-            
-            #line 14 "..\..\Views\Repository\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 430), Tuple.Create<System.Object, System.Int32>(repo.Name
+            #line 20 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 690), Tuple.Create<System.Object, System.Int32>(repo.Owner
             
             #line default
             #line hidden
-, 430), false)
+, 690), false)
+, Tuple.Create(Tuple.Create("", 701), Tuple.Create("/", 701), true)
+            
+            #line 20 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 702), Tuple.Create<System.Object, System.Int32>(repo.Name
+            
+            #line default
+            #line hidden
+, 702), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 14 "..\..\Views\Repository\Index.cshtml"
-                                                               Write(repo.Owner);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("/");
-
-            
-            #line 14 "..\..\Views\Repository\Index.cshtml"
-                                                                           Write(repo.Name);
+            #line 20 "..\..\Views\Repository\Index.cshtml"
+                                                               Write(name);
 
             
             #line default
@@ -131,7 +128,7 @@ WriteLiteral("/");
 WriteLiteral("</a></h3></div>\r\n                        <div>");
 
             
-            #line 15 "..\..\Views\Repository\Index.cshtml"
+            #line 21 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
@@ -158,8 +155,8 @@ WriteLiteral(" style=\"color: deeppink;\"");
 WriteLiteral("></i> ");
 
             
-            #line 18 "..\..\Views\Repository\Index.cshtml"
-                                                                                                               Write(repo.Views);
+            #line 24 "..\..\Views\Repository\Index.cshtml"
+                                                                                                               Write(repo.Views.ToString("n0"));
 
             
             #line default
@@ -177,8 +174,8 @@ WriteLiteral(" style=\"color: mediumpurple;\"");
 WriteLiteral("></i> ");
 
             
-            #line 19 "..\..\Views\Repository\Index.cshtml"
-                                                                                                                  Write(repo.Commits);
+            #line 25 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                  Write(repo.Commits.ToString("n0"));
 
             
             #line default
@@ -196,8 +193,8 @@ WriteLiteral(" style=\"color: forestgreen;\"");
 WriteLiteral("></i> ");
 
             
-            #line 20 "..\..\Views\Repository\Index.cshtml"
-                                                                                                                 Write(repo.Contributors);
+            #line 26 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                 Write(repo.Contributors.ToString("n0"));
 
             
             #line default
@@ -209,7 +206,7 @@ WriteLiteral(" class=\"col-md-6 text-right\"");
 WriteLiteral(">");
 
             
-            #line 22 "..\..\Views\Repository\Index.cshtml"
+            #line 28 "..\..\Views\Repository\Index.cshtml"
                                                         Write(repo.LastCommit.ToFullString());
 
             
@@ -219,7 +216,7 @@ WriteLiteral("</div>\r\n                        </div>\r\n                    </
 "  </tr>\r\n");
 
             
-            #line 26 "..\..\Views\Repository\Index.cshtml"
+            #line 32 "..\..\Views\Repository\Index.cshtml"
             }
 
             
@@ -236,7 +233,7 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n            <thead>");
 
             
-            #line 32 "..\..\Views\Repository\Index.cshtml"
+            #line 38 "..\..\Views\Repository\Index.cshtml"
               Write(SR.Repository_PopularRepositories);
 
             
@@ -245,55 +242,47 @@ WriteLiteral(">\r\n            <thead>");
 WriteLiteral("</thead>\r\n");
 
             
-            #line 33 "..\..\Views\Repository\Index.cshtml"
+            #line 39 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 33 "..\..\Views\Repository\Index.cshtml"
+            #line 39 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Repositories)
             {
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
 
             
             #line default
             #line hidden
 WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div><a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1614), Tuple.Create("\"", 1645)
-, Tuple.Create(Tuple.Create("", 1621), Tuple.Create<System.Object, System.Int32>(Href("~/")
-, 1621), false)
+WriteAttribute("href", Tuple.Create(" href=\"", 2023), Tuple.Create("\"", 2054)
+, Tuple.Create(Tuple.Create("", 2030), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 2030), false)
             
-            #line 37 "..\..\Views\Repository\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1623), Tuple.Create<System.Object, System.Int32>(repo.Owner
-            
-            #line default
-            #line hidden
-, 1623), false)
-, Tuple.Create(Tuple.Create("", 1634), Tuple.Create("/", 1634), true)
-            
-            #line 37 "..\..\Views\Repository\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1635), Tuple.Create<System.Object, System.Int32>(repo.Name
+            #line 44 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 2032), Tuple.Create<System.Object, System.Int32>(repo.Owner
             
             #line default
             #line hidden
-, 1635), false)
+, 2032), false)
+, Tuple.Create(Tuple.Create("", 2043), Tuple.Create("/", 2043), true)
+            
+            #line 44 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 2044), Tuple.Create<System.Object, System.Int32>(repo.Name
+            
+            #line default
+            #line hidden
+, 2044), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 37 "..\..\Views\Repository\Index.cshtml"
-                                                           Write(repo.Owner);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("/");
-
-            
-            #line 37 "..\..\Views\Repository\Index.cshtml"
-                                                                       Write(repo.Name);
+            #line 44 "..\..\Views\Repository\Index.cshtml"
+                                                           Write(name);
 
             
             #line default
@@ -301,7 +290,7 @@ WriteLiteral("/");
 WriteLiteral("</a></div>\r\n                        <div>");
 
             
-            #line 38 "..\..\Views\Repository\Index.cshtml"
+            #line 45 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
@@ -324,8 +313,8 @@ WriteLiteral(" style=\"color: deeppink;\"");
 WriteLiteral("></i> ");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
-                                                                                                               Write(repo.Views);
+            #line 48 "..\..\Views\Repository\Index.cshtml"
+                                                                                                               Write(repo.Views.ToString("n0"));
 
             
             #line default
@@ -343,8 +332,8 @@ WriteLiteral(" style=\"color: mediumpurple;\"");
 WriteLiteral("></i> ");
 
             
-            #line 42 "..\..\Views\Repository\Index.cshtml"
-                                                                                                                  Write(repo.Commits);
+            #line 49 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                  Write(repo.Commits.ToString("n0"));
 
             
             #line default
@@ -362,8 +351,8 @@ WriteLiteral(" style=\"color: forestgreen;\"");
 WriteLiteral("></i> ");
 
             
-            #line 43 "..\..\Views\Repository\Index.cshtml"
-                                                                                                                 Write(repo.Contributors);
+            #line 50 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                 Write(repo.Contributors.ToString("n0"));
 
             
             #line default
@@ -375,7 +364,7 @@ WriteLiteral(" class=\"col-md-6 text-right\"");
 WriteLiteral(">");
 
             
-            #line 45 "..\..\Views\Repository\Index.cshtml"
+            #line 52 "..\..\Views\Repository\Index.cshtml"
                                                         Write(repo.LastCommit.ToFullString());
 
             
@@ -385,7 +374,7 @@ WriteLiteral("</div>\r\n                        </div>\r\n                    </
 "  </tr>\r\n");
 
             
-            #line 49 "..\..\Views\Repository\Index.cshtml"
+            #line 56 "..\..\Views\Repository\Index.cshtml"
             }
 
             

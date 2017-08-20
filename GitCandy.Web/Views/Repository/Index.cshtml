@@ -3,21 +3,27 @@
 @{
     //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
     ViewBag.Title = "";
+    if (Model.Collaborations.Length == 0)
+    {
+        Model.Collaborations = Model.Repositories;
+        Model.Repositories = new RepositoryModel[0];
+    }
 }
 <div class="row">
     <div class="col-md-8">
         <table class="table border-area">
             @foreach (var repo in Model.Collaborations)
             {
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
                 <tr>
                     <td>
-                        <div><h3><a href="~/@repo.Owner/@repo.Name">@repo.Owner/@repo.Name</a></h3></div>
+                        <div><h3><a href="~/@repo.Owner/@repo.Name">@name</a></h3></div>
                         <div>@repo.Description</div>
                         <div style="margin-top: 10px;">
                             <div class="col-md-6">
-                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views</span>
-                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits</span>
-                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors</span>
+                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
+                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
+                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
                             </div>
                             <div class="col-md-6 text-right">@repo.LastCommit.ToFullString()</div>
                         </div>
@@ -32,15 +38,16 @@
             <thead>@SR.Repository_PopularRepositories</thead>
             @foreach (var repo in Model.Repositories)
             {
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
                 <tr>
                     <td>
-                        <div><a href="~/@repo.Owner/@repo.Name">@repo.Owner/@repo.Name</a></div>
+                        <div><a href="~/@repo.Owner/@repo.Name">@name</a></div>
                         <div>@repo.Description</div>
                         <div>
                             <div class="col-md-6">
-                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views</span>
-                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits</span>
-                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors</span>
+                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
+                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
+                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
                             </div>
                             <div class="col-md-6 text-right">@repo.LastCommit.ToFullString()</div>
                         </div>
