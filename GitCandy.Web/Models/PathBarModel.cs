@@ -10,6 +10,6 @@ namespace GitCandy.Models
         public String ReferenceSha { get; set; }
         public String Path { get; set; }
         public String Action { get; set; }
-        public bool HideLastSlash { get; set; }
+        public Boolean HideLastSlash { get; set; }
     }
 }

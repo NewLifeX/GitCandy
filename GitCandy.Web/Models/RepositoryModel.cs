@@ -26,22 +26,22 @@ namespace GitCandy.Models
         public String Description { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_HowInit")]
-        public string HowInit { get; set; }
+        public String HowInit { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_RemoteUrlTitle")]
-        public string RemoteUrl { get; set; }
+        public String RemoteUrl { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_IsPrivate")]
         [UIHint("YesNo")]
-        public bool IsPrivate { get; set; }
+        public Boolean IsPrivate { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_AllowAnonymousRead")]
         [UIHint("YesNo")]
-        public bool AllowAnonymousRead { get; set; }
+        public Boolean AllowAnonymousRead { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_AllowAnonymousWrite")]
         [UIHint("YesNo")]
-        public bool AllowAnonymousWrite { get; set; }
+        public Boolean AllowAnonymousWrite { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_Collaborators")]
         [UIHint("Maps")]
@@ -58,7 +58,7 @@ namespace GitCandy.Models
 
         public String[] LocalBranches { get; set; }
 
-        public bool CurrentUserIsOwner { get; set; }
+        public Boolean CurrentUserIsOwner { get; set; }
 
         public Int32 Commits { get; set; }
         public Int32 Branches { get; set; }

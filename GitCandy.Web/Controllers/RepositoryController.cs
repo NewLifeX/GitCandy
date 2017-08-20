@@ -27,8 +27,10 @@ namespace GitCandy.Controllers
         {
             var username = Token?.Username;
 
-            var p = new NewLife.Web.Pager();
-            p.PageSize = 20;
+            var p = new NewLife.Web.Pager
+            {
+                PageSize = 20
+            };
 
             // 管理员可以看到其他人私有仓库
             var model = RepositoryService.GetRepositories(username, Token != null && Token.IsAdmin, p);
@@ -116,7 +118,7 @@ namespace GitCandy.Controllers
         public ActionResult Detail(String owner, String name)
         {
             var model = RepositoryService.Get(owner, name, true, Token?.Username);
-            if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+            if (model == null) throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
             using (var git = new GitService(owner, name))
             {
@@ -130,7 +132,7 @@ namespace GitCandy.Controllers
         {
             var model = RepositoryService.Get(owner, name, username: Token.Username);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             using (var git = new GitService(owner, name))
             {
                 model.DefaultBranch = git.GetHeadBranch();
@@ -144,12 +146,12 @@ namespace GitCandy.Controllers
         public ActionResult Edit(String owner, String name, RepositoryModel model)
         {
             if (String.IsNullOrEmpty(name))
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
             if (ModelState.IsValid)
             {
                 if (!RepositoryService.Update(owner, model))
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 using (var git = new GitService(owner, name))
                 {
                     git.SetHeadBranch(model.DefaultBranch);
@@ -164,7 +166,7 @@ namespace GitCandy.Controllers
         public ActionResult Coop(String owner, String name)
         {
             if (String.IsNullOrEmpty(name))
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
             var model = RepositoryService.GetRepositoryCollaborationModel(owner, name);
             return View(model);
@@ -192,7 +194,7 @@ namespace GitCandy.Controllers
             }
             else if (act == "read" || act == "write" || act == "owner")
             {
-                var val = String.Equals(bool.TrueString, value, StringComparison.OrdinalIgnoreCase);
+                var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
                 if (!Token.IsAdmin
                      && (act == "owner" && !val)
                      && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
@@ -222,7 +224,7 @@ namespace GitCandy.Controllers
             }
             else if (act == "read" || act == "write" || act == "owner")
             {
-                var val = String.Equals(bool.TrueString, value, StringComparison.OrdinalIgnoreCase);
+                var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
                 if (RepositoryService.RepositoryUserSetValue(owner, name, team, act, val))
                     return Json("success");
             }
@@ -242,7 +244,7 @@ namespace GitCandy.Controllers
                 XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
-            return View((object)name);
+            return View((Object)name);
         }
 
         [ReadRepository]
@@ -252,7 +254,7 @@ namespace GitCandy.Controllers
             using (var git = new GitService(owner, name))
             {
                 var model = git.GetTree(path);
-                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                if (model == null) throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 if (model.Entries == null && model.ReferenceName != "HEAD")
                     return RedirectToAction("Tree", new { path = model.ReferenceName });
@@ -298,7 +300,7 @@ namespace GitCandy.Controllers
             using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlob(path);
-                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                if (model == null) throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 // 修正Markdown
                 if (model.Name.EndsWithIgnoreCase(".md")) model.FixMarkdown($"/{owner}/{name}");
@@ -316,7 +318,7 @@ namespace GitCandy.Controllers
             {
                 var model = git.GetBlame(path);
                 if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
                 return View(model);
@@ -329,7 +331,7 @@ namespace GitCandy.Controllers
             using (var git = new GitService(owner, name))
             {
                 var model = git.GetBlob(path);
-                if (model == null) throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                if (model == null) throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 return model.BlobType == BlobType.Binary
                     ? new RawResult(model.RawData, FileHelper.BinaryMimeType, model.Name)
@@ -344,7 +346,7 @@ namespace GitCandy.Controllers
             {
                 var model = git.GetCommit(path);
                 if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
                 return View(model);
@@ -374,7 +376,7 @@ namespace GitCandy.Controllers
                 }
                 var model = git.GetCompare(start.Replace(';', '/'), end.Replace(';', '/'));
                 if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
                 return View(model);
@@ -382,7 +384,7 @@ namespace GitCandy.Controllers
         }
 
         [ReadRepository]
-        public ActionResult Commits(String owner, String name, String path, int? page)
+        public ActionResult Commits(String owner, String name, String path, Int32? page)
         {
             using (var git = new GitService(owner, name))
             {
@@ -414,10 +416,9 @@ namespace GitCandy.Controllers
                     repo.Save();
                 }
 
-                String referenceName;
-                var cacheFile = git.GetArchiveFilename(path, out referenceName);
+                var cacheFile = git.GetArchiveFilename(path, out var referenceName);
                 if (cacheFile == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 var filename = name + "-" + referenceName;
                 return File(cacheFile, "application/zip", filename + ".zip");
@@ -435,7 +436,7 @@ namespace GitCandy.Controllers
                 model.Owner = owner;
                 model.Name = name;
                 model.CanDelete = Token != null && Token.IsAdmin
-                    || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
+                    || RepositoryService.CanWriteRepository(owner, name, Token?.Username);
                 return View(model);
             }
         }
@@ -458,11 +459,11 @@ namespace GitCandy.Controllers
             {
                 var model = git.GetBranches();
                 if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
                 model.CanDelete = Token != null && Token.IsAdmin
-                    || RepositoryService.CanWriteRepository(owner, name, Token == null ? null : Token.Username);
+                    || RepositoryService.CanWriteRepository(owner, name, Token?.Username);
                 return View(model);
             }
         }
@@ -485,7 +486,7 @@ namespace GitCandy.Controllers
             {
                 var model = git.GetContributors(path);
                 if (model == null)
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 // 修正文件数
                 var repo = Repository.FindByOwnerAndName(owner, name);
@@ -504,8 +505,8 @@ namespace GitCandy.Controllers
         private GitUrl[] GetGitUrl(String owner, String name)
         {
             var url = Request.Url;
-            String path = VirtualPathUtility.ToAbsolute("~/" + owner + "/" + name);
-            UriBuilder ub = new UriBuilder(url.Scheme, url.Host, url.Port, path);
+            var path = VirtualPathUtility.ToAbsolute("~/" + owner + "/" + name);
+            var ub = new UriBuilder(url.Scheme, url.Host, url.Port, path);
             var httpUrl = ub.Uri.ToString();
 
             //var sshPort = UserConfiguration.Current.SshPort;
@@ -513,14 +514,16 @@ namespace GitCandy.Controllers
             //    ? String.Format("git@{0}:git/{1}.git", url.Host, name)
             //    : String.Format("ssh://git@{0}:{1}/git/{2}.git", url.Host, sshPort, name);
 
-            var result = new List<GitUrl>(4);
-            result.Add(new GitUrl { Type = url.Scheme, Url = httpUrl });
+            var result = new List<GitUrl>(4)
+            {
+                new GitUrl { Type = url.Scheme, Url = httpUrl }
+            };
             //if (UserConfiguration.Current.EnableSsh)
             //    result.Add(new GitUrl { Type = "ssh", Url = sshUrl });
 
             return result.ToArray();
         }
 
-        public int sshPort { get; set; }
+        //public Int32 sshPort { get; set; }
     }
 }

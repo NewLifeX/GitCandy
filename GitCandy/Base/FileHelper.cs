@@ -25,7 +25,7 @@ namespace GitCandy.Base
             new UTF32Encoding(false, true),     // UTF-32 (LE)
             new UTF32Encoding(true, true),      // UTF-32 (BE)
         };
-        private static readonly byte[][] Boms;
+        private static readonly Byte[][] Boms;
 
         static FileHelper()
         {
@@ -137,7 +137,7 @@ namespace GitCandy.Base
             return "no-highlight";
         }
 
-        public static Encoding DetectEncoding(byte[] bytes, params Encoding[] encodings)
+        public static Encoding DetectEncoding(Byte[] bytes, params Encoding[] encodings)
         {
             var index = BomIndex(bytes);
             if (index != -1) // Read BOM if existing
@@ -176,7 +176,7 @@ namespace GitCandy.Base
             }
         }
 
-        public static String ReadToEnd(byte[] bytes, Encoding encoding = null, String newline = null)
+        public static String ReadToEnd(Byte[] bytes, Encoding encoding = null, String newline = null)
         {
             using (var reader = new StreamReader(new MemoryStream(bytes), encoding ?? Encoding.UTF8, true))
             {
@@ -185,12 +185,12 @@ namespace GitCandy.Base
             }
         }
 
-        public static String GetSizeString(long size)
+        public static String GetSizeString(Int64 size)
         {
             if (size < 0)
                 return "unknow size";
 
-            double r = size;
+            Double r = size;
             foreach (var unit in SizeUnits)
             {
                 if (r < 1000)
@@ -201,7 +201,7 @@ namespace GitCandy.Base
             return "largest size";
         }
 
-        public static byte[] ReplaceNewline(byte[] bytes, Encoding encoding = null, String newline = null)
+        public static Byte[] ReplaceNewline(Byte[] bytes, Encoding encoding = null, String newline = null)
         {
             if (newline == null)
                 return bytes;
@@ -213,7 +213,7 @@ namespace GitCandy.Base
             if (bomIndex != -1)
             {
                 var bom = Boms[bomIndex];
-                var buffer = new byte[bom.Length + pure.Length];
+                var buffer = new Byte[bom.Length + pure.Length];
                 Array.Copy(bom, buffer, bom.Length);
                 Array.Copy(pure, 0, buffer, bom.Length, pure.Length);
                 return buffer;
@@ -222,7 +222,7 @@ namespace GitCandy.Base
             return pure;
         }
 
-        private static int BomIndex(byte[] bytes)
+        private static Int32 BomIndex(Byte[] bytes)
         {
             for (var i = 0; i < Boms.Length; i++)
             {
@@ -237,7 +237,7 @@ namespace GitCandy.Base
             return -1;
         }
 
-        private static bool IsMatchEncoding(Encoding encoding, byte[] bytes)
+        private static Boolean IsMatchEncoding(Encoding encoding, Byte[] bytes)
         {
             try
             {

@@ -6,16 +6,16 @@ namespace GitCandy.Models
     {
         public Statistics Default { get; set; }
         public Statistics Current { get; set; }
-        public long RepositorySize { get; set; }
+        public Int64 RepositorySize { get; set; }
 
         [Serializable]
         public class Statistics
         {
             public String Branch { get; set; }
-            public int NumberOfFiles { get; set; }
-            public int NumberOfCommits { get; set; }
-            public long SizeOfSource { get; set; }
-            public int NumberOfContributors { get; set; }
+            public Int32 NumberOfFiles { get; set; }
+            public Int32 NumberOfCommits { get; set; }
+            public Int64 SizeOfSource { get; set; }
+            public Int32 NumberOfContributors { get; set; }
             public ContributorCommits[] OrderedCommits { get; set; }
         }
 
@@ -23,7 +23,7 @@ namespace GitCandy.Models
         public class ContributorCommits
         {
             public String Author { get; set; }
-            public int CommitsCount { get; set; }
+            public Int32 CommitsCount { get; set; }
         }
     }
 }

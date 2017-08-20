@@ -16,10 +16,10 @@ namespace GitCandy.Git.Cache
     public abstract class GitCacheAccessor
     {
         protected static readonly Type[] accessors;
-        protected static readonly object locker = new object();
+        protected static readonly Object locker = new Object();
         protected static readonly List<GitCacheAccessor> runningList = new List<GitCacheAccessor>();
 
-        protected static bool enabled;
+        protected static Boolean enabled;
 
         protected Task task;
 
@@ -174,33 +174,33 @@ namespace GitCandy.Git.Cache
             }
         }
 
-        protected abstract bool Load();
+        protected abstract Boolean Load();
 
         protected abstract void Save();
 
         protected abstract void Calculate();
 
-        public virtual bool IsAsync { get { return true; } }
+        public virtual Boolean IsAsync { get { return true; } }
 
-        public static bool operator ==(GitCacheAccessor left, GitCacheAccessor right)
+        public static Boolean operator ==(GitCacheAccessor left, GitCacheAccessor right)
         {
             return object.ReferenceEquals(left, right)
                 || !object.ReferenceEquals(left, null) && left.Equals(right)
                 || !object.ReferenceEquals(right, null) && right.Equals(left);
         }
 
-        public static bool operator !=(GitCacheAccessor left, GitCacheAccessor right)
+        public static Boolean operator !=(GitCacheAccessor left, GitCacheAccessor right)
         {
             return !object.ReferenceEquals(left, null) && !left.Equals(right)
                 || !object.ReferenceEquals(right, null) && !right.Equals(left);
         }
 
-        public override bool Equals(object obj)
+        public override Boolean Equals(Object obj)
         {
             throw new NotImplementedException("Must override this method");
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode()
         {
             throw new NotImplementedException("Must override this method");
         }
@@ -217,7 +217,7 @@ namespace GitCandy.Git.Cache
         protected readonly String repoPath;
 
         protected TReturn result;
-        protected bool resultDone;
+        protected Boolean resultDone;
         protected String cacheKey;
 
         public GitCacheReturn<TReturn> Result
@@ -247,7 +247,7 @@ namespace GitCandy.Git.Cache
 
         protected abstract String GetCacheKey();
 
-        protected virtual String GetCacheKey(params object[] keys)
+        protected virtual String GetCacheKey(params Object[] keys)
         {
             Contract.Requires(keys != null);
             Contract.Requires(keys.Length > 0);
@@ -266,7 +266,7 @@ namespace GitCandy.Git.Cache
             return Name + "\\" + repoId + "\\" + GetCacheKey();
         }
 
-        protected override bool Load()
+        protected override Boolean Load()
         {
             var filename = Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile());
             if (File.Exists(filename))
@@ -305,13 +305,13 @@ namespace GitCandy.Git.Cache
             }
         }
 
-        public override bool Equals(object obj)
+        public override Boolean Equals(Object obj)
         {
             var accessor = obj as TAccessor;
             return accessor != null && GetCacheKey() == accessor.GetCacheKey();
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode()
         {
             return typeof(TAccessor).GetHashCode() ^ GetCacheKey().GetHashCode();
         }

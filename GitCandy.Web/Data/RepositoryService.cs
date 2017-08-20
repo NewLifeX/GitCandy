@@ -33,12 +33,14 @@ namespace GitCandy.Data
                 };
                 repo.Save();
 
-                var ur = new UserRepository();
-                ur.UserID = owner.ID;
-                ur.RepositoryID = repo.ID;
-                ur.IsOwner = true;
-                ur.AllowRead = true;
-                ur.AllowWrite = true;
+                var ur = new UserRepository
+                {
+                    UserID = owner.ID,
+                    RepositoryID = repo.ID,
+                    IsOwner = true,
+                    AllowRead = true,
+                    AllowWrite = true
+                };
                 ur.Save();
 
                 trans.Commit();

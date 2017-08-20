@@ -15,6 +15,7 @@ using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
+using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -89,7 +90,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(new String[] { __.UserID, __.TeamID }, new Object[] { userid, teamid });
             else // 实体缓存
-                return Meta.Cache.Entities.Find(e => e.UserID == userid && e.TeamID == teamid);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.UserID == userid && e.TeamID == teamid);
         }
 
         public static UserTeam FindByUserAndTeam(String username, String teamname)
@@ -112,7 +113,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.UserID, userid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+                return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
         }
 
         public static IList<UserTeam> FindAllByTeamID(Int32 teamid)
@@ -122,7 +123,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.TeamID, teamid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.TeamID == teamid);
+                return Meta.Cache.Entities.Where(e => e.TeamID == teamid).ToList();
         }
         #endregion
 

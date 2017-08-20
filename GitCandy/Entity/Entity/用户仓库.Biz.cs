@@ -15,6 +15,7 @@ using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
+using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -61,7 +62,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(new String[] { __.UserID, __.RepositoryID }, new Object[] { userid, repositoryid });
             else // 实体缓存
-                return Meta.Cache.Entities.Find(e => e.UserID == userid && e.RepositoryID == repositoryid);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.UserID == userid && e.RepositoryID == repositoryid);
         }
 
         public static IList<UserRepository> FindAllByUserID(Int32 userid)
@@ -71,7 +72,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.UserID, userid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
+                return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
         }
 
         public static IList<UserRepository> FindAllByRepositoryID(Int32 repid)
@@ -81,7 +82,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.RepositoryID, repid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.RepositoryID == repid);
+                return Meta.Cache.Entities.Where(e => e.RepositoryID == repid).ToList();
         }
         #endregion
 

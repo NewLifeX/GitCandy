@@ -43,7 +43,7 @@ namespace GitCandy.Git
                 var ancestors = repo.Commits
                     .QueryBy(new CommitFilter { IncludeReachableFrom = commit });
 
-                var dict = new Dictionary<String, int>();
+                var dict = new Dictionary<String, Int32>();
                 var statistics = new RepositoryStatisticsModel.Statistics();
                 foreach (var ancestor in ancestors)
                 {
@@ -75,7 +75,7 @@ namespace GitCandy.Git
             }
         }
 
-        private int FilesInCommit(Commit commit, out long sourceSize)
+        private Int32 FilesInCommit(Commit commit, out Int64 sourceSize)
         {
             var count = 0;
             var stack = new Stack<Tree>();

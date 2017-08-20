@@ -16,11 +16,11 @@ namespace GitCandy.Extensions
 {
     public static class MetadataExtension
     {
-        const int ShaBytesLength = 20;
+        const Int32 ShaBytesLength = 20;
         const String HexValuesInUppercase = "0123456789ABCDEF";
         const String HexValuesInLowercase = "0123456789abcdef";
 
-        public static byte[] AggregateSha(this byte[] one, params byte[][] twos)
+        public static Byte[] AggregateSha(this Byte[] one, params Byte[][] twos)
         {
             Contract.Requires(one == null);
             Contract.Requires(one.Length == ShaBytesLength);
@@ -29,7 +29,7 @@ namespace GitCandy.Extensions
             foreach (var two in twos)
             {
                 Contract.Assert(two != null && two.Length == ShaBytesLength);
-                for (int i = 0; i < ShaBytesLength; i++)
+                for (var i = 0; i < ShaBytesLength; i++)
                 {
                     val[i] ^= two[i];
                 }
@@ -38,13 +38,13 @@ namespace GitCandy.Extensions
             return val;
         }
 
-        public static String BytesToString(this byte[] bytes)
+        public static String BytesToString(this Byte[] bytes)
         {
             Contract.Requires(bytes != null);
 
             var length = bytes.Length;
-            var chars = new char[length * 2];
-            for (int i = 0, index = 0; i < length; i++)
+            var chars = new Char[length * 2];
+            for (Int32 i = 0, index = 0; i < length; i++)
             {
                 var b = bytes[i];
                 chars[index++] = HexValuesInLowercase[b & 0xf];
@@ -54,17 +54,17 @@ namespace GitCandy.Extensions
             return new String(chars);
         }
 
-        public static String ToFlagString(this bool flag, String trueStr, String falseStr)
+        public static String ToFlagString(this Boolean flag, String trueStr, String falseStr)
         {
             return flag ? trueStr : falseStr;
         }
 
-        public static Dictionary<String, object> CastToDictionary(this object values)
+        public static Dictionary<String, Object> CastToDictionary(this Object values)
         {
             if (values == null)
                 return null;
 
-            var dictionary = new Dictionary<String, object>(StringComparer.OrdinalIgnoreCase);
+            var dictionary = new Dictionary<String, Object>(StringComparer.OrdinalIgnoreCase);
             var properties = TypeDescriptor.GetProperties(values);
             foreach (PropertyDescriptor propertyDescriptor in properties)
             {
@@ -108,7 +108,7 @@ namespace GitCandy.Extensions
                 : str;
         }
 
-        public static String ShortString(this String str, int length)
+        public static String ShortString(this String str, Int32 length)
         {
             var wide = 0;
             var len = 0;
@@ -123,7 +123,7 @@ namespace GitCandy.Extensions
             return str;
         }
 
-        public static byte[] ToBytes(this Stream stream)
+        public static Byte[] ToBytes(this Stream stream)
         {
             if (stream == null)
                 return null;
@@ -134,10 +134,10 @@ namespace GitCandy.Extensions
                 return ms.ToArray();
             }
 
-            var buffer = new byte[16 * 1024];
+            var buffer = new Byte[16 * 1024];
             using (var ms = new MemoryStream())
             {
-                int len;
+                Int32 len;
                 while ((len = stream.Read(buffer, 0, buffer.Length)) > 0)
                 {
                     ms.Write(buffer, 0, len);
@@ -146,7 +146,7 @@ namespace GitCandy.Extensions
             }
         }
 
-        public static String ReadLines(this StringReader reader, int lineCount)
+        public static String ReadLines(this StringReader reader, Int32 lineCount)
         {
             var sb = new StringBuilder();
             while (lineCount-- > 0)
@@ -186,7 +186,7 @@ namespace GitCandy.Extensions
         }
 
         [Pure]
-        public static String SafyToString(this object obj)
+        public static String SafyToString(this Object obj)
         {
             if (obj == null)
                 return null;

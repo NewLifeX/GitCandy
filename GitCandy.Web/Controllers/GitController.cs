@@ -55,11 +55,11 @@ namespace GitCandy.Controllers
             }
             catch (RepositoryNotFoundException e)
             {
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty, e);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty, e);
             }
             catch (Exception e)
             {
-                throw new HttpException((int)HttpStatusCode.InternalServerError, String.Empty, e);
+                throw new HttpException((Int32)HttpStatusCode.InternalServerError, String.Empty, e);
             }
         }
 
@@ -84,11 +84,11 @@ namespace GitCandy.Controllers
             }
             catch (RepositoryNotFoundException e)
             {
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty, e);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty, e);
             }
             catch (Exception e)
             {
-                throw new HttpException((int)HttpStatusCode.InternalServerError, String.Empty, e);
+                throw new HttpException((Int32)HttpStatusCode.InternalServerError, String.Empty, e);
             }
         }
 
@@ -128,7 +128,7 @@ namespace GitCandy.Controllers
             }
         }
 
-        private int FilesInCommit(Commit commit, out long sourceSize)
+        private Int32 FilesInCommit(Commit commit, out Int64 sourceSize)
         {
             var count = 0;
             var stack = new Stack<Tree>();

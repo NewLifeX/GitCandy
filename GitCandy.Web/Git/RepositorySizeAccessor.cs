@@ -6,7 +6,7 @@ using LibGit2Sharp;
 
 namespace GitCandy.Git
 {
-    public class RepositorySizeAccessor : GitCacheAccessor<long, RepositorySizeAccessor>
+    public class RepositorySizeAccessor : GitCacheAccessor<Int64, RepositorySizeAccessor>
     {
         private String key;
 
@@ -18,7 +18,7 @@ namespace GitCandy.Git
             this.key = key;
         }
 
-        public override bool IsAsync { get { return false; } }
+        public override Boolean IsAsync { get { return false; } }
 
         protected override String GetCacheKey()
         {

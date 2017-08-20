@@ -4,17 +4,18 @@
  * 时间：2016-11-21 15:48:51
  * 版权：版权所有 (C) 新生命开发团队 2002~2016
 */
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
 using NewLife.Log;
 using NewLife.Web;
-﻿using NewLife.Data;
+using NewLife.Data;
 using XCode;
 using XCode.Configuration;
 using XCode.Membership;
+using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -60,7 +61,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.AuthCode, authcode);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.AuthCode, authcode);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.AuthCode == authcode);
             // 单对象缓存
             //return Meta.SingleCache[authcode];
         }
@@ -76,7 +77,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.UserID, userid);
             else // 实体缓存
-                return Meta.Cache.Entities.FindAll(__.UserID, userid);
+                return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
             // 单对象缓存
             //return Meta.SingleCache[userid];
         }

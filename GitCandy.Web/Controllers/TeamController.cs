@@ -15,7 +15,7 @@ namespace GitCandy.Controllers
     public class TeamController : CandyControllerBase
     {
         [Administrator]
-        public ActionResult Index(String query, int? page)
+        public ActionResult Index(String query, Int32? page)
         {
             var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
@@ -64,7 +64,7 @@ namespace GitCandy.Controllers
         {
             var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token.Username);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             return View(model);
         }
 
@@ -73,7 +73,7 @@ namespace GitCandy.Controllers
         {
             var model = MembershipService.GetTeamModel(name);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             ModelState.Clear();
 
             return View(model);
@@ -85,7 +85,7 @@ namespace GitCandy.Controllers
         {
             if (ModelState.IsValid)
                 if (!MembershipService.UpdateTeam(model))
-                    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
             return View(model);
         }
@@ -138,7 +138,7 @@ namespace GitCandy.Controllers
                 XTrace.WriteLine("Team {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
-            return View((object)name);
+            return View((Object)name);
         }
 
         [HttpPost]

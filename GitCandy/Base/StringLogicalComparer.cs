@@ -13,12 +13,12 @@ namespace GitCandy.Base
     // emulates StrCmpLogicalW, but not fully
     public class StringLogicalComparer : IComparer, IComparer<String>
     {
-        public int Compare(object s1, object s2)
+        public Int32 Compare(Object s1, Object s2)
         {
             return Compare(s1 as String, s2 as String);
         }
 
-        public int Compare(String s1, String s2)
+        public Int32 Compare(String s1, String s2)
         {
             //get rid of special cases
             if (object.ReferenceEquals(s1, s2)) return 0;
@@ -31,21 +31,21 @@ namespace GitCandy.Base
             else if (s2.Equals(String.Empty)) return -1;
 
             //WE style, special case
-            bool sp1 = Char.IsLetterOrDigit(s1, 0);
-            bool sp2 = Char.IsLetterOrDigit(s2, 0);
+            var sp1 = Char.IsLetterOrDigit(s1, 0);
+            var sp2 = Char.IsLetterOrDigit(s2, 0);
             if (sp1 && !sp2) return 1;
             if (!sp1 && sp2) return -1;
 
-            int i1 = 0, i2 = 0; //current index
-            int r = 0; // temp result
+            Int32 i1 = 0, i2 = 0; //current index
+            var r = 0; // temp result
             while (true)
             {
-                bool c1 = Char.IsDigit(s1, i1);
-                bool c2 = Char.IsDigit(s2, i2);
+                var c1 = Char.IsDigit(s1, i1);
+                var c2 = Char.IsDigit(s2, i2);
                 if (!c1 && !c2)
                 {
-                    bool letter1 = Char.IsLetter(s1, i1);
-                    bool letter2 = Char.IsLetter(s2, i2);
+                    var letter1 = Char.IsLetter(s1, i1);
+                    var letter2 = Char.IsLetter(s2, i2);
                     if ((letter1 && letter2) || (!letter1 && !letter2))
                     {
                         if (letter1 && letter2)
@@ -91,41 +91,41 @@ namespace GitCandy.Base
             }
         }
 
-        private int CompareNum(String s1, ref int i1, String s2, ref int i2)
+        private Int32 CompareNum(String s1, ref Int32 i1, String s2, ref Int32 i2)
         {
-            int nzStart1 = i1, nzStart2 = i2; // nz = non zero
-            int end1 = i1, end2 = i2;
+            Int32 nzStart1 = i1, nzStart2 = i2; // nz = non zero
+            Int32 end1 = i1, end2 = i2;
 
             ScanNumEnd(s1, i1, ref end1, ref nzStart1);
             ScanNumEnd(s2, i2, ref end2, ref nzStart2);
-            int start1 = i1; i1 = end1 - 1;
-            int start2 = i2; i2 = end2 - 1;
+            var start1 = i1; i1 = end1 - 1;
+            var start2 = i2; i2 = end2 - 1;
 
-            int nzLength1 = end1 - nzStart1;
-            int nzLength2 = end2 - nzStart2;
+            var nzLength1 = end1 - nzStart1;
+            var nzLength2 = end2 - nzStart2;
 
             if (nzLength1 < nzLength2) return -1;
             else if (nzLength1 > nzLength2) return 1;
 
-            for (int j1 = nzStart1, j2 = nzStart2; j1 <= i1; j1++, j2++)
+            for (Int32 j1 = nzStart1, j2 = nzStart2; j1 <= i1; j1++, j2++)
             {
-                int r = s1[j1].CompareTo(s2[j2]);
+                var r = s1[j1].CompareTo(s2[j2]);
                 if (r != 0) return r;
             }
             // the nz parts are equal
-            int length1 = end1 - start1;
-            int length2 = end2 - start2;
+            var length1 = end1 - start1;
+            var length2 = end2 - start2;
             if (length1 == length2) return 0;
             if (length1 > length2) return -1;
             return 1;
         }
 
         //lookahead
-        private void ScanNumEnd(String s, int start, ref int end, ref int nzStart)
+        private void ScanNumEnd(String s, Int32 start, ref Int32 end, ref Int32 nzStart)
         {
             nzStart = start;
             end = start;
-            bool countZeros = true;
+            var countZeros = true;
             while (Char.IsDigit(s, end))
             {
                 if (countZeros && s[end].Equals('0'))

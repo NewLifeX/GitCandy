@@ -18,7 +18,7 @@ namespace GitCandy.Controllers
     public class AccountController : CandyControllerBase
     {
         [Administrator]
-        public ActionResult Index(String query, int? page)
+        public ActionResult Index(String query, Int32? page)
         {
             var model = MembershipService.GetUserList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
@@ -77,7 +77,7 @@ namespace GitCandy.Controllers
 
             var model = MembershipService.GetUserModel(name, true, Token?.Username);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             return View(model);
         }
 
@@ -175,7 +175,7 @@ namespace GitCandy.Controllers
 
             var model = MembershipService.GetUserModel(name);
             if (model == null)
-                throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             ModelState.Clear();
 
             return View(model);
@@ -275,14 +275,16 @@ namespace GitCandy.Controllers
                 XTrace.WriteLine("User {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
                 return RedirectToAction("Index");
             }
-            return View((object)name);
+            return View((Object)name);
         }
 
         [HttpPost]
         public JsonResult Search(String query)
         {
-            var p = new PageParameter();
-            p.PageSize = 20;
+            var p = new PageParameter
+            {
+                PageSize = 20
+            };
 
             var list = UserX.SearchUser(query, p);
             var ns = list.ToList().Select(e => e.Name).ToArray();

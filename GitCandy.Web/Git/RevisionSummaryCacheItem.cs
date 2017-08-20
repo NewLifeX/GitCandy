@@ -16,7 +16,7 @@ namespace GitCandy.Git
         public String CommitterName;
         public String CommitterEmail;
         public DateTimeOffset CommitterWhen;
-        public int Ahead;
-        public int Behind;
+        public Int32 Ahead;
+        public Int32 Behind;
     }
 }

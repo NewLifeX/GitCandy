@@ -11,12 +11,12 @@ namespace GitCandy.Extensions
 {
     public static class HtmlHelperExtension
     {
-        public static RouteValueDictionary OverRoute(this HtmlHelper helper, object routeValues = null, bool withQuery = false)
+        public static RouteValueDictionary OverRoute(this HtmlHelper helper, Object routeValues = null, Boolean withQuery = false)
         {
             var old = helper.ViewContext.RouteData.Values;
             if (routeValues == null) return old;
 
-            var over = new Dictionary<String, object>(old, StringComparer.OrdinalIgnoreCase);
+            var over = new Dictionary<String, Object>(old, StringComparer.OrdinalIgnoreCase);
             if (withQuery)
             {
                 var qs = helper.ViewContext.HttpContext.Request.QueryString;
@@ -30,12 +30,12 @@ namespace GitCandy.Extensions
             return new RouteValueDictionary(over);
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, RouteValueDictionary routeValues, object htmlAttributes)
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, RouteValueDictionary routeValues, Object htmlAttributes)
         {
             return LinkExtensions.ActionLink(htmlHelper, linkText, actionName, routeValues, htmlAttributes.CastToDictionary());
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, String controllerName, RouteValueDictionary routeValues, object htmlAttributes)
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, String linkText, String actionName, String controllerName, RouteValueDictionary routeValues, Object htmlAttributes)
         {
             return LinkExtensions.ActionLink(htmlHelper, linkText, actionName, controllerName, routeValues, htmlAttributes.CastToDictionary());
         }

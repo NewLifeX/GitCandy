@@ -24,7 +24,7 @@ namespace GitCandy.Git
         private readonly String _repositoryPath;
         private readonly String _repoId = null;
         private readonly Lazy<Encoding> _i18n;
-        private bool _disposed;
+        private Boolean _disposed;
 
         public Encoding I18n { get { return _i18n.Value; } }
         public String Owner { get; private set; }
@@ -317,7 +317,7 @@ namespace GitCandy.Git
             return model;
         }
 
-        public CommitsModel GetCommits(String path, int page = 1, int pagesize = 20)
+        public CommitsModel GetCommits(String path, Int32 page = 1, Int32 pagesize = 20)
         {
             String referenceName;
             var commit = GetCommitByPath(ref path, out referenceName);
@@ -476,8 +476,10 @@ namespace GitCandy.Git
             contributors.OrderedCommits = contributors.OrderedCommits
                 .Take(UserConfiguration.Current.Contributors)
                 .ToArray();
-            var statistics = new RepositoryStatisticsModel();
-            statistics.Current = contributors;
+            var statistics = new RepositoryStatisticsModel
+            {
+                Current = contributors
+            };
             statistics.Current.Branch = referenceName;
 
             if (_repository.Head.Tip != commit)
@@ -514,7 +516,7 @@ namespace GitCandy.Git
             return _repository.Branches.Select(s => s.FriendlyName).OrderBy(s => s, new StringLogicalComparer()).ToArray();
         }
 
-        public bool SetHeadBranch(String name)
+        public Boolean SetHeadBranch(String name)
         {
             var refs = _repository.Refs;
             var refer = refs["refs/heads/" + (name ?? "master")];
@@ -575,7 +577,7 @@ namespace GitCandy.Git
             return commit;
         }
 
-        private CommitModel ToCommitModel(Commit commit, String referenceName, bool isTree = true, String detailFilter = null, Tree compareWith = null)
+        private CommitModel ToCommitModel(Commit commit, String referenceName, Boolean isTree = true, String detailFilter = null, Tree compareWith = null)
         {
             if (commit == null)
                 return null;
@@ -645,7 +647,7 @@ namespace GitCandy.Git
             }
         }
 
-        private String CalcBranchesKey(bool includeTags = false)
+        private String CalcBranchesKey(Boolean includeTags = false)
         {
             var sb = new StringBuilder();
             var head = _repository.Head;
@@ -694,7 +696,7 @@ namespace GitCandy.Git
             return p;
         }
 
-        public static bool CreateRepository(String owner, String name, String remoteUrl = null)
+        public static Boolean CreateRepository(String owner, String name, String remoteUrl = null)
         {
             var path = GetPath(owner, name);
             try
@@ -738,7 +740,7 @@ namespace GitCandy.Git
             }
         }
 
-        public static bool DeleteRepository(String owner, String name)
+        public static Boolean DeleteRepository(String owner, String name)
         {
             var path = GetPath(owner, name);
             var temp = path + "." + DateTime.Now.Ticks + ".del";
@@ -792,7 +794,7 @@ namespace GitCandy.Git
 
         #region RunGitCmd
         // un-safe implementation
-        private void RunGitCmd(String serviceName, bool advertiseRefs, Stream inStream, Stream outStream)
+        private void RunGitCmd(String serviceName, Boolean advertiseRefs, Stream inStream, Stream outStream)
         {
             var args = serviceName + " --stateless-rpc";
             if (advertiseRefs)
@@ -838,7 +840,7 @@ namespace GitCandy.Git
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose(Boolean disposing)
         {
             if (!_disposed)
             {

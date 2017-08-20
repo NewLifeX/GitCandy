@@ -12,7 +12,7 @@ namespace GitCandy.Models
         public CommitModel Commit { get; set; }
         public String Sha { get; set; }
         public TreeEntryTargetType EntryType { get; set; }
-        public byte[] RawData { get; set; }
+        public Byte[] RawData { get; set; }
         public String SizeString { get; set; }
         public String TextContent { get; set; }
         public String TextBrush { get; set; }

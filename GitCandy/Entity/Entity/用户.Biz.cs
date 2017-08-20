@@ -36,14 +36,16 @@ namespace NewLife.GitCandy.Entity
             // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
             if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(User).Name, Meta.Table.DataTable.DisplayName);
 
-            var entity = new User();
-            entity.Name = "admin";
-            entity.NickName = "管理员";
-            entity.Password = "gitcandy".MD5();
-            entity.Email = "admin@newlifex.com";
-            entity.Enable = true;
-            entity.IsAdmin = true;
-            entity.RegisterTime = DateTime.Now;
+            var entity = new User
+            {
+                Name = "admin",
+                NickName = "管理员",
+                Password = "gitcandy".MD5(),
+                Email = "admin@newlifex.com",
+                Enable = true,
+                IsAdmin = true,
+                RegisterTime = DateTime.Now
+            };
 
             entity.Insert();
 
@@ -133,7 +135,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.ID, id);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.ID, id);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.ID == id);
         }
 
         /// <summary>根据名称。登录用户名查找</summary>
@@ -147,7 +149,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.Name, name);
             else // 实体缓存
-                return Meta.Cache.Entities.FindIgnoreCase(__.Name, name);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.Name.EqualIgnoreCase(name));
             // 单对象缓存
             //return Meta.SingleCache[name];
         }
@@ -159,7 +161,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.Email, email);
             else // 实体缓存
-                return Meta.Cache.Entities.FindIgnoreCase(__.Email, email);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.Email.EqualIgnoreCase(email));
             // 单对象缓存
             //return Meta.SingleCache[name];
         }

@@ -286,7 +286,15 @@
             <summary>输出目录</summary>
         </member>
         <member name="M:XCode.Code.ClassBuilder.Save(System.String,System.Boolean)">
-            <summary>保存文件</summary>
+            <summary>保存文件，返回文件路径</summary>
+        </member>
+        <member name="P:XCode.Code.ClassBuilder.CSharp">
+            <summary>C#版本</summary>
+        </member>
+        <member name="M:XCode.Code.ClassBuilder.NameOf(System.String)">
+            <summary>nameof</summary>
+            <param name="name"></param>
+            <returns></returns>
         </member>
         <member name="P:XCode.Code.ClassBuilder.Debug">
             <summary>是否调试</summary>
@@ -427,20 +435,11 @@
         <member name="P:XCode.Code.EntityAssembly.Tables">
             <summary>表集合</summary>
         </member>
-        <member name="P:XCode.Code.EntityAssembly.Classes">
-            <summary>实体类集合</summary>
-        </member>
         <member name="P:XCode.Code.EntityAssembly.Assembly">
             <summary>程序集</summary>
         </member>
         <member name="P:XCode.Code.EntityAssembly.TypeMaps">
             <summary>类型映射。数据表映射到哪个类上</summary>
-        </member>
-        <member name="P:XCode.Code.EntityAssembly.Unit">
-            <summary>代码编译单元</summary>
-        </member>
-        <member name="P:XCode.Code.EntityAssembly.NameSpace">
-            <summary>命名空间</summary>
         </member>
         <member name="M:XCode.Code.EntityAssembly.CreateWithCache(System.String,System.Collections.Generic.List{XCode.DataAccessLayer.IDataTable})">
             <summary>为数据模型创建实体程序集，带缓存，依赖于表和字段名称，不依赖名称以外的信息。</summary>
@@ -453,21 +452,12 @@
             <param name="table"></param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Code.EntityAssembly.Create(System.String)">
-            <summary>根据名称创建</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
         <member name="M:XCode.Code.EntityAssembly.CreateAll">
             <summary>创建所有表的实体类</summary>
         </member>
         <member name="M:XCode.Code.EntityAssembly.GetType(System.String)">
             <summary>获取类型</summary>
             <param name="name">名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Code.EntityAssembly.GenerateCSharpCode">
-            <summary>生成C#代码</summary>
             <returns></returns>
         </member>
         <member name="M:XCode.Code.EntityAssembly.Compile(System.CodeDom.Compiler.CompilerParameters)">
@@ -479,71 +469,12 @@
             <summary>编译并返回程序集</summary>
             <returns></returns>
         </member>
-        <member name="E:XCode.Code.EntityAssembly.OnClassCreating">
-            <summary>创建实体类开始前触发，用户可以在此修改实体类的创建行为</summary>
-        </member>
-        <member name="E:XCode.Code.EntityAssembly.OnClassCreated">
-            <summary>创建实体类完成后触发，用户可以在此修改实体类的创建行为</summary>
-        </member>
         <member name="P:XCode.Code.EntityAssembly.Debug">
             <summary>是否启用动态代码调试，把动态生成的实体类代码和程序集输出到临时目录，默认不启用</summary>
         </member>
         <member name="M:XCode.Code.EntityAssembly.ToString">
             <summary>已重载。</summary>
             <returns></returns>
-        </member>
-        <member name="T:XCode.Code.EntityClassEventArgs">
-            <summary>实体类事件参数</summary>
-        </member>
-        <member name="P:XCode.Code.EntityClassEventArgs.Class">
-            <summary>实体类</summary>
-        </member>
-        <member name="T:XCode.Code.EntityClass">
-            <summary>实体类</summary>
-            <remarks>提供由IDataTable生成实体类的支持</remarks>
-        </member>
-        <member name="P:XCode.Code.EntityClass.Name">
-            <summary>类名</summary>
-        </member>
-        <member name="P:XCode.Code.EntityClass.ConnName">
-            <summary>连接名</summary>
-        </member>
-        <member name="P:XCode.Code.EntityClass.Table">
-            <summary>表</summary>
-        </member>
-        <member name="P:XCode.Code.EntityClass.BaseType">
-            <summary>基类</summary>
-        </member>
-        <member name="P:XCode.Code.EntityClass.Class">
-            <summary>实体类</summary>
-        </member>
-        <member name="M:XCode.Code.EntityClass.Create">
-            <summary>创建实体类</summary>
-        </member>
-        <member name="M:XCode.Code.EntityClass.AddProperties">
-            <summary>添加属性集合</summary>
-        </member>
-        <member name="M:XCode.Code.EntityClass.AddField(XCode.DataAccessLayer.IDataColumn)">
-            <summary>添加私有字段</summary>
-            <param name="field">字段</param>
-        </member>
-        <member name="M:XCode.Code.EntityClass.AddProperty(XCode.DataAccessLayer.IDataColumn)">
-            <summary>添加单个属性</summary>
-            <param name="field">字段</param>
-        </member>
-        <member name="M:XCode.Code.EntityClass.AddIndexs">
-            <summary>添加索引器</summary>
-        </member>
-        <member name="M:XCode.Code.EntityClass.GenerateCSharpCode">
-            <summary>生成C#代码</summary>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Code.EntityClass.ToString">
-            <summary>已重载。</summary>
-            <returns></returns>
-        </member>
-        <member name="T:XCode.Code.EntityClassBiz">
-            <summary>实体类，业务部分</summary>
         </member>
         <member name="T:XCode.Common.DataSimulation`1">
             <summary>数据模拟</summary>
@@ -6199,7 +6130,7 @@
         <member name="M:XCode.Sharding.Shard.FindByEntityType(System.String)">
             <summary>根据实体类查找</summary>
             <param name="entitytype">实体类</param>
-            <returns>实体对象</returns>
+            <returns>实体列表</returns>
         </member>
         <member name="P:XCode.Sharding.Shard.ID">
             <summary>编号</summary>
@@ -7119,14 +7050,6 @@
             <param name="value"></param>
             <returns>返回是否成功设置了数据</returns>
         </member>
-        <member name="M:XCode.EntityBase.ToXml">
-            <summary>导出XML</summary>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityBase.ToJson">
-            <summary>导出Json</summary>
-            <returns></returns>
-        </member>
         <member name="M:XCode.EntityBase.Clone">
             <summary>创建当前对象的克隆对象，仅拷贝基本字段</summary>
             <returns></returns>
@@ -8034,16 +7957,6 @@
             <param name="where">条件，不带Where</param>
             <returns>总行数</returns>
         </member>
-        <member name="M:XCode.Entity`1.EntityOperate.FromXml(System.String)">
-            <summary>导入</summary>
-            <param name="xml"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Entity`1.EntityOperate.FromJson(System.String)">
-            <summary>导入</summary>
-            <param name="json"></param>
-            <returns></returns>
-        </member>
         <member name="M:XCode.Entity`1.EntityOperate.BeginTransaction">
             <summary>开始事务</summary>
             <returns></returns>
@@ -8215,10 +8128,6 @@
             <param name="setDirty">是否设置脏数据</param>
             <returns>实际复制成员数</returns>
         </member>
-        <member name="M:XCode.IEntity.ToXml">
-            <summary>导出XML</summary>
-            <returns></returns>
-        </member>
         <member name="M:XCode.IEntity.EqualTo(XCode.IEntity)">
             <summary>判断两个实体是否相等。有可能是同一条数据的两个实体对象</summary>
             <param name="entity"></param>
@@ -8352,16 +8261,6 @@
             <summary>返回总记录数</summary>
             <param name="where">条件，不带Where</param>
             <returns>总行数</returns>
-        </member>
-        <member name="M:XCode.IEntityOperate.FromXml(System.String)">
-            <summary>导入</summary>
-            <param name="xml"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.IEntityOperate.FromJson(System.String)">
-            <summary>导入</summary>
-            <param name="json"></param>
-            <returns></returns>
         </member>
         <member name="M:XCode.IEntityOperate.BeginTransaction">
             <summary>开始事务</summary>

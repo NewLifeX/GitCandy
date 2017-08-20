@@ -13,7 +13,7 @@ namespace GitCandy.Git
     {
         private readonly Commit commit;
         private readonly String path;
-        private readonly bool pathExist;
+        private readonly Boolean pathExist;
 
         public ScopeAccessor(String repoId, Repository repo, Commit commit, String path = "")
             : base(repoId, repo)

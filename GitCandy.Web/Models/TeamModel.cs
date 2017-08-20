@@ -42,14 +42,14 @@ namespace GitCandy.Models
         public class UserRole
         {
             public String Name { get; set; }
-            public bool IsAdministrator { get; set; }
+            public Boolean IsAdministrator { get; set; }
         }
 
         public class RepositoryRole
         {
             public String Name { get; set; }
-            public bool AllowRead { get; set; }
-            public bool AllowWrite { get; set; }
+            public Boolean AllowRead { get; set; }
+            public Boolean AllowWrite { get; set; }
         }
     }
 }

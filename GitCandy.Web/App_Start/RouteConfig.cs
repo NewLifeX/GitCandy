@@ -125,7 +125,7 @@ namespace GitCandy
     {
         public Boolean? IsTeam { get; set; }
 
-        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        public Boolean Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;
@@ -142,10 +142,12 @@ namespace GitCandy
         {
             if (_cache == null)
             {
-                _cache = new DictionaryCache<String, Boolean?>(StringComparer.OrdinalIgnoreCase);
-                _cache.Asynchronous = true;
-                _cache.CacheDefault = true;
-                _cache.Expire = 10 * 60;        // 10分钟过期
+                _cache = new DictionaryCache<String, Boolean?>(StringComparer.OrdinalIgnoreCase)
+                {
+                    Asynchronous = true,
+                    CacheDefault = true,
+                    Expire = 10 * 60        // 10分钟过期
+                };
                 //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项
             }
 
@@ -155,12 +157,12 @@ namespace GitCandy
 
     class GitUrlConstraint : IRouteConstraint
     {
-        private static HashSet<String> _cache = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        private static HashSet<String> _cache = new HashSet<String>(StringComparer.OrdinalIgnoreCase)
         {
             "info/refs","git-upload-pack","git-receive-pack"
         };
 
-        public bool Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        public Boolean Match(HttpContextBase httpContext, Route route, String parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var name = values[parameterName] + "";
             if (name.IsNullOrEmpty()) return false;

@@ -11,9 +11,9 @@ namespace GitCandy.Git
     {
         private readonly Commit commit;
         private readonly String path;
-        private readonly int page, pageSize;
+        private readonly Int32 page, pageSize;
 
-        public CommitsAccessor(String repoId, Repository repo, Commit commit, String path, int page, int pageSize)
+        public CommitsAccessor(String repoId, Repository repo, Commit commit, String path, Int32 page, Int32 pageSize)
             : base(repoId, repo)
         {
             Contract.Requires(commit != null);
@@ -27,7 +27,7 @@ namespace GitCandy.Git
             this.pageSize = pageSize;
         }
 
-        public override bool IsAsync { get { return false; } }
+        public override Boolean IsAsync { get { return false; } }
 
         protected override String GetCacheKey()
         {

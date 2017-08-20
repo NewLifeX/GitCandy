@@ -10,16 +10,16 @@ namespace GitCandy.Models
         public class UserRole
         {
             public String Name { get; set; }
-            public bool AllowRead { get; set; }
-            public bool AllowWrite { get; set; }
-            public bool IsOwner { get; set; }
+            public Boolean AllowRead { get; set; }
+            public Boolean AllowWrite { get; set; }
+            public Boolean IsOwner { get; set; }
         }
 
         public class TeamRole
         {
             public String Name { get; set; }
-            public bool AllowRead { get; set; }
-            public bool AllowWrite { get; set; }
+            public Boolean AllowRead { get; set; }
+            public Boolean AllowWrite { get; set; }
         }
     }
 }

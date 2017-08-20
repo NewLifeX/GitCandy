@@ -47,7 +47,7 @@ namespace GitCandy.Models
 
         [Display(ResourceType = typeof(SR), Name = "Account_IsSystemAdministrator")]
         [UIHint("YesNo")]
-        public bool IsAdmin { get; set; }
+        public Boolean IsAdmin { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Teams")]
         [UIHint("Maps")]

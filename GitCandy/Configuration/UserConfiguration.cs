@@ -13,15 +13,15 @@ namespace GitCandy.Configuration
         #region 属性
         /// <summary>开放服务</summary>
         [DisplayName("开放服务")]
-        public bool IsPublicServer { get; set; } = true;
+        public Boolean IsPublicServer { get; set; } = true;
 
         /// <summary>强制SSL</summary>
         [DisplayName("强制SSL")]
-        public bool ForceSsl { get; set; }
+        public Boolean ForceSsl { get; set; }
 
         /// <summary>SSL端口</summary>
         [DisplayName("SSL端口")]
-        public int SslPort { get; set; } = 443;
+        public Int32 SslPort { get; set; } = 443;
 
         ///// <summary>开启SSH</summary>
         //[DisplayName("开启SSH")]
@@ -33,15 +33,15 @@ namespace GitCandy.Configuration
 
         /// <summary>跳过本地错误</summary>
         [DisplayName("跳过本地错误")]
-        public bool LocalSkipCustomError { get; set; }
+        public Boolean LocalSkipCustomError { get; set; }
 
         /// <summary>允许注册</summary>
         [DisplayName("允许注册")]
-        public bool AllowRegisterUser { get; set; } = true;
+        public Boolean AllowRegisterUser { get; set; } = true;
 
         /// <summary>允许创建代码库</summary>
         [DisplayName("允许创建代码库")]
-        public bool AllowRepositoryCreation { get; set; } = true;
+        public Boolean AllowRepositoryCreation { get; set; } = true;
 
         /// <summary>代码库存储路径</summary>
         [DisplayName("代码库存储路径")]
@@ -57,15 +57,15 @@ namespace GitCandy.Configuration
 
         /// <summary>每页提交数</summary>
         [DisplayName("每页提交数")]
-        public int Commits { get; set; } = 30;
+        public Int32 Commits { get; set; } = 30;
 
         /// <summary>分页大小</summary>
         [DisplayName("分页大小")]
-        public int PageSize { get; set; } = 30;
+        public Int32 PageSize { get; set; } = 30;
 
         /// <summary>显示参与者数</summary>
         [DisplayName("显示参与者数")]
-        public int Contributors { get; set; } = 50;
+        public Int32 Contributors { get; set; } = 50;
 
         //public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
         #endregion

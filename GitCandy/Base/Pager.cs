@@ -10,14 +10,14 @@ using System.Collections;
 
 namespace GitCandy.Base
 {
-    public sealed class Pager : IEnumerable<int>
+    public sealed class Pager : IEnumerable<Int32>
     {
-        private int _numberOfPages;
-        private int _skipPages;
-        private int _takePages;
-        private int _currentPageIndex;
-        private int _numberOfItems;
-        private int _itemsPerPage;
+        private Int32 _numberOfPages;
+        private Int32 _skipPages;
+        private Int32 _takePages;
+        private Int32 _currentPageIndex;
+        private Int32 _numberOfItems;
+        private Int32 _itemsPerPage;
 
         private Pager()
         {
@@ -36,7 +36,7 @@ namespace GitCandy.Base
         /// <summary>
         /// Creates a pager for the given number of items.
         /// </summary>
-        public static Pager Items(int numberOfItems)
+        public static Pager Items(Int32 numberOfItems)
         {
             return new Pager
             {
@@ -52,9 +52,9 @@ namespace GitCandy.Base
         /// <summary>
         /// Specifies the number of items per page.
         /// </summary>
-        public Pager PerPage(int itemsPerPage)
+        public Pager PerPage(Int32 itemsPerPage)
         {
-            int numberOfPages = (_numberOfItems + itemsPerPage - 1) / itemsPerPage;
+            var numberOfPages = (_numberOfItems + itemsPerPage - 1) / itemsPerPage;
 
             return new Pager(this)
             {
@@ -68,7 +68,7 @@ namespace GitCandy.Base
         /// <summary>
         /// Moves the pager to the given page index
         /// </summary>
-        public Pager Move(int pageIndex)
+        public Pager Move(Int32 pageIndex)
         {
             return new Pager(this)
             {
@@ -79,9 +79,9 @@ namespace GitCandy.Base
         /// <summary>
         /// Segments the pager so that it will display a maximum number of pages.
         /// </summary>
-        public Pager Segment(int maximum)
+        public Pager Segment(Int32 maximum)
         {
-            int count = Math.Min(_numberOfPages, maximum);
+            var count = Math.Min(_numberOfPages, maximum);
 
             return new Pager(this)
             {
@@ -96,7 +96,7 @@ namespace GitCandy.Base
         /// <returns></returns>
         public Pager Center()
         {
-            int radius = ((_takePages + 1) / 2);
+            var radius = ((_takePages + 1) / 2);
 
             return new Pager(this)
             {
@@ -104,7 +104,7 @@ namespace GitCandy.Base
             };
         }
 
-        public IEnumerator<int> GetEnumerator()
+        public IEnumerator<Int32> GetEnumerator()
         {
             return Enumerable.Range(_skipPages + 1, _takePages).GetEnumerator();
         }
@@ -114,32 +114,32 @@ namespace GitCandy.Base
             return GetEnumerator();
         }
 
-        public bool IsPaged { get { return _numberOfItems > _itemsPerPage; } }
+        public Boolean IsPaged { get { return _numberOfItems > _itemsPerPage; } }
 
-        public int NumberOfPages { get { return _numberOfPages; } }
+        public Int32 NumberOfPages { get { return _numberOfPages; } }
 
-        public bool IsUnpaged { get { return _numberOfPages == 1; } }
+        public Boolean IsUnpaged { get { return _numberOfPages == 1; } }
 
-        public int CurrentPageIndex { get { return _currentPageIndex; } }
+        public Int32 CurrentPageIndex { get { return _currentPageIndex; } }
 
-        public int NextPageIndex { get { return _currentPageIndex + 1; } }
+        public Int32 NextPageIndex { get { return _currentPageIndex + 1; } }
 
-        public int LastPageIndex { get { return _numberOfPages; } }
+        public Int32 LastPageIndex { get { return _numberOfPages; } }
 
-        public int FirstPageIndex { get { return 1; } }
+        public Int32 FirstPageIndex { get { return 1; } }
 
-        public bool HasNextPage { get { return _currentPageIndex < _numberOfPages && _numberOfPages > 1; } }
+        public Boolean HasNextPage { get { return _currentPageIndex < _numberOfPages && _numberOfPages > 1; } }
 
-        public bool HasPreviousPage { get { return _currentPageIndex > 1 && _numberOfPages > 1; } }
+        public Boolean HasPreviousPage { get { return _currentPageIndex > 1 && _numberOfPages > 1; } }
 
-        public int PreviousPageIndex { get { return _currentPageIndex - 1; } }
+        public Int32 PreviousPageIndex { get { return _currentPageIndex - 1; } }
 
-        public bool IsSegmented { get { return _skipPages > 0 || _skipPages + 1 + _takePages < _numberOfPages; } }
+        public Boolean IsSegmented { get { return _skipPages > 0 || _skipPages + 1 + _takePages < _numberOfPages; } }
 
-        public bool IsEmpty { get { return _numberOfPages < 1; } }
+        public Boolean IsEmpty { get { return _numberOfPages < 1; } }
 
-        public bool IsFirstSegment { get { return _skipPages == 0; } }
+        public Boolean IsFirstSegment { get { return _skipPages == 0; } }
 
-        public bool IsLastSegment { get { return _skipPages + 1 + _takePages >= _numberOfPages; } }
+        public Boolean IsLastSegment { get { return _skipPages + 1 + _takePages >= _numberOfPages; } }
     }
 }

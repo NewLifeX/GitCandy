@@ -5,9 +5,9 @@ namespace GitCandy.Models
     [Serializable]
     public class RepositoryScope
     {
-        public int Commits { get; set; }
-        public int Branches { get; set; }
-        public int Tags { get; set; }
-        public int Contributors { get; set; }
+        public Int32 Commits { get; set; }
+        public Int32 Branches { get; set; }
+        public Int32 Tags { get; set; }
+        public Int32 Contributors { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace GitCandy.Data
     public class MembershipService
     {
         #region Account part
-        public UserModel GetUserModel(String name, bool withMembers = false, String viewUser = null)
+        public UserModel GetUserModel(String name, Boolean withMembers = false, String viewUser = null)
         {
             var user = User.FindByName(name);
             if (user == null) return null;
@@ -64,7 +64,7 @@ namespace GitCandy.Data
             }
         }
 
-        public bool UpdateUser(UserModel model)
+        public Boolean UpdateUser(UserModel model)
         {
             var user = User.FindByName(model.Name);
             if (user != null)
@@ -80,7 +80,7 @@ namespace GitCandy.Data
             return false;
         }
 
-        public AuthorizationLog CreateAuthorization(long userID, DateTime expires, String ip)
+        public AuthorizationLog CreateAuthorization(Int64 userID, DateTime expires, String ip)
         {
             var auth = new AuthorizationLog
             {
@@ -136,11 +136,13 @@ namespace GitCandy.Data
             if (user != null) user.Delete();
         }
 
-        public UserListModel GetUserList(String keyword, int page, int pagesize = 20)
+        public UserListModel GetUserList(String keyword, Int32 page, Int32 pagesize = 20)
         {
-            var p = new PageParameter();
-            p.PageIndex = page;
-            p.PageSize = pagesize;
+            var p = new PageParameter
+            {
+                PageIndex = page,
+                PageSize = pagesize
+            };
             var list = User.SearchByName(keyword, p);
 
             return new UserListModel
@@ -213,7 +215,7 @@ namespace GitCandy.Data
         #endregion
 
         #region Team part
-        public bool UpdateTeam(TeamModel model)
+        public Boolean UpdateTeam(TeamModel model)
         {
             var team = User.FindByName(model.Name);
             if (team == null) return false;
@@ -225,7 +227,7 @@ namespace GitCandy.Data
             return true;
         }
 
-        public TeamModel GetTeamModel(String name, bool withMembers = false, String viewUser = null)
+        public TeamModel GetTeamModel(String name, Boolean withMembers = false, String viewUser = null)
         {
             var team = User.FindByName(name);
             if (team == null) return null;
@@ -270,7 +272,7 @@ namespace GitCandy.Data
             return model;
         }
 
-        public bool TeamAddUser(String teamname, String username)
+        public Boolean TeamAddUser(String teamname, String username)
         {
             var team = User.FindByName(teamname);
             if (team == null) return false;
@@ -281,16 +283,18 @@ namespace GitCandy.Data
             var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
             if (tu == null)
             {
-                tu = new UserTeam();
-                tu.UserID = user.ID;
-                tu.TeamID = team.ID;
+                tu = new UserTeam
+                {
+                    UserID = user.ID,
+                    TeamID = team.ID
+                };
                 tu.Save();
             }
 
             return true;
         }
 
-        public bool TeamRemoveUser(String teamname, String username)
+        public Boolean TeamRemoveUser(String teamname, String username)
         {
             var team = User.FindByName(teamname);
             if (team == null) return false;
@@ -306,7 +310,7 @@ namespace GitCandy.Data
             return true;
         }
 
-        public bool TeamUserSetAdministrator(String teamname, String username, bool isAdmin)
+        public Boolean TeamUserSetAdministrator(String teamname, String username, Boolean isAdmin)
         {
             var team = User.FindByName(teamname);
             if (team == null) return false;
@@ -330,7 +334,7 @@ namespace GitCandy.Data
             return list.ToList().Select(e => e.Name).ToArray();
         }
 
-        public bool InTeam(String teamname, String username)
+        public Boolean InTeam(String teamname, String username)
         {
             var team = User.FindByName(teamname);
             if (team == null) return false;
@@ -352,11 +356,13 @@ namespace GitCandy.Data
             return true;
         }
 
-        public TeamListModel GetTeamList(String keyword, int page, int pagesize = 20)
+        public TeamListModel GetTeamList(String keyword, Int32 page, Int32 pagesize = 20)
         {
-            var p = new PageParameter();
-            p.PageIndex = page;
-            p.PageSize = pagesize;
+            var p = new PageParameter
+            {
+                PageIndex = page,
+                PageSize = pagesize
+            };
             var list = User.SearchTeam(keyword, p);
 
             var model = new TeamListModel

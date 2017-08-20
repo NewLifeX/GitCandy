@@ -6,7 +6,7 @@ namespace GitCandy.Base
 {
     public class RawResult : ActionResult
     {
-        public RawResult(byte[] contents, String contentType = "text/plain", String fileDownloadName = null)
+        public RawResult(Byte[] contents, String contentType = "text/plain", String fileDownloadName = null)
         {
             if (contents == null)
                 throw new ArgumentNullException("contents");
@@ -16,7 +16,7 @@ namespace GitCandy.Base
             FileDownloadName = fileDownloadName;
         }
 
-        public byte[] Contents { get; private set; }
+        public Byte[] Contents { get; private set; }
         public String ContentType { get; private set; }
         public String FileDownloadName { get; private set; }
 

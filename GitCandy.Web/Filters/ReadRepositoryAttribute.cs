@@ -6,9 +6,9 @@ namespace GitCandy.Filters
     /// <summary>读写代码库</summary>
     public class ReadRepositoryAttribute : SmartAuthorizeAttribute
     {
-        private bool requireWrite;
+        private System.Boolean requireWrite;
 
-        public ReadRepositoryAttribute(bool requireWrite = false)
+        public ReadRepositoryAttribute(System.Boolean requireWrite = false)
         {
             this.requireWrite = requireWrite;
         }

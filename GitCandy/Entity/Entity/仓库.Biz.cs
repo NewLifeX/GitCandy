@@ -71,7 +71,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.ID, id);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.ID, id);
+                return Meta.Cache.Entities.FirstOrDefault(e => e.ID == id);
         }
 
         /// <summary>根据名称。登录用户名查找</summary>
@@ -107,7 +107,7 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return FindAll(__.OwnerID, userid);
             else
-                return Meta.Cache.Entities.FindAll(e => e.OwnerID == userid);
+                return Meta.Cache.Entities.Where(e => e.OwnerID == userid).ToList();
         }
         #endregion
 

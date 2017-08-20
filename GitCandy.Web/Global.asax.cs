@@ -32,7 +32,7 @@ namespace GitCandy
                 var culture = Session["Culture"] as CultureInfo;
                 if (culture == null)
                 {
-                    String langName = "en-us";
+                    var langName = "en-us";
 
                     if (Request.Cookies["Lang"] != null)
                     {

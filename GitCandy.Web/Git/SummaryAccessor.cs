@@ -57,7 +57,7 @@ namespace GitCandy.Git
                 // null, continue search current reference
                 // true, have found, done
                 // false, search has been interrupted, but waiting for next match
-                var status = new bool?[result.Length];
+                var status = new Boolean?[result.Length];
                 var done = result.Length;
                 Commit lastCommit = null;
                 foreach (var ancestor in ancestors)

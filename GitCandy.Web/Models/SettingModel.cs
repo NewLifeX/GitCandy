@@ -7,30 +7,30 @@ namespace GitCandy.Models
     public class SettingModel
     {
         [Display(ResourceType = typeof(SR), Name = "Setting_IsPublicServer")]
-        public bool IsPublicServer { get; set; }
+        public Boolean IsPublicServer { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_ForceSsl")]
-        public bool ForceSsl { get; set; }
+        public Boolean ForceSsl { get; set; }
 
         [Range(1, 65534, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_SslPort")]
-        public int SslPort { get; set; }
+        public Int32 SslPort { get; set; }
 
         [Range(1, 65534, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_SshPort")]
-        public int SshPort { get; set; }
+        public Int32 SshPort { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_EnableSsh")]
-        public bool EnableSsh { get; set; }
+        public Boolean EnableSsh { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_LocalSkipCustomError")]
-        public bool LocalSkipCustomError { get; set; }
+        public Boolean LocalSkipCustomError { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_AllowRegisterUser")]
-        public bool AllowRegisterUser { get; set; }
+        public Boolean AllowRegisterUser { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_AllowRepositoryCreation")]
-        public bool AllowRepositoryCreation { get; set; }
+        public Boolean AllowRepositoryCreation { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Setting_RepositoryPath")]
         public String RepositoryPath { get; set; }
@@ -43,14 +43,14 @@ namespace GitCandy.Models
 
         [Range(5, 50, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_NumberOfCommitsPerPage")]
-        public int NumberOfCommitsPerPage { get; set; }
+        public Int32 NumberOfCommitsPerPage { get; set; }
 
         [Range(5, 50, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_NumberOfItemsPerList")]
-        public int NumberOfItemsPerList { get; set; }
+        public Int32 NumberOfItemsPerList { get; set; }
 
         [Range(10, 100, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_NumberRange")]
         [Display(ResourceType = typeof(SR), Name = "Setting_NumberOfRepositoryContributors")]
-        public int NumberOfRepositoryContributors { get; set; }
+        public Int32 NumberOfRepositoryContributors { get; set; }
     }
 }
