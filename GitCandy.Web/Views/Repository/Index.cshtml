@@ -4,42 +4,46 @@
     //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
     ViewBag.Title = "";
 }
-
-<h4>@SR.Repository_ListTitle</h4>
-
 <div class="row">
-    @if (Model.CanCreateRepository)
-    {
-        <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" })</div>
-    }
-</div>
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <table class="table border-area">
-            <thead>@SR.Repository_Collaborations</thead>
             @foreach (var repo in Model.Collaborations)
             {
                 <tr>
                     <td>
-                        <div>@Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name }))</div>
+                        <div><h3><a href="~/@repo.Owner/@repo.Name">@repo.Owner/@repo.Name</a></h3></div>
                         <div>@repo.Description</div>
-                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
+                        <div style="margin-top: 10px;">
+                            <div class="col-md-6">
+                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views</span>
+                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits</span>
+                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors</span>
+                            </div>
+                            <div class="col-md-6 text-right">@repo.LastCommit.ToFullString()</div>
+                        </div>
                     </td>
                 </tr>
             }
         </table>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <table class="table border-area">
             <thead>@SR.Repository_PopularRepositories</thead>
             @foreach (var repo in Model.Repositories)
             {
                 <tr>
                     <td>
-                        <div>@Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name }))</div>
+                        <div><a href="~/@repo.Owner/@repo.Name">@repo.Owner/@repo.Name</a></div>
                         <div>@repo.Description</div>
-                        <div>@repo.Commits 提交，@repo.Branches 分支，@repo.Contributors 参与，@repo.Views 浏览，@repo.LastCommit.ToFullString() 最后提交</div>
+                        <div>
+                            <div class="col-md-6">
+                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views</span>
+                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits</span>
+                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors</span>
+                            </div>
+                            <div class="col-md-6 text-right">@repo.LastCommit.ToFullString()</div>
+                        </div>
                     </td>
                 </tr>
             }

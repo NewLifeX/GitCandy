@@ -59,161 +59,167 @@ namespace ASP
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h4>");
-
-            
-            #line 8 "..\..\Views\Repository\Index.cshtml"
-Write(SR.Repository_ListTitle);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</h4>\r\n\r\n<div");
-
-WriteLiteral(" class=\"row\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 11 "..\..\Views\Repository\Index.cshtml"
-    
-            
-            #line default
-            #line hidden
-            
-            #line 11 "..\..\Views\Repository\Index.cshtml"
-     if (Model.CanCreateRepository)
-    {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("        <div");
-
-WriteLiteral(" class=\"pull-right\"");
-
-WriteLiteral(">");
-
-            
-            #line 13 "..\..\Views\Repository\Index.cshtml"
-                           Write(Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</div>\r\n");
-
-            
-            #line 14 "..\..\Views\Repository\Index.cshtml"
-    }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</div>\r\n<div");
+WriteLiteral("\r\n<div");
 
 WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n    <div");
 
-WriteLiteral(" class=\"col-md-6\"");
+WriteLiteral(" class=\"col-md-8\"");
 
 WriteLiteral(">\r\n        <table");
 
 WriteLiteral(" class=\"table border-area\"");
 
-WriteLiteral(">\r\n            <thead>");
+WriteLiteral(">\r\n");
 
             
-            #line 19 "..\..\Views\Repository\Index.cshtml"
-              Write(SR.Repository_Collaborations);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</thead>\r\n");
-
-            
-            #line 20 "..\..\Views\Repository\Index.cshtml"
+            #line 10 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Repository\Index.cshtml"
+            #line 10 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Collaborations)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div>");
+WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div><h3>" +
+"<a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 409), Tuple.Create("\"", 440)
+, Tuple.Create(Tuple.Create("", 416), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 416), false)
+            
+            #line 14 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 418), Tuple.Create<System.Object, System.Int32>(repo.Owner
+            
+            #line default
+            #line hidden
+, 418), false)
+, Tuple.Create(Tuple.Create("", 429), Tuple.Create("/", 429), true)
+            
+            #line 14 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 430), Tuple.Create<System.Object, System.Int32>(repo.Name
+            
+            #line default
+            #line hidden
+, 430), false)
+);
+
+WriteLiteral(">");
 
             
-            #line 24 "..\..\Views\Repository\Index.cshtml"
-                        Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
+            #line 14 "..\..\Views\Repository\Index.cshtml"
+                                                               Write(repo.Owner);
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                        <div>");
+WriteLiteral("/");
 
             
-            #line 25 "..\..\Views\Repository\Index.cshtml"
+            #line 14 "..\..\Views\Repository\Index.cshtml"
+                                                                           Write(repo.Name);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</a></h3></div>\r\n                        <div>");
+
+            
+            #line 15 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                        <div>");
+WriteLiteral("</div>\r\n                        <div");
+
+WriteLiteral(" style=\"margin-top: 10px;\"");
+
+WriteLiteral(">\r\n                            <div");
+
+WriteLiteral(" class=\"col-md-6\"");
+
+WriteLiteral(">\r\n                                <span");
+
+WriteLiteral(" title=\"浏览\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-heart\"");
+
+WriteLiteral(" style=\"color: deeppink;\"");
+
+WriteLiteral("></i> ");
 
             
-            #line 26 "..\..\Views\Repository\Index.cshtml"
-                        Write(repo.Commits);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" 提交，");
-
-            
-            #line 26 "..\..\Views\Repository\Index.cshtml"
-                                         Write(repo.Branches);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" 分支，");
-
-            
-            #line 26 "..\..\Views\Repository\Index.cshtml"
-                                                           Write(repo.Contributors);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" 参与，");
-
-            
-            #line 26 "..\..\Views\Repository\Index.cshtml"
-                                                                                 Write(repo.Views);
+            #line 18 "..\..\Views\Repository\Index.cshtml"
+                                                                                                               Write(repo.Views);
 
             
             #line default
             #line hidden
-WriteLiteral(" 浏览，");
+WriteLiteral("</span>\r\n                                <span");
+
+WriteLiteral(" title=\"提交\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-star\"");
+
+WriteLiteral(" style=\"color: mediumpurple;\"");
+
+WriteLiteral("></i> ");
 
             
-            #line 26 "..\..\Views\Repository\Index.cshtml"
-                                                                                                Write(repo.LastCommit.ToFullString());
+            #line 19 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                  Write(repo.Commits);
 
             
             #line default
             #line hidden
-WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
+WriteLiteral("</span>\r\n                                <span");
+
+WriteLiteral(" title=\"参与\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-user\"");
+
+WriteLiteral(" style=\"color: forestgreen;\"");
+
+WriteLiteral("></i> ");
 
             
-            #line 29 "..\..\Views\Repository\Index.cshtml"
+            #line 20 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                 Write(repo.Contributors);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</span>\r\n                            </div>\r\n                            <div");
+
+WriteLiteral(" class=\"col-md-6 text-right\"");
+
+WriteLiteral(">");
+
+            
+            #line 22 "..\..\Views\Repository\Index.cshtml"
+                                                        Write(repo.LastCommit.ToFullString());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</div>\r\n                        </div>\r\n                    </td>\r\n              " +
+"  </tr>\r\n");
+
+            
+            #line 26 "..\..\Views\Repository\Index.cshtml"
             }
 
             
@@ -221,7 +227,7 @@ WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n              
             #line hidden
 WriteLiteral("        </table>\r\n    </div>\r\n\r\n    <div");
 
-WriteLiteral(" class=\"col-md-6\"");
+WriteLiteral(" class=\"col-md-4\"");
 
 WriteLiteral(">\r\n        <table");
 
@@ -230,7 +236,7 @@ WriteLiteral(" class=\"table border-area\"");
 WriteLiteral(">\r\n            <thead>");
 
             
-            #line 35 "..\..\Views\Repository\Index.cshtml"
+            #line 32 "..\..\Views\Repository\Index.cshtml"
               Write(SR.Repository_PopularRepositories);
 
             
@@ -239,86 +245,147 @@ WriteLiteral(">\r\n            <thead>");
 WriteLiteral("</thead>\r\n");
 
             
-            #line 36 "..\..\Views\Repository\Index.cshtml"
+            #line 33 "..\..\Views\Repository\Index.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 36 "..\..\Views\Repository\Index.cshtml"
+            #line 33 "..\..\Views\Repository\Index.cshtml"
              foreach (var repo in Model.Repositories)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div>");
+WriteLiteral("                <tr>\r\n                    <td>\r\n                        <div><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1614), Tuple.Create("\"", 1645)
+, Tuple.Create(Tuple.Create("", 1621), Tuple.Create<System.Object, System.Int32>(Href("~/")
+, 1621), false)
+            
+            #line 37 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 1623), Tuple.Create<System.Object, System.Int32>(repo.Owner
+            
+            #line default
+            #line hidden
+, 1623), false)
+, Tuple.Create(Tuple.Create("", 1634), Tuple.Create("/", 1634), true)
+            
+            #line 37 "..\..\Views\Repository\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 1635), Tuple.Create<System.Object, System.Int32>(repo.Name
+            
+            #line default
+            #line hidden
+, 1635), false)
+);
+
+WriteLiteral(">");
 
             
-            #line 40 "..\..\Views\Repository\Index.cshtml"
-                        Write(Html.ActionLink("{0}/{1}".F(repo.Owner, repo.Name), "Tree", Html.OverRoute(new { repo.Owner, repo.Name })));
+            #line 37 "..\..\Views\Repository\Index.cshtml"
+                                                           Write(repo.Owner);
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                        <div>");
+WriteLiteral("/");
 
             
-            #line 41 "..\..\Views\Repository\Index.cshtml"
+            #line 37 "..\..\Views\Repository\Index.cshtml"
+                                                                       Write(repo.Name);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</a></div>\r\n                        <div>");
+
+            
+            #line 38 "..\..\Views\Repository\Index.cshtml"
                         Write(repo.Description);
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n                        <div>");
+WriteLiteral("</div>\r\n                        <div>\r\n                            <div");
+
+WriteLiteral(" class=\"col-md-6\"");
+
+WriteLiteral(">\r\n                                <span");
+
+WriteLiteral(" title=\"浏览\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-heart\"");
+
+WriteLiteral(" style=\"color: deeppink;\"");
+
+WriteLiteral("></i> ");
 
             
-            #line 42 "..\..\Views\Repository\Index.cshtml"
-                        Write(repo.Commits);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" 提交，");
-
-            
-            #line 42 "..\..\Views\Repository\Index.cshtml"
-                                         Write(repo.Branches);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" 分支，");
-
-            
-            #line 42 "..\..\Views\Repository\Index.cshtml"
-                                                           Write(repo.Contributors);
+            #line 41 "..\..\Views\Repository\Index.cshtml"
+                                                                                                               Write(repo.Views);
 
             
             #line default
             #line hidden
-WriteLiteral(" 参与，");
+WriteLiteral("</span>\r\n                                <span");
+
+WriteLiteral(" title=\"提交\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-star\"");
+
+WriteLiteral(" style=\"color: mediumpurple;\"");
+
+WriteLiteral("></i> ");
 
             
             #line 42 "..\..\Views\Repository\Index.cshtml"
-                                                                                 Write(repo.Views);
+                                                                                                                  Write(repo.Commits);
 
             
             #line default
             #line hidden
-WriteLiteral(" 浏览，");
+WriteLiteral("</span>\r\n                                <span");
+
+WriteLiteral(" title=\"参与\"");
+
+WriteLiteral("><i");
+
+WriteLiteral(" class=\"glyphicon glyphicon-user\"");
+
+WriteLiteral(" style=\"color: forestgreen;\"");
+
+WriteLiteral("></i> ");
 
             
-            #line 42 "..\..\Views\Repository\Index.cshtml"
-                                                                                                Write(repo.LastCommit.ToFullString());
+            #line 43 "..\..\Views\Repository\Index.cshtml"
+                                                                                                                 Write(repo.Contributors);
 
             
             #line default
             #line hidden
-WriteLiteral(" 最后提交</div>\r\n                    </td>\r\n                </tr>\r\n");
+WriteLiteral("</span>\r\n                            </div>\r\n                            <div");
+
+WriteLiteral(" class=\"col-md-6 text-right\"");
+
+WriteLiteral(">");
 
             
             #line 45 "..\..\Views\Repository\Index.cshtml"
+                                                        Write(repo.LastCommit.ToFullString());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</div>\r\n                        </div>\r\n                    </td>\r\n              " +
+"  </tr>\r\n");
+
+            
+            #line 49 "..\..\Views\Repository\Index.cshtml"
             }
 
             
