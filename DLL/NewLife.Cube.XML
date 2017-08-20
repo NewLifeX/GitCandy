@@ -563,7 +563,7 @@
             <param name="autoPostback">自动回发</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList,System.String,System.Boolean)">
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IList{XCode.IEntity},System.String,System.Boolean)">
             <summary>实体列表的下拉列表。单选，自动匹配当前模型的选中项</summary>
             <param name="Html"></param>
             <param name="name"></param>
@@ -581,7 +581,7 @@
             <param name="autoPostback">自动回发</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Cube.HtmlExtensions.ForListBox(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList,System.Boolean)">
+        <member name="M:NewLife.Cube.HtmlExtensions.ForListBox(System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IList{XCode.IEntity},System.Boolean)">
             <summary>实体列表的下拉列表。多选，自动匹配当前模型的选中项，支持数组类型或字符串类型（自动分割）的选中项</summary>
             <param name="Html"></param>
             <param name="name"></param>

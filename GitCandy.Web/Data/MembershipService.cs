@@ -5,6 +5,7 @@ using GitCandy.Models;
 using GitCandy.Security;
 using NewLife.Data;
 using NewLife.GitCandy.Entity;
+using XCode;
 
 namespace GitCandy.Data
 {

@@ -100,9 +100,9 @@ namespace NewLife.GitCandy.Entity
             return FindByOwnerIDAndName(user.ID, name);
         }
 
-        public static EntityList<Repository> FindAllByOwnerID(Int32 userid)
+        public static IList<Repository> FindAllByOwnerID(Int32 userid)
         {
-            if (userid <= 0) return new EntityList<Repository>();
+            if (userid <= 0) return new List<Repository>();
 
             if (Meta.Count >= 1000)
                 return FindAll(__.OwnerID, userid);
@@ -121,7 +121,7 @@ namespace NewLife.GitCandy.Entity
         /// <param name="key">关键字</param>
         /// <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
         /// <returns>实体集</returns>
-        public static EntityList<Repository> Search(Int32 userid, DateTime start, DateTime end, String key, PageParameter param)
+        public static IList<Repository> Search(Int32 userid, DateTime start, DateTime end, String key, PageParameter param)
         {
             // WhereExpression重载&和|运算符，作为And和Or的替代
             // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段
@@ -135,14 +135,14 @@ namespace NewLife.GitCandy.Entity
             return FindAll(exp, param);
         }
 
-        public static EntityList<Repository> GetPublics(PageParameter param = null)
+        public static IList<Repository> GetPublics(PageParameter param = null)
         {
             if (param == null) param = new PageParameter { PageSize = 20 };
 
             return FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
         }
 
-        public static EntityList<Repository> Search(Boolean showAll, IEnumerable<Int32> excludes = null, PageParameter param = null)
+        public static IList<Repository> Search(Boolean showAll, IEnumerable<Int32> excludes = null, PageParameter param = null)
         {
             if (param == null) param = new PageParameter { PageSize = 20 };
 

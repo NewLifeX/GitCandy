@@ -52,9 +52,9 @@ namespace NewLife.GitCandy.Entity
 
         protected override Int32 OnDelete()
         {
-            (Teams as IEntityList)?.Delete(true);
+            Teams?.Delete(true);
             UserTeam.FindAllByTeamID(ID).Delete(true);
-            (Repositories as IEntityList)?.Delete(true);
+            Repositories?.Delete(true);
             Repository.FindAllByOwnerID(ID).Delete();
             AuthorizationLog.FindAllByUserID(ID).Delete();
 
@@ -63,9 +63,9 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展属性
-        private List<UserTeam> _Teams;
+        private IList<UserTeam> _Teams;
         /// <summary>团队关系</summary>
-        public List<UserTeam> Teams
+        public IList<UserTeam> Teams
         {
             get
             {
@@ -82,9 +82,9 @@ namespace NewLife.GitCandy.Entity
 
         public String[] TeamNames { get { return Teams?.Select(e => e.Team?.Name).OrderBy(e => e).ToArray(); } }
 
-        private List<UserRepository> _Repositories;
+        private IList<UserRepository> _Repositories;
         /// <summary>仓库关系</summary>
-        public List<UserRepository> Repositories
+        public IList<UserRepository> Repositories
         {
             get
             {
@@ -166,12 +166,12 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 高级查询
-        public static EntityList<User> SearchByName(String name, PageParameter param)
+        public static IList<User> SearchByName(String name, PageParameter param)
         {
             return FindAll(_.IsTeam.IsTrue(false) & _.Name.Contains(name), param);
         }
 
-        public static EntityList<User> SearchTeam(String name, PageParameter param)
+        public static IList<User> SearchTeam(String name, PageParameter param)
         {
             return FindAll(_.IsTeam == true & _.Name.Contains(name), param);
         }
@@ -180,7 +180,7 @@ namespace NewLife.GitCandy.Entity
         /// <param name="key"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static EntityList<User> SearchUser(String key, PageParameter param)
+        public static IList<User> SearchUser(String key, PageParameter param)
         {
             return FindAll(_.IsTeam.IsTrue(false) & (_.Name.Contains(key) | _.Email.Contains(key)), param);
         }
