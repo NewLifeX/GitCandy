@@ -42,6 +42,7 @@ namespace GitCandy.Models
         public class UserRole
         {
             public String Name { get; set; }
+            public String NickName { get; set; }
             public Boolean IsAdministrator { get; set; }
         }
 

@@ -245,6 +245,7 @@ namespace GitCandy.Data
                     .Select(s => new TeamModel.UserRole
                     {
                         Name = s.User.Name,
+                        NickName = s.User.NickName,
                         IsAdministrator = s.IsAdmin
                     })
                     .OrderBy(s => s.Name, new StringLogicalComparer())
