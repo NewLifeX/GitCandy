@@ -58,6 +58,7 @@ namespace GitCandy.Git.Cache
         }
 
         private static TimerX _timer;
+        private static TimerX _timer2;
         public static void Initialize()
         {
             enabled = false;
@@ -100,6 +101,17 @@ namespace GitCandy.Git.Cache
                     Directory.Delete(dir, true);
                 }
             }, null, 10000, 10 * 60 * 1000);
+
+            // 每天凌晨3点删除一次所有缓存目录
+            _timer2 = new TimerX(s =>
+            {
+                var dir = UserConfiguration.Current.CachePath.GetFullPath();
+                foreach (var item in dir.AsDirectory().GetDirectories())
+                {
+                    XTrace.WriteLine("Delete cache directory {0}", item.FullName);
+                    item.Delete(true);
+                }
+            }, null, DateTime.Now.Date.AddHours(3), 24 * 60 * 60 * 1000);
 
             enabled = true;
         }
