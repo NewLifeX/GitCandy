@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -61,13 +62,16 @@ WriteLiteral("\r\n");
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_ChooseUserTitle, Model.Name));
 
+    var ctrl = "Account";
+    if (HttpRuntime.AppDomainAppVirtualPath != "/") { ctrl = HttpRuntime.AppDomainAppVirtualPath.TrimStart("/") + "/" + ctrl; }
+
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n<h4>");
 
             
-            #line 8 "..\..\Views\Team\Users.cshtml"
+            #line 11 "..\..\Views\Team\Users.cshtml"
 Write(String.Format(SR.Team_ChooseUserTitle, Model.Name));
 
             
@@ -76,7 +80,7 @@ Write(String.Format(SR.Team_ChooseUserTitle, Model.Name));
 WriteLiteral("</h4>\r\n\r\n");
 
             
-            #line 10 "..\..\Views\Team\Users.cshtml"
+            #line 13 "..\..\Views\Team\Users.cshtml"
  if (Model != null)
 {
 
@@ -98,7 +102,7 @@ WriteLiteral(" id=\"chooser\"");
 WriteLiteral("></div>\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 17 "..\..\Views\Team\Users.cshtml"
+            #line 20 "..\..\Views\Team\Users.cshtml"
 
 
             
@@ -111,7 +115,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        var team = \"");
 
             
-            #line 19 "..\..\Views\Team\Users.cshtml"
+            #line 22 "..\..\Views\Team\Users.cshtml"
                Write(Model.Name);
 
             
@@ -121,17 +125,25 @@ WriteLiteral("\";\r\n        var chooser_params = [];\r\n        chooser_params.
 "\r\n                data: ");
 
             
-            #line 23 "..\..\Views\Team\Users.cshtml"
+            #line 26 "..\..\Views\Team\Users.cshtml"
                  Write(Html.Raw(Model.MembersRole.ToJson()));
 
             
             #line default
             #line hidden
-WriteLiteral(",\r\n                controller: \"Account\",\r\n                container: \"#chooser\"," +
-"\r\n                add_label: \"");
+WriteLiteral(",\r\n                controller: \"");
 
             
-            #line 26 "..\..\Views\Team\Users.cshtml"
+            #line 27 "..\..\Views\Team\Users.cshtml"
+                        Write(ctrl);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\",\r\n                container: \"#chooser\",\r\n                add_label: \"");
+
+            
+            #line 29 "..\..\Views\Team\Users.cshtml"
                        Write(SR.Shared_Add);
 
             
@@ -140,7 +152,7 @@ WriteLiteral(",\r\n                controller: \"Account\",\r\n                c
 WriteLiteral("\",\r\n                del_label: \"");
 
             
-            #line 27 "..\..\Views\Team\Users.cshtml"
+            #line 30 "..\..\Views\Team\Users.cshtml"
                        Write(SR.Shared_Remove);
 
             
@@ -149,7 +161,7 @@ WriteLiteral("\",\r\n                del_label: \"");
 WriteLiteral("\",\r\n                add_action: { url: \"");
 
             
-            #line 28 "..\..\Views\Team\Users.cshtml"
+            #line 31 "..\..\Views\Team\Users.cshtml"
                                Write(Url.Action("ChooseUser","Team"));
 
             
@@ -159,7 +171,7 @@ WriteLiteral("\", query: function (item) { return { name: team, user: item, act:
 "                del_action: { url: \"");
 
             
-            #line 29 "..\..\Views\Team\Users.cshtml"
+            #line 32 "..\..\Views\Team\Users.cshtml"
                                Write(Url.Action("ChooseUser","Team"));
 
             
@@ -170,7 +182,7 @@ WriteLiteral("\", query: function (item) { return { name: team, user: item, act:
 "key: \"IsAdministrator\",\r\n                        on_label: \"");
 
             
-            #line 33 "..\..\Views\Team\Users.cshtml"
+            #line 36 "..\..\Views\Team\Users.cshtml"
                               Write(SR.Team_ShortAdministrator);
 
             
@@ -179,7 +191,7 @@ WriteLiteral("\", query: function (item) { return { name: team, user: item, act:
 WriteLiteral("\",\r\n                        off_label: \"");
 
             
-            #line 34 "..\..\Views\Team\Users.cshtml"
+            #line 37 "..\..\Views\Team\Users.cshtml"
                                Write(SR.Team_ShortNonAdministrator);
 
             
@@ -188,7 +200,7 @@ WriteLiteral("\",\r\n                        off_label: \"");
 WriteLiteral("\",\r\n                        checked: { url: \"");
 
             
-            #line 35 "..\..\Views\Team\Users.cshtml"
+            #line 38 "..\..\Views\Team\Users.cshtml"
                                     Write(Url.Action("ChooseUser","Team"));
 
             
@@ -198,7 +210,7 @@ WriteLiteral("\", query: function (item) { return { name: team, user: item, act:
 "\r\n                        unchecked: { url: \"");
 
             
-            #line 36 "..\..\Views\Team\Users.cshtml"
+            #line 39 "..\..\Views\Team\Users.cshtml"
                                       Write(Url.Action("ChooseUser","Team"));
 
             
@@ -208,14 +220,14 @@ WriteLiteral("\", query: function (item) { return { name: team, user: item, act:
 ",\r\n                    }\r\n                ]\r\n            });\r\n    </script>\r\n");
 
             
-            #line 41 "..\..\Views\Team\Users.cshtml"
+            #line 44 "..\..\Views\Team\Users.cshtml"
 }
 
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Team\Users.cshtml"
+            #line 45 "..\..\Views\Team\Users.cshtml"
 Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default" }));
 
             

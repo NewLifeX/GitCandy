@@ -3,6 +3,9 @@
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_ChooseUserTitle, Model.Name));
+
+    var ctrl = "Account";
+    if (HttpRuntime.AppDomainAppVirtualPath != "/") { ctrl = HttpRuntime.AppDomainAppVirtualPath.TrimStart("/") + "/" + ctrl; }
 }
 
 <h4>@String.Format(SR.Team_ChooseUserTitle, Model.Name)</h4>
@@ -21,7 +24,7 @@
         chooser_params.push(
             {
                 data: @Html.Raw(Model.MembersRole.ToJson()),
-                controller: "Account",
+                controller: "@ctrl",
                 container: "#chooser",
                 add_label: "@SR.Shared_Add",
                 del_label: "@SR.Shared_Remove",

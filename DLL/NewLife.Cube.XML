@@ -14,6 +14,9 @@
         <member name="T:NewLife.Cube.Admin.Controllers.DbController">
             <summary>数据库管理</summary>
         </member>
+        <member name="P:NewLife.Cube.Admin.Controllers.DbController.MenuOrder">
+            <summary>菜单顺序。扫描是会反射读取</summary>
+        </member>
         <member name="M:NewLife.Cube.Admin.Controllers.DbController.Index">
             <summary>数据库列表</summary>
             <returns></returns>
@@ -28,6 +31,11 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.DbController.BackupAndCompress(System.String)">
+            <summary>备份并压缩数据库</summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.Admin.Controllers.DbController.Download(System.String)">
             <summary>下载数据库备份</summary>
             <param name="name"></param>
@@ -35,6 +43,9 @@
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.FileController">
             <summary>文件管理</summary>
+        </member>
+        <member name="P:NewLife.Cube.Admin.Controllers.FileController.MenuOrder">
+            <summary>菜单顺序。扫描是会反射读取</summary>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.FileController.Index(System.String,System.String)">
             <summary>文件管理主视图</summary>
@@ -90,6 +101,38 @@
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.FileController.ClearClipboard(System.String)">
             <summary>清空剪切板</summary>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.VisitStatController">
+            <summary>访问统计控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.Search(NewLife.Web.Pager)">
+            <summary>搜索数据集</summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.Add(XCode.Membership.VisitStat)">
+            <summary>不允许添加修改</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.Edit(XCode.Membership.VisitStat)">
+            <summary>不允许添加修改</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.Delete(System.Int32)">
+            <summary>不允许删除</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.DeleteAjax(System.Int32)">
+            <summary>不允许删除</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.VisitStatController.Clear">
+            <summary>清空全表数据</summary>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.RoleController">
@@ -220,6 +263,9 @@
         <member name="T:NewLife.Cube.Admin.Controllers.IndexController">
             <summary>首页</summary>
         </member>
+        <member name="P:NewLife.Cube.Admin.Controllers.IndexController.MenuOrder">
+            <summary>菜单顺序。扫描是会反射读取</summary>
+        </member>
         <member name="M:NewLife.Cube.Admin.Controllers.IndexController.Index">
             <summary>首页</summary>
             <returns></returns>
@@ -313,6 +359,9 @@
         </member>
         <member name="P:NewLife.Cube.ObjectController`1.Value">
             <summary>要展现和修改的对象</summary>
+        </member>
+        <member name="P:NewLife.Cube.ObjectController`1.MenuOrder">
+            <summary>菜单顺序。扫描是会反射读取</summary>
         </member>
         <member name="M:NewLife.Cube.ObjectController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
             <summary>动作执行前</summary>
@@ -695,6 +744,10 @@
         <member name="M:NewLife.Cube.EntityController`1.#ctor">
             <summary>构造函数</summary>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.OnActionExecuted(System.Web.Mvc.ActionExecutedContext)">
             <summary>执行后</summary>
             <param name="filterContext"></param>
@@ -848,14 +901,13 @@
             <param name="isForm">是否是表单</param>
             <returns></returns>
         </member>
+        <member name="P:NewLife.Cube.EntityController`1.MenuOrder">
+            <summary>菜单顺序。扫描是会反射读取</summary>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.ScanActionMenu(XCode.Membership.IMenu)">
             <summary>自动从实体类拿到显示名</summary>
             <param name="menu"></param>
             <returns></returns>
-        </member>
-        <member name="M:NewLife.Cube.EntityController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
-            <summary>动作执行前</summary>
-            <param name="filterContext"></param>
         </member>
         <member name="T:NewLife.Cube.ConfigController`1">
             <summary>设置控制器</summary>
@@ -886,6 +938,11 @@
         <member name="M:NewLife.Cube.ViewHelper.Bootstrap(System.Web.Mvc.Controller)">
             <summary>获取页面设置</summary>
             <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.ViewHelper.GetRouteKey(XCode.IEntity)">
+            <summary>获取路由Key</summary>
+            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Bootstrap">
@@ -951,6 +1008,23 @@
             <summary>拦截异常</summary>
             <param name="ctx"></param>
         </member>
+        <member name="T:NewLife.Cube.WeuiJS">
+             <summary>
+            提示
+             </summary>
+        </member>
+        <member name="M:NewLife.Cube.WeuiJS.Toast(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:NewLife.Cube.WeuiJS.Alert(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
         <member name="T:NewLife.Cube.Controllers.CubeHomeController">
             <summary>主页面</summary>
         </member>
@@ -1008,19 +1082,6 @@
         <member name="M:NewLife.Cube.Precompiled.ViewCacheDependency.Invalidate">
             <summary>验证</summary>
         </member>
-        <member name="T:NewLife.Cube.Precompiled.Pages">
-            <summary>页面助手类</summary>
-        </member>
-        <member name="M:NewLife.Cube.Precompiled.Pages.IsExistByVirtualPath(System.String)">
-            <summary>路径是否存在</summary>
-            <param name="virtualPath"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Cube.Precompiled.Pages.GetByVirtualPath(System.String)">
-            <summary>根据路径获取页面模版</summary>
-            <param name="virtualPath"></param>
-            <returns></returns>
-        </member>
         <member name="T:NewLife.Cube.Precompiled.ViewFile">
             <summary>视图文件</summary>
         </member>
@@ -1030,26 +1091,6 @@
         </member>
         <member name="M:NewLife.Cube.Precompiled.ViewFile.Open">
             <summary>打开视图文件</summary>
-            <returns></returns>
-        </member>
-        <member name="T:NewLife.Cube.Precompiled.ViewPathProvider">
-            <summary>视图路径提供者</summary>
-        </member>
-        <member name="M:NewLife.Cube.Precompiled.ViewPathProvider.FileExists(System.String)">
-            <summary>文件是否存在</summary>
-            <param name="virtualPath"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Cube.Precompiled.ViewPathProvider.GetFile(System.String)">
-            <summary>获取视图文件</summary>
-            <param name="virtualPath"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Cube.Precompiled.ViewPathProvider.GetCacheDependency(System.String,System.Collections.IEnumerable,System.DateTime)">
-            <summary>获取缓存依赖</summary>
-            <param name="virtualPath"></param>
-            <param name="virtualPathDependencies"></param>
-            <param name="utcStart"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine">
@@ -1282,6 +1323,15 @@
         </member>
         <member name="P:NewLife.Cube.Setting.WebBehavior">
             <summary>用户行为。记录用户所有操作</summary>
+        </member>
+        <member name="P:NewLife.Cube.Setting.WebStatistics">
+            <summary>访问统计。统计页面访问量</summary>
+        </member>
+        <member name="P:NewLife.Cube.Setting.FormGroupClass">
+            <summary>表单组样式。大中小屏幕分别3/2/1列</summary>
+        </member>
+        <member name="P:NewLife.Cube.Setting.BootstrapSelect">
+            <summary>下拉选择框。使用Bootstrap，美观，但有呈现方面的性能损耗</summary>
         </member>
         <member name="M:NewLife.Cube.Setting.#ctor">
             <summary>实例化</summary>
