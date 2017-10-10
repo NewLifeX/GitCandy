@@ -1632,6 +1632,43 @@
             <param name="numbers"></param>
             <param name="result"></param>
         </member>
+        <member name="T:NewLife.Data.GeoAddress">
+            <summary>地理地址</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Location">
+            <summary>坐标</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Address">
+            <summary>地址</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Code">
+            <summary>行政区域编码</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Country">
+            <summary>国家</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Province">
+            <summary>省份</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.City">
+            <summary>城市</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.District">
+            <summary>区县</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Town">
+            <summary>乡镇</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.Street">
+            <summary>街道</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoAddress.StreetNumber">
+            <summary></summary>
+        </member>
+        <member name="M:NewLife.Data.GeoAddress.ToString">
+            <summary>已重载。</summary>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Data.GeoPoint">
             <summary>经纬度坐标</summary>
         </member>
@@ -1640,6 +1677,10 @@
         </member>
         <member name="P:NewLife.Data.GeoPoint.Latitude">
             <summary>纬度</summary>
+        </member>
+        <member name="M:NewLife.Data.GeoPoint.ToString">
+            <summary>已重载</summary>
+            <returns></returns>
         </member>
         <member name="T:NewLife.Data.IFilter">
             <summary>数据过滤器</summary>
@@ -9797,28 +9838,34 @@
         <member name="P:NewLife.Threading.TimerScheduler.Debug">
             <summary>是否开启调试，输出更多信息</summary>
         </member>
-        <member name="T:NewLife.Web.AMap">
+        <member name="T:NewLife.Yun.AMap">
             <summary>高德地图</summary>
             <remarks>
             参考地址 http://lbs.amap.com/api/webservice/guide/api/georegeo/#geo
             </remarks>
         </member>
-        <member name="P:NewLife.Web.AMap.AppKey">
-            <summary>应用密钥</summary>
+        <member name="M:NewLife.Yun.AMap.#ctor">
+            <summary>高德地图</summary>
         </member>
-        <member name="M:NewLife.Web.AMap.GetGeocoderAsync(System.String,System.String)">
+        <member name="M:NewLife.Yun.AMap.InvokeAsync``1(System.String,System.String)">
+            <summary>远程调用</summary>
+            <param name="url">目标Url</param>
+            <param name="result">结果字段</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.AMap.GetGeocoderAsync(System.String,System.String)">
             <summary>查询地址的经纬度坐标</summary>
             <param name="address"></param>
             <param name="city"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.AMap.GetGeoAsync(System.String,System.String)">
+        <member name="M:NewLife.Yun.AMap.GetGeoAsync(System.String,System.String)">
             <summary>查询地址获取坐标</summary>
             <param name="address"></param>
             <param name="city"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.AMap.GetDistanceAsync(NewLife.Data.GeoPoint,NewLife.Data.GeoPoint,System.Int32)">
+        <member name="M:NewLife.Yun.AMap.GetDistanceAsync(NewLife.Data.GeoPoint,NewLife.Data.GeoPoint,System.Int32)">
             <summary>计算距离和驾车时间</summary>
             <remarks>
             http://lbs.amap.com/api/webservice/guide/api/direction
@@ -9839,41 +9886,110 @@
             <param name="type">路径计算的方式和方法</param>
             <returns></returns>
         </member>
-        <member name="T:NewLife.Web.BaiduMap">
+        <member name="T:NewLife.Yun.BaiduMap">
             <summary>百度地图</summary>
+            <remarks>
+            参考手册 http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+            </remarks>
         </member>
-        <member name="P:NewLife.Web.BaiduMap.AppKey">
-            <summary>应用密钥</summary>
+        <member name="M:NewLife.Yun.BaiduMap.#ctor">
+            <summary>高德地图</summary>
         </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.Status">
-            <summary>返回结果状态值， 成功返回0，其他值请查看下方返回码状态表。</summary>
+        <member name="M:NewLife.Yun.BaiduMap.InvokeAsync``1(System.String,System.String)">
+            <summary>远程调用</summary>
+            <param name="url">目标Url</param>
+            <param name="result">结果字段</param>
+            <returns></returns>
         </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.result.Location">
-            <summary>经纬度坐标</summary>
-        </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.result.precise">
-            <summary>位置的附加信息，是否精确查找。1为精确查找，即准确打点；0为不精确，即模糊打点（模糊打点无法保证准确度，不建议使用）。</summary>
-        </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.result.confidence">
-            <summary>可信度，描述打点准确度，大于80表示误差小于100m。该字段仅作参考，返回结果准确度主要参考precise参数。</summary>
-        </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.result.level">
-            <summary>地址类型</summary>
-        </member>
-        <member name="T:NewLife.Web.BaiduMap.Geocoder.location">
-            <summary>经纬度坐标</summary>
-        </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.location.lng">
-            <summary>纬度值</summary>
-        </member>
-        <member name="P:NewLife.Web.BaiduMap.Geocoder.location.lat">
-            <summary>经度值</summary>
-        </member>
-        <member name="M:NewLife.Web.BaiduMap.GetGeocoderAsync(System.String,System.String)">
+        <member name="M:NewLife.Yun.BaiduMap.GetGeocoderAsync(System.String,System.String)">
             <summary>查询地址的经纬度坐标</summary>
             <param name="address"></param>
             <param name="city"></param>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.BaiduMap.GetGeoAsync(System.String,System.String)">
+            <summary>查询地址获取坐标</summary>
+            <param name="address"></param>
+            <param name="city"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.BaiduMap.GetGeocoderAsync(NewLife.Data.GeoPoint)">
+            <summary>根据坐标获取地址</summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.BaiduMap.GetGeoAsync(NewLife.Data.GeoPoint)">
+            <summary>根据坐标获取地址</summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.BaiduMap.GetDistanceAsync(NewLife.Data.GeoPoint,NewLife.Data.GeoPoint,System.Int32)">
+            <summary>计算距离和驾车时间</summary>
+            <remarks>
+            http://lbsyun.baidu.com/index.php?title=webapi/route-matrix-api-v2
+            </remarks>
+            <param name="origin"></param>
+            <param name="destination"></param>
+            <param name="type">路径计算的方式和方法</param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Yun.Driving">
+            <summary>驾车距离和时间</summary>
+        </member>
+        <member name="P:NewLife.Yun.Driving.Distance">
+            <summary>距离。单位千米</summary>
+        </member>
+        <member name="P:NewLife.Yun.Driving.Duration">
+            <summary>路线耗时。单位秒</summary>
+        </member>
+        <member name="T:NewLife.Yun.IMap">
+            <summary>地图提供者接口</summary>
+        </member>
+        <member name="P:NewLife.Yun.IMap.AppKey">
+            <summary>应用密钥</summary>
+        </member>
+        <member name="M:NewLife.Yun.IMap.GetStringAsync(System.String)">
+            <summary>异步获取字符串</summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.IMap.GetGeocoderAsync(System.String,System.String)">
+            <summary>查询地址的经纬度坐标</summary>
+            <param name="address"></param>
+            <param name="city"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Yun.Map">
+            <summary>地图提供者</summary>
+        </member>
+        <member name="P:NewLife.Yun.Map.AppKey">
+            <summary>应用密钥</summary>
+        </member>
+        <member name="P:NewLife.Yun.Map.KeyName">
+            <summary>应用密码参数名</summary>
+        </member>
+        <member name="M:NewLife.Yun.Map.OnDispose(System.Boolean)">
+            <summary>销毁</summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:NewLife.Yun.Map.GetStringAsync(System.String)">
+            <summary>异步获取字符串</summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.Map.InvokeAsync``1(System.String,System.String)">
+            <summary>远程调用</summary>
+            <param name="url">目标Url</param>
+            <param name="result">结果字段</param>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.Yun.Map.Log">
+            <summary>日志</summary>
+        </member>
+        <member name="M:NewLife.Yun.Map.WriteLog(System.String,System.Object[])">
+            <summary>写日志</summary>
+            <param name="format"></param>
+            <param name="args"></param>
         </member>
         <member name="T:NewLife.Web.Js">
             <summary>JavaScript脚本。提供Js的基本操作，同时也支持继承扩展</summary>

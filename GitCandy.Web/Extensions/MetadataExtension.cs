@@ -228,7 +228,9 @@ namespace GitCandy.Extensions
                     else
                         path = "";
 
-                    url = $"{baseurl}/Raw/{model.ReferenceName ?? model.Commit.Sha}/{path}{url}";
+                    var name = model.ReferenceName;
+                    if (name.IsNullOrEmpty()) name = "master";
+                    url = $"{baseurl}/Blob/{name}/{path}{url}";
 
                     // 重新拼接
                     txt = txt.Substring(0, ps[0]) + url + txt.Substring(ps[1]);
