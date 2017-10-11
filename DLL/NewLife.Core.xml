@@ -1632,6 +1632,31 @@
             <param name="numbers"></param>
             <param name="result"></param>
         </member>
+        <member name="T:NewLife.Data.GeoArea">
+            <summary>地理区域</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.Code">
+            <summary>编码</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.ParentCode">
+            <summary>父级</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.Center">
+            <summary>中心</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.Polyline">
+            <summary>边界</summary>
+        </member>
+        <member name="P:NewLife.Data.GeoArea.Level">
+            <summary>级别</summary>
+        </member>
+        <member name="M:NewLife.Data.GeoArea.ToString">
+            <summary>已重载。</summary>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Data.GeoAddress">
             <summary>地理地址</summary>
         </member>
@@ -9884,6 +9909,16 @@
             <param name="origin"></param>
             <param name="destination"></param>
             <param name="type">路径计算的方式和方法</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Yun.AMap.GetDistrictAsync(System.String,System.Int32,System.Int32)">
+            <summary>行政区划</summary>
+            <remarks>
+            http://lbs.amap.com/api/webservice/guide/api/district
+            </remarks>
+            <param name="keywords"></param>
+            <param name="subdistrict"></param>
+            <param name="code"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Yun.BaiduMap">
