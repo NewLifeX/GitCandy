@@ -8703,6 +8703,9 @@
         <member name="P:XCode.Entity`1.EntityOperate.MasterTime">
             <summary>主时间字段。代表当前数据行更新时间</summary>
         </member>
+        <member name="P:XCode.Entity`1.EntityOperate.Selects">
+            <summary>默认选择的字段</summary>
+        </member>
         <member name="T:XCode.EntityFactory">
             <summary>实体工厂</summary>
         </member>
@@ -8987,6 +8990,9 @@
         </member>
         <member name="P:XCode.IEntityOperate.MasterTime">
             <summary>主时间字段。代表当前数据行更新时间</summary>
+        </member>
+        <member name="P:XCode.IEntityOperate.Selects">
+            <summary>默认选择的字段</summary>
         </member>
         <member name="T:XCode.OrderExpression">
             <summary>排序表达式</summary>

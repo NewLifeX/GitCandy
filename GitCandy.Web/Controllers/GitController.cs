@@ -98,18 +98,22 @@ namespace GitCandy.Controllers
         {
             using (var git = new GitService(owner, project))
             {
-                // 修正提交数、分支、参与人等
-                var commit = git.Repository.Head.Tip;
-                var ancestors = git.Repository.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = commit });
-
-                var set = new HashSet<String>();
                 var cms = 0;
                 var cts = 0;
-                foreach (var ancestor in ancestors)
+
+                // 修正提交数、分支、参与人等
+                var commit = git.Repository.Head.Tip;
+                if (commit != null)
                 {
-                    cms++;
-                    if (set.Add(ancestor.Author.ToString()))
-                        cts++;
+                    var ancestors = git.Repository.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = commit });
+
+                    var set = new HashSet<String>();
+                    foreach (var ancestor in ancestors)
+                    {
+                        cms++;
+                        if (set.Add(ancestor.Author.ToString()))
+                            cts++;
+                    }
                 }
 
                 var repo = NewLife.GitCandy.Entity.Repository.FindByOwnerAndName(owner, project);
@@ -118,8 +122,7 @@ namespace GitCandy.Controllers
                     if (cms > 0) repo.Commits = cms;
                     repo.Branches = git.Repository.Branches.Count();
                     if (cts > 0) repo.Contributors = cts;
-                    var size = 0L;
-                    repo.Files = FilesInCommit(commit, out size);
+                    repo.Files = FilesInCommit(commit, out var size);
                     repo.Size = size;
                     repo.LastCommit = commit.Committer.When.LocalDateTime;
 
