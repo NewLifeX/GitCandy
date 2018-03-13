@@ -48,15 +48,11 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="NewLife.Core">
-      <HintPath>..\DLL\NewLife.Core.dll</HintPath>
+    <Reference Include="NewLife.Core, Version=6.6.6644.19801, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.Core.6.6.6644.19801\lib\net45\NewLife.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NewLife.Cube">
-      <HintPath>..\DLL\NewLife.Cube.dll</HintPath>
-    </Reference>
-    <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NewLife.Cube, Version=2.1.6646.40334, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.Cube.2.1.6646.40334\lib\net45\NewLife.Cube.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -93,8 +89,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="XCode">
-      <HintPath>..\DLL\XCode.dll</HintPath>
+    <Reference Include="XCode, Version=9.6.6644.19804, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.XCode.9.6.6644.19804\lib\net45\XCode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +312,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
     </Content>
-    <None Include="Web.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_GlobalResources\SR.designer.cs">
