@@ -26,12 +26,9 @@ namespace GitCandy.Git
             this.encodings = encodings;
         }
 
-        public override Boolean IsAsync { get { return false; } }
+        public override Boolean IsAsync => false;
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Sha);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Sha);
 
         protected override void Init()
         {
@@ -92,13 +89,8 @@ namespace GitCandy.Git
             resultDone = true;
         }
 
-        protected override Boolean Load()
-        {
-            return File.Exists(result);
-        }
+        protected override Boolean Load() => File.Exists(result);
 
-        protected override void Save()
-        {
-        }
+        protected override void Save() { }
     }
 }

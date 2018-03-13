@@ -26,10 +26,10 @@ namespace GitCandy.Git
         private readonly Lazy<Encoding> _i18n;
         private Boolean _disposed;
 
-        public Encoding I18n { get { return _i18n.Value; } }
+        public Encoding I18n => _i18n.Value;
         public String Owner { get; private set; }
         public String Name { get; private set; }
-        public Repository Repository { get { return _repository; } }
+        public Repository Repository => _repository;
 
         public GitService(String owner, String name)
         {
@@ -72,8 +72,7 @@ namespace GitCandy.Git
         public TreeModel GetTree(String path)
         {
             var isEmptyPath = String.IsNullOrEmpty(path);
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null)
             {
                 if (isEmptyPath)
@@ -191,8 +190,7 @@ namespace GitCandy.Git
 
         public TreeEntryModel GetBlob(String path)
         {
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null) return null;
 
             var entry = commit[path];
@@ -255,8 +253,7 @@ namespace GitCandy.Git
 
         public CommitModel GetCommit(String path)
         {
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null) return null;
 
             var treeEntry = commit[path];
@@ -276,9 +273,8 @@ namespace GitCandy.Git
 
         public CompareModel GetCompare(String start, String end)
         {
-            String name1, name2;
-            var commit1 = GetCommitByPath(ref start, out name1);
-            var commit2 = GetCommitByPath(ref end, out name2);
+            var commit1 = GetCommitByPath(ref start, out var name1);
+            var commit2 = GetCommitByPath(ref end, out var name2);
             if (commit1 == null)
             {
                 commit1 = _repository.Head.Tip;
@@ -319,8 +315,7 @@ namespace GitCandy.Git
 
         public CommitsModel GetCommits(String path, Int32 page = 1, Int32 pagesize = 20)
         {
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null) return null;
 
             var commitsAccessor = GitCacheAccessor.Singleton(new CommitsAccessor(_repoId, _repository, commit, path, page, pagesize));
@@ -358,8 +353,7 @@ namespace GitCandy.Git
 
         public BlameModel GetBlame(String path)
         {
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null)
                 return null;
 
@@ -454,20 +448,13 @@ namespace GitCandy.Git
             return model;
         }
 
-        public void DeleteBranch(String branch)
-        {
-            _repository.Branches.Remove(branch);
-        }
+        public void DeleteBranch(String branch) => _repository.Branches.Remove(branch);
 
-        public void DeleteTag(String tag)
-        {
-            _repository.Tags.Remove(tag);
-        }
+        public void DeleteTag(String tag) => _repository.Tags.Remove(tag);
 
         public ContributorsModel GetContributors(String path)
         {
-            String referenceName;
-            var commit = GetCommitByPath(ref path, out referenceName);
+            var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null)
                 return null;
 
@@ -511,10 +498,7 @@ namespace GitCandy.Git
             return head.FriendlyName;
         }
 
-        public String[] GetLocalBranches()
-        {
-            return _repository.Branches.Select(s => s.FriendlyName).OrderBy(s => s, new StringLogicalComparer()).ToArray();
-        }
+        public String[] GetLocalBranches() => _repository.Branches.Select(s => s.FriendlyName).OrderBy(s => s, new StringLogicalComparer()).ToArray();
 
         public Boolean SetHeadBranch(String name)
         {
@@ -637,7 +621,7 @@ namespace GitCandy.Git
             try
             {
                 if (encoding.StartsWith("cp", StringComparison.OrdinalIgnoreCase))
-                    return Encoding.GetEncoding(int.Parse(encoding.Substring(2)));
+                    return Encoding.GetEncoding(Int32.Parse(encoding.Substring(2)));
 
                 return Encoding.GetEncoding(encoding);
             }
@@ -677,10 +661,7 @@ namespace GitCandy.Git
             return sb.ToString();
         }
 
-        private Signature CreateSafeSignature(String name, String email, DateTimeOffset when)
-        {
-            return new Signature(name.RepetitionIfEmpty(UnknowString), email, when);
-        }
+        private Signature CreateSafeSignature(String name, String email, DateTimeOffset when) => new Signature(name.RepetitionIfEmpty(UnknowString), email, when);
         #endregion
 
         #region Static Methods

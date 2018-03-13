@@ -64,9 +64,6 @@ namespace GitCandy
             }
         }
 
-        protected void Application_BeginRequest()
-        {
-            Profiler.Start();
-        }
+        protected void Application_BeginRequest() => Profiler.Start();
     }
 }

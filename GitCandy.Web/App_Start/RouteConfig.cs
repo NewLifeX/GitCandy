@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 using GitCandy.Controllers;
 using NewLife.Collections;
@@ -144,8 +143,6 @@ namespace GitCandy
             {
                 _cache = new DictionaryCache<String, Boolean?>(StringComparer.OrdinalIgnoreCase)
                 {
-                    Asynchronous = true,
-                    CacheDefault = true,
                     Expire = 10 * 60        // 10分钟过期
                 };
                 //_cache.ClearPeriod = 10 * 60;   // 10分钟清理一次过期项

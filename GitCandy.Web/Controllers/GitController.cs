@@ -175,15 +175,9 @@ namespace GitCandy.Controllers
             return Request.GetBufferlessInputStream(true);
         }
 
-        private static String FormatMessage(String input)
-        {
-            return (input.Length + 4).ToString("X4", CultureInfo.InvariantCulture) + input;
-        }
+        private static String FormatMessage(String input) => (input.Length + 4).ToString("X4", CultureInfo.InvariantCulture) + input;
 
-        private static String FlushMessage()
-        {
-            return "0000";
-        }
+        private static String FlushMessage() => "0000";
         #endregion
     }
 }

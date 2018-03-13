@@ -59,8 +59,7 @@ namespace GitCandy.Git
                         statistics.NumberOfContributors++;
                     }
                 }
-                var size = 0L;
-                statistics.NumberOfFiles = FilesInCommit(commit, out size);
+                statistics.NumberOfFiles = FilesInCommit(commit, out var size);
                 statistics.SizeOfSource = size;
 
                 var commits = dict

@@ -12,33 +12,18 @@ namespace GitCandy.Entity
 
         public IManageUser Current { get => User.Current; set => User.Current = (User)value; }
 
-        public IManageUser FindByID(Object userid) { return User.FindByID(userid.ToInt()); }
+        public IManageUser FindByID(Object userid) => User.FindByID(userid.ToInt());
 
-        public IManageUser FindByName(String name) { return User.FindByName(name); }
+        public IManageUser FindByName(String name) => User.FindByName(name);
 
-        public TService GetService<TService>()
-        {
-            throw new NotImplementedException();
-        }
+        public TService GetService<TService>() => throw new NotImplementedException();
 
-        public Object GetService(Type serviceType)
-        {
-            throw new NotImplementedException();
-        }
+        public Object GetService(Type serviceType) => throw new NotImplementedException();
 
-        public IManageUser Login(String name, String password, Boolean rememberme = false)
-        {
-            throw new NotImplementedException();
-        }
+        public IManageUser Login(String name, String password, Boolean rememberme = false) => throw new NotImplementedException();
 
-        public void Logout()
-        {
-            throw new NotImplementedException();
-        }
+        public void Logout() => throw new NotImplementedException();
 
-        public IManageUser Register(String name, String password, String rolename = "注册用户", Boolean enable = false)
-        {
-            throw new NotImplementedException();
-        }
+        public IManageUser Register(String name, String password, Int32 roleid, Boolean enable = false) => throw new NotImplementedException();
     }
 }

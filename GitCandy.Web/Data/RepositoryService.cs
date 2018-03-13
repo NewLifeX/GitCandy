@@ -339,10 +339,7 @@ namespace GitCandy.Data
             return model;
         }
 
-        private RepositoryModel[] ToModels(IEnumerable<Repository> source)
-        {
-            return source.Select(ToModel).ToArray();
-        }
+        private RepositoryModel[] ToModels(IEnumerable<Repository> source) => source.Select(ToModel).ToArray();
 
         private RepositoryModel ToModel(Repository repo)
         {

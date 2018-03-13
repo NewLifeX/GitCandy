@@ -54,15 +54,11 @@ namespace GitCandy.Extensions
             return new String(chars);
         }
 
-        public static String ToFlagString(this Boolean flag, String trueStr, String falseStr)
-        {
-            return flag ? trueStr : falseStr;
-        }
+        public static String ToFlagString(this Boolean flag, String trueStr, String falseStr) => flag ? trueStr : falseStr;
 
         public static Dictionary<String, Object> CastToDictionary(this Object values)
         {
-            if (values == null)
-                return null;
+            if (values == null) return null;
 
             var dictionary = new Dictionary<String, Object>(StringComparer.OrdinalIgnoreCase);
             var properties = TypeDescriptor.GetProperties(values);
