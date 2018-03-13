@@ -38,9 +38,9 @@ namespace NewLife.GitCandy.Entity
 
             var entity = new User
             {
-                Name = "admin",
+                Name = "candy",
                 NickName = "管理员",
-                Password = "gitcandy".MD5(),
+                Password = "candy".MD5(),
                 Email = "admin@newlifex.com",
                 Enable = true,
                 IsAdmin = true,
