@@ -105,6 +105,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\GitCandy\Views\web.config" />
+    <Content Include="Areas\GitCandy\Views\User\_List_Data.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_List_Data.generated.cs</LastGenOutput>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -337,6 +341,11 @@
     <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\GitController.cs" />
     <Compile Include="Areas\GitCandy\GitCandyAreaRegistration.cs" />
+    <Compile Include="Areas\GitCandy\Views\User\_List_Data.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_List_Data.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Base\RawResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CandyControllerBase.cs" />
