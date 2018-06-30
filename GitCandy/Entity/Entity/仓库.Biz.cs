@@ -23,6 +23,10 @@ namespace NewLife.GitCandy.Entity
             var df = Meta.Factory.AdditionalFields;
             df.Add(__.Views);
             df.Add(__.Downloads);
+
+            Meta.Modules.Add<UserModule>();
+            Meta.Modules.Add<TimeModule>();
+            Meta.Modules.Add<IPModule>();
         }
 
         public override void Valid(Boolean isNew)
