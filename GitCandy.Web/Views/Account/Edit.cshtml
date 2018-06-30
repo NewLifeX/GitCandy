@@ -56,7 +56,7 @@
             </span>
         </dd>
 
-        @if (token.IsAdmin())
+        @*@if (token.IsAdmin())
         {
             <dt>@Html.DisplayNameFor(s => s.IsAdmin)</dt>
             <dd>
@@ -64,7 +64,7 @@
                     @Html.CheckBoxFor(s => s.IsAdmin, new { data_size = "small" })
                 </div>
             </dd>
-        }
+        }*@
 
         <dt></dt>
         <dd>@Html.ValidationSummary(true, SR.Account_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" })</dd>

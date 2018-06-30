@@ -29,11 +29,11 @@
         <dt>@Html.DisplayNameFor(s => s.Description)</dt>
         <dd>@Model.Description</dd>
 
-        @if (token != null && token.IsAdmin())
+        @*@if (token != null && token.IsAdmin())
         {
             <dt>@Html.DisplayNameFor(s => s.IsAdmin)</dt>
             <dd>@Html.DisplayFor(s => s.IsAdmin)</dd>
-        }
+        }*@
 
         @if (token != null && (token.Name == Model.Name || token.IsAdmin()))
         {

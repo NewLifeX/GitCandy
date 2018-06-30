@@ -170,8 +170,8 @@ namespace NewLife.GitCandy.Entity
             // 公开库
             if (!IsPrivate) return true;
 
-            // 系统管理员
-            if (user.IsAdmin) return true;
+            //// 系统管理员
+            //if (user.IsAdmin) return true;
 
             // 个人
             if (OwnerID == user.ID) return true;

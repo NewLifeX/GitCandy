@@ -27,11 +27,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
     using GitCandy.Extensions;
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
     using NewLife.Reflection;
@@ -233,16 +234,9 @@ WriteLiteral("</td>\r\n                <td>");
             
             #line default
             #line hidden
-WriteLiteral("</td>\r\n                <td>");
+WriteLiteral("</td>\r\n                ");
 
-            
-            #line 43 "..\..\Views\Account\Index.cshtml"
-               Write(item.IsAdmin.ToFlagString(SR.Shared_Yes, SR.Shared_No));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</td>\r\n            </tr>\r\n");
+WriteLiteral("\r\n            </tr>\r\n");
 
             
             #line 45 "..\..\Views\Account\Index.cshtml"

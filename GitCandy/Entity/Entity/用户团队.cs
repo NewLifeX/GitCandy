@@ -12,7 +12,6 @@ namespace NewLife.GitCandy.Entity
     [DataObject]
     [Description("用户团队")]
     [BindIndex("IU_UserTeam_UserID_TeamID", true, "UserID,TeamID")]
-    [BindIndex("IX_UserTeam_UserID", false, "UserID")]
     [BindIndex("IX_UserTeam_TeamID", false, "TeamID")]
     [BindTable("UserTeam", Description = "用户团队", ConnName = "GitCandy", DbType = DatabaseType.SqlServer)]
     public partial class UserTeam : IUserTeam

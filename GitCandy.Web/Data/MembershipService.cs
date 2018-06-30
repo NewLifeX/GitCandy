@@ -22,7 +22,7 @@ namespace GitCandy.Data
                 Nickname = user.NickName,
                 Email = user.Email,
                 Description = user.Description,
-                IsAdmin = user.IsAdmin,
+                //IsAdmin = user.IsAdmin,
             };
             if (withMembers)
             {
@@ -152,7 +152,7 @@ namespace GitCandy.Data
                     Nickname = e.NickName,
                     Email = e.Email,
                     Description = e.Description,
-                    IsAdmin = e.IsAdmin,
+                    //IsAdmin = e.IsAdmin,
                 }).ToArray(),
                 CurrentPage = page,
                 ItemCount = (Int32)p.TotalCount

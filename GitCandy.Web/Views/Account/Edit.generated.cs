@@ -285,80 +285,9 @@ WriteLiteral("                ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n");
+WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        ");
 
-            
-            #line 59 "..\..\Views\Account\Edit.cshtml"
-        
-            
-            #line default
-            #line hidden
-            
-            #line 59 "..\..\Views\Account\Edit.cshtml"
-         if (token.IsAdmin())
-        {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("            <dt>");
-
-            
-            #line 61 "..\..\Views\Account\Edit.cshtml"
-           Write(Html.DisplayNameFor(s => s.IsAdmin));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</dt>\r\n");
-
-WriteLiteral("            <dd>\r\n                <div");
-
-WriteLiteral(" class=\"switch\"");
-
-WriteLiteral(" data-on-label=\"");
-
-            
-            #line 63 "..\..\Views\Account\Edit.cshtml"
-                                              Write(SR.Shared_Yes);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"");
-
-WriteLiteral(" data-off-label=\"");
-
-            
-            #line 63 "..\..\Views\Account\Edit.cshtml"
-                                                                              Write(SR.Shared_No);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                    ");
-
-            
-            #line 64 "..\..\Views\Account\Edit.cshtml"
-               Write(Html.CheckBoxFor(s => s.IsAdmin, new { data_size = "small" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                </div>\r\n            </dd>\r\n");
-
-            
-            #line 67 "..\..\Views\Account\Edit.cshtml"
-        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        <dt></dt>\r\n        <dd>");
+WriteLiteral("\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
             #line 70 "..\..\Views\Account\Edit.cshtml"

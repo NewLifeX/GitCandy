@@ -40,7 +40,7 @@
                 <td>@Html.ActionLink(item.Name, "Detail", new { name = item.Name })</td>
                 <td>@item.Nickname</td>
                 <td>@item.Email</td>
-                <td>@item.IsAdmin.ToFlagString(SR.Shared_Yes, SR.Shared_No)</td>
+                @*<td>@item.IsAdmin.ToFlagString(SR.Shared_Yes, SR.Shared_No)</td>*@
             </tr>
         }
     </tbody>

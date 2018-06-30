@@ -222,7 +222,7 @@ namespace GitCandy.Data
             if (repo.AllowAnonymousRead && (!write || repo.AllowAnonymousWrite)) return true;
 
             if (user == null) return false;
-            if (user.IsAdmin) return true;
+            //if (user.IsAdmin) return true;
 
             // 个人权限
             var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
@@ -255,7 +255,7 @@ namespace GitCandy.Data
 
             var user = User.FindByName(username);
             if (user == null) return false;
-            if (user.IsAdmin) return true;
+            //if (user.IsAdmin) return true;
 
             return CheckReadWrite(repo, user, false);
         }
@@ -268,7 +268,7 @@ namespace GitCandy.Data
 
             var user = User.FindByName(username);
             if (user == null) return false;
-            if (user.IsAdmin) return true;
+            //if (user.IsAdmin) return true;
 
             return CheckReadWrite(repo, user, true);
         }

@@ -3,7 +3,8 @@ using System.Text;
 using System.Web.Mvc;
 using GitCandy.Configuration;
 using GitCandy.Controllers;
-using UserX = NewLife.GitCandy.Entity.User;
+using XCode.Membership;
+//using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Filters
 {
@@ -39,8 +40,10 @@ namespace GitCandy.Filters
                     username = certificate.Substring(0, index);
 
                     // 登录验证
-                    var user = UserX.Check(username, password);
-                    username = user != null && user.Login(password) ? user.Name : null;
+                    //var user = UserX.Check(username, password);
+                    //username = user != null && user.Login(password) ? user.Name : null;
+                    var user = ManageProvider.Provider.Login(username, password);
+                    username = user?.Name;
                 }
             }
 

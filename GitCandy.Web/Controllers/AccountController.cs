@@ -5,10 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using GitCandy.Base;
 using GitCandy.Configuration;
-using GitCandy.Extensions;
 using GitCandy.Filters;
-using GitCandy.Models;
-using GitCandy.Web.App_GlobalResources;
 using NewLife.Data;
 using UserX = NewLife.GitCandy.Entity.User;
 
@@ -128,11 +125,11 @@ namespace GitCandy.Controllers
         //    return View(model);
         //}
 
-        [CurrentUserOrAdministrator]
-        public ActionResult Change()
-        {
-            return View();
-        }
+        //[CurrentUserOrAdministrator]
+        //public ActionResult Change()
+        //{
+        //    return View();
+        //}
 
         //[HttpPost]
         //[CurrentUserOrAdministrator]
@@ -166,66 +163,66 @@ namespace GitCandy.Controllers
         //    return View();
         //}
 
-        [CurrentUserOrAdministrator]
-        public ActionResult Edit(String name)
-        {
-            if (name.IsNullOrEmpty()) name = Token?.Name;
+        //[CurrentUserOrAdministrator]
+        //public ActionResult Edit(String name)
+        //{
+        //    if (name.IsNullOrEmpty()) name = Token?.Name;
 
-            var model = MembershipService.GetUserModel(name);
-            if (model == null)
-                throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
-            ModelState.Clear();
+        //    var model = MembershipService.GetUserModel(name);
+        //    if (model == null)
+        //        throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
+        //    ModelState.Clear();
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        [CurrentUserOrAdministrator]
-        public ActionResult Edit(String name, UserModel model)
-        {
-            ModelState.Remove("ConformPassword");
-            if (!ModelState.IsValid) return View(model);
+        //[HttpPost]
+        //[CurrentUserOrAdministrator]
+        //public ActionResult Edit(String name, UserModel model)
+        //{
+        //    ModelState.Remove("ConformPassword");
+        //    if (!ModelState.IsValid) return View(model);
 
-            if (String.IsNullOrEmpty(name)) name = Token?.Name;
+        //    if (String.IsNullOrEmpty(name)) name = Token?.Name;
 
-            UserX user = null;
-            // 管理员直接修改任何人，否则只能改自己
-            if (Token.IsAdmin())
-            {
-                user = UserX.Check(Token?.Name, model.Password);
-                if (user != null)
-                {
-                    // 要修改的目标用户
-                    user = UserX.FindByName(name);
+        //    UserX user = null;
+        //    // 管理员直接修改任何人，否则只能改自己
+        //    if (Token.IsAdmin())
+        //    {
+        //        user = UserX.Check(Token?.Name, model.Password);
+        //        if (user != null)
+        //        {
+        //            // 要修改的目标用户
+        //            user = UserX.FindByName(name);
 
-                    user.IsAdmin = model.IsAdmin;
-                }
-            }
-            else
-            {
-                user = UserX.Check(name, model.Password);
-            }
+        //            user.IsAdmin = model.IsAdmin;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        user = UserX.Check(name, model.Password);
+        //    }
 
-            // 验证成功
-            if (user != null)
-            {
-                user.NickName = model.Nickname;
-                user.Email = model.Email;
-                user.Description = model.Description;
+        //    // 验证成功
+        //    if (user != null)
+        //    {
+        //        user.NickName = model.Nickname;
+        //        user.Email = model.Email;
+        //        user.Description = model.Description;
 
-                user.Save();
+        //        user.Save();
 
-                //// 如果修改的是自己，则需要重新加载，而不论是否管理员
-                //if (Token?.Name == name) Token = MembershipService.GetToken(Token.AuthCode);
+        //        //// 如果修改的是自己，则需要重新加载，而不论是否管理员
+        //        //if (Token?.Name == name) Token = MembershipService.GetToken(Token.AuthCode);
 
-                return RedirectToAction("Detail", "Account", new { name });
-            }
+        //        return RedirectToAction("Detail", "Account", new { name });
+        //    }
 
 
-            ModelState.AddModelError("Password", SR.Account_PasswordError);
+        //    ModelState.AddModelError("Password", SR.Account_PasswordError);
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         //[HttpPost]
         //[CurrentUserOrAdministrator]

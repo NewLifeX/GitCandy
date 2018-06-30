@@ -201,52 +201,9 @@ WriteLiteral("</dt>\r\n        <dd>");
             
             #line default
             #line hidden
-WriteLiteral("</dd>\r\n\r\n");
+WriteLiteral("</dd>\r\n\r\n        ");
 
-            
-            #line 32 "..\..\Views\Account\Detail.cshtml"
-        
-            
-            #line default
-            #line hidden
-            
-            #line 32 "..\..\Views\Account\Detail.cshtml"
-         if (token != null && token.IsAdmin())
-        {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("            <dt>");
-
-            
-            #line 34 "..\..\Views\Account\Detail.cshtml"
-           Write(Html.DisplayNameFor(s => s.IsAdmin));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</dt>\r\n");
-
-WriteLiteral("            <dd>");
-
-            
-            #line 35 "..\..\Views\Account\Detail.cshtml"
-           Write(Html.DisplayFor(s => s.IsAdmin));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</dd>\r\n");
-
-            
-            #line 36 "..\..\Views\Account\Detail.cshtml"
-        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
             
             #line 38 "..\..\Views\Account\Detail.cshtml"

@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="9.5.6420.13918">
+<Tables Version="9.8.6755.22252" Output="Entity" NameSpace="NewLife.GitCandy.Entity" ConnName="GitCandy" BaseClass="Entity">
   <Table Name="User" Description="用户" DbType="SqlServer">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Description="名称。登录用户名" />
       <Column Name="NickName" DataType="String" Description="显示名。昵称、中文名等" />
       <Column Name="Email" DataType="String" Description="邮件" />
-      <Column Name="Password" DataType="String" Description="密码" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="IsTeam" DataType="Boolean" Description="团队" />
-      <Column Name="IsAdmin" DataType="Boolean" Description="管理员" />
-      <Column Name="Online" DataType="Boolean" Description="在线" />
-      <Column Name="RegisterTime" DataType="DateTime" Description="注册时间" />
-      <Column Name="RegisterIP" DataType="String" Description="注册IP" />
-      <Column Name="Logins" DataType="Int32" Description="登录" />
-      <Column Name="LastLogin" DataType="DateTime" Description="最后登录" />
-      <Column Name="LastLoginIP" DataType="String" Description="最后登录IP" />
       <Column Name="Description" DataType="String" Length="500" Description="描述" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
@@ -56,7 +48,6 @@
     </Columns>
     <Indexes>
       <Index Columns="OwnerID,Name" Unique="True" />
-      <Index Columns="OwnerID" />
       <Index Columns="Name" />
     </Indexes>
   </Table>
@@ -75,7 +66,6 @@
     </Columns>
     <Indexes>
       <Index Columns="UserID,TeamID" Unique="True" />
-      <Index Columns="UserID" />
       <Index Columns="TeamID" />
     </Indexes>
   </Table>
@@ -96,49 +86,6 @@
     </Columns>
     <Indexes>
       <Index Columns="UserID,RepositoryID" Unique="True" />
-    </Indexes>
-  </Table>
-  <Table Name="AuthorizationLog" Description="认证日志" DbType="SqlServer">
-    <Columns>
-      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="AuthCode" DataType="String" Master="True" Description="认证码" />
-      <Column Name="UserID" DataType="Int32" Description="用户" />
-      <Column Name="IssueDate" DataType="DateTime" Description="发生时间" />
-      <Column Name="Expires" DataType="DateTime" Description="过期时间" />
-      <Column Name="IssueIp" DataType="String" Description="发生地址" />
-      <Column Name="LastIp" DataType="String" Description="最后地址" />
-      <Column Name="IsValid" DataType="Boolean" Description="有效" />
-      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
-      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
-      <Column Name="CreateIP" DataType="String" Description="创建地址" />
-      <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
-      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
-      <Column Name="UpdateIP" DataType="String" Description="更新地址" />
-    </Columns>
-    <Indexes>
-      <Index Columns="AuthCode" Unique="True" />
-      <Index Columns="UserID" />
-    </Indexes>
-  </Table>
-  <Table Name="SshKey" Description="SSH密钥" DbType="SqlServer">
-    <Columns>
-      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="UserID" DataType="Int32" Description="用户" />
-      <Column Name="KeyType" DataType="String" Description="密钥类型" />
-      <Column Name="Fingerprint" DataType="String" Description="指纹" />
-      <Column Name="PublicKey" DataType="String" Length="600" Description="公钥" />
-      <Column Name="ImportData" DataType="DateTime" Description="导入数据" />
-      <Column Name="LastUse" DataType="DateTime" Description="最后使用" />
-      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
-      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
-      <Column Name="CreateIP" DataType="String" Description="创建地址" />
-      <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
-      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
-      <Column Name="UpdateIP" DataType="String" Description="更新地址" />
-    </Columns>
-    <Indexes>
-      <Index Columns="UserID" Unique="True" />
-      <Index Columns="Fingerprint" />
     </Indexes>
   </Table>
 </Tables>

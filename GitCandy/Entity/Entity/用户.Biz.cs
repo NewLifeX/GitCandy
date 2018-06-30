@@ -211,10 +211,7 @@ namespace NewLife.GitCandy.Entity
                 Name = name,
                 NickName = nickname,
                 Email = email,
-                Password = password.MD5(),
                 Enable = true,
-                Description = description,
-                RegisterTime = DateTime.Now
             };
 
             user.Save();
@@ -233,8 +230,6 @@ namespace NewLife.GitCandy.Entity
                 NickName = nickname,
                 Enable = false,
                 IsTeam = true,
-                Description = description,
-                RegisterTime = DateTime.Now
             };
 
             user.Save();
@@ -242,37 +237,37 @@ namespace NewLife.GitCandy.Entity
             return user;
         }
 
-        public Boolean Login(String password)
-        {
-            var user = this;
-            if (!user.Enable) return false;
+        //public Boolean Login(String password)
+        //{
+        //    var user = this;
+        //    if (!user.Enable) return false;
 
-            // 清空密码后，任意密码可以登录，并成为新密码
-            if (user.Password.IsNullOrEmpty())
-                user.Password = password.MD5();
-            else
-            {
-                if (user.Password != password.MD5()) return false;
-            }
+        //    // 清空密码后，任意密码可以登录，并成为新密码
+        //    if (user.Password.IsNullOrEmpty())
+        //        user.Password = password.MD5();
+        //    else
+        //    {
+        //        if (user.Password != password.MD5()) return false;
+        //    }
 
-            user.Logins++;
-            user.LastLogin = DateTime.Now;
-            user.LastLoginIP = WebHelper.UserHost;
-            user.Save();
+        //    user.Logins++;
+        //    user.LastLogin = DateTime.Now;
+        //    user.LastLoginIP = WebHelper.UserHost;
+        //    user.Save();
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public static User Check(String name, String pass)
-        {
-            var user = FindByName(name) ?? FindByEmail(name);
-            if (user == null) return null;
+        //public static User Check(String name, String pass)
+        //{
+        //    var user = FindByName(name) ?? FindByEmail(name);
+        //    if (user == null) return null;
 
-            if (!user.Enable) return null;
-            if (user.Password != pass.MD5()) return null;
+        //    if (!user.Enable) return null;
+        //    if (user.Password != pass.MD5()) return null;
 
-            return user;
-        }
+        //    return user;
+        //}
         #endregion
     }
 }
