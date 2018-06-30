@@ -32,10 +32,12 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.*")]
-[assembly: AssemblyFileVersion("1.3.2017.0824")]
+[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyFileVersion("2.0.2018.0630")]
 
 /*
+ * v2.0.2018.0630   全面使用魔方权限体系
+ * 
  * v1.3.2017.0824   全面停用SSH
  * 
  * v1.2.2017.0124   Markdown语法增强，支持相对路径引用图片和链接
