@@ -50,13 +50,13 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)
                     {
-                        <li class="">@Html.ActionLink(SR.Shared_Register, "Create", "Account")</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "Admin/User")</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Admin/User", new { r = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
                     }
                     else
                     {
-                        <li class="">@Html.ActionLink(token.NickName, "Detail", "Account", new { name = token.Name }, null)</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                        <li class="">@Html.ActionLink(token + "", "Detail", "Account", new { name = token.Name }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Admin/User", new { r = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
                     }
                 </ul>
             </div>
