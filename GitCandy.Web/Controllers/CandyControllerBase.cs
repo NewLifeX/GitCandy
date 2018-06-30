@@ -8,6 +8,7 @@ using NewLife.Log;
 using NewLife.Model;
 using NewLife.Reflection;
 using XCode.Membership;
+using UserY = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
@@ -23,7 +24,13 @@ namespace GitCandy.Controllers
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             var prv = ManageProvider.Provider;
-            if (prv.TryLogin() != null) prv.SetPrincipal();
+            if (prv.TryLogin() != null)
+            {
+                prv.SetPrincipal();
+
+                // 同步用户数据到Git用户表
+                if (UserY.Current == null) UserY.Current = UserY.GetOrAdd(prv.Current);
+            }
 
             base.OnAuthorization(filterContext);
         }

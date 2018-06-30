@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using NewLife.Data;
 using NewLife.Model;
 using NewLife.Web;
@@ -111,24 +112,24 @@ namespace NewLife.GitCandy.Entity
 
         public String[] RepositoryNames => Repositories?.Select(e => e.RepositoryName).ToArray();
 
-        ///// <summary>当前登录用户</summary>
-        //public static User Current
-        //{
-        //    get
-        //    {
-        //        var ss = HttpContext.Current?.Session;
-        //        if (ss == null) return null;
+        /// <summary>当前登录用户</summary>
+        public static User Current
+        {
+            get
+            {
+                var ss = HttpContext.Current?.Session;
+                if (ss == null) return null;
 
-        //        return ss["CandyUser"] as User;
-        //    }
-        //    set
-        //    {
-        //        var ss = HttpContext.Current?.Session;
-        //        if (ss == null) return;
+                return ss["CandyUser"] as User;
+            }
+            set
+            {
+                var ss = HttpContext.Current?.Session;
+                if (ss == null) return;
 
-        //        ss["CandyUser"] = value;
-        //    }
-        //}
+                ss["CandyUser"] = value;
+            }
+        }
 
         //String IIdentity.AuthenticationType => "GitCandy";
 
@@ -268,6 +269,43 @@ namespace NewLife.GitCandy.Entity
 
         //    return user;
         //}
+
+        public static User GetOrAdd(Int32 linkid, String name)
+        {
+            var user = Find(_.LinkID == linkid);
+            if (user == null) user = FindByName(name);
+            if (user != null)
+            {
+                if (user.LinkID > 0 && user.LinkID != linkid) throw new InvalidOperationException($"账号[{name}]被[{user.LinkID}]和[{linkid}]共用，请联系管理员");
+
+                user.LinkID = linkid;
+                user.SaveAsync();
+            }
+            else
+            {
+                user = new User { LinkID = linkid, Name = name };
+                user.Insert();
+            }
+
+            //if (user.Name.IsNullOrEmpty()) user.Name = name;
+
+            return user;
+        }
+
+        public static User GetOrAdd(IManageUser user)
+        {
+            if (user == null) return null;
+
+            var u = GetOrAdd(user.ID, user.Name);
+            if (u != null)
+            {
+                u.NickName = user.NickName;
+                if (user is XCode.Membership.IUser au) u.Email = au.Mail;
+                u.SaveAsync();
+            }
+
+            return u;
+        }
         #endregion
     }
 }

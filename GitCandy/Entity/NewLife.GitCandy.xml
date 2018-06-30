@@ -9,6 +9,7 @@
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="IsTeam" DataType="Boolean" Description="团队" />
       <Column Name="Description" DataType="String" Length="500" Description="描述" />
+      <Column Name="LinkID" DataType="Int32" Description="链接。连接到基础用户" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" />
@@ -18,6 +19,7 @@
     </Columns>
     <Indexes>
       <Index Columns="Name" Unique="True" />
+      <Index Columns="LinkID" />
     </Indexes>
   </Table>
   <Table Name="Repository" Description="仓库" DbType="SqlServer">
