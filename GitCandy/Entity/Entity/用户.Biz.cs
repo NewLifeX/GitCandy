@@ -8,10 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Security.Principal;
-using System.Web;
 using NewLife.Data;
-using NewLife.Log;
 using NewLife.Model;
 using NewLife.Web;
 using XCode;
@@ -20,7 +17,7 @@ using XCode.Membership;
 namespace NewLife.GitCandy.Entity
 {
     /// <summary>用户</summary>
-    public partial class User : LogEntity<User>, IManageUser, IIdentity
+    public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
     {
         #region 对象操作
         static User()
@@ -28,7 +25,17 @@ namespace NewLife.GitCandy.Entity
             Meta.Modules.Add<UserModule>();
             Meta.Modules.Add<TimeModule>();
             Meta.Modules.Add<IPModule>();
+
+            var sc = Meta.SingleCache;
+            sc.FindSlaveKeyMethod = k => Find(_.Name == k);
+            sc.GetSlaveKeyMethod = e => e.Name;
         }
+
+        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+        //[EditorBrowsable(EditorBrowsableState.Never)]
+        //protected override void InitData()
+        //{
+        //    base.InitData();
 
         /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -89,7 +96,7 @@ namespace NewLife.GitCandy.Entity
             set { _Teams = value; }
         }
 
-        public String[] TeamNames { get { return Teams?.Select(e => e.Team?.Name).OrderBy(e => e).ToArray(); } }
+        public String[] TeamNames => Teams?.Select(e => e.Team?.Name).OrderBy(e => e).ToArray();
 
         private IList<UserRepository> _Repositories;
         /// <summary>仓库关系</summary>
@@ -108,30 +115,30 @@ namespace NewLife.GitCandy.Entity
             set { _Repositories = value; }
         }
 
-        public String[] RepositoryNames { get { return Repositories?.Select(e => e.RepositoryName).ToArray(); } }
+        public String[] RepositoryNames => Repositories?.Select(e => e.RepositoryName).ToArray();
 
-        /// <summary>当前登录用户</summary>
-        public static User Current
-        {
-            get
-            {
-                var ss = HttpContext.Current?.Session;
-                if (ss == null) return null;
+        ///// <summary>当前登录用户</summary>
+        //public static User Current
+        //{
+        //    get
+        //    {
+        //        var ss = HttpContext.Current?.Session;
+        //        if (ss == null) return null;
 
-                return ss["CandyUser"] as User;
-            }
-            set
-            {
-                var ss = HttpContext.Current?.Session;
-                if (ss == null) return;
+        //        return ss["CandyUser"] as User;
+        //    }
+        //    set
+        //    {
+        //        var ss = HttpContext.Current?.Session;
+        //        if (ss == null) return;
 
-                ss["CandyUser"] = value;
-            }
-        }
+        //        ss["CandyUser"] = value;
+        //    }
+        //}
 
-        String IIdentity.AuthenticationType => "GitCandy";
+        //String IIdentity.AuthenticationType => "GitCandy";
 
-        Boolean IIdentity.IsAuthenticated => true;
+        //Boolean IIdentity.IsAuthenticated => true;
         #endregion
 
         #region 扩展查询
@@ -139,10 +146,9 @@ namespace NewLife.GitCandy.Entity
         {
             if (id <= 0) return null;
 
-            if (Meta.Count >= 1000)
-                return Find(__.ID, id);
-            else // 实体缓存
-                return Meta.Cache.Entities.FirstOrDefault(e => e.ID == id);
+            if (Meta.Count < 1000) return Meta.Cache.Entities.FirstOrDefault(e => e.ID == id);
+
+            return Meta.SingleCache[id];
         }
 
         /// <summary>根据名称。登录用户名查找</summary>
@@ -153,12 +159,10 @@ namespace NewLife.GitCandy.Entity
         {
             if (name.IsNullOrEmpty()) return null;
 
-            if (Meta.Count >= 1000)
-                return Find(__.Name, name);
-            else // 实体缓存
-                return Meta.Cache.Entities.FirstOrDefault(e => e.Name.EqualIgnoreCase(name));
+            if (Meta.Count < 1000) return Meta.Cache.Entities.FirstOrDefault(e => e.Name.EqualIgnoreCase(name));
+
             // 单对象缓存
-            //return Meta.SingleCache[name];
+            return Meta.SingleCache.GetItemWithSlaveKey(name) as User;
         }
 
         public static User FindByEmail(String email)
@@ -196,10 +200,7 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 扩展操作
-        public override String ToString()
-        {
-            return NickName ?? Name;
-        }
+        public override String ToString() => NickName ?? Name;
         #endregion
 
         #region 业务

@@ -7,15 +7,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Xml.Serialization;
-using NewLife.Log;
-using NewLife.Web;
+using System.Linq;
 using NewLife.Data;
 using XCode;
-using XCode.Configuration;
 using XCode.Membership;
-using System.Linq;
 
 namespace NewLife.GitCandy.Entity
 {
@@ -23,6 +18,13 @@ namespace NewLife.GitCandy.Entity
     public partial class UserRepository : LogEntity<UserRepository>
     {
         #region 对象操作
+        static UserRepository()
+        {
+            Meta.Modules.Add<UserModule>();
+            Meta.Modules.Add<TimeModule>();
+            Meta.Modules.Add<IPModule>();
+        }
+
         public override void Valid(Boolean isNew)
         {
             if (UserID <= 0) throw new ArgumentNullException(__.UserID, _.UserID.DisplayName);
