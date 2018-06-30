@@ -1,7 +1,8 @@
-﻿using GitCandy.Controllers;
-using System;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using GitCandy.Controllers;
+using GitCandy.Extensions;
 
 namespace GitCandy.Filters
 {
@@ -26,7 +27,7 @@ namespace GitCandy.Filters
 
                 filterContext.Result = new RedirectResult(helper.Action("Login", "Account", retObj));
             }
-            else if (controller.Token.IsAdmin)
+            else if (controller.Token.IsAdmin())
             {
                 throw new HttpException(404, "Project not found.");
             }

@@ -27,13 +27,25 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Team\Detail.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Team\Detail.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -50,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Team\Detail.cshtml"
+            #line 4 "..\..\Views\Team\Detail.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_DetailTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -61,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 8 "..\..\Views\Team\Detail.cshtml"
+            #line 9 "..\..\Views\Team\Detail.cshtml"
 Write(String.Format(SR.Team_DetailTitle, Model.Name));
 
             
@@ -70,7 +82,7 @@ Write(String.Format(SR.Team_DetailTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n\r\n");
 
             
-            #line 11 "..\..\Views\Team\Detail.cshtml"
+            #line 12 "..\..\Views\Team\Detail.cshtml"
  if (Model != null)
 {
 
@@ -84,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal\"");
 WriteLiteral(">\r\n\r\n        <dt>");
 
             
-            #line 15 "..\..\Views\Team\Detail.cshtml"
+            #line 16 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -93,7 +105,7 @@ WriteLiteral(">\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 16 "..\..\Views\Team\Detail.cshtml"
+            #line 17 "..\..\Views\Team\Detail.cshtml"
        Write(Model.Name);
 
             
@@ -102,7 +114,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 18 "..\..\Views\Team\Detail.cshtml"
+            #line 19 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Nickname));
 
             
@@ -111,7 +123,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 19 "..\..\Views\Team\Detail.cshtml"
+            #line 20 "..\..\Views\Team\Detail.cshtml"
        Write(Model.Nickname);
 
             
@@ -120,7 +132,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 21 "..\..\Views\Team\Detail.cshtml"
+            #line 22 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Members));
 
             
@@ -129,7 +141,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 22 "..\..\Views\Team\Detail.cshtml"
+            #line 23 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Members));
 
             
@@ -138,7 +150,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 24 "..\..\Views\Team\Detail.cshtml"
+            #line 25 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Repositories));
 
             
@@ -147,7 +159,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 25 "..\..\Views\Team\Detail.cshtml"
+            #line 26 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Repositories));
 
             
@@ -156,7 +168,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 27 "..\..\Views\Team\Detail.cshtml"
+            #line 28 "..\..\Views\Team\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -165,7 +177,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 28 "..\..\Views\Team\Detail.cshtml"
+            #line 29 "..\..\Views\Team\Detail.cshtml"
        Write(Model.Description);
 
             
@@ -174,47 +186,47 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n");
 
             
-            #line 30 "..\..\Views\Team\Detail.cshtml"
+            #line 31 "..\..\Views\Team\Detail.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 30 "..\..\Views\Team\Detail.cshtml"
-         if (token != null &&  token.IsAdmin)
+            #line 31 "..\..\Views\Team\Detail.cshtml"
+         if (token != null && token.IsAdmin())
         {
 
             
             #line default
             #line hidden
-WriteLiteral("        <dt></dt>\r\n");
+WriteLiteral("            <dt></dt>\r\n");
 
-WriteLiteral("        <dd>\r\n");
+WriteLiteral("            <dd>\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 34 "..\..\Views\Team\Detail.cshtml"
-       Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { name = Model.Name }, new { @class = "btn btn-primary" }));
+            #line 35 "..\..\Views\Team\Detail.cshtml"
+           Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { name = Model.Name }, new { @class = "btn btn-primary" }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 35 "..\..\Views\Team\Detail.cshtml"
-       Write(Html.ActionLink(SR.Team_Members, "Users", new { name = Model.Name }, new { @class = "btn btn-info" }));
+            #line 36 "..\..\Views\Team\Detail.cshtml"
+           Write(Html.ActionLink(SR.Team_Members, "Users", new { name = Model.Name }, new { @class = "btn btn-info" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </dd>\r\n");
+WriteLiteral("\r\n            </dd>\r\n");
 
             
-            #line 37 "..\..\Views\Team\Detail.cshtml"
+            #line 38 "..\..\Views\Team\Detail.cshtml"
         }
 
             
@@ -223,7 +235,7 @@ WriteLiteral("\r\n        </dd>\r\n");
 WriteLiteral("    </dl>\r\n");
 
             
-            #line 39 "..\..\Views\Team\Detail.cshtml"
+            #line 40 "..\..\Views\Team\Detail.cshtml"
 }
 
             

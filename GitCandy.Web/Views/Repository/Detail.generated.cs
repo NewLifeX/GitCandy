@@ -29,12 +29,23 @@ namespace ASP
     using GitCandy;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Repository\Detail.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
     using GitCandy.Web;
     using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Repository\Detail.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -51,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Repository\Detail.cshtml"
+            #line 4 "..\..\Views\Repository\Detail.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_DetailTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -62,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 8 "..\..\Views\Repository\Detail.cshtml"
+            #line 9 "..\..\Views\Repository\Detail.cshtml"
 Write(String.Format(SR.Repository_DetailTitle, Model.Name));
 
             
@@ -71,7 +82,7 @@ Write(String.Format(SR.Repository_DetailTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n");
 
             
-            #line 10 "..\..\Views\Repository\Detail.cshtml"
+            #line 11 "..\..\Views\Repository\Detail.cshtml"
  if (Model != null)
 {
 
@@ -85,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal\"");
 WriteLiteral(">\r\n\r\n        <dt>");
 
             
-            #line 14 "..\..\Views\Repository\Detail.cshtml"
+            #line 15 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -94,7 +105,7 @@ WriteLiteral(">\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 15 "..\..\Views\Repository\Detail.cshtml"
+            #line 16 "..\..\Views\Repository\Detail.cshtml"
        Write(Model.Name);
 
             
@@ -103,7 +114,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 17 "..\..\Views\Repository\Detail.cshtml"
+            #line 18 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.IsPrivate));
 
             
@@ -112,7 +123,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 18 "..\..\Views\Repository\Detail.cshtml"
+            #line 19 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.IsPrivate));
 
             
@@ -121,7 +132,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 20 "..\..\Views\Repository\Detail.cshtml"
+            #line 21 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.AllowAnonymousRead));
 
             
@@ -130,7 +141,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 21 "..\..\Views\Repository\Detail.cshtml"
+            #line 22 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.AllowAnonymousRead));
 
             
@@ -139,7 +150,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 23 "..\..\Views\Repository\Detail.cshtml"
+            #line 24 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.AllowAnonymousWrite));
 
             
@@ -148,7 +159,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 24 "..\..\Views\Repository\Detail.cshtml"
+            #line 25 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.AllowAnonymousWrite));
 
             
@@ -157,7 +168,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 26 "..\..\Views\Repository\Detail.cshtml"
+            #line 27 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.DefaultBranch));
 
             
@@ -166,7 +177,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 27 "..\..\Views\Repository\Detail.cshtml"
+            #line 28 "..\..\Views\Repository\Detail.cshtml"
        Write(Model.DefaultBranch);
 
             
@@ -175,7 +186,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 29 "..\..\Views\Repository\Detail.cshtml"
+            #line 30 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -184,7 +195,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 30 "..\..\Views\Repository\Detail.cshtml"
+            #line 31 "..\..\Views\Repository\Detail.cshtml"
        Write(Model.Description);
 
             
@@ -193,7 +204,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 32 "..\..\Views\Repository\Detail.cshtml"
+            #line 33 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Collaborators));
 
             
@@ -202,7 +213,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 33 "..\..\Views\Repository\Detail.cshtml"
+            #line 34 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Collaborators));
 
             
@@ -211,7 +222,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 35 "..\..\Views\Repository\Detail.cshtml"
+            #line 36 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Teams));
 
             
@@ -220,7 +231,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 36 "..\..\Views\Repository\Detail.cshtml"
+            #line 37 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Teams));
 
             
@@ -229,7 +240,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 38 "..\..\Views\Repository\Detail.cshtml"
+            #line 39 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Views));
 
             
@@ -238,7 +249,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 39 "..\..\Views\Repository\Detail.cshtml"
+            #line 40 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Views));
 
             
@@ -247,7 +258,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 41 "..\..\Views\Repository\Detail.cshtml"
+            #line 42 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Downloads));
 
             
@@ -256,7 +267,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 42 "..\..\Views\Repository\Detail.cshtml"
+            #line 43 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Downloads));
 
             
@@ -267,7 +278,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>\r\n");
 WriteLiteral("            ");
 
             
-            #line 45 "..\..\Views\Repository\Detail.cshtml"
+            #line 46 "..\..\Views\Repository\Detail.cshtml"
        Write(Html.ActionLink(SR.Repository_Tree, "Tree", new { Model.Name }, new { @class = "btn btn-default pull-left" }));
 
             
@@ -276,54 +287,54 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </dt>\r\n        <dd>\r\n");
 
             
-            #line 48 "..\..\Views\Repository\Detail.cshtml"
-        
-            
-            #line default
-            #line hidden
-            
-            #line 48 "..\..\Views\Repository\Detail.cshtml"
-         if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin))
-        {
+            #line 49 "..\..\Views\Repository\Detail.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 50 "..\..\Views\Repository\Detail.cshtml"
-       Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { Model.Name }, new { @class = "btn btn-primary" }));
+            #line 49 "..\..\Views\Repository\Detail.cshtml"
+             if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin()))
+            {
+                
+            
+            #line default
+            #line hidden
+            
+            #line 51 "..\..\Views\Repository\Detail.cshtml"
+           Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { Model.Name }, new { @class = "btn btn-primary" }));
 
             
             #line default
             #line hidden
             
-            #line 50 "..\..\Views\Repository\Detail.cshtml"
-                                                                                                            
+            #line 51 "..\..\Views\Repository\Detail.cshtml"
+                                                                                                                
 
             
             #line default
             #line hidden
-WriteLiteral("            ");
+WriteLiteral("                ");
 
 WriteLiteral("\r\n");
 
             
-            #line 52 "..\..\Views\Repository\Detail.cshtml"
-            
+            #line 53 "..\..\Views\Repository\Detail.cshtml"
+                
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Repository\Detail.cshtml"
-       Write(Html.ActionLink(SR.Repository_Relationship, "Coop", new { Model.Name }, new { @class = "btn btn-info" }));
+            #line 53 "..\..\Views\Repository\Detail.cshtml"
+           Write(Html.ActionLink(SR.Repository_Relationship, "Coop", new { Model.Name }, new { @class = "btn btn-info" }));
 
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Repository\Detail.cshtml"
-                                                                                                                     
-        }
+            #line 53 "..\..\Views\Repository\Detail.cshtml"
+                                                                                                                         
+            }
 
             
             #line default
@@ -331,7 +342,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        </dd>\r\n    </dl>\r\n");
 
             
-            #line 56 "..\..\Views\Repository\Detail.cshtml"
+            #line 57 "..\..\Views\Repository\Detail.cshtml"
 }
 
             

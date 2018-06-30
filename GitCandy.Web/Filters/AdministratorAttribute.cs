@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using GitCandy.Controllers;
+using GitCandy.Extensions;
 
 namespace GitCandy.Filters
 {
@@ -11,7 +12,7 @@ namespace GitCandy.Filters
             base.OnAuthorization(filterContext);
 
             var controller = filterContext.Controller as CandyControllerBase;
-            if (controller == null || controller.Token == null || !controller.Token.IsAdmin)
+            if (controller == null || controller.Token == null || !controller.Token.IsAdmin())
                 HandleUnauthorizedRequest(filterContext);
         }
     }

@@ -1,8 +1,9 @@
 ﻿@model GitCandy.Models.TeamModel
-
+@using NewLife.Model;
+@using GitCandy.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_DetailTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 }
 
 <h3>@String.Format(SR.Team_DetailTitle, Model.Name)</h3>
@@ -27,13 +28,13 @@
         <dt>@Html.DisplayNameFor(s => s.Description)</dt>
         <dd>@Model.Description</dd>
 
-        @if (token != null &&  token.IsAdmin)
+        @if (token != null && token.IsAdmin())
         {
-        <dt></dt>
-        <dd>
-            @Html.ActionLink(SR.Shared_Edit, "Edit", new { name = Model.Name }, new { @class = "btn btn-primary" })
-            @Html.ActionLink(SR.Team_Members, "Users", new { name = Model.Name }, new { @class = "btn btn-info" })
-        </dd>
+            <dt></dt>
+            <dd>
+                @Html.ActionLink(SR.Shared_Edit, "Edit", new { name = Model.Name }, new { @class = "btn btn-primary" })
+                @Html.ActionLink(SR.Team_Members, "Users", new { name = Model.Name }, new { @class = "btn btn-info" })
+            </dd>
         }
     </dl>
 }

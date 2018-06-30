@@ -57,7 +57,6 @@
     <Compile Include="Base\RegularExpression.cs" />
     <Compile Include="Base\StringLogicalComparer.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Entity\CandyManageProvider.cs" />
     <Compile Include="Entity\Entity\仓库.Biz.cs" />
     <Compile Include="Entity\Entity\仓库.cs" />
     <Compile Include="Entity\Entity\用户.Biz.cs" />
@@ -66,10 +65,7 @@
     <Compile Include="Entity\Entity\用户仓库.cs" />
     <Compile Include="Entity\Entity\用户团队.Biz.cs" />
     <Compile Include="Entity\Entity\用户团队.cs" />
-    <Compile Include="Entity\Entity\认证日志.Biz.cs" />
-    <Compile Include="Entity\Entity\认证日志.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Token.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entity\NewLife.GitCandy.xml" />
@@ -88,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

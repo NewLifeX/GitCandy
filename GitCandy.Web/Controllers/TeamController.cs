@@ -9,6 +9,7 @@ using GitCandy.Filters;
 using GitCandy.Models;
 using NewLife.Log;
 using UserX = NewLife.GitCandy.Entity.User;
+using GitCandy.Extensions;
 
 namespace GitCandy.Controllers
 {
@@ -62,7 +63,7 @@ namespace GitCandy.Controllers
         [TeamOrSystemAdministrator]
         public ActionResult Detail(String name)
         {
-            var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token.Username);
+            var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token?.Name);
             if (model == null)
                 throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             return View(model);
@@ -109,8 +110,8 @@ namespace GitCandy.Controllers
             }
             else if (act == "del")
             {
-                if (!Token.IsAdmin
-                    && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                if (!Token.IsAdmin()
+                    && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamRemoveUser(name, user))
                     return Json("success");
@@ -118,8 +119,8 @@ namespace GitCandy.Controllers
             else if (act == "admin" || act == "member")
             {
                 var isAdmin = act == "admin";
-                if (!Token.IsAdmin
-                    && !isAdmin && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                if (!Token.IsAdmin()
+                    && !isAdmin && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (MembershipService.TeamUserSetAdministrator(name, user, isAdmin))
                     return Json("success");
@@ -135,7 +136,7 @@ namespace GitCandy.Controllers
             if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
             {
                 MembershipService.DeleteTeam(name);
-                XTrace.WriteLine("Team {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
+                XTrace.WriteLine("Team {0} deleted by {1}#{2}", name, Token?.Name, Token.ID);
                 return RedirectToAction("Index");
             }
             return View((Object)name);

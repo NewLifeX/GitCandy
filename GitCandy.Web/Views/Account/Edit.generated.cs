@@ -29,12 +29,23 @@ namespace ASP
     using GitCandy;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Account\Edit.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
     using GitCandy.Web;
     using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Account\Edit.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -51,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Account\Edit.cshtml"
+            #line 4 "..\..\Views\Account\Edit.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Account_EditTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -62,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 8 "..\..\Views\Account\Edit.cshtml"
+            #line 9 "..\..\Views\Account\Edit.cshtml"
 Write(String.Format(SR.Account_EditTitle, Model.Name));
 
             
@@ -71,7 +82,7 @@ Write(String.Format(SR.Account_EditTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n\r\n");
 
             
-            #line 11 "..\..\Views\Account\Edit.cshtml"
+            #line 12 "..\..\Views\Account\Edit.cshtml"
  using (Html.BeginForm("Edit", "Account", FormMethod.Post))
 {
 
@@ -85,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal col-md-8\"");
 WriteLiteral(">\r\n        <dt>");
 
             
-            #line 14 "..\..\Views\Account\Edit.cshtml"
+            #line 15 "..\..\Views\Account\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -96,7 +107,7 @@ WriteLiteral("</dt>\r\n        <dd>\r\n");
 WriteLiteral("            ");
 
             
-            #line 16 "..\..\Views\Account\Edit.cshtml"
+            #line 17 "..\..\Views\Account\Edit.cshtml"
        Write(Html.HiddenFor(s => s.Name));
 
             
@@ -107,7 +118,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 17 "..\..\Views\Account\Edit.cshtml"
+            #line 18 "..\..\Views\Account\Edit.cshtml"
        Write(Model.Name);
 
             
@@ -116,7 +127,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 20 "..\..\Views\Account\Edit.cshtml"
+            #line 21 "..\..\Views\Account\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Password));
 
             
@@ -125,7 +136,7 @@ WriteLiteral("\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 21 "..\..\Views\Account\Edit.cshtml"
+            #line 22 "..\..\Views\Account\Edit.cshtml"
        Write(Html.PasswordFor(s => s.Password, new { @class = "form-control" }));
 
             
@@ -140,7 +151,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 24 "..\..\Views\Account\Edit.cshtml"
+            #line 25 "..\..\Views\Account\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Password));
 
             
@@ -149,14 +160,14 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n");
 
             
-            #line 26 "..\..\Views\Account\Edit.cshtml"
+            #line 27 "..\..\Views\Account\Edit.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 26 "..\..\Views\Account\Edit.cshtml"
-             if (token.IsAdmin)
+            #line 27 "..\..\Views\Account\Edit.cshtml"
+             if (token.IsAdmin())
             {
 
             
@@ -169,7 +180,7 @@ WriteLiteral(" class=\"text-info\"");
 WriteLiteral(">\r\n                    使用当前管理员密码确认是否合法操作\r\n                </span>\r\n");
 
             
-            #line 31 "..\..\Views\Account\Edit.cshtml"
+            #line 32 "..\..\Views\Account\Edit.cshtml"
             }
 
             
@@ -178,7 +189,7 @@ WriteLiteral(">\r\n                    使用当前管理员密码确认是否�
 WriteLiteral("        </dd>\r\n\r\n        <dt>");
 
             
-            #line 34 "..\..\Views\Account\Edit.cshtml"
+            #line 35 "..\..\Views\Account\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Nickname));
 
             
@@ -187,7 +198,7 @@ WriteLiteral("        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 35 "..\..\Views\Account\Edit.cshtml"
+            #line 36 "..\..\Views\Account\Edit.cshtml"
        Write(Html.TextBoxFor(s => s.Nickname, new { @class = "form-control" }));
 
             
@@ -202,7 +213,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 38 "..\..\Views\Account\Edit.cshtml"
+            #line 39 "..\..\Views\Account\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Nickname));
 
             
@@ -211,7 +222,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 42 "..\..\Views\Account\Edit.cshtml"
+            #line 43 "..\..\Views\Account\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Email));
 
             
@@ -220,7 +231,7 @@ WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 43 "..\..\Views\Account\Edit.cshtml"
+            #line 44 "..\..\Views\Account\Edit.cshtml"
        Write(Html.TextBoxFor(s => s.Email, new { @class = "form-control" }));
 
             
@@ -235,7 +246,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 46 "..\..\Views\Account\Edit.cshtml"
+            #line 47 "..\..\Views\Account\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Email));
 
             
@@ -244,7 +255,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 50 "..\..\Views\Account\Edit.cshtml"
+            #line 51 "..\..\Views\Account\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -253,7 +264,7 @@ WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 51 "..\..\Views\Account\Edit.cshtml"
+            #line 52 "..\..\Views\Account\Edit.cshtml"
        Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
 
             
@@ -268,7 +279,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 54 "..\..\Views\Account\Edit.cshtml"
+            #line 55 "..\..\Views\Account\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Description));
 
             
@@ -277,14 +288,14 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n");
 
             
-            #line 58 "..\..\Views\Account\Edit.cshtml"
+            #line 59 "..\..\Views\Account\Edit.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 58 "..\..\Views\Account\Edit.cshtml"
-         if (token.IsAdmin)
+            #line 59 "..\..\Views\Account\Edit.cshtml"
+         if (token.IsAdmin())
         {
 
             
@@ -293,7 +304,7 @@ WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n");
 WriteLiteral("            <dt>");
 
             
-            #line 60 "..\..\Views\Account\Edit.cshtml"
+            #line 61 "..\..\Views\Account\Edit.cshtml"
            Write(Html.DisplayNameFor(s => s.IsAdmin));
 
             
@@ -308,7 +319,7 @@ WriteLiteral(" class=\"switch\"");
 WriteLiteral(" data-on-label=\"");
 
             
-            #line 62 "..\..\Views\Account\Edit.cshtml"
+            #line 63 "..\..\Views\Account\Edit.cshtml"
                                               Write(SR.Shared_Yes);
 
             
@@ -319,7 +330,7 @@ WriteLiteral("\"");
 WriteLiteral(" data-off-label=\"");
 
             
-            #line 62 "..\..\Views\Account\Edit.cshtml"
+            #line 63 "..\..\Views\Account\Edit.cshtml"
                                                                               Write(SR.Shared_No);
 
             
@@ -332,7 +343,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 63 "..\..\Views\Account\Edit.cshtml"
+            #line 64 "..\..\Views\Account\Edit.cshtml"
                Write(Html.CheckBoxFor(s => s.IsAdmin, new { data_size = "small" }));
 
             
@@ -341,7 +352,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </div>\r\n            </dd>\r\n");
 
             
-            #line 66 "..\..\Views\Account\Edit.cshtml"
+            #line 67 "..\..\Views\Account\Edit.cshtml"
         }
 
             
@@ -350,7 +361,7 @@ WriteLiteral("\r\n                </div>\r\n            </dd>\r\n");
 WriteLiteral("\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 69 "..\..\Views\Account\Edit.cshtml"
+            #line 70 "..\..\Views\Account\Edit.cshtml"
        Write(Html.ValidationSummary(true, SR.Account_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -361,7 +372,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>\r\n");
 WriteLiteral("            ");
 
             
-            #line 72 "..\..\Views\Account\Edit.cshtml"
+            #line 73 "..\..\Views\Account\Edit.cshtml"
        Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default pull-left" }));
 
             
@@ -376,7 +387,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 75 "..\..\Views\Account\Edit.cshtml"
+            #line 76 "..\..\Views\Account\Edit.cshtml"
                                                      Write(SR.Shared_Save);
 
             
@@ -391,7 +402,7 @@ WriteLiteral(" class=\"btn btn-inverse\"");
 WriteLiteral(">");
 
             
-            #line 76 "..\..\Views\Account\Edit.cshtml"
+            #line 77 "..\..\Views\Account\Edit.cshtml"
                                                     Write(SR.Shared_Reset);
 
             
@@ -400,28 +411,28 @@ WriteLiteral(">");
 WriteLiteral("</button> &nbsp;\r\n");
 
             
-            #line 77 "..\..\Views\Account\Edit.cshtml"
+            #line 78 "..\..\Views\Account\Edit.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 77 "..\..\Views\Account\Edit.cshtml"
-             if (token != null && token.IsAdmin)
+            #line 78 "..\..\Views\Account\Edit.cshtml"
+             if (token != null && token.IsAdmin())
             {
                 
             
             #line default
             #line hidden
             
-            #line 79 "..\..\Views\Account\Edit.cshtml"
+            #line 80 "..\..\Views\Account\Edit.cshtml"
            Write(Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 79 "..\..\Views\Account\Edit.cshtml"
+            #line 80 "..\..\Views\Account\Edit.cshtml"
                                                                                                                    
             }
 
@@ -431,7 +442,7 @@ WriteLiteral("</button> &nbsp;\r\n");
 WriteLiteral("        </dd>\r\n    </dl>\r\n");
 
             
-            #line 83 "..\..\Views\Account\Edit.cshtml"
+            #line 84 "..\..\Views\Account\Edit.cshtml"
 }
 
             

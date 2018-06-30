@@ -29,12 +29,23 @@ namespace ASP
     using GitCandy;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Account\Detail.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
     using GitCandy.Web;
     using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Account\Detail.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -51,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Account\Detail.cshtml"
+            #line 4 "..\..\Views\Account\Detail.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Account_DetailTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -62,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n<h3>");
 
             
-            #line 7 "..\..\Views\Account\Detail.cshtml"
+            #line 8 "..\..\Views\Account\Detail.cshtml"
 Write(String.Format(SR.Account_DetailTitle, Model.Name));
 
             
@@ -71,7 +82,7 @@ Write(String.Format(SR.Account_DetailTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Account\Detail.cshtml"
+            #line 10 "..\..\Views\Account\Detail.cshtml"
  if (Model != null)
 {
 
@@ -85,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal\"");
 WriteLiteral(">\r\n\r\n        <dt>");
 
             
-            #line 13 "..\..\Views\Account\Detail.cshtml"
+            #line 14 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -94,7 +105,7 @@ WriteLiteral(">\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 14 "..\..\Views\Account\Detail.cshtml"
+            #line 15 "..\..\Views\Account\Detail.cshtml"
        Write(Model.Name);
 
             
@@ -103,7 +114,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 16 "..\..\Views\Account\Detail.cshtml"
+            #line 17 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Nickname));
 
             
@@ -112,7 +123,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 17 "..\..\Views\Account\Detail.cshtml"
+            #line 18 "..\..\Views\Account\Detail.cshtml"
        Write(Model.Nickname);
 
             
@@ -121,7 +132,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 19 "..\..\Views\Account\Detail.cshtml"
+            #line 20 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Email));
 
             
@@ -130,7 +141,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 20 "..\..\Views\Account\Detail.cshtml"
+            #line 21 "..\..\Views\Account\Detail.cshtml"
        Write(Model.Email);
 
             
@@ -139,7 +150,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 22 "..\..\Views\Account\Detail.cshtml"
+            #line 23 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Respositories));
 
             
@@ -148,7 +159,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 23 "..\..\Views\Account\Detail.cshtml"
+            #line 24 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Respositories));
 
             
@@ -157,7 +168,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 25 "..\..\Views\Account\Detail.cshtml"
+            #line 26 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Teams));
 
             
@@ -166,7 +177,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 26 "..\..\Views\Account\Detail.cshtml"
+            #line 27 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayFor(s => s.Teams));
 
             
@@ -175,7 +186,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 28 "..\..\Views\Account\Detail.cshtml"
+            #line 29 "..\..\Views\Account\Detail.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -184,7 +195,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 29 "..\..\Views\Account\Detail.cshtml"
+            #line 30 "..\..\Views\Account\Detail.cshtml"
        Write(Model.Description);
 
             
@@ -193,14 +204,14 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n");
 
             
-            #line 31 "..\..\Views\Account\Detail.cshtml"
+            #line 32 "..\..\Views\Account\Detail.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 31 "..\..\Views\Account\Detail.cshtml"
-         if (token != null && token.IsAdmin)
+            #line 32 "..\..\Views\Account\Detail.cshtml"
+         if (token != null && token.IsAdmin())
         {
 
             
@@ -209,7 +220,7 @@ WriteLiteral("</dd>\r\n\r\n");
 WriteLiteral("            <dt>");
 
             
-            #line 33 "..\..\Views\Account\Detail.cshtml"
+            #line 34 "..\..\Views\Account\Detail.cshtml"
            Write(Html.DisplayNameFor(s => s.IsAdmin));
 
             
@@ -220,7 +231,7 @@ WriteLiteral("</dt>\r\n");
 WriteLiteral("            <dd>");
 
             
-            #line 34 "..\..\Views\Account\Detail.cshtml"
+            #line 35 "..\..\Views\Account\Detail.cshtml"
            Write(Html.DisplayFor(s => s.IsAdmin));
 
             
@@ -229,7 +240,7 @@ WriteLiteral("            <dd>");
 WriteLiteral("</dd>\r\n");
 
             
-            #line 35 "..\..\Views\Account\Detail.cshtml"
+            #line 36 "..\..\Views\Account\Detail.cshtml"
         }
 
             
@@ -238,14 +249,14 @@ WriteLiteral("</dd>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 37 "..\..\Views\Account\Detail.cshtml"
+            #line 38 "..\..\Views\Account\Detail.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 37 "..\..\Views\Account\Detail.cshtml"
-         if (token != null && (token.Username == Model.Name || token.IsAdmin))
+            #line 38 "..\..\Views\Account\Detail.cshtml"
+         if (token != null && (token.Name == Model.Name || token.IsAdmin()))
         {
 
             
@@ -258,7 +269,7 @@ WriteLiteral("            <dd>\r\n");
 WriteLiteral("                ");
 
             
-            #line 41 "..\..\Views\Account\Detail.cshtml"
+            #line 42 "..\..\Views\Account\Detail.cshtml"
            Write(Html.ActionLink(SR.Shared_Edit, "Edit", new { Model.Name }, new { @class = "btn btn-primary" }));
 
             
@@ -269,7 +280,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                ");
 
             
-            #line 42 "..\..\Views\Account\Detail.cshtml"
+            #line 43 "..\..\Views\Account\Detail.cshtml"
            Write(Html.ActionLink(SR.Account_ChangePassword, "Change", new { Model.Name }, new { @class = "btn btn-info" }));
 
             
@@ -278,7 +289,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </dd>\r\n");
 
             
-            #line 44 "..\..\Views\Account\Detail.cshtml"
+            #line 45 "..\..\Views\Account\Detail.cshtml"
         }
 
             
@@ -287,7 +298,7 @@ WriteLiteral("\r\n            </dd>\r\n");
 WriteLiteral("    </dl>\r\n");
 
             
-            #line 46 "..\..\Views\Account\Detail.cshtml"
+            #line 47 "..\..\Views\Account\Detail.cshtml"
 }
 
             

@@ -27,13 +27,25 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using GitCandy;
-    using GitCandy.Web.App_GlobalResources;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Team\Edit.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
+    using GitCandy.Web;
+    using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Team\Edit.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -50,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Team\Edit.cshtml"
+            #line 4 "..\..\Views\Team\Edit.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_EditTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -61,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 8 "..\..\Views\Team\Edit.cshtml"
+            #line 9 "..\..\Views\Team\Edit.cshtml"
 Write(String.Format(SR.Team_EditTitle, Model.Name));
 
             
@@ -70,7 +82,7 @@ Write(String.Format(SR.Team_EditTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n\r\n");
 
             
-            #line 11 "..\..\Views\Team\Edit.cshtml"
+            #line 12 "..\..\Views\Team\Edit.cshtml"
  using (Html.BeginForm("Edit", "Team", FormMethod.Post))
 {
 
@@ -84,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal col-md-8\"");
 WriteLiteral(">\r\n        <dt>");
 
             
-            #line 14 "..\..\Views\Team\Edit.cshtml"
+            #line 15 "..\..\Views\Team\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -95,7 +107,7 @@ WriteLiteral("</dt>\r\n        <dd>\r\n");
 WriteLiteral("            ");
 
             
-            #line 16 "..\..\Views\Team\Edit.cshtml"
+            #line 17 "..\..\Views\Team\Edit.cshtml"
        Write(Html.HiddenFor(s => s.Name));
 
             
@@ -106,7 +118,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 17 "..\..\Views\Team\Edit.cshtml"
+            #line 18 "..\..\Views\Team\Edit.cshtml"
        Write(Model.Name);
 
             
@@ -115,7 +127,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 20 "..\..\Views\Team\Edit.cshtml"
+            #line 21 "..\..\Views\Team\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Nickname));
 
             
@@ -124,7 +136,7 @@ WriteLiteral("\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 21 "..\..\Views\Team\Edit.cshtml"
+            #line 22 "..\..\Views\Team\Edit.cshtml"
        Write(Html.TextBoxFor(s => s.Nickname, new { @class = "form-control" }));
 
             
@@ -139,7 +151,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 24 "..\..\Views\Team\Edit.cshtml"
+            #line 25 "..\..\Views\Team\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Nickname));
 
             
@@ -148,7 +160,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 28 "..\..\Views\Team\Edit.cshtml"
+            #line 29 "..\..\Views\Team\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -157,7 +169,7 @@ WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 29 "..\..\Views\Team\Edit.cshtml"
+            #line 30 "..\..\Views\Team\Edit.cshtml"
        Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
 
             
@@ -172,7 +184,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 32 "..\..\Views\Team\Edit.cshtml"
+            #line 33 "..\..\Views\Team\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Description));
 
             
@@ -181,7 +193,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 37 "..\..\Views\Team\Edit.cshtml"
+            #line 38 "..\..\Views\Team\Edit.cshtml"
        Write(Html.ValidationSummary(true, SR.Team_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -192,7 +204,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>\r\n");
 WriteLiteral("            ");
 
             
-            #line 40 "..\..\Views\Team\Edit.cshtml"
+            #line 41 "..\..\Views\Team\Edit.cshtml"
        Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default pull-left" }));
 
             
@@ -207,7 +219,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 43 "..\..\Views\Team\Edit.cshtml"
+            #line 44 "..\..\Views\Team\Edit.cshtml"
                                                      Write(SR.Shared_Save);
 
             
@@ -222,7 +234,7 @@ WriteLiteral(" class=\"btn btn-inverse\"");
 WriteLiteral(">");
 
             
-            #line 44 "..\..\Views\Team\Edit.cshtml"
+            #line 45 "..\..\Views\Team\Edit.cshtml"
                                                     Write(SR.Shared_Reset);
 
             
@@ -231,28 +243,28 @@ WriteLiteral(">");
 WriteLiteral("</button> &nbsp;\r\n");
 
             
-            #line 45 "..\..\Views\Team\Edit.cshtml"
+            #line 46 "..\..\Views\Team\Edit.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 45 "..\..\Views\Team\Edit.cshtml"
-             if (token != null && token.IsAdmin)
+            #line 46 "..\..\Views\Team\Edit.cshtml"
+             if (token != null && token.IsAdmin())
             {
                 
             
             #line default
             #line hidden
             
-            #line 47 "..\..\Views\Team\Edit.cshtml"
+            #line 48 "..\..\Views\Team\Edit.cshtml"
            Write(Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 47 "..\..\Views\Team\Edit.cshtml"
+            #line 48 "..\..\Views\Team\Edit.cshtml"
                                                                                                                    
             }
 
@@ -262,7 +274,7 @@ WriteLiteral("</button> &nbsp;\r\n");
 WriteLiteral("        </dd>\r\n    </dl>\r\n");
 
             
-            #line 51 "..\..\Views\Team\Edit.cshtml"
+            #line 52 "..\..\Views\Team\Edit.cshtml"
 }
 
             

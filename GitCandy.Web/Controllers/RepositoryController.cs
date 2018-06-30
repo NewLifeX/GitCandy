@@ -25,7 +25,8 @@ namespace GitCandy.Controllers
 
         public ActionResult Index()
         {
-            var username = Token?.Username;
+            var user = Token;
+            var username = user?.Name;
 
             var p = new NewLife.Web.Pager
             {
@@ -33,9 +34,9 @@ namespace GitCandy.Controllers
             };
 
             // 管理员可以看到其他人私有仓库
-            var model = RepositoryService.GetRepositories(username, Token != null && Token.IsAdmin, p);
+            var model = RepositoryService.GetRepositories(username, user.IsAdmin(), p);
 
-            model.CanCreateRepository = Token != null && (UserConfiguration.Current.AllowRepositoryCreation || Token.IsAdmin);
+            model.CanCreateRepository = user != null && (UserConfiguration.Current.AllowRepositoryCreation || user.IsAdmin());
 
             return View(model);
         }
@@ -68,7 +69,7 @@ namespace GitCandy.Controllers
 
         private ActionResult CreateView(RepositoryModel model)
         {
-            var user = UserX.FindByID(Token.UserID);
+            var user = UserX.FindByID(Token.ID);
             // 拥有者
             var owners = user.Teams.Where(e => e.Team != null).ToDictionary(e => e.Team.Name, e => e.TeamName);
             // 加上自己
@@ -94,7 +95,7 @@ namespace GitCandy.Controllers
                         var success = GitService.CreateRepository(model.Owner, model.Name, remoteUrl);
                         if (!success)
                         {
-                            RepositoryService.Delete(Token.Username, model.Name);
+                            RepositoryService.Delete(Token?.Name, model.Name);
                             repo = null;
                         }
                     }
@@ -117,7 +118,7 @@ namespace GitCandy.Controllers
         [ReadRepository]
         public ActionResult Detail(String owner, String name)
         {
-            var model = RepositoryService.Get(owner, name, true, Token?.Username);
+            var model = RepositoryService.Get(owner, name, true, Token?.Name);
             if (model == null) throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
             using (var git = new GitService(owner, name))
@@ -130,7 +131,7 @@ namespace GitCandy.Controllers
         [RepositoryOwnerOrSystemAdministrator]
         public ActionResult Edit(String owner, String name)
         {
-            var model = RepositoryService.Get(owner, name, username: Token.Username);
+            var model = RepositoryService.Get(owner, name, username: Token?.Name);
             if (model == null)
                 throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
             using (var git = new GitService(owner, name))
@@ -186,8 +187,8 @@ namespace GitCandy.Controllers
             }
             else if (act == "del")
             {
-                if (!Token.IsAdmin
-                     && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                if (!Token.IsAdmin()
+                     && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (RepositoryService.RepositoryRemoveUser(owner, name, user))
                     return Json("success");
@@ -195,9 +196,9 @@ namespace GitCandy.Controllers
             else if (act == "read" || act == "write" || act == "owner")
             {
                 var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
-                if (!Token.IsAdmin
+                if (!Token.IsAdmin()
                      && (act == "owner" && !val)
-                     && String.Equals(user, Token.Username, StringComparison.OrdinalIgnoreCase))
+                     && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
                     message = SR.Account_CantRemoveSelf;
                 else if (RepositoryService.RepositoryUserSetValue(owner, name, user, act, val))
                     return Json("success");
@@ -241,7 +242,7 @@ namespace GitCandy.Controllers
                 RepositoryService.Delete(owner, name);
                 GitService.DeleteRepository(owner, name);
                 GitCacheAccessor.Delete(owner, name);
-                XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token.Username, Token.UserID);
+                XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token?.Name, Token.ID);
                 return RedirectToAction("Index");
             }
             return View((Object)name);
@@ -435,8 +436,8 @@ namespace GitCandy.Controllers
                 //    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
-                model.CanDelete = Token != null && Token.IsAdmin
-                    || RepositoryService.CanWriteRepository(owner, name, Token?.Username);
+                model.CanDelete = Token != null && Token.IsAdmin()
+                    || RepositoryService.CanWriteRepository(owner, name, Token?.Name);
                 return View(model);
             }
         }
@@ -462,8 +463,8 @@ namespace GitCandy.Controllers
                     throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
                 model.Owner = owner;
                 model.Name = name;
-                model.CanDelete = Token != null && Token.IsAdmin
-                    || RepositoryService.CanWriteRepository(owner, name, Token?.Username);
+                model.CanDelete = Token != null && Token.IsAdmin()
+                    || RepositoryService.CanWriteRepository(owner, name, Token?.Name);
                 return View(model);
             }
         }

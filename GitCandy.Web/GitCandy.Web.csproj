@@ -325,7 +325,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\GitCandy\Controllers\RepositoryController.cs" />
-    <Compile Include="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserRepositoryController.cs" />
     <Compile Include="Areas\GitCandy\Controllers\UserTeamController.cs" />
@@ -337,15 +336,14 @@
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
-    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Data\MembershipService.cs" />
     <Compile Include="Data\RepositoryService.cs" />
     <Compile Include="Extensions\CommitLogExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtension.cs" />
+    <Compile Include="Extensions\MemberHelper.cs" />
     <Compile Include="Extensions\MetadataExtension.cs" />
     <Compile Include="Filters\AdministratorAttribute.cs" />
-    <Compile Include="Filters\AllowRegisterUserAttribute.cs" />
     <Compile Include="Filters\AllowRepositoryCreationAttribute.cs" />
     <Compile Include="Filters\CurrentUserOrAdministratorAttribute.cs" />
     <Compile Include="Filters\PublicServerAttribute.cs" />

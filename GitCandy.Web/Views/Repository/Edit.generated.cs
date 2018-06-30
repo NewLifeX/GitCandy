@@ -29,12 +29,23 @@ namespace ASP
     using GitCandy;
     using GitCandy.Base;
     using GitCandy.Configuration;
+    
+    #line 3 "..\..\Views\Repository\Edit.cshtml"
     using GitCandy.Extensions;
+    
+    #line default
+    #line hidden
     using GitCandy.Models;
     using GitCandy.Web;
     using GitCandy.Web.App_GlobalResources;
     using NewLife;
     using NewLife.Cube;
+    
+    #line 2 "..\..\Views\Repository\Edit.cshtml"
+    using NewLife.Model;
+    
+    #line default
+    #line hidden
     using NewLife.Reflection;
     using NewLife.Serialization;
     using NewLife.Web;
@@ -51,10 +62,10 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Repository\Edit.cshtml"
+            #line 4 "..\..\Views\Repository\Edit.cshtml"
   
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_EditTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 
             
             #line default
@@ -62,7 +73,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h3>");
 
             
-            #line 8 "..\..\Views\Repository\Edit.cshtml"
+            #line 9 "..\..\Views\Repository\Edit.cshtml"
 Write(String.Format(SR.Repository_EditTitle, Model.Name));
 
             
@@ -71,7 +82,7 @@ Write(String.Format(SR.Repository_EditTitle, Model.Name));
 WriteLiteral("</h3>\r\n\r\n\r\n");
 
             
-            #line 11 "..\..\Views\Repository\Edit.cshtml"
+            #line 12 "..\..\Views\Repository\Edit.cshtml"
  using (Html.BeginForm("Edit", "Repository", FormMethod.Post))
 {
 
@@ -85,7 +96,7 @@ WriteLiteral(" class=\"dl-horizontal col-md-8\"");
 WriteLiteral(">\r\n        <dt>");
 
             
-            #line 14 "..\..\Views\Repository\Edit.cshtml"
+            #line 15 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Name));
 
             
@@ -96,7 +107,7 @@ WriteLiteral("</dt>\r\n        <dd>\r\n");
 WriteLiteral("            ");
 
             
-            #line 16 "..\..\Views\Repository\Edit.cshtml"
+            #line 17 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.HiddenFor(s => s.Name));
 
             
@@ -107,7 +118,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 17 "..\..\Views\Repository\Edit.cshtml"
+            #line 18 "..\..\Views\Repository\Edit.cshtml"
        Write(Model.Name);
 
             
@@ -116,7 +127,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 20 "..\..\Views\Repository\Edit.cshtml"
+            #line 21 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.IsPrivate));
 
             
@@ -129,7 +140,7 @@ WriteLiteral(" class=\"switch\"");
 WriteLiteral(" data-on-label=\"");
 
             
-            #line 22 "..\..\Views\Repository\Edit.cshtml"
+            #line 23 "..\..\Views\Repository\Edit.cshtml"
                                           Write(SR.Shared_Yes);
 
             
@@ -140,7 +151,7 @@ WriteLiteral("\"");
 WriteLiteral(" data-off-label=\"");
 
             
-            #line 22 "..\..\Views\Repository\Edit.cshtml"
+            #line 23 "..\..\Views\Repository\Edit.cshtml"
                                                                           Write(SR.Shared_No);
 
             
@@ -153,7 +164,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 23 "..\..\Views\Repository\Edit.cshtml"
+            #line 24 "..\..\Views\Repository\Edit.cshtml"
            Write(Html.CheckBoxFor(s => s.IsPrivate, new { data_size = "small" }));
 
             
@@ -162,7 +173,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 27 "..\..\Views\Repository\Edit.cshtml"
+            #line 28 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.AllowAnonymousRead));
 
             
@@ -175,7 +186,7 @@ WriteLiteral(" class=\"switch\"");
 WriteLiteral(" data-on-label=\"");
 
             
-            #line 29 "..\..\Views\Repository\Edit.cshtml"
+            #line 30 "..\..\Views\Repository\Edit.cshtml"
                                           Write(SR.Shared_Yes);
 
             
@@ -186,7 +197,7 @@ WriteLiteral("\"");
 WriteLiteral(" data-off-label=\"");
 
             
-            #line 29 "..\..\Views\Repository\Edit.cshtml"
+            #line 30 "..\..\Views\Repository\Edit.cshtml"
                                                                           Write(SR.Shared_No);
 
             
@@ -199,7 +210,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 30 "..\..\Views\Repository\Edit.cshtml"
+            #line 31 "..\..\Views\Repository\Edit.cshtml"
            Write(Html.CheckBoxFor(s => s.AllowAnonymousRead, new { data_size = "small" }));
 
             
@@ -208,7 +219,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 34 "..\..\Views\Repository\Edit.cshtml"
+            #line 35 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.AllowAnonymousWrite));
 
             
@@ -221,7 +232,7 @@ WriteLiteral(" class=\"switch\"");
 WriteLiteral(" data-on-label=\"");
 
             
-            #line 36 "..\..\Views\Repository\Edit.cshtml"
+            #line 37 "..\..\Views\Repository\Edit.cshtml"
                                           Write(SR.Shared_Yes);
 
             
@@ -232,7 +243,7 @@ WriteLiteral("\"");
 WriteLiteral(" data-off-label=\"");
 
             
-            #line 36 "..\..\Views\Repository\Edit.cshtml"
+            #line 37 "..\..\Views\Repository\Edit.cshtml"
                                                                           Write(SR.Shared_No);
 
             
@@ -245,7 +256,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 37 "..\..\Views\Repository\Edit.cshtml"
+            #line 38 "..\..\Views\Repository\Edit.cshtml"
            Write(Html.CheckBoxFor(s => s.AllowAnonymousWrite, new { data_size = "small" }));
 
             
@@ -254,7 +265,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
 
             
-            #line 41 "..\..\Views\Repository\Edit.cshtml"
+            #line 42 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.DefaultBranch));
 
             
@@ -263,7 +274,7 @@ WriteLiteral("\r\n            </div>\r\n        </dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 42 "..\..\Views\Repository\Edit.cshtml"
+            #line 43 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DropDownListFor(s => s.DefaultBranch, Model.LocalBranches.ToSelectListItem(Model.DefaultBranch), new { @class = "form-control" }));
 
             
@@ -272,7 +283,7 @@ WriteLiteral("</dt>\r\n        <dd>");
 WriteLiteral("</dd>\r\n\r\n        <dt>");
 
             
-            #line 44 "..\..\Views\Repository\Edit.cshtml"
+            #line 45 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.DisplayNameFor(s => s.Description));
 
             
@@ -281,7 +292,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>");
 WriteLiteral("</dt>\r\n        <dd>");
 
             
-            #line 45 "..\..\Views\Repository\Edit.cshtml"
+            #line 46 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.TextAreaFor(s => s.Description, 4, 0, new { @class = "form-control" }));
 
             
@@ -296,7 +307,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 48 "..\..\Views\Repository\Edit.cshtml"
+            #line 49 "..\..\Views\Repository\Edit.cshtml"
            Write(Html.ValidationMessageFor(s => s.Description));
 
             
@@ -305,7 +316,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </dd>\r\n\r\n        <dt></dt>\r\n        <dd>");
 
             
-            #line 53 "..\..\Views\Repository\Edit.cshtml"
+            #line 54 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.ValidationSummary(true, SR.Repository_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" }));
 
             
@@ -316,7 +327,7 @@ WriteLiteral("</dd>\r\n\r\n        <dt>\r\n");
 WriteLiteral("            ");
 
             
-            #line 56 "..\..\Views\Repository\Edit.cshtml"
+            #line 57 "..\..\Views\Repository\Edit.cshtml"
        Write(Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default pull-left" }));
 
             
@@ -331,7 +342,7 @@ WriteLiteral(" class=\"btn btn-primary\"");
 WriteLiteral(">");
 
             
-            #line 59 "..\..\Views\Repository\Edit.cshtml"
+            #line 60 "..\..\Views\Repository\Edit.cshtml"
                                                      Write(SR.Shared_Save);
 
             
@@ -346,7 +357,7 @@ WriteLiteral(" class=\"btn btn-inverse\"");
 WriteLiteral(">");
 
             
-            #line 60 "..\..\Views\Repository\Edit.cshtml"
+            #line 61 "..\..\Views\Repository\Edit.cshtml"
                                                     Write(SR.Shared_Reset);
 
             
@@ -355,28 +366,28 @@ WriteLiteral(">");
 WriteLiteral("</button> &nbsp;\r\n");
 
             
-            #line 61 "..\..\Views\Repository\Edit.cshtml"
+            #line 62 "..\..\Views\Repository\Edit.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 61 "..\..\Views\Repository\Edit.cshtml"
-             if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin))
+            #line 62 "..\..\Views\Repository\Edit.cshtml"
+             if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin()))
             {
                 
             
             #line default
             #line hidden
             
-            #line 63 "..\..\Views\Repository\Edit.cshtml"
+            #line 64 "..\..\Views\Repository\Edit.cshtml"
            Write(Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 63 "..\..\Views\Repository\Edit.cshtml"
+            #line 64 "..\..\Views\Repository\Edit.cshtml"
                                                                                                                    
             }
 
@@ -386,7 +397,7 @@ WriteLiteral("</button> &nbsp;\r\n");
 WriteLiteral("        </dd>\r\n    </dl>\r\n");
 
             
-            #line 67 "..\..\Views\Repository\Edit.cshtml"
+            #line 68 "..\..\Views\Repository\Edit.cshtml"
 }
 
             

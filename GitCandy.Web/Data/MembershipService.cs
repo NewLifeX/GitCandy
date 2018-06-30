@@ -2,7 +2,6 @@
 using System.Linq;
 using GitCandy.Base;
 using GitCandy.Models;
-using GitCandy.Security;
 using NewLife.Data;
 using NewLife.GitCandy.Entity;
 using XCode;
@@ -39,102 +38,102 @@ namespace GitCandy.Data
             return model;
         }
 
-        public User Login(String id, String password)
-        {
-            var user = User.FindByName(id) ?? User.FindByEmail(id);
-            if (user != null && user.Login(password)) return user;
+        //public User Login(String id, String password)
+        //{
+        //    var user = User.FindByName(id) ?? User.FindByEmail(id);
+        //    if (user != null && user.Login(password)) return user;
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        public void SetPassword(String name, String newPassword)
-        {
-            var user = User.FindByName(name);
-            if (user != null)
-            {
-                user.Password = newPassword.MD5();
+        //public void SetPassword(String name, String newPassword)
+        //{
+        //    var user = User.FindByName(name);
+        //    if (user != null)
+        //    {
+        //        user.Password = newPassword.MD5();
 
-                var auths = AuthorizationLog.FindAllByUserID(user.ID);
-                foreach (var auth in auths)
-                {
-                    auth.IsValid = false;
-                }
-                user.Save();
-                auths.Save();
-            }
-        }
+        //        var auths = AuthorizationLog.FindAllByUserID(user.ID);
+        //        foreach (var auth in auths)
+        //        {
+        //            auth.IsValid = false;
+        //        }
+        //        user.Save();
+        //        auths.Save();
+        //    }
+        //}
 
-        public Boolean UpdateUser(UserModel model)
-        {
-            var user = User.FindByName(model.Name);
-            if (user != null)
-            {
-                user.NickName = model.Nickname;
-                user.Email = model.Email;
-                user.Description = model.Description;
-                user.IsAdmin = model.IsAdmin;
+        //public Boolean UpdateUser(UserModel model)
+        //{
+        //    var user = User.FindByName(model.Name);
+        //    if (user != null)
+        //    {
+        //        user.NickName = model.Nickname;
+        //        user.Email = model.Email;
+        //        user.Description = model.Description;
+        //        user.IsAdmin = model.IsAdmin;
 
-                user.Save();
-                return true;
-            }
-            return false;
-        }
+        //        user.Save();
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        public AuthorizationLog CreateAuthorization(Int64 userID, DateTime expires, String ip)
-        {
-            var auth = new AuthorizationLog
-            {
-                AuthCode = Guid.NewGuid().ToString(),
-                UserID = (Int32)userID,
-                IssueDate = DateTime.Now,
-                Expires = expires,
-                IssueIp = ip,
-                LastIp = ip,
-                IsValid = true,
-            };
-            auth.Save();
-            return auth;
-        }
+        //public AuthorizationLog CreateAuthorization(Int64 userID, DateTime expires, String ip)
+        //{
+        //    var auth = new AuthorizationLog
+        //    {
+        //        AuthCode = Guid.NewGuid().ToString(),
+        //        UserID = (Int32)userID,
+        //        IssueDate = DateTime.Now,
+        //        Expires = expires,
+        //        IssueIp = ip,
+        //        LastIp = ip,
+        //        IsValid = true,
+        //    };
+        //    auth.Save();
+        //    return auth;
+        //}
 
-        public Token GetToken(Guid authCode)
-        {
-            var auth = AuthorizationLog.FindByAuthCode(authCode + "");
-            if (auth == null) return null;
+        //public Token GetToken(Guid authCode)
+        //{
+        //    var auth = AuthorizationLog.FindByAuthCode(authCode + "");
+        //    if (auth == null) return null;
 
-            var user = auth.User;
+        //    var user = auth.User;
 
-            return new Token(auth.AuthCode, auth.UserID, user.Name, user.NickName, user.IsAdmin, auth.Expires)
-            {
-                LastIp = auth.LastIp
-            };
-        }
+        //    return new Token(auth.AuthCode, auth.UserID, user.Name, user.NickName, user.IsAdmin, auth.Expires)
+        //    {
+        //        LastIp = auth.LastIp
+        //    };
+        //}
 
-        public void UpdateAuthorization(Guid authCode, DateTime expires, String lastIp)
-        {
-            var auth = AuthorizationLog.FindByAuthCode(authCode + "");
-            if (auth != null)
-            {
-                auth.Expires = expires;
-                auth.LastIp = lastIp;
-                auth.Save();
-            }
-        }
+        //public void UpdateAuthorization(Guid authCode, DateTime expires, String lastIp)
+        //{
+        //    var auth = AuthorizationLog.FindByAuthCode(authCode + "");
+        //    if (auth != null)
+        //    {
+        //        auth.Expires = expires;
+        //        auth.LastIp = lastIp;
+        //        auth.Save();
+        //    }
+        //}
 
-        public void SetAuthorizationAsInvalid(Guid authCode)
-        {
-            var auth = AuthorizationLog.FindByAuthCode(authCode + "");
-            if (auth != null)
-            {
-                auth.IsValid = false;
-                auth.Save();
-            }
-        }
+        //public void SetAuthorizationAsInvalid(Guid authCode)
+        //{
+        //    var auth = AuthorizationLog.FindByAuthCode(authCode + "");
+        //    if (auth != null)
+        //    {
+        //        auth.IsValid = false;
+        //        auth.Save();
+        //    }
+        //}
 
-        public void DeleteUser(String name)
-        {
-            var user = User.FindByName(name);
-            if (user != null) user.Delete();
-        }
+        //public void DeleteUser(String name)
+        //{
+        //    var user = User.FindByName(name);
+        //    if (user != null) user.Delete();
+        //}
 
         public UserListModel GetUserList(String keyword, Int32 page, Int32 pagesize = 20)
         {
@@ -159,59 +158,6 @@ namespace GitCandy.Data
                 ItemCount = (Int32)p.TotalCount
             };
         }
-
-        //public String AddSshKey(String name, String sshkey)
-        //{
-        //    var seg = sshkey.Split();
-        //    var type = seg[0];
-        //    sshkey = seg[1];
-        //    var fingerprint = KeyUtils.GetFingerprint(sshkey);
-
-        //    var user = User.FindByName(name);
-        //    if (user == null) return null;
-
-        //    var key = new SshKey
-        //    {
-        //        UserID = user.ID,
-        //        KeyType = type,
-        //        Fingerprint = fingerprint,
-        //        PublicKey = sshkey,
-        //        ImportData = DateTime.UtcNow,
-        //        LastUse = DateTime.UtcNow,
-        //    };
-
-        //    key.Save();
-
-        //    return fingerprint;
-        //}
-
-        //public void DeleteSshKey(String name, String sshkey)
-        //{
-        //    var user = User.FindByName(name);
-        //    if (user == null) return;
-
-        //    var key = SshKey.FindByUserID(user.ID);
-        //    if (key == null) return;
-
-        //    if (key.Fingerprint == sshkey) key.Delete();
-        //}
-
-        //public bool HasSshKey(String fingerprint)
-        //{
-        //    return SshKey.FindByFingerprint(fingerprint) != null;
-        //}
-
-        //public SshModel GetSshList(String name)
-        //{
-        //    var user = User.FindByName(name);
-        //    if (user == null) return null;
-
-        //    return new Models.SshModel
-        //    {
-        //        Username = user.Name,
-        //        SshKeys = user.SshKeys.Select(s => new SshModel.SshKey { Name = s.Fingerprint }).ToArray()
-        //    };
-        //}
         #endregion
 
         #region Team part

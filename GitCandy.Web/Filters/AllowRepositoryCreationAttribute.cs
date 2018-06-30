@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using GitCandy.Configuration;
 using GitCandy.Controllers;
+using GitCandy.Extensions;
 
 namespace GitCandy.Filters
 {
@@ -11,11 +12,8 @@ namespace GitCandy.Filters
         {
             base.OnAuthorization(filterContext);
 
-            var controller = filterContext.Controller as CandyControllerBase;
-            if (controller != null && controller.Token != null
-                && (UserConfiguration.Current.AllowRepositoryCreation
-                    || controller.Token.IsAdmin))
-                return;
+            var token = (filterContext.Controller as CandyControllerBase)?.Token;
+            if (token != null && (UserConfiguration.Current.AllowRepositoryCreation || token.IsAdmin())) return;
 
             HandleUnauthorizedRequest(filterContext);
         }

@@ -24,7 +24,7 @@ namespace GitCandy.Filters
             if (username == null)
             {
                 var token = controller.Token;
-                if (token != null) username = token.Username;
+                if (token != null) username = token.Name;
             }
             if (username == null)
             {

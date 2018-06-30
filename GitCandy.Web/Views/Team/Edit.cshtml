@@ -1,8 +1,9 @@
 ﻿@model GitCandy.Models.TeamModel
-
+@using NewLife.Model;
+@using GitCandy.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_EditTitle, Model.Name));
-    var token = GitCandy.Security.Token.Current;
+    var token = User.Identity as IManageUser;
 }
 
 <h3>@String.Format(SR.Team_EditTitle, Model.Name)</h3>
@@ -42,7 +43,7 @@
         <dd>
             <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
             <button type="reset" class="btn btn-inverse">@SR.Shared_Reset</button> &nbsp;
-            @if (token != null && token.IsAdmin)
+            @if (token != null && token.IsAdmin())
             {
                 @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" })
             }

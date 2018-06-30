@@ -1,5 +1,7 @@
-﻿@{
-    var token = GitCandy.Security.Token.Current;
+﻿@using NewLife.Model;
+@using GitCandy.Extensions;
+@{
+    var token = User.Identity as IManageUser;
     var cfg = NewLife.Common.SysConfig.Current;
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
@@ -35,7 +37,7 @@
                     <li>@Html.ActionLink(SR.Shared_Repositories, "Index", "Repository")</li>
                     @if (token != null)
                     {
-                        if (token.IsAdmin)
+                        if (token.IsAdmin())
                         {
                             <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
                             <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
@@ -53,7 +55,7 @@
                     }
                     else
                     {
-                        <li class="">@Html.ActionLink(token.Nickname, "Detail", "Account", new { name = token.Username }, null)</li>
+                        <li class="">@Html.ActionLink(token.NickName, "Detail", "Account", new { name = token.Name }, null)</li>
                         <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
                     }
                 </ul>

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using GitCandy.Controllers;
 
 namespace GitCandy.Filters
@@ -6,9 +7,9 @@ namespace GitCandy.Filters
     /// <summary>读写代码库</summary>
     public class ReadRepositoryAttribute : SmartAuthorizeAttribute
     {
-        private System.Boolean requireWrite;
+        private Boolean requireWrite;
 
-        public ReadRepositoryAttribute(System.Boolean requireWrite = false)
+        public ReadRepositoryAttribute(Boolean requireWrite = false)
         {
             this.requireWrite = requireWrite;
         }
@@ -22,7 +23,7 @@ namespace GitCandy.Filters
             var repoController = controller as RepositoryController;
             if (repoController != null)
             {
-                var username = controller.Token?.Username;
+                var username = controller.Token?.Name;
                 var owner = controller.ValueProvider.GetValue("owner");
                 var field = controller.ValueProvider.GetValue("name");
                 var canRead = owner != null && field != null && (requireWrite
