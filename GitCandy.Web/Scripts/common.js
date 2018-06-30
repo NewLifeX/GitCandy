@@ -248,7 +248,7 @@
                 var row_html = '<div class="row border-area">',
                     alter_row_html = '<div>',
                     name_html = '<p class="lead">' + (params.controller
-                        ? '<a href="/' + params.controller + '/Detail/' + item.Name + '">' + item.NickName + '</a>'
+                        ? '<a href="/' + params.controller + '/Detail/' + item.Name + '">' + (item.NickName || item.Name) + '</a>'
                         : item.Name) + '</p>',
                     remover_html = '<a href="#" class="remover btn btn-danger">' + params.del_label + '</a>',
                     $row = $(row_html),
