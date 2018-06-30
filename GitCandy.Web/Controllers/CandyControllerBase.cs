@@ -12,7 +12,8 @@ using GitCandy.Entity;
 using GitCandy.Security;
 using NewLife.Log;
 using NewLife.Reflection;
-using gcUser = NewLife.GitCandy.Entity.User;
+using XCode.Membership;
+using UserY = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers
 {
