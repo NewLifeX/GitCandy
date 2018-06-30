@@ -282,7 +282,7 @@ WriteLiteral(">");
 
             
             #line 44 "..\..\Views\Shared\_FrontLayout.cshtml"
-                                    Write(Html.ActionLink(SR.Shared_Settings, "Edit", "Setting"));
+                                    Write(Html.ActionLink(SR.Shared_Settings, "Index", "GitCandy/Git"));
 
             
             #line default
@@ -515,14 +515,14 @@ WriteLiteral("><p");
 
 WriteLiteral(" class=\"muted\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3923), Tuple.Create("\"", 3956)
+WriteAttribute("title", Tuple.Create(" title=\"", 3929), Tuple.Create("\"", 3962)
             
             #line 81 "..\..\Views\Shared\_FrontLayout.cshtml"
-, Tuple.Create(Tuple.Create("", 3931), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
+, Tuple.Create(Tuple.Create("", 3937), Tuple.Create<System.Object, System.Int32>(Profiler.Current.Elapsed
             
             #line default
             #line hidden
-, 3931), false)
+, 3937), false)
 );
 
 WriteLiteral(">&copy; 2002-");
@@ -545,51 +545,51 @@ WriteLiteral(" ");
             #line hidden
 WriteLiteral("</p></div>\r\n        </div>\r\n    </div>\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4054), Tuple.Create("\"", 4085)
-, Tuple.Create(Tuple.Create("", 4060), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
-, 4060), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4060), Tuple.Create("\"", 4091)
+, Tuple.Create(Tuple.Create("", 4066), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/jquery-2.0.3.js")
+, 4066), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4109), Tuple.Create("\"", 4137)
-, Tuple.Create(Tuple.Create("", 4115), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
-, 4115), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4115), Tuple.Create("\"", 4143)
+, Tuple.Create(Tuple.Create("", 4121), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap.js")
+, 4121), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4161), Tuple.Create("\"", 4196)
-, Tuple.Create(Tuple.Create("", 4167), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
-, 4167), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4167), Tuple.Create("\"", 4202)
+, Tuple.Create(Tuple.Create("", 4173), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap-switch.js")
+, 4173), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4220), Tuple.Create("\"", 4259)
-, Tuple.Create(Tuple.Create("", 4226), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
-, 4226), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4226), Tuple.Create("\"", 4265)
+, Tuple.Create(Tuple.Create("", 4232), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/bootstrap3-typeahead.js")
+, 4232), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4283), Tuple.Create("\"", 4316)
-, Tuple.Create(Tuple.Create("", 4289), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
-, 4289), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4289), Tuple.Create("\"", 4322)
+, Tuple.Create(Tuple.Create("", 4295), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/highlight.pack.js")
+, 4295), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4340), Tuple.Create("\"", 4365)
-, Tuple.Create(Tuple.Create("", 4346), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
-, 4346), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4346), Tuple.Create("\"", 4371)
+, Tuple.Create(Tuple.Create("", 4352), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/marked.js")
+, 4352), false)
 );
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4389), Tuple.Create("\"", 4414)
-, Tuple.Create(Tuple.Create("", 4395), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
-, 4395), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 4395), Tuple.Create("\"", 4420)
+, Tuple.Create(Tuple.Create("", 4401), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/common.js")
+, 4401), false)
 );
 
 WriteLiteral("></script>\r\n");
