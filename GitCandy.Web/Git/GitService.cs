@@ -391,6 +391,11 @@ namespace GitCandy.Git
 
         public String GetArchiveFilename(String path, out String referenceName)
         {
+            referenceName = null;
+
+            var cfg = UserConfiguration.Current;
+            if (!cfg.AllowArchive) return null;
+
             var commit = GetCommitByPath(ref path, out referenceName);
             if (commit == null) return null;
 
@@ -696,7 +701,8 @@ namespace GitCandy.Git
                                 var sw = Stopwatch.StartNew();
                                 using (var fetch_repo = new Repository(repo.Info.Path))
                                 {
-                                    fetch_repo.Fetch("origin");
+                                    //fetch_repo.Fetch("origin");
+                                    fetch_repo.Network.Fetch("origin", Array.Empty<String>());
                                 }
                                 sw.Stop();
                                 XTrace.WriteLine("远程拉取成功，耗时 {0:n0}毫秒", sw.ElapsedMilliseconds);

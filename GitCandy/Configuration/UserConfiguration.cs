@@ -67,12 +67,26 @@ namespace GitCandy.Configuration
         [DisplayName("显示参与者数")]
         public Int32 Contributors { get; set; } = 50;
 
-        //public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
-        #endregion
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowArchive { get; set; } = true;
 
-        //public UserConfiguration()
-        //{
-        //}
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowBlame { get; set; } = true;
+
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowCommits { get; set; } = true;
+
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowContributors { get; set; } = true;
+
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowHistoryDivergence { get; set; } = true;
+        #endregion
 
         protected override void OnNew()
         {
