@@ -31,9 +31,9 @@ namespace GitCandy.Configuration
         //[DisplayName("SSH端口")]
         //public int SshPort { get; set; } = 22;
 
-        /// <summary>跳过本地错误</summary>
-        [DisplayName("跳过本地错误")]
-        public Boolean LocalSkipCustomError { get; set; }
+        ///// <summary>跳过本地错误</summary>
+        //[DisplayName("跳过本地错误")]
+        //public Boolean LocalSkipCustomError { get; set; }
 
         /// <summary>允许注册</summary>
         [DisplayName("允许注册")]

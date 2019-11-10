@@ -259,14 +259,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ZipButton.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Setting\Edit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Setting\Restart.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Restart.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Shared\DisplayTemplates\Members.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Members.generated.cs</LastGenOutput>
@@ -352,7 +344,6 @@
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
-    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Data\MembershipService.cs" />
     <Compile Include="Data\RepositoryService.cs" />
@@ -566,16 +557,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_ZipButton.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\Edit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\Restart.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Restart.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\DisplayTemplates\Maps.generated.cs">
       <DependentUpon>Maps.cshtml</DependentUpon>

@@ -14,7 +14,7 @@ namespace GitCandy
     {
         protected void Application_Start()
         {
-            XTrace.WriteVersion(GetType().Assembly);
+            //XTrace.WriteVersion(GetType().Assembly);
 
             AreaRegistration.RegisterAllAreas();
 
