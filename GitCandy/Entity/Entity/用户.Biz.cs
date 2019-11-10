@@ -23,6 +23,13 @@ namespace NewLife.GitCandy.Entity
     public partial class User : LogEntity<User>, IManageUser, IIdentity
     {
         #region 对象操作
+        static User()
+        {
+            Meta.Modules.Add<UserModule>();
+            Meta.Modules.Add<TimeModule>();
+            Meta.Modules.Add<IPModule>();
+        }
+
         /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected override void InitData()
@@ -71,7 +78,7 @@ namespace NewLife.GitCandy.Entity
         {
             get
             {
-                if (_Teams == null && !Dirtys.ContainsKey("Teams"))
+                if (_Teams == null && !Dirtys["Teams"])
                 {
                     _Teams = UserTeam.FindAllByUserID(ID);
 
@@ -90,7 +97,7 @@ namespace NewLife.GitCandy.Entity
         {
             get
             {
-                if (_Repositories == null && !Dirtys.ContainsKey("Repositories"))
+                if (_Repositories == null && !Dirtys["Repositories"])
                 {
                     _Repositories = UserRepository.FindAllByUserID(ID);
 
@@ -255,7 +262,7 @@ namespace NewLife.GitCandy.Entity
 
             user.Logins++;
             user.LastLogin = DateTime.Now;
-            user.LastLoginIP = WebHelper.UserHost;
+            //user.LastLoginIP = WebHelper.UserHost;
             user.Save();
 
             return true;
