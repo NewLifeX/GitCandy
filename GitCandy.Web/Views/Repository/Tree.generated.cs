@@ -568,6 +568,8 @@ WriteLiteral("</div>\r\n                    </div>\r\n                </caption>
             #line 72 "..\..\Views\Repository\Tree.cshtml"
                      foreach (var entry in Model.Entries)
                     {
+                        var commit = entry.Commit ?? new CommitModel();
+                        var author = commit.Author;
 
             
             #line default
@@ -575,40 +577,40 @@ WriteLiteral("</div>\r\n                    </div>\r\n                </caption>
 WriteLiteral("                        <tr>\r\n                            <td>\r\n                 " +
 "               <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3887), Tuple.Create("\"", 3906)
+WriteAttribute("title", Tuple.Create(" title=\"", 4013), Tuple.Create("\"", 4032)
             
-            #line 76 "..\..\Views\Repository\Tree.cshtml"
-, Tuple.Create(Tuple.Create("", 3895), Tuple.Create<System.Object, System.Int32>(entry.Name
+            #line 78 "..\..\Views\Repository\Tree.cshtml"
+, Tuple.Create(Tuple.Create("", 4021), Tuple.Create<System.Object, System.Int32>(entry.Name
             
             #line default
             #line hidden
-, 3895), false)
+, 4021), false)
 );
 
 WriteLiteral(">\r\n");
 
             
-            #line 77 "..\..\Views\Repository\Tree.cshtml"
+            #line 79 "..\..\Views\Repository\Tree.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 77 "..\..\Views\Repository\Tree.cshtml"
+            #line 79 "..\..\Views\Repository\Tree.cshtml"
                                      if (entry.EntryType == TreeEntryTargetType.Tree)
                                     {
             
             #line default
             #line hidden
-WriteLiteral(" <span");
+WriteLiteral("<span");
 
 WriteLiteral(" class=\"glyphicon glyphicon-folder-close\"");
 
 WriteLiteral("></span> ");
 
             
-            #line 78 "..\..\Views\Repository\Tree.cshtml"
-                                                                                             }
+            #line 80 "..\..\Views\Repository\Tree.cshtml"
+                                                                                            }
                                     else if (entry.EntryType == TreeEntryTargetType.Blob)
                                     {
             
@@ -621,7 +623,7 @@ WriteLiteral(" class=\"glyphicon glyphicon-file\"");
 WriteLiteral("></span> ");
 
             
-            #line 80 "..\..\Views\Repository\Tree.cshtml"
+            #line 82 "..\..\Views\Repository\Tree.cshtml"
                                                                                      }
                                     else if (entry.EntryType == TreeEntryTargetType.GitLink)
                                     {
@@ -635,7 +637,7 @@ WriteLiteral(" class=\"glyphicon glyphicon-bookmark\"");
 WriteLiteral("></i> ");
 
             
-            #line 82 "..\..\Views\Repository\Tree.cshtml"
+            #line 84 "..\..\Views\Repository\Tree.cshtml"
                                                                                    }
                                     else
                                     {
@@ -646,11 +648,11 @@ WriteLiteral(" <span");
 
 WriteLiteral(" class=\"glyphicon glyphicon-leaf\"");
 
-WriteLiteral("></span> ");
+WriteLiteral("></span>");
 
             
-            #line 84 "..\..\Views\Repository\Tree.cshtml"
-                                                                                     }
+            #line 86 "..\..\Views\Repository\Tree.cshtml"
+                                                                                    }
 
             
             #line default
@@ -658,53 +660,53 @@ WriteLiteral("></span> ");
 WriteLiteral("                                    ");
 
             
-            #line 85 "..\..\Views\Repository\Tree.cshtml"
+            #line 87 "..\..\Views\Repository\Tree.cshtml"
                                      if (entry.EntryType == TreeEntryTargetType.GitLink)
-                                    { 
+                                    {
             
             #line default
             #line hidden
             
-            #line 86 "..\..\Views\Repository\Tree.cshtml"
-                                 Write(entry.Name.ShortString(25));
+            #line 88 "..\..\Views\Repository\Tree.cshtml"
+                                Write(entry.Name.ShortString(25));
 
             
             #line default
             #line hidden
             
-            #line 86 "..\..\Views\Repository\Tree.cshtml"
-                                                                  }
-                                    else
-                                    {
+            #line 88 "..\..\Views\Repository\Tree.cshtml"
+                                                                 }
+                                else
+                                {
             
             #line default
             #line hidden
 WriteLiteral(" <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4823), Tuple.Create("\"", 4877)
+WriteAttribute("href", Tuple.Create(" href=\"", 4938), Tuple.Create("\"", 4992)
             
-            #line 88 "..\..\Views\Repository\Tree.cshtml"
-, Tuple.Create(Tuple.Create("", 4830), Tuple.Create<System.Object, System.Int32>(Model.GetUrl(entry.EntryType + "", entry.Path)
+            #line 90 "..\..\Views\Repository\Tree.cshtml"
+, Tuple.Create(Tuple.Create("", 4945), Tuple.Create<System.Object, System.Int32>(Model.GetUrl(entry.EntryType + "", entry.Path)
             
             #line default
             #line hidden
-, 4830), false)
+, 4945), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 88 "..\..\Views\Repository\Tree.cshtml"
-                                                                                           Write(entry.Name.ShortString(25));
+            #line 90 "..\..\Views\Repository\Tree.cshtml"
+                                                                                       Write(entry.Name.ShortString(25));
 
             
             #line default
             #line hidden
-WriteLiteral("</a> ");
+WriteLiteral("</a>");
 
             
-            #line 88 "..\..\Views\Repository\Tree.cshtml"
-                                                                                                                                }
+            #line 90 "..\..\Views\Repository\Tree.cshtml"
+                                                                                                                           }
 
             
             #line default
@@ -712,71 +714,111 @@ WriteLiteral("</a> ");
 WriteLiteral("                                </span>\r\n                            </td>\r\n     " +
 "                       <td><span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 5027), Tuple.Create("\"", 5067)
-            
-            #line 91 "..\..\Views\Repository\Tree.cshtml"
-, Tuple.Create(Tuple.Create("", 5035), Tuple.Create<System.Object, System.Int32>(entry.Commit.CommitMessageShort
-            
-            #line default
-            #line hidden
-, 5035), false)
-);
-
-WriteLiteral(">");
-
-            
-            #line 91 "..\..\Views\Repository\Tree.cshtml"
-                                                                           Write(entry.Commit.Sha == null ? Html.Raw(entry.Commit.CommitMessageShort) : Html.ActionLink(entry.Commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = entry.Commit.Sha })));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</span></td>\r\n                            <td");
-
-WriteAttribute("title", Tuple.Create(" title=\"", 5311), Tuple.Create("\"", 5339)
-            
-            #line 92 "..\..\Views\Repository\Tree.cshtml"
-, Tuple.Create(Tuple.Create("", 5319), Tuple.Create<System.Object, System.Int32>(entry.Commit.Author
-            
-            #line default
-            #line hidden
-, 5319), false)
-);
-
-WriteLiteral(">");
-
-            
-            #line 92 "..\..\Views\Repository\Tree.cshtml"
-                                                        Write(entry.Commit.Author.Name.ShortString(20));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</td>\r\n                            <td");
-
-WriteAttribute("title", Tuple.Create(" title=\"", 5420), Tuple.Create("\"", 5453)
+WriteAttribute("title", Tuple.Create(" title=\"", 5141), Tuple.Create("\"", 5175)
             
             #line 93 "..\..\Views\Repository\Tree.cshtml"
-, Tuple.Create(Tuple.Create("", 5428), Tuple.Create<System.Object, System.Int32>(entry.Commit.Author.When
+, Tuple.Create(Tuple.Create("", 5149), Tuple.Create<System.Object, System.Int32>(commit.CommitMessageShort
             
             #line default
             #line hidden
-, 5428), false)
+, 5149), false)
 );
 
 WriteLiteral(">");
 
             
             #line 93 "..\..\Views\Repository\Tree.cshtml"
-                                                             Write(entry.Commit.Author.When.LocalDateTime.ToFullString());
+                                                                     Write(commit.Sha == null ? Html.Raw(commit.CommitMessageShort) : Html.ActionLink(commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = commit.Sha })));
 
             
             #line default
             #line hidden
-WriteLiteral("</td>\r\n                        </tr>\r\n");
+WriteLiteral("</span></td>\r\n");
 
             
-            #line 95 "..\..\Views\Repository\Tree.cshtml"
+            #line 94 "..\..\Views\Repository\Tree.cshtml"
+                            
+            
+            #line default
+            #line hidden
+            
+            #line 94 "..\..\Views\Repository\Tree.cshtml"
+                             if (author != null)
+                            {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                <td");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 5480), Tuple.Create("\"", 5495)
+            
+            #line 96 "..\..\Views\Repository\Tree.cshtml"
+, Tuple.Create(Tuple.Create("", 5488), Tuple.Create<System.Object, System.Int32>(author
+            
+            #line default
+            #line hidden
+, 5488), false)
+);
+
+WriteLiteral(">");
+
+            
+            #line 96 "..\..\Views\Repository\Tree.cshtml"
+                                               Write(author.Name.ShortString(20));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n");
+
+WriteLiteral("                                <td");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 5567), Tuple.Create("\"", 5587)
+            
+            #line 97 "..\..\Views\Repository\Tree.cshtml"
+, Tuple.Create(Tuple.Create("", 5575), Tuple.Create<System.Object, System.Int32>(author.When
+            
+            #line default
+            #line hidden
+, 5575), false)
+);
+
+WriteLiteral(">");
+
+            
+            #line 97 "..\..\Views\Repository\Tree.cshtml"
+                                                    Write(author.When.LocalDateTime.ToFullString());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n");
+
+            
+            #line 98 "..\..\Views\Repository\Tree.cshtml"
+                            }
+                            else
+                            {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                <td></td>\r\n");
+
+WriteLiteral("                                <td></td>\r\n");
+
+            
+            #line 103 "..\..\Views\Repository\Tree.cshtml"
+                            }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                        </tr>\r\n");
+
+            
+            #line 105 "..\..\Views\Repository\Tree.cshtml"
                     }
 
             
@@ -785,13 +827,13 @@ WriteLiteral("</td>\r\n                        </tr>\r\n");
 WriteLiteral("                </tbody>\r\n            </table>\r\n        </div>\r\n");
 
             
-            #line 99 "..\..\Views\Repository\Tree.cshtml"
+            #line 109 "..\..\Views\Repository\Tree.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Views\Repository\Tree.cshtml"
+            #line 109 "..\..\Views\Repository\Tree.cshtml"
          if (Model.Readme != null)
         {
 
@@ -817,7 +859,7 @@ WriteLiteral(" class=\"glyphicon glyphicon-list-alt\"");
 WriteLiteral("></i> ");
 
             
-            #line 104 "..\..\Views\Repository\Tree.cshtml"
+            #line 114 "..\..\Views\Repository\Tree.cshtml"
                                                                                                   Write(Model.Readme.Name);
 
             
@@ -829,7 +871,7 @@ WriteLiteral("</div>\r\n                    </caption>\r\n                    <t
 WriteLiteral("                                ");
 
             
-            #line 109 "..\..\Views\Repository\Tree.cshtml"
+            #line 119 "..\..\Views\Repository\Tree.cshtml"
                            Write(Html.Partial("_BlobPreview", Model.Readme));
 
             
@@ -839,7 +881,7 @@ WriteLiteral("\r\n                            </td>\r\n                        <
 "       </tbody>\r\n                </table>\r\n            </div>\r\n");
 
             
-            #line 115 "..\..\Views\Repository\Tree.cshtml"
+            #line 125 "..\..\Views\Repository\Tree.cshtml"
         }
 
             
@@ -848,7 +890,7 @@ WriteLiteral("\r\n                            </td>\r\n                        <
 WriteLiteral("    </div>\r\n");
 
             
-            #line 117 "..\..\Views\Repository\Tree.cshtml"
+            #line 127 "..\..\Views\Repository\Tree.cshtml"
 }
             
             #line default

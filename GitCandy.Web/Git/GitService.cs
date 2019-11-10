@@ -111,24 +111,21 @@ namespace GitCandy.Git
                     : commit[path].Target as Tree;
             if (tree == null) return null;
 
-            // 缓存加载摘要
-            var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
-            var items = summaryAccessor.Result.Value;
             var entries = (from entry in tree
-                           join item in items on entry.Name equals item.Name into g
-                           from item in g
+                               //join item in items on entry.Name equals item.Name into g
+                               //from item in g
                            select new TreeEntryModel
                            {
                                Name = entry.Name,
                                Path = entry.Path.Replace('\\', '/'),
                                Commit = new CommitModel
                                {
-                                   Sha = item.CommitSha,
-                                   CommitMessageShort = item.MessageShort,
-                                   Author = CreateSafeSignature(item.AuthorName, item.AuthorEmail, item.AuthorWhen),
-                                   Committer = CreateSafeSignature(item.CommitterName, item.CommitterEmail, item.CommitterWhen),
+                                   //Sha = item.CommitSha,
+                                   //CommitMessageShort = item.MessageShort,
+                                   //Author = CreateSafeSignature(item.AuthorName, item.AuthorEmail, item.AuthorWhen),
+                                   //Committer = CreateSafeSignature(item.CommitterName, item.CommitterEmail, item.CommitterWhen),
                                },
-                               Sha = item.CommitSha,
+                               //Sha = item.CommitSha,
                                EntryType = entry.TargetType,
                            })
                            .OrderBy(s => s.EntryType == TreeEntryTargetType.Blob)
@@ -136,6 +133,29 @@ namespace GitCandy.Git
                            .ToList();
 
             model.Entries = entries;
+
+            // 缓存加载摘要
+            var cfg = UserConfiguration.Current;
+            if (cfg.AllowSummary)
+            {
+                var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
+                var items = summaryAccessor.Result.Value;
+                foreach (var entry in entries)
+                {
+                    var item = items.FirstOrDefault(e => e.Name == entry.Name);
+                    if (item != null)
+                    {
+                        entry.Commit = new CommitModel
+                        {
+                            Sha = item.CommitSha,
+                            CommitMessageShort = item.MessageShort,
+                            Author = CreateSafeSignature(item.AuthorName, item.AuthorEmail, item.AuthorWhen),
+                            Committer = CreateSafeSignature(item.CommitterName, item.CommitterEmail, item.CommitterWhen),
+                        };
+                        entry.Sha = item.CommitSha;
+                    }
+                }
+            }
 
             // 加载说明文件
             model.Readme = entries.FirstOrDefault(s => s.EntryType == TreeEntryTargetType.Blob
@@ -315,6 +335,9 @@ namespace GitCandy.Git
 
         public CommitsModel GetCommits(String path, Int32 page = 1, Int32 pagesize = 20)
         {
+            var cfg = UserConfiguration.Current;
+            if (!cfg.AllowCommits) return null;
+
             var commit = GetCommitByPath(ref path, out var referenceName);
             if (commit == null) return null;
 
@@ -353,13 +376,14 @@ namespace GitCandy.Git
 
         public BlameModel GetBlame(String path)
         {
+            var cfg = UserConfiguration.Current;
+            if (!cfg.AllowBlame) return null;
+
             var commit = GetCommitByPath(ref path, out var referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
             var entry = commit[path];
-            if (entry == null || entry.TargetType != TreeEntryTargetType.Blob)
-                return null;
+            if (entry == null || entry.TargetType != TreeEntryTargetType.Blob) return null;
 
             var blob = (Blob)entry.Target;
 
@@ -428,9 +452,11 @@ namespace GitCandy.Git
 
         public BranchesModel GetBranches()
         {
+            var cfg = UserConfiguration.Current;
+            if (!cfg.AllowHistoryDivergence) return new BranchesModel();
+
             var head = _repository.Head;
-            if (head.Tip == null)
-                return new BranchesModel();
+            if (head.Tip == null) return new BranchesModel();
 
             var key = CalcBranchesKey();
             var accessor = GitCacheAccessor.Singleton(new HistoryDivergenceAccessor(_repoId, _repository, key));
@@ -459,9 +485,11 @@ namespace GitCandy.Git
 
         public ContributorsModel GetContributors(String path)
         {
+            var cfg = UserConfiguration.Current;
+            if (!cfg.AllowContributors) return null;
+
             var commit = GetCommitByPath(ref path, out var referenceName);
-            if (commit == null)
-                return null;
+            if (commit == null) return null;
 
             var contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, commit));
             var contributors = contributorsAccessor.Result.Value;

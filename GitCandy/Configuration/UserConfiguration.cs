@@ -71,21 +71,25 @@ namespace GitCandy.Configuration
         [DisplayName("允许打包。默认true")]
         public Boolean AllowArchive { get; set; } = true;
 
-        /// <summary>允许打包。默认true</summary>
-        [DisplayName("允许打包。默认true")]
+        /// <summary>允许查看审阅。默认true</summary>
+        [DisplayName("允许查看审阅。默认true")]
         public Boolean AllowBlame { get; set; } = true;
 
-        /// <summary>允许打包。默认true</summary>
-        [DisplayName("允许打包。默认true")]
+        /// <summary>允许查看提交。默认true</summary>
+        [DisplayName("允许查看提交。默认true")]
         public Boolean AllowCommits { get; set; } = true;
 
-        /// <summary>允许打包。默认true</summary>
-        [DisplayName("允许打包。默认true")]
+        /// <summary>允许查看贡献者。默认true</summary>
+        [DisplayName("允许查看贡献者。默认true")]
         public Boolean AllowContributors { get; set; } = true;
 
-        /// <summary>允许打包。默认true</summary>
-        [DisplayName("允许打包。默认true")]
+        /// <summary>允许查看分支差异。默认true</summary>
+        [DisplayName("允许查看分支差异。默认true")]
         public Boolean AllowHistoryDivergence { get; set; } = true;
+
+        /// <summary>允许查看摘要。默认true</summary>
+        [DisplayName("允许查看摘要。默认true")]
+        public Boolean AllowSummary { get; set; } = true;
         #endregion
 
         protected override void OnNew()

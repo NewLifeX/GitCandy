@@ -389,8 +389,8 @@ namespace GitCandy.Controllers
             using (var git = new GitService(owner, name))
             {
                 var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
-                //if (model == null)
-                //    throw new HttpException((int)HttpStatusCode.NotFound, String.Empty);
+                if (model == null)
+                    throw new HttpException((Int32)HttpStatusCode.NotFound, String.Empty);
 
                 ViewBag.Pager = Pager.Items(model.ItemCount)
                     .PerPage(UserConfiguration.Current.Commits)
