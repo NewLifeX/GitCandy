@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using NewLife.Data;
+using NewLife.Log;
 using NewLife.Model;
 using NewLife.Web;
 using XCode;
@@ -278,8 +279,8 @@ namespace NewLife.GitCandy.Entity
             if (!user.Enable) return null;
             if (user.Password != pass.MD5()) return null;
 
-        //    return user;
-        //}
+            return user;
+        }
 
         public static User GetOrAdd(Int32 linkid, String name)
         {

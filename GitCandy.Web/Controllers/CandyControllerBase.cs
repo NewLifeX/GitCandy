@@ -1,6 +1,4 @@
 ﻿using System;
-using NewLife.GitCandy;
-using XCode.Membership;
 using System.Reflection;
 using System.Threading;
 using System.Web;
@@ -98,7 +96,7 @@ namespace GitCandy.Controllers
                     }
                     // else // DO NOT set token = null here
 
-                    if (gcUser.Current == null) gcUser.Current = gcUser.FindByID(token.UserID);
+                    if (UserY.Current == null) UserY.Current = UserY.FindByID(token.UserID);
                     CandyManageProvider.Provider.SetPrincipal();
 
                     Token = token;
