@@ -26,10 +26,7 @@ namespace GitCandy.Controllers
 
         public Token Token
         {
-            get
-            {
-                return _token;
-            }
+            get => _token;
             set
             {
                 if (value == null || value.Expired)
