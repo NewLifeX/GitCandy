@@ -5,7 +5,7 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_ChooseUserTitle, Model.Name));
 
     var ctrl = "Account";
-    if (HttpRuntime.AppDomainAppVirtualPath != "/") { ctrl = HttpRuntime.AppDomainAppVirtualPath.TrimStart("/") + "/" + ctrl; }
+    //if (HttpRuntime.AppDomainAppVirtualPath != "/") { ctrl = HttpRuntime.AppDomainAppVirtualPath.TrimStart("/") + "/" + ctrl; }
 }
 
 <h4>@String.Format(SR.Team_ChooseUserTitle, Model.Name)</h4>

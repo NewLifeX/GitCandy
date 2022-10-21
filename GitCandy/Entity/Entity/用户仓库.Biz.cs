@@ -117,10 +117,7 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 业务
-        public override String ToString()
-        {
-            return "{0},{1}".F(UserName, RepositoryName);
-        }
+        public override String ToString() => $"{UserName},{RepositoryName}";
         #endregion
     }
 }

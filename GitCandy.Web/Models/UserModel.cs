@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 using GitCandy.Base;
 using GitCandy.Web.App_GlobalResources;
 
@@ -51,12 +48,12 @@ namespace GitCandy.Models
 
         [Display(ResourceType = typeof(SR), Name = "Account_Teams")]
         [UIHint("Maps")]
-        [AdditionalMetadata("Controller", "Team")]
+        //[AdditionalMetadata("Controller", "Team")]
         public IDictionary<String, String> Teams { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Repositories")]
         [UIHint("Members")]
-        [AdditionalMetadata("Controller", "Repository")]
+        //[AdditionalMetadata("Controller", "Repository")]
         public String[] Respositories { get; set; }
     }
 }

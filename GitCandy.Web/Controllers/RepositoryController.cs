@@ -1,18 +1,19 @@
-﻿using System.Net;
-using GitCandy.Base;
+﻿using GitCandy.Base;
 using GitCandy.Configuration;
 using GitCandy.Data;
-using GitCandy.Filters;
 using GitCandy.Git;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
+using GitCandy.Web.Base;
 using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
+using NewLife.Web;
+using Pager = GitCandy.Base.Pager;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
@@ -20,6 +21,7 @@ namespace GitCandy.Web.Controllers;
 public class RepositoryController : CandyControllerBase
 {
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
+    UserConfiguration _config = UserConfiguration.Current;
 
     public ActionResult Index()
     {
@@ -50,9 +52,10 @@ public class RepositoryController : CandyControllerBase
             ViewBag.Title2 = repo.Description;
     }
 
-    [AllowRepositoryCreation]
     public ActionResult Create()
     {
+        if (!_config.AllowRepositoryCreation) return Forbid();
+
         var model = new RepositoryModel
         {
             IsPrivate = false,
@@ -76,9 +79,10 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    [AllowRepositoryCreation]
     public ActionResult Create(RepositoryModel model)
     {
+        if (!_config.AllowRepositoryCreation) return Forbid();
+
         if (ModelState.IsValid)
         {
             try
@@ -104,27 +108,32 @@ public class RepositoryController : CandyControllerBase
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex);
+                ModelState.AddModelError("", ex.Message);
             }
         }
 
         return CreateView(model);
     }
 
-    [ReadRepository]
     public ActionResult Detail(String owner, String name)
     {
-        var model = RepositoryService.Get(owner, name, true, Token?.Name);
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
+        var model = RepositoryService.Get(owner, name, true, username);
         if (model == null) return NotFound();
 
-        using (var git = new GitService(owner, name))
-            model.DefaultBranch = git.GetHeadBranch();
+        using var git = new GitService(owner, name);
+        model.DefaultBranch = git.GetHeadBranch();
+
         return View(model);
     }
 
-    [RepositoryOwnerOrSystemAdministrator]
     public ActionResult Edit(String owner, String name)
     {
+        var username = Token?.Name;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+
         var model = RepositoryService.Get(owner, name, username: Token?.Name);
         if (model == null) return NotFound();
 
@@ -137,10 +146,12 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    [RepositoryOwnerOrSystemAdministrator]
     public ActionResult Edit(String owner, String name, RepositoryModel model)
     {
         if (String.IsNullOrEmpty(name)) return NotFound();
+
+        var username = Token?.Name;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
 
         if (ModelState.IsValid)
         {
@@ -154,20 +165,24 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [RepositoryOwnerOrSystemAdministrator]
     public ActionResult Coop(String owner, String name)
     {
         if (String.IsNullOrEmpty(name)) return NotFound();
+
+        var username = Token?.Name;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
 
         var model = RepositoryService.GetRepositoryCollaborationModel(owner, name);
         return View(model);
     }
 
     [HttpPost]
-    [RepositoryOwnerOrSystemAdministrator]
-    public JsonResult ChooseUser(String owner, String name, String user, String act, String value)
+    public ActionResult ChooseUser(String owner, String name, String user, String act, String value)
     {
         String message = null;
+
+        var username = Token?.Name;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
 
         if (act == "add")
         {
@@ -197,9 +212,11 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    [RepositoryOwnerOrSystemAdministrator]
-    public JsonResult ChooseTeam(String owner, String name, String team, String act, String value)
+    public ActionResult ChooseTeam(String owner, String name, String team, String act, String value)
     {
+        var username = Token?.Name;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+
         if (act == "add")
         {
             var role = RepositoryService.RepositoryAddUser(owner, name, team);
@@ -207,6 +224,7 @@ public class RepositoryController : CandyControllerBase
                 return Json(new { role.AllowRead, role.AllowWrite });
         }
         else if (act == "del")
+        {
             if (RepositoryService.RepositoryRemoveUser(owner, name, team))
                 return Json("success");
             else if (act == "read" || act == "write" || act == "owner")
@@ -215,28 +233,35 @@ public class RepositoryController : CandyControllerBase
                 if (RepositoryService.RepositoryUserSetValue(owner, name, team, act, val))
                     return Json("success");
             }
+        }
 
         Response.StatusCode = 400;
         return Json(SR.Shared_SomethingWrong);
     }
 
-    [RepositoryOwnerOrSystemAdministrator]
     public ActionResult Delete(String owner, String name, String conform)
     {
         if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
         {
+            var username = Token?.Name;
+            if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+
             RepositoryService.Delete(owner, name);
             GitService.DeleteRepository(owner, name);
             GitCacheAccessor.Delete(owner, name);
+
             XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token?.Name, Token.ID);
+
             return RedirectToAction("Index");
         }
         return View((Object)name);
     }
 
-    [ReadRepository]
     public ActionResult Tree(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         var repo = Repository.FindByOwnerAndName(owner, name);
         using var git = new GitService(owner, name);
         var model = git.GetTree(path);
@@ -277,9 +302,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Blob(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetBlob(path);
         if (model == null) return NotFound();
@@ -292,9 +319,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Blame(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetBlame(path);
         if (model == null) return NotFound();
@@ -304,9 +333,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Raw(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetBlob(path);
         if (model == null) return NotFound();
@@ -316,9 +347,11 @@ public class RepositoryController : CandyControllerBase
             : new RawResult(model.RawData);
     }
 
-    [ReadRepository]
     public ActionResult Commit(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetCommit(path);
         if (model == null) return NotFound();
@@ -328,9 +361,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Compare(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var start = "";
         var end = "";
@@ -356,9 +391,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Commits(String owner, String name, String path, Int32? page)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
         if (model == null) return NotFound();
@@ -374,9 +411,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
-    [ReadRepository]
     public ActionResult Archive(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var repo = Repository.FindByOwnerAndName(owner, name);
         if (repo != null)
@@ -392,9 +431,11 @@ public class RepositoryController : CandyControllerBase
         return File(cacheFile, "application/zip", filename + ".zip");
     }
 
-    [ReadRepository]
     public ActionResult Tags(String owner, String name)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetTags();
         //if (model == null)
@@ -407,21 +448,25 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    [ReadRepository(requireWrite: true)]
     public ActionResult Tags(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanWriteRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         git.DeleteTag(path);
         return Json("success");
     }
 
-    [ReadRepository]
     public ActionResult Branches(String owner, String name)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetBranches();
         if (model == null) return NotFound();
-     
+
         model.Owner = owner;
         model.Name = name;
         model.CanDelete = Token != null && Token.IsAdmin()
@@ -430,17 +475,21 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    [ReadRepository(requireWrite: true)]
-    public JsonResult Branches(String owner, String name, String path)
+    public ActionResult Branches(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanWriteRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         git.DeleteBranch(path);
         return Json("success");
     }
 
-    [ReadRepository]
     public ActionResult Contributors(String owner, String name, String path)
     {
+        var username = Token?.Name;
+        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
         using var git = new GitService(owner, name);
         var model = git.GetContributors(path);
         if (model == null) return NotFound();
@@ -460,8 +509,8 @@ public class RepositoryController : CandyControllerBase
 
     private GitUrl[] GetGitUrl(String owner, String name)
     {
-        var url = Request.Url;
-        var path = VirtualPathUtility.ToAbsolute("~/" + owner + "/" + name);
+        var url = Request.GetRawUrl();
+        var path = $"/{owner}/{name}";
         var ub = new UriBuilder(url.Scheme, url.Host, url.Port, path);
         var httpUrl = ub.Uri.ToString();
 

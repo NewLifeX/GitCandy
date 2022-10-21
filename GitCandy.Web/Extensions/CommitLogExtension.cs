@@ -1,7 +1,6 @@
 ﻿using LibGit2Sharp;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Web.Extensions;
@@ -29,7 +28,7 @@ public static class CommitLogExtension
         });
     }
 
-    public static IHtmlContent Link(this HtmlHelper html, Signature sign)
+    public static IHtmlContent Link(this IHtmlHelper html, Signature sign)
     {
         var user = User.FindByName(sign.Name) ?? User.FindByEmail(sign.Email);
         if (user != null)

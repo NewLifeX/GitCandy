@@ -1,4 +1,5 @@
-﻿@model GitCandy.Models.BlameModel
+﻿@using GitCandy.Web.Extensions
+@model GitCandy.Models.BlameModel
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
@@ -6,15 +7,15 @@
 
 <h4>@Html.Link(Model)</h4>
 
-@Html.Partial("_PathBar", Model.PathBar)
-@Html.Partial("_BranchSelector", Model.BranchSelector)
+@await Html.PartialAsync("_PathBar", Model.PathBar)
+@await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
 
 <div class="row">
     <div class="col-md-12">
         <div class="pull-right">
-            @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
-            @Html.ActionLink(SR.Repository_NormalView, "Blob", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
-            @Html.ActionLink(SR.Repository_Raw, "Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
+            @Html.ActionLink(SR.Repository_History, "Commits", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default" })
+            @Html.ActionLink(SR.Repository_NormalView, "Blob", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default" })
+            @Html.ActionLink(SR.Repository_Raw, "Raw", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default" })
         </div>
         @Model.SizeString
     </div>
@@ -27,8 +28,8 @@
             <tr>
                 <td class="blame-info">
                     <div>
-                        <span>@Html.ActionLink(hunk.Sha.ToShortSha(), "Commit", Html.OverRoute(new { path = hunk.Sha + "/" + Model.Path }))</span>
-                        <span>@Html.ActionLink("»", "Blame", Html.OverRoute(new { path = hunk.Sha + "/" + Model.Path }))</span>
+                        <span>@Html.ActionLink(hunk.Sha.ToShortSha(), "Commit", new { path = hunk.Sha + "/" + Model.Path })</span>
+                        <span>@Html.ActionLink("»", "Blame", new { path = hunk.Sha + "/" + Model.Path })</span>
                         <strong title="@hunk.AuthorEmail">@hunk.Author</strong>
                     </div>
                     <div>

@@ -27,6 +27,15 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\SettingController.cs" />
+    <Compile Remove="Filters\AdministratorAttribute.cs" />
+    <Compile Remove="Filters\AllowRegisterUserAttribute.cs" />
+    <Compile Remove="Filters\AllowRepositoryCreationAttribute.cs" />
+    <Compile Remove="Filters\CurrentUserOrAdministratorAttribute.cs" />
+    <Compile Remove="Filters\ReadRepositoryAttribute.cs" />
+    <Compile Remove="Filters\RepositoryOwnerOrSystemAdministratorAttribute.cs" />
+    <Compile Remove="Filters\SmartAuthorizeAttribute.cs" />
+    <Compile Remove="Filters\SmartGitAttribute.cs" />
+    <Compile Remove="Filters\TeamOrSystemAdministratorAttribute.cs" />
     <Compile Remove="Git\GitSshService.cs" />
   </ItemGroup>
 
@@ -36,6 +45,7 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
+    <PackageReference Include="NewLife.Core" Version="10.0.2022.1001" />
     <PackageReference Include="NewLife.Cube.Core" Version="5.5.2022.1001" />
     <PackageReference Include="NewLife.Redis" Version="5.0.2022.901" />
     <PackageReference Include="NewLife.Stardust.Extensions" Version="2.3.2022.1001" />
@@ -47,6 +57,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\GitCandy\Views\User\" />
+    <Folder Include="Filters\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

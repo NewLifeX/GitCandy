@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.IO.Compression;
 using GitCandy.Data;
-using GitCandy.Filters;
 using GitCandy.Git;
 using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,7 @@ public class GitController : CandyControllerBase
 {
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
-    [SmartGit]
+    //[SmartGit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
         return verb switch

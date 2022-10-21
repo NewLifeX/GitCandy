@@ -1,9 +1,10 @@
 ﻿using GitCandy.Base;
 using GitCandy.Configuration;
-using GitCandy.Filters;
 using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
+using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using NewLife;
 using NewLife.Log;
 using UserX = NewLife.GitCandy.Entity.User;
 
@@ -11,9 +12,10 @@ namespace GitCandy.Web.Controllers;
 
 public class TeamController : CandyControllerBase
 {
-    [Administrator]
     public ActionResult Index(String query, Int32? page)
     {
+        if (!Token.IsAdmin()) return Forbid();
+
         var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
         ViewBag.Pager = Pager.Items(model.ItemCount)
@@ -25,14 +27,20 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
-    [Administrator]
-    public ActionResult Create() => View();
+    public ActionResult Create()
+    {
+        if (!Token.IsAdmin()) return Forbid();
+
+        return View();
+    }
 
     [HttpPost]
-    [Administrator]
     public ActionResult Create(TeamModel model)
     {
+        if (!Token.IsAdmin()) return Forbid();
+
         if (ModelState.IsValid)
+        {
             try
             {
                 var team = UserX.CreateTeam(model.Name, model.Nickname, model.Description);
@@ -47,22 +55,36 @@ public class TeamController : CandyControllerBase
             {
                 ModelState.AddModelError("", ex.Message);
             }
+        }
 
         return View(model);
     }
 
-    [TeamOrSystemAdministrator]
     public ActionResult Detail(String name)
     {
-        var model = MembershipService.GetTeamModel(name, true, Token == null ? null : Token?.Name);
+        if (!Token.IsAdmin())
+        {
+            var user = Token as UserX;
+            var ut = user?.Teams.FirstOrDefault(e => e.TeamName.EqualIgnoreCase(name));
+            if (ut == null) return Forbid();
+        }
+
+        var model = MembershipService.GetTeamModel(name, true, Token?.Name);
         if (model == null) return NotFound();
 
         return View(model);
     }
 
-    [TeamOrSystemAdministrator(RequireAdmin = true)]
     public ActionResult Edit(String name)
     {
+        if (!Token.IsAdmin())
+        {
+            var user = Token as UserX;
+            var ut = user?.Teams.FirstOrDefault(e => e.TeamName.EqualIgnoreCase(name));
+
+            if (ut == null || !ut.IsAdmin) return Forbid();
+        }
+
         var model = MembershipService.GetTeamModel(name);
         if (model == null) return NotFound();
 
@@ -72,25 +94,45 @@ public class TeamController : CandyControllerBase
     }
 
     [HttpPost]
-    [TeamOrSystemAdministrator(RequireAdmin = true)]
     public ActionResult Edit(String name, TeamModel model)
     {
+        if (!Token.IsAdmin())
+        {
+            var user = Token as UserX;
+            var ut = user?.Teams.FirstOrDefault(e => e.TeamName.EqualIgnoreCase(name));
+
+            if (ut == null || !ut.IsAdmin) return Forbid();
+        }
+
         if (ModelState.IsValid && !MembershipService.UpdateTeam(model)) return NotFound();
 
         return View(model);
     }
 
-    [TeamOrSystemAdministrator]
     public ActionResult Users(String name)
     {
+        if (!Token.IsAdmin())
+        {
+            var user = Token as UserX;
+            var ut = user?.Teams.FirstOrDefault(e => e.TeamName.EqualIgnoreCase(name));
+
+            if (ut == null) return Forbid();
+        }
+
         var model = MembershipService.GetTeamModel(name, true);
         return View(model);
     }
 
     [HttpPost]
-    [TeamOrSystemAdministrator(RequireAdmin = true)]
-    public JsonResult ChooseUser(String name, String user, String act)
+    public ActionResult ChooseUser(String name, String user, String act)
     {
+        if (!Token.IsAdmin())
+        {
+            var ut = (Token as UserX)?.Teams.FirstOrDefault(e => e.TeamName.EqualIgnoreCase(name));
+
+            if (ut == null) return Forbid();
+        }
+
         String message = null;
         if (act == "add")
         {
@@ -117,9 +159,10 @@ public class TeamController : CandyControllerBase
         return Json(message ?? SR.Shared_SomethingWrong);
     }
 
-    [Administrator]
     public ActionResult Delete(String name, String conform)
     {
+        if (!Token.IsAdmin()) return Forbid();
+
         if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
         {
             MembershipService.DeleteTeam(name);

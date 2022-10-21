@@ -3,7 +3,8 @@
     var values = ViewContext.RouteData.Values;
     var action = values["action"] as String;
     var noLink = Model.Path == null;
-    var identity = Html.GetRootViewBag().Identity++;
+    //var identity = Html.GetRootViewBag().Identity++;
+    var identity = ViewBag.Identity++;
 }
 <div class="dropdown btn-group">
     <a class="btn btn-default" data-toggle="dropdown"><i class="@Model.CurrentIsBranch.ToFlagString("glyphicon glyphicon-random", "glyphicon glyphicon-tag")"></i><span class="branch-name"> @Model.Current</span></a>

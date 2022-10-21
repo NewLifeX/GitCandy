@@ -1,6 +1,6 @@
 ﻿using GitCandy.Base;
 using GitCandy.Configuration;
-using GitCandy.Filters;
+using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Data;
@@ -10,9 +10,10 @@ namespace GitCandy.Web.Controllers;
 
 public class AccountController : CandyControllerBase
 {
-    [Administrator]
     public ActionResult Index(String query, Int32? page)
     {
+        if (!Token.IsAdmin()) return Forbid();
+
         var model = MembershipService.GetUserList(query, page ?? 1, UserConfiguration.Current.PageSize);
 
         ViewBag.Pager = Pager.Items(model.ItemCount)

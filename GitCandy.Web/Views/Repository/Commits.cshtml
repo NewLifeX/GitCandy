@@ -1,4 +1,5 @@
 ﻿@model GitCandy.Models.CommitsModel
+@using GitCandy.Web.Extensions
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CommitsTitle, Model.Name ?? Model.Sha.ToShortSha(), Model.Path));
@@ -6,7 +7,7 @@
 
 <h4>@SR.Repository_HistoryFor @Html.Link(Model)</h4>
 
-@Html.Partial("_PathBar", Model.PathBar)
+@await Html.PartialAsync("_PathBar", Model.PathBar)
 
 @foreach (var commit in Model.Commits)
 {
@@ -31,4 +32,4 @@
         </div>
     </div>
 }
-@Html.Partial("_Pager")
+@await Html.PartialAsync("_Pager")

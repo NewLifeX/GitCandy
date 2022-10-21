@@ -1,5 +1,6 @@
 ﻿using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
+using NewLife;
 using NewLife.Model;
 
 namespace GitCandy.Web.Filters;
@@ -18,10 +19,7 @@ public class CurrentUserOrAdministratorAttribute : SmartAuthorizeAttribute
         {
             if (user.IsAdmin()) return;
 
-            var field = filterContext.RouteData.DataTokens["name"];
-            if (field == null) return;
-
-            var name = field.AttemptedValue;
+            var name = filterContext.RouteData.Values["name"] as String;
             if (name.IsNullOrEmpty() || user?.Name == name) return;
         }
 

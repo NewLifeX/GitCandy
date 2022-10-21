@@ -8,10 +8,10 @@
 
 <div class="row">
     <div class="col-md-3 branch-from">
-        @Html.Partial("_BranchSelector", Model.BaseBranchSelector)
+        @await Html.PartialAsync("_BranchSelector", Model.BaseBranchSelector)
     </div>
     <div class="col-md-3 branch-to">
-        @Html.Partial("_BranchSelector", Model.CompareBranchSelector)
+        @await Html.PartialAsync("_BranchSelector", Model.CompareBranchSelector)
     </div>
     <div class="col-md-1">
         <button class="branch-compare btn btn-primary">@SR.Repository_Compare</button>
@@ -39,5 +39,5 @@ else
         </table>
     </div>
 
-    @Html.Partial("_Diff", Model.CompareResult)
+    @await Html.PartialAsync("_Diff", Model.CompareResult)
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using GitCandy.Web.Controllers;
+﻿using GitCandy.Web.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GitCandy.Web.Filters;

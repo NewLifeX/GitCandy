@@ -1,4 +1,5 @@
-﻿@model GitCandy.Models.RepositoryListModel
+﻿@using GitCandy.Models
+@model GitCandy.Models.RepositoryListModel
 
 @{
     //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
@@ -14,7 +15,7 @@
         <table class="table border-area">
             @foreach (var repo in Model.Collaborations)
             {
-                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : String.Format("{0}/{1}", repo.Owner, repo.Name);
                 <tr>
                     <td>
                         <div><h3><a href="~/@repo.Owner/@repo.Name">@name</a></h3></div>
@@ -38,7 +39,7 @@
             <thead>@SR.Repository_PopularRepositories</thead>
             @foreach (var repo in Model.Repositories)
             {
-                var name = repo.Name.Contains(repo.Owner) ? repo.Name : "{0}/{1}".F(repo.Owner, repo.Name);
+                var name = repo.Name.Contains(repo.Owner) ? repo.Name : String.Format("{0}/{1}", repo.Owner, repo.Name);
                 <tr>
                     <td>
                         <div><a href="~/@repo.Owner/@repo.Name">@name</a></div>

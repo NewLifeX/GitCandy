@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 using GitCandy.Base;
 using GitCandy.Web.App_GlobalResources;
-using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Models
 {
@@ -45,12 +41,12 @@ namespace GitCandy.Models
 
         [Display(ResourceType = typeof(SR), Name = "Repository_Collaborators")]
         [UIHint("Maps")]
-        [AdditionalMetadata("Controller", "Account")]
+        //[AdditionalMetadata("Controller", "Account")]
         public IDictionary<String, String> Collaborators { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_Teams")]
         [UIHint("Maps")]
-        [AdditionalMetadata("Controller", "Team")]
+        //[AdditionalMetadata("Controller", "Team")]
         public IDictionary<String, String> Teams { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Repository_DefaultBranch")]

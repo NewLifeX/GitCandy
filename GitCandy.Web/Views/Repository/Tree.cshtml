@@ -1,4 +1,5 @@
 ﻿@model GitCandy.Models.TreeModel
+@using GitCandy.Models
 @using LibGit2Sharp;
 
 @{
@@ -11,7 +12,7 @@
 {
     <div>
         @Html.ActionLink(SR.Shared_Detail, "Detail", Html.OverRoute(), new { @class = "btn btn-default pull-right" })
-        @Html.Partial("_GitUrlButton", Model.GitUrls)
+        @await Html.PartialAsync("_GitUrlButton", Model.GitUrls)
     </div>
     <div class="alert alert-info">@SR.Repository_EmptyWords</div>
 }
@@ -35,20 +36,20 @@ else
             @if (Model.IsRoot)
             {
                 @Html.ActionLink(SR.Shared_Detail, "Detail", Html.OverRoute(), new { @class = "btn btn-default pull-right" })
-                @Html.Partial("_BranchSelector", Model.BranchSelector)
-                @Html.Partial("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
+                @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
+                @await Html.PartialAsync("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
                 <a href="@Url.Action("Compare", Html.OverRoute(new { path = "" }))" class="btn btn-default"><span class="glyphicon glyphicon-retweet"></span>@SR.Repository_Compare</a>
-                @Html.Partial("_GitUrlButton", Model.GitUrls)
+                @await Html.PartialAsync("_GitUrlButton", Model.GitUrls)
             }
             else
             {
-                @Html.Partial("_BranchSelector", Model.BranchSelector)
+                @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
                 <div class="btn-group">
                     @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
                 </div>
             }
         </div>
-        @Html.Partial("_PathBar", Model.PathBar)
+        @await Html.PartialAsync("_PathBar", Model.PathBar)
         <div class="border-area table-responsive">
             <table class="table table-hover table-striped">
                 <caption>
@@ -116,7 +117,7 @@ else
                     <tbody>
                         <tr>
                             <td>
-                                @Html.Partial("_BlobPreview", Model.Readme)
+                                @await Html.PartialAsync("_BlobPreview", Model.Readme)
                             </td>
                         </tr>
                     </tbody>

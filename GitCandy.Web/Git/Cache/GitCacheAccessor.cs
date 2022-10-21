@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using GitCandy.Configuration;
 using GitCandy.Web.Extensions;
 using LibGit2Sharp;
+using NewLife;
 using NewLife.Log;
 using NewLife.Threading;
 

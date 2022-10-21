@@ -1,7 +1,7 @@
 ﻿@model GitCandy.Models.TeamModel
-@    using NewLife.Model;
-@    using GitCandy.Extensions;
-    using GitCandy.Web.Extensions;
+@using GitCandy.Web.App_GlobalResources
+@using NewLife.Model;
+@using GitCandy.Web.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Team_EditTitle, Model.Name));
     var token = User.Identity as IManageUser;

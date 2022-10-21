@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Account_LoginTitle);
     var showadmin = ViewBag.ShowAdmin as String;
-    var adminstr = "默认管理员 {0}/{0}".F(showadmin);
+    var adminstr = String.Format("默认管理员 {0}/{0}", showadmin);
 }
 
 <h3>@SR.Account_LoginTitle</h3>

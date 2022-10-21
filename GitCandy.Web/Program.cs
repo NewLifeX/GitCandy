@@ -68,6 +68,5 @@ app.UseEndpoints(endpoints =>
 });
 
 GitCacheAccessor.Initialize();
-Profiler.Start();
 
 app.Run();

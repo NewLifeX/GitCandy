@@ -6,7 +6,7 @@
 
 <h4>@Html.Link(Model)</h4>
 
-@Html.Partial("_PathBar", Model.PathBar)
+@await Html.PartialAsync("_PathBar", Model.PathBar)
 
 <div class="row">
     <div class="col-md-9">
@@ -38,4 +38,4 @@
     </div>
 </div>
 
-@Html.Partial("_Diff", Model)
+@await Html.PartialAsync("_Diff", Model)

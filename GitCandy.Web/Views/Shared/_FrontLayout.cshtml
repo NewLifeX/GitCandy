@@ -1,7 +1,8 @@
-﻿@    using NewLife
-@    using NewLife.Model;
-@    using GitCandy.Extensions;
-    using GitCandy.Web.Extensions;
+﻿@using GitCandy.Web.App_GlobalResources
+@using NewLife
+@using NewLife.Model;
+@using GitCandy.Web.Extensions;
+@using NewLife.Web
 @{
     var token = User.Identity as IManageUser;
     var cfg = NewLife.Common.SysConfig.Current;
@@ -10,6 +11,8 @@
     title += cfg.DisplayName;
     var title2 = ViewBag.Title2 as String;
     if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
+
+    var retUrl = ViewContext.HttpContext.Request.GetRawUrl()?.PathAndQuery;
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="@ViewBag.Lang">
@@ -53,12 +56,12 @@
                     @if (token == null)
                     {
                         <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "Admin/User")</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Admin/User", new { r = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Admin/User", new { r = retUrl }, null)</li>
                     }
                     else
                     {
                         <li class="">@Html.ActionLink(token + "", "Detail", "Account", new { name = token.Name }, null)</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Admin/User", new { r = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Admin/User", new { r = retUrl }, null)</li>
                     }
                 </ul>
             </div>
@@ -80,7 +83,7 @@
                     <li>@Html.CultureActionLink("fr-fr")</li>
                 </ul>
             </div>
-            <div class="pull-left"><p class="muted" title="@Profiler.Current.Elapsed">&copy; 2002-@DateTime.Now.Year @cfg.Company</p></div>
+            <div class="pull-left"><p class="muted">&copy; 2002-@DateTime.Now.Year @cfg.Company</p></div>
         </div>
     </div>
 

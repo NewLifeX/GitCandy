@@ -8,21 +8,21 @@
 
 @using (Html.BeginForm("Index", "Account", FormMethod.Get))
 {
-<div class="row">
-    <div class="form-group col-md-5">
-        <div class="input-group">
-            <input type="text" name="query" class="form-control" />
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">@SR.Shared_Search</button>
-            </span>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">@SR.Shared_Search</button>
+                </span>
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
     <div class="pull-left">@String.Format(SR.Account_UsersFound, Model.ItemCount)</div>
-    <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", null, new { @class = "btn btn-primary" })</div>
+    <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", routeValues: null, new { @class = "btn btn-primary" })</div>
 </div>
 <table class="table table-hover table-striped">
     <thead>
@@ -45,4 +45,4 @@
         }
     </tbody>
 </table>
-@Html.Partial("_Pager")
+@await Html.PartialAsync("_Pager")

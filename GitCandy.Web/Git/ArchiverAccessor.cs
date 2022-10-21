@@ -7,6 +7,7 @@ using System.Text;
 using GitCandy.Configuration;
 using GitCandy.Git.Cache;
 using LibGit2Sharp;
+using NewLife;
 using NewLife.Reflection;
 
 namespace GitCandy.Git

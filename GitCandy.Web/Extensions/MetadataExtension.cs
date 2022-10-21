@@ -181,13 +181,14 @@ public static class MetadataExtension
         return obj.ToString();
     }
 
-    //public static String GetUrl(this TreeModel model, String action, String path)
-    //{
-    //    var root = HttpRuntime.AppDomainAppVirtualPath;
-    //    root = root.EnsureEnd("/");
+    public static String GetUrl(this TreeModel model, String action, String path)
+    {
+        //var root = HttpRuntime.AppDomainAppVirtualPath;
+        //root = root.EnsureEnd("/");
+        var root = "/";
 
-    //    return root + $"{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
-    //}
+        return root + $"{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
+    }
 
     //public static String GetUrl(this PathBarModel model, String action, String path)
     //{
