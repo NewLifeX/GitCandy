@@ -63,8 +63,11 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
+        name: "repo",
+        pattern: "{controller=Repository}/{action=Index}");
+    endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=CubeHome}/{action=Index}/{id?}");
+        pattern: "{controller}/{action=Index}/{id?}");
 });
 
 GitCacheAccessor.Initialize();
