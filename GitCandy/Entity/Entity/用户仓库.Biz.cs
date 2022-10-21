@@ -72,7 +72,7 @@ namespace NewLife.GitCandy.Entity
             if (userid <= 0) return new List<UserRepository>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(_.UserID == userid);
             else
                 return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
         }
@@ -82,7 +82,7 @@ namespace NewLife.GitCandy.Entity
             if (repid <= 0) return new List<UserRepository>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.RepositoryID, repid);
+                return FindAll(_.RepositoryID == repid);
             else
                 return Meta.Cache.Entities.Where(e => e.RepositoryID == repid).ToList();
         }

@@ -24,23 +24,23 @@ namespace GitCandy.Security
             Expires = expires ?? now.AddMinutes(AuthPeriod);
         }
 
-        public static Token Current
-        {
-            get
-            {
-                var context = HttpContext.Current;
-                if (context == null) return null;
+        //public static Token Current
+        //{
+        //    get
+        //    {
+        //        var context = HttpContext.Current;
+        //        if (context == null) return null;
 
-                return context.Items[ContentKey] as Token;
-            }
-            set
-            {
-                var context = HttpContext.Current;
-                if (context == null) return;
+        //        return context.Items[ContentKey] as Token;
+        //    }
+        //    set
+        //    {
+        //        var context = HttpContext.Current;
+        //        if (context == null) return;
 
-                context.Items[ContentKey] = value;
-            }
-        }
+        //        context.Items[ContentKey] = value;
+        //    }
+        //}
 
         public Guid AuthCode { get; private set; }
         public Int32 UserID { get; private set; }

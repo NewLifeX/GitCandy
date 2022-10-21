@@ -75,7 +75,7 @@ namespace NewLife.GitCandy.Entity
             if (userid <= 0) return new List<AuthorizationLog>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(_.UserID == userid);
             else // 实体缓存
                 return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
             // 单对象缓存

@@ -60,17 +60,17 @@ namespace NewLife.GitCandy.Entity
             if (Meta.Count >= 1000)
                 return Find(__.UserID, userid);
             else // 实体缓存
-                return Meta.Cache.Entities.Find(__.UserID, userid);
+                return Meta.Cache.Entities.Find(e => e.UserID == userid);
             // 单对象缓存
             //return Meta.SingleCache[userid];
         }
 
-        public static EntityList<SshKey> FindAllByUserID(Int32 userid)
+        public static IList<SshKey> FindAllByUserID(Int32 userid)
         {
-            if (userid <= 0) return new EntityList<SshKey>();
+            if (userid <= 0) return new List<SshKey>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(_.UserID == userid);
             else
                 return Meta.Cache.Entities.FindAll(e => e.UserID == userid);
         }
@@ -91,7 +91,7 @@ namespace NewLife.GitCandy.Entity
         /// <param name="key">关键字</param>
         /// <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
         /// <returns>实体集</returns>
-        public static EntityList<SshKey> Search(Int32 userid, DateTime start, DateTime end, String key, PageParameter param)
+        public static IList<SshKey> Search(Int32 userid, DateTime start, DateTime end, String key, PageParameter param)
         {
             // WhereExpression重载&和|运算符，作为And和Or的替代
             // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段

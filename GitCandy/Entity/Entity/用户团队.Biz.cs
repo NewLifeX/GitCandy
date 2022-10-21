@@ -113,7 +113,7 @@ namespace NewLife.GitCandy.Entity
             if (userid <= 0) return new List<UserTeam>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.UserID, userid);
+                return FindAll(_.UserID == userid);
             else
                 return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
         }
@@ -123,7 +123,7 @@ namespace NewLife.GitCandy.Entity
             if (teamid <= 0) return new List<UserTeam>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.TeamID, teamid);
+                return FindAll(_.TeamID == teamid);
             else
                 return Meta.Cache.Entities.Where(e => e.TeamID == teamid).ToList();
         }

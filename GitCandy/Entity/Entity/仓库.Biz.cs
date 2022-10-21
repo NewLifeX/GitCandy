@@ -109,7 +109,7 @@ namespace NewLife.GitCandy.Entity
             if (userid <= 0) return new List<Repository>();
 
             if (Meta.Count >= 1000)
-                return FindAll(__.OwnerID, userid);
+                return FindAll(_.OwnerID == userid);
             else
                 return Meta.Cache.Entities.Where(e => e.OwnerID == userid).ToList();
         }

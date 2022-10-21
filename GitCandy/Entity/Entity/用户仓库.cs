@@ -1,6 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
+using System.Xml.Serialization;
 using XCode;
 using XCode.Configuration;
 using XCode.DataAccessLayer;
@@ -13,7 +16,7 @@ namespace NewLife.GitCandy.Entity
     [Description("用户仓库")]
     [BindIndex("IU_UserRepository_UserID_RepositoryID", true, "UserID,RepositoryID")]
     [BindTable("UserRepository", Description = "用户仓库", ConnName = "GitCandy", DbType = DatabaseType.SqlServer)]
-    public partial class UserRepository : IUserRepository
+    public partial class UserRepository
     {
         #region 属性
         private Int32 _ID;
@@ -21,96 +24,96 @@ namespace NewLife.GitCandy.Entity
         [DisplayName("编号")]
         [Description("编号")]
         [DataObjectField(true, true, false, 0)]
-        [BindColumn("ID", "编号", "int")]
-        public Int32 ID { get { return _ID; } set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
+        [BindColumn("ID", "编号", "")]
+        public Int32 ID { get => _ID; set { if (OnPropertyChanging("ID", value)) { _ID = value; OnPropertyChanged("ID"); } } }
 
         private Int32 _UserID;
         /// <summary>用户</summary>
         [DisplayName("用户")]
         [Description("用户")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("UserID", "用户", "int")]
-        public Int32 UserID { get { return _UserID; } set { if (OnPropertyChanging(__.UserID, value)) { _UserID = value; OnPropertyChanged(__.UserID); } } }
+        [BindColumn("UserID", "用户", "")]
+        public Int32 UserID { get => _UserID; set { if (OnPropertyChanging("UserID", value)) { _UserID = value; OnPropertyChanged("UserID"); } } }
 
         private Int32 _RepositoryID;
         /// <summary>仓库</summary>
         [DisplayName("仓库")]
         [Description("仓库")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("RepositoryID", "仓库", "int")]
-        public Int32 RepositoryID { get { return _RepositoryID; } set { if (OnPropertyChanging(__.RepositoryID, value)) { _RepositoryID = value; OnPropertyChanged(__.RepositoryID); } } }
+        [BindColumn("RepositoryID", "仓库", "")]
+        public Int32 RepositoryID { get => _RepositoryID; set { if (OnPropertyChanging("RepositoryID", value)) { _RepositoryID = value; OnPropertyChanged("RepositoryID"); } } }
 
         private Boolean _AllowRead;
         /// <summary>允许读</summary>
         [DisplayName("允许读")]
         [Description("允许读")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("AllowRead", "允许读", "bit")]
-        public Boolean AllowRead { get { return _AllowRead; } set { if (OnPropertyChanging(__.AllowRead, value)) { _AllowRead = value; OnPropertyChanged(__.AllowRead); } } }
+        [BindColumn("AllowRead", "允许读", "")]
+        public Boolean AllowRead { get => _AllowRead; set { if (OnPropertyChanging("AllowRead", value)) { _AllowRead = value; OnPropertyChanged("AllowRead"); } } }
 
         private Boolean _AllowWrite;
         /// <summary>允许写</summary>
         [DisplayName("允许写")]
         [Description("允许写")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("AllowWrite", "允许写", "bit")]
-        public Boolean AllowWrite { get { return _AllowWrite; } set { if (OnPropertyChanging(__.AllowWrite, value)) { _AllowWrite = value; OnPropertyChanged(__.AllowWrite); } } }
+        [BindColumn("AllowWrite", "允许写", "")]
+        public Boolean AllowWrite { get => _AllowWrite; set { if (OnPropertyChanging("AllowWrite", value)) { _AllowWrite = value; OnPropertyChanged("AllowWrite"); } } }
 
         private Boolean _IsOwner;
         /// <summary>拥有者</summary>
         [DisplayName("拥有者")]
         [Description("拥有者")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("IsOwner", "拥有者", "bit")]
-        public Boolean IsOwner { get { return _IsOwner; } set { if (OnPropertyChanging(__.IsOwner, value)) { _IsOwner = value; OnPropertyChanged(__.IsOwner); } } }
+        [BindColumn("IsOwner", "拥有者", "")]
+        public Boolean IsOwner { get => _IsOwner; set { if (OnPropertyChanging("IsOwner", value)) { _IsOwner = value; OnPropertyChanged("IsOwner"); } } }
 
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("CreateUserID", "创建者", "int")]
-        public Int32 CreateUserID { get { return _CreateUserID; } set { if (OnPropertyChanging(__.CreateUserID, value)) { _CreateUserID = value; OnPropertyChanged(__.CreateUserID); } } }
+        [BindColumn("CreateUserID", "创建者", "")]
+        public Int32 CreateUserID { get => _CreateUserID; set { if (OnPropertyChanging("CreateUserID", value)) { _CreateUserID = value; OnPropertyChanged("CreateUserID"); } } }
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 0)]
-        [BindColumn("CreateTime", "创建时间", "datetime")]
-        public DateTime CreateTime { get { return _CreateTime; } set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
+        [BindColumn("CreateTime", "创建时间", "")]
+        public DateTime CreateTime { get => _CreateTime; set { if (OnPropertyChanging("CreateTime", value)) { _CreateTime = value; OnPropertyChanged("CreateTime"); } } }
 
         private String _CreateIP;
         /// <summary>创建地址</summary>
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("CreateIP", "创建地址", "nvarchar(50)")]
-        public String CreateIP { get { return _CreateIP; } set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
+        [BindColumn("CreateIP", "创建地址", "")]
+        public String CreateIP { get => _CreateIP; set { if (OnPropertyChanging("CreateIP", value)) { _CreateIP = value; OnPropertyChanged("CreateIP"); } } }
 
         private Int32 _UpdateUserID;
         /// <summary>更新者</summary>
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("UpdateUserID", "更新者", "int")]
-        public Int32 UpdateUserID { get { return _UpdateUserID; } set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
+        [BindColumn("UpdateUserID", "更新者", "")]
+        public Int32 UpdateUserID { get => _UpdateUserID; set { if (OnPropertyChanging("UpdateUserID", value)) { _UpdateUserID = value; OnPropertyChanged("UpdateUserID"); } } }
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 0)]
-        [BindColumn("UpdateTime", "更新时间", "datetime")]
-        public DateTime UpdateTime { get { return _UpdateTime; } set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
+        [BindColumn("UpdateTime", "更新时间", "")]
+        public DateTime UpdateTime { get => _UpdateTime; set { if (OnPropertyChanging("UpdateTime", value)) { _UpdateTime = value; OnPropertyChanged("UpdateTime"); } } }
 
         private String _UpdateIP;
         /// <summary>更新地址</summary>
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("UpdateIP", "更新地址", "nvarchar(50)")]
-        public String UpdateIP { get { return _UpdateIP; } set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
+        [BindColumn("UpdateIP", "更新地址", "")]
+        public String UpdateIP { get => _UpdateIP; set { if (OnPropertyChanging("UpdateIP", value)) { _UpdateIP = value; OnPropertyChanged("UpdateIP"); } } }
         #endregion
 
         #region 获取/设置 字段值
@@ -123,18 +126,18 @@ namespace NewLife.GitCandy.Entity
             {
                 switch (name)
                 {
-                    case __.ID : return _ID;
-                    case __.UserID : return _UserID;
-                    case __.RepositoryID : return _RepositoryID;
-                    case __.AllowRead : return _AllowRead;
-                    case __.AllowWrite : return _AllowWrite;
-                    case __.IsOwner : return _IsOwner;
-                    case __.CreateUserID : return _CreateUserID;
-                    case __.CreateTime : return _CreateTime;
-                    case __.CreateIP : return _CreateIP;
-                    case __.UpdateUserID : return _UpdateUserID;
-                    case __.UpdateTime : return _UpdateTime;
-                    case __.UpdateIP : return _UpdateIP;
+                    case "ID": return _ID;
+                    case "UserID": return _UserID;
+                    case "RepositoryID": return _RepositoryID;
+                    case "AllowRead": return _AllowRead;
+                    case "AllowWrite": return _AllowWrite;
+                    case "IsOwner": return _IsOwner;
+                    case "CreateUserID": return _CreateUserID;
+                    case "CreateTime": return _CreateTime;
+                    case "CreateIP": return _CreateIP;
+                    case "UpdateUserID": return _UpdateUserID;
+                    case "UpdateTime": return _UpdateTime;
+                    case "UpdateIP": return _UpdateIP;
                     default: return base[name];
                 }
             }
@@ -142,18 +145,18 @@ namespace NewLife.GitCandy.Entity
             {
                 switch (name)
                 {
-                    case __.ID : _ID = Convert.ToInt32(value); break;
-                    case __.UserID : _UserID = Convert.ToInt32(value); break;
-                    case __.RepositoryID : _RepositoryID = Convert.ToInt32(value); break;
-                    case __.AllowRead : _AllowRead = Convert.ToBoolean(value); break;
-                    case __.AllowWrite : _AllowWrite = Convert.ToBoolean(value); break;
-                    case __.IsOwner : _IsOwner = Convert.ToBoolean(value); break;
-                    case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
-                    case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
-                    case __.CreateIP : _CreateIP = Convert.ToString(value); break;
-                    case __.UpdateUserID : _UpdateUserID = Convert.ToInt32(value); break;
-                    case __.UpdateTime : _UpdateTime = Convert.ToDateTime(value); break;
-                    case __.UpdateIP : _UpdateIP = Convert.ToString(value); break;
+                    case "ID": _ID = value.ToInt(); break;
+                    case "UserID": _UserID = value.ToInt(); break;
+                    case "RepositoryID": _RepositoryID = value.ToInt(); break;
+                    case "AllowRead": _AllowRead = value.ToBoolean(); break;
+                    case "AllowWrite": _AllowWrite = value.ToBoolean(); break;
+                    case "IsOwner": _IsOwner = value.ToBoolean(); break;
+                    case "CreateUserID": _CreateUserID = value.ToInt(); break;
+                    case "CreateTime": _CreateTime = value.ToDateTime(); break;
+                    case "CreateIP": _CreateIP = Convert.ToString(value); break;
+                    case "UpdateUserID": _UpdateUserID = value.ToInt(); break;
+                    case "UpdateTime": _UpdateTime = value.ToDateTime(); break;
+                    case "UpdateIP": _UpdateIP = Convert.ToString(value); break;
                     default: base[name] = value; break;
                 }
             }
@@ -165,42 +168,42 @@ namespace NewLife.GitCandy.Entity
         public partial class _
         {
             /// <summary>编号</summary>
-            public static readonly Field ID = FindByName(__.ID);
+            public static readonly Field ID = FindByName("ID");
 
             /// <summary>用户</summary>
-            public static readonly Field UserID = FindByName(__.UserID);
+            public static readonly Field UserID = FindByName("UserID");
 
             /// <summary>仓库</summary>
-            public static readonly Field RepositoryID = FindByName(__.RepositoryID);
+            public static readonly Field RepositoryID = FindByName("RepositoryID");
 
             /// <summary>允许读</summary>
-            public static readonly Field AllowRead = FindByName(__.AllowRead);
+            public static readonly Field AllowRead = FindByName("AllowRead");
 
             /// <summary>允许写</summary>
-            public static readonly Field AllowWrite = FindByName(__.AllowWrite);
+            public static readonly Field AllowWrite = FindByName("AllowWrite");
 
             /// <summary>拥有者</summary>
-            public static readonly Field IsOwner = FindByName(__.IsOwner);
+            public static readonly Field IsOwner = FindByName("IsOwner");
 
             /// <summary>创建者</summary>
-            public static readonly Field CreateUserID = FindByName(__.CreateUserID);
+            public static readonly Field CreateUserID = FindByName("CreateUserID");
 
             /// <summary>创建时间</summary>
-            public static readonly Field CreateTime = FindByName(__.CreateTime);
+            public static readonly Field CreateTime = FindByName("CreateTime");
 
             /// <summary>创建地址</summary>
-            public static readonly Field CreateIP = FindByName(__.CreateIP);
+            public static readonly Field CreateIP = FindByName("CreateIP");
 
             /// <summary>更新者</summary>
-            public static readonly Field UpdateUserID = FindByName(__.UpdateUserID);
+            public static readonly Field UpdateUserID = FindByName("UpdateUserID");
 
             /// <summary>更新时间</summary>
-            public static readonly Field UpdateTime = FindByName(__.UpdateTime);
+            public static readonly Field UpdateTime = FindByName("UpdateTime");
 
             /// <summary>更新地址</summary>
-            public static readonly Field UpdateIP = FindByName(__.UpdateIP);
+            public static readonly Field UpdateIP = FindByName("UpdateIP");
 
-            static Field FindByName(String name) { return Meta.Table.FindByName(name); }
+            static Field FindByName(String name) => Meta.Table.FindByName(name);
         }
 
         /// <summary>取得用户仓库字段名称的快捷方式</summary>
@@ -242,55 +245,6 @@ namespace NewLife.GitCandy.Entity
             /// <summary>更新地址</summary>
             public const String UpdateIP = "UpdateIP";
         }
-        #endregion
-    }
-
-    /// <summary>用户仓库接口</summary>
-    public partial interface IUserRepository
-    {
-        #region 属性
-        /// <summary>编号</summary>
-        Int32 ID { get; set; }
-
-        /// <summary>用户</summary>
-        Int32 UserID { get; set; }
-
-        /// <summary>仓库</summary>
-        Int32 RepositoryID { get; set; }
-
-        /// <summary>允许读</summary>
-        Boolean AllowRead { get; set; }
-
-        /// <summary>允许写</summary>
-        Boolean AllowWrite { get; set; }
-
-        /// <summary>拥有者</summary>
-        Boolean IsOwner { get; set; }
-
-        /// <summary>创建者</summary>
-        Int32 CreateUserID { get; set; }
-
-        /// <summary>创建时间</summary>
-        DateTime CreateTime { get; set; }
-
-        /// <summary>创建地址</summary>
-        String CreateIP { get; set; }
-
-        /// <summary>更新者</summary>
-        Int32 UpdateUserID { get; set; }
-
-        /// <summary>更新时间</summary>
-        DateTime UpdateTime { get; set; }
-
-        /// <summary>更新地址</summary>
-        String UpdateIP { get; set; }
-        #endregion
-
-        #region 获取/设置 字段值
-        /// <summary>获取/设置 字段值</summary>
-        /// <param name="name">字段名</param>
-        /// <returns></returns>
-        Object this[String name] { get; set; }
         #endregion
     }
 }

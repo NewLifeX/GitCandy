@@ -114,24 +114,24 @@ namespace NewLife.GitCandy.Entity
 
         public String[] RepositoryNames => Repositories?.Select(e => e.RepositoryName).ToArray();
 
-        /// <summary>当前登录用户</summary>
-        public static User Current
-        {
-            get
-            {
-                var ss = HttpContext.Current?.Session;
-                if (ss == null) return null;
+        ///// <summary>当前登录用户</summary>
+        //public static User Current
+        //{
+        //    get
+        //    {
+        //        var ss = HttpContext.Current?.Session;
+        //        if (ss == null) return null;
 
-                return ss["CandyUser"] as User;
-            }
-            set
-            {
-                var ss = HttpContext.Current?.Session;
-                if (ss == null) return;
+        //        return ss["CandyUser"] as User;
+        //    }
+        //    set
+        //    {
+        //        var ss = HttpContext.Current?.Session;
+        //        if (ss == null) return;
 
-                ss["CandyUser"] = value;
-            }
-        }
+        //        ss["CandyUser"] = value;
+        //    }
+        //}
 
         //String IIdentity.AuthenticationType => "GitCandy";
 
@@ -289,25 +289,10 @@ namespace NewLife.GitCandy.Entity
                 user.Insert();
             }
 
-            user.Logins++;
-            user.LastLogin = DateTime.Now;
-            user.LastLoginIP = WebHelper.UserHost;
+            //user.Logins++;
+            //user.LastLogin = DateTime.Now;
+            //user.LastLoginIP = WebHelper.UserHost;
             user.Save();
-
-            return user;
-        }
-
-        public static User GetOrAdd(IManageUser user)
-        {
-            if (user == null) return null;
-
-            var u = GetOrAdd(user.ID, user.Name);
-            if (u != null)
-            {
-                u.NickName = user.NickName;
-                if (user is XCode.Membership.IUser au) u.Email = au.Mail;
-                u.SaveAsync();
-            }
 
             return user;
         }
