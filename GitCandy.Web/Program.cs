@@ -57,6 +57,7 @@ else
     app.UseExceptionHandler("/CubeHome/Error");
 
 app.UseResponseCompression();
+app.UseStaticFiles();
 
 // 使用魔方
 app.UseCube(app.Environment);

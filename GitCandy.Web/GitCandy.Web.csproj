@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Account\Ssh.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
     <PackageReference Include="NewLife.Core" Version="10.0.2022.1001" />
     <PackageReference Include="NewLife.Cube.Core" Version="5.5.2022.1001" />
@@ -56,9 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\GitCandy\Views\User\" />
-    <Folder Include="Filters\" />
-    <Folder Include="Services\" />
+    <EmbeddedResource Include="wwwroot\**\*" />
   </ItemGroup>
 
 </Project>
