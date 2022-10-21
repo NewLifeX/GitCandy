@@ -239,16 +239,132 @@ WriteAttribute("href", Tuple.Create(" href=\"", 1342), Tuple.Create("\"", 1385)
 , 1349), false)
 );
 
-WriteLiteral(">团队</a></th>\r\n");
+WriteLiteral(">团队</a></th>\r\n            <th");
 
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1438), Tuple.Create("\"", 1482)
             
             #line 30 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1445), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("IsAdmin"))
+            
+            #line default
+            #line hidden
+, 1445), false)
+);
+
+WriteLiteral(">管理员</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1536), Tuple.Create("\"", 1579)
+            
+            #line 31 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1543), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("Online"))
+            
+            #line default
+            #line hidden
+, 1543), false)
+);
+
+WriteLiteral(">在线</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral(" style=\"min-width:134px;\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1657), Tuple.Create("\"", 1706)
+            
+            #line 32 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1664), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("RegisterTime"))
+            
+            #line default
+            #line hidden
+, 1664), false)
+);
+
+WriteLiteral(">注册时间</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1761), Tuple.Create("\"", 1808)
+            
+            #line 33 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1768), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("RegisterIP"))
+            
+            #line default
+            #line hidden
+, 1768), false)
+);
+
+WriteLiteral(">注册IP</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1863), Tuple.Create("\"", 1906)
+            
+            #line 34 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1870), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("Logins"))
+            
+            #line default
+            #line hidden
+, 1870), false)
+);
+
+WriteLiteral(">登录</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral(" style=\"min-width:134px;\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1984), Tuple.Create("\"", 2030)
+            
+            #line 35 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 1991), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("LastLogin"))
+            
+            #line default
+            #line hidden
+, 1991), false)
+);
+
+WriteLiteral(">最后登录</a></th>\r\n            <th");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral("><a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2085), Tuple.Create("\"", 2133)
+            
+            #line 36 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 2092), Tuple.Create<System.Object, System.Int32>(Html.Raw(page.GetSortUrl("LastLoginIP"))
+            
+            #line default
+            #line hidden
+, 2092), false)
+);
+
+WriteLiteral(">最后登录IP</a></th>\r\n");
+
+            
+            #line 37 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 30 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 37 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
              if (this.Has(PermissionFlags.Detail, PermissionFlags.Update, PermissionFlags.Delete))
             {
 
@@ -264,7 +380,7 @@ WriteLiteral(" style=\"min-width:100px;\"");
 WriteLiteral(">操作</th>\r\n");
 
             
-            #line 33 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 40 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
             }
 
             
@@ -273,13 +389,13 @@ WriteLiteral(">操作</th>\r\n");
 WriteLiteral("        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
 
             
-            #line 37 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 44 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 37 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 44 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
          foreach (var entity in Model)
         {
 
@@ -289,13 +405,13 @@ WriteLiteral("        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
 WriteLiteral("            <tr>\r\n");
 
             
-            #line 40 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 47 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 40 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 47 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                  if (enableSelect)
                 {
 
@@ -312,20 +428,20 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"keys\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1848), Tuple.Create("\"", 1866)
+WriteAttribute("value", Tuple.Create(" value=\"", 2600), Tuple.Create("\"", 2618)
             
-            #line 42 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
-      , Tuple.Create(Tuple.Create("", 1856), Tuple.Create<System.Object, System.Int32>(entity.ID
+            #line 49 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+      , Tuple.Create(Tuple.Create("", 2608), Tuple.Create<System.Object, System.Int32>(entity.ID
             
             #line default
             #line hidden
-, 1856), false)
+, 2608), false)
 );
 
 WriteLiteral(" /></td>\r\n");
 
             
-            #line 43 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 50 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                 }
 
             
@@ -338,7 +454,7 @@ WriteLiteral(" class=\"text-center hidden-md hidden-sm hidden-xs\"");
 WriteLiteral(">");
 
             
-            #line 44 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 51 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                                                                  Write(entity.ID);
 
             
@@ -347,7 +463,7 @@ WriteLiteral(">");
 WriteLiteral("</td>\r\n                <td>");
 
             
-            #line 45 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 52 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                Write(entity.Name);
 
             
@@ -356,7 +472,7 @@ WriteLiteral("</td>\r\n                <td>");
 WriteLiteral("</td>\r\n                <td>");
 
             
-            #line 46 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 53 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                Write(entity.NickName);
 
             
@@ -365,7 +481,7 @@ WriteLiteral("</td>\r\n                <td>");
 WriteLiteral("</td>\r\n                <td>");
 
             
-            #line 47 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 54 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                Write(entity.Email);
 
             
@@ -377,28 +493,28 @@ WriteLiteral(" class=\"text-center\"");
 
 WriteLiteral(">\r\n                    <i");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2169), Tuple.Create("\"", 2231)
-, Tuple.Create(Tuple.Create("", 2177), Tuple.Create("glyphicon", 2177), true)
-, Tuple.Create(Tuple.Create(" ", 2186), Tuple.Create("glyphicon-", 2187), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 2921), Tuple.Create("\"", 2983)
+, Tuple.Create(Tuple.Create("", 2929), Tuple.Create("glyphicon", 2929), true)
+, Tuple.Create(Tuple.Create(" ", 2938), Tuple.Create("glyphicon-", 2939), true)
             
-            #line 49 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
-, Tuple.Create(Tuple.Create("", 2197), Tuple.Create<System.Object, System.Int32>(entity.Enable ? "ok" : "remove"
+            #line 56 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 2949), Tuple.Create<System.Object, System.Int32>(entity.Enable ? "ok" : "remove"
             
             #line default
             #line hidden
-, 2197), false)
+, 2949), false)
 );
 
-WriteAttribute("style", Tuple.Create(" style=\"", 2232), Tuple.Create("\"", 2282)
-, Tuple.Create(Tuple.Create("", 2240), Tuple.Create("color:", 2240), true)
+WriteAttribute("style", Tuple.Create(" style=\"", 2984), Tuple.Create("\"", 3034)
+, Tuple.Create(Tuple.Create("", 2992), Tuple.Create("color:", 2992), true)
             
-            #line 49 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
-                    , Tuple.Create(Tuple.Create(" ", 2246), Tuple.Create<System.Object, System.Int32>(entity.Enable ? "green" : "red"
+            #line 56 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+                    , Tuple.Create(Tuple.Create(" ", 2998), Tuple.Create<System.Object, System.Int32>(entity.Enable ? "green" : "red"
             
             #line default
             #line hidden
-, 2247), false)
-, Tuple.Create(Tuple.Create("", 2281), Tuple.Create(";", 2281), true)
+, 2999), false)
+, Tuple.Create(Tuple.Create("", 3033), Tuple.Create(";", 3033), true)
 );
 
 WriteLiteral("></i>\r\n                </td>\r\n                <td");
@@ -407,40 +523,149 @@ WriteLiteral(" class=\"text-center\"");
 
 WriteLiteral(">\r\n                    <i");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2377), Tuple.Create("\"", 2439)
-, Tuple.Create(Tuple.Create("", 2385), Tuple.Create("glyphicon", 2385), true)
-, Tuple.Create(Tuple.Create(" ", 2394), Tuple.Create("glyphicon-", 2395), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3129), Tuple.Create("\"", 3191)
+, Tuple.Create(Tuple.Create("", 3137), Tuple.Create("glyphicon", 3137), true)
+, Tuple.Create(Tuple.Create(" ", 3146), Tuple.Create("glyphicon-", 3147), true)
             
-            #line 52 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
-, Tuple.Create(Tuple.Create("", 2405), Tuple.Create<System.Object, System.Int32>(entity.IsTeam ? "ok" : "remove"
-            
-            #line default
-            #line hidden
-, 2405), false)
-);
-
-WriteAttribute("style", Tuple.Create(" style=\"", 2440), Tuple.Create("\"", 2490)
-, Tuple.Create(Tuple.Create("", 2448), Tuple.Create("color:", 2448), true)
-            
-            #line 52 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
-                    , Tuple.Create(Tuple.Create(" ", 2454), Tuple.Create<System.Object, System.Int32>(entity.IsTeam ? "green" : "red"
+            #line 59 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 3157), Tuple.Create<System.Object, System.Int32>(entity.IsTeam ? "ok" : "remove"
             
             #line default
             #line hidden
-, 2455), false)
-, Tuple.Create(Tuple.Create("", 2489), Tuple.Create(";", 2489), true)
+, 3157), false)
 );
 
-WriteLiteral("></i>\r\n                </td>\r\n");
+WriteAttribute("style", Tuple.Create(" style=\"", 3192), Tuple.Create("\"", 3242)
+, Tuple.Create(Tuple.Create("", 3200), Tuple.Create("color:", 3200), true)
+            
+            #line 59 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+                    , Tuple.Create(Tuple.Create(" ", 3206), Tuple.Create<System.Object, System.Int32>(entity.IsTeam ? "green" : "red"
+            
+            #line default
+            #line hidden
+, 3207), false)
+, Tuple.Create(Tuple.Create("", 3241), Tuple.Create(";", 3241), true)
+);
+
+WriteLiteral("></i>\r\n                </td>\r\n                <td");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral(">\r\n                    <i");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3337), Tuple.Create("\"", 3400)
+, Tuple.Create(Tuple.Create("", 3345), Tuple.Create("glyphicon", 3345), true)
+, Tuple.Create(Tuple.Create(" ", 3354), Tuple.Create("glyphicon-", 3355), true)
+            
+            #line 62 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 3365), Tuple.Create<System.Object, System.Int32>(entity.IsAdmin ? "ok" : "remove"
+            
+            #line default
+            #line hidden
+, 3365), false)
+);
+
+WriteAttribute("style", Tuple.Create(" style=\"", 3401), Tuple.Create("\"", 3452)
+, Tuple.Create(Tuple.Create("", 3409), Tuple.Create("color:", 3409), true)
+            
+            #line 62 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+                     , Tuple.Create(Tuple.Create(" ", 3415), Tuple.Create<System.Object, System.Int32>(entity.IsAdmin ? "green" : "red"
+            
+            #line default
+            #line hidden
+, 3416), false)
+, Tuple.Create(Tuple.Create("", 3451), Tuple.Create(";", 3451), true)
+);
+
+WriteLiteral("></i>\r\n                </td>\r\n                <td");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral(">\r\n                    <i");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3547), Tuple.Create("\"", 3609)
+, Tuple.Create(Tuple.Create("", 3555), Tuple.Create("glyphicon", 3555), true)
+, Tuple.Create(Tuple.Create(" ", 3564), Tuple.Create("glyphicon-", 3565), true)
+            
+            #line 65 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+, Tuple.Create(Tuple.Create("", 3575), Tuple.Create<System.Object, System.Int32>(entity.Online ? "ok" : "remove"
+            
+            #line default
+            #line hidden
+, 3575), false)
+);
+
+WriteAttribute("style", Tuple.Create(" style=\"", 3610), Tuple.Create("\"", 3660)
+, Tuple.Create(Tuple.Create("", 3618), Tuple.Create("color:", 3618), true)
+            
+            #line 65 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+                    , Tuple.Create(Tuple.Create(" ", 3624), Tuple.Create<System.Object, System.Int32>(entity.Online ? "green" : "red"
+            
+            #line default
+            #line hidden
+, 3625), false)
+, Tuple.Create(Tuple.Create("", 3659), Tuple.Create(";", 3659), true)
+);
+
+WriteLiteral("></i>\r\n                </td>\r\n                <td>");
 
             
-            #line 54 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 67 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+               Write(entity.RegisterTime.ToFullString(""));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td>");
+
+            
+            #line 68 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+               Write(entity.RegisterIP);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td");
+
+WriteLiteral(" class=\"text-right\"");
+
+WriteLiteral(">");
+
+            
+            #line 69 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+                                  Write(entity.Logins.ToString("n0"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td>");
+
+            
+            #line 70 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+               Write(entity.LastLogin.ToFullString(""));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td>");
+
+            
+            #line 71 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+               Write(entity.LastLoginIP);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n");
+
+            
+            #line 72 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 54 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 72 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                  if (this.Has(PermissionFlags.Detail, PermissionFlags.Update, PermissionFlags.Delete))
                 {
 
@@ -456,7 +681,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 57 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 75 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                    Write(Html.Partial("_List_Data_Action", (Object)entity));
 
             
@@ -465,7 +690,7 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </td>\r\n");
 
             
-            #line 59 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 77 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
                 }
 
             
@@ -474,7 +699,7 @@ WriteLiteral("\r\n                    </td>\r\n");
 WriteLiteral("            </tr>\r\n");
 
             
-            #line 61 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
+            #line 79 "..\..\Areas\GitCandy\Views\User\_List_Data.cshtml"
         }
 
             

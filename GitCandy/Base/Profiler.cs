@@ -34,7 +34,7 @@ namespace GitCandy.Base
             }
         }
 
-        public TimeSpan Elapsed { get { return _sw.Elapsed; } }
+        public TimeSpan Elapsed => _sw.Elapsed;
 
         public static void Start()
         {

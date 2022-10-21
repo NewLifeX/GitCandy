@@ -31,9 +31,9 @@ namespace GitCandy.Configuration
         //[DisplayName("SSH端口")]
         //public int SshPort { get; set; } = 22;
 
-        /// <summary>跳过本地错误</summary>
-        [DisplayName("跳过本地错误")]
-        public Boolean LocalSkipCustomError { get; set; }
+        ///// <summary>跳过本地错误</summary>
+        //[DisplayName("跳过本地错误")]
+        //public Boolean LocalSkipCustomError { get; set; }
 
         /// <summary>允许注册</summary>
         [DisplayName("允许注册")]
@@ -67,12 +67,30 @@ namespace GitCandy.Configuration
         [DisplayName("显示参与者数")]
         public Int32 Contributors { get; set; } = 50;
 
-        //public List<HostKey> HostKeys { get; set; } = new List<HostKey>();
-        #endregion
+        /// <summary>允许打包。默认true</summary>
+        [DisplayName("允许打包。默认true")]
+        public Boolean AllowArchive { get; set; } = true;
 
-        //public UserConfiguration()
-        //{
-        //}
+        /// <summary>允许查看审阅。默认true</summary>
+        [DisplayName("允许查看审阅。默认true")]
+        public Boolean AllowBlame { get; set; } = true;
+
+        /// <summary>允许查看提交。默认true</summary>
+        [DisplayName("允许查看提交。默认true")]
+        public Boolean AllowCommits { get; set; } = true;
+
+        /// <summary>允许查看贡献者。默认true</summary>
+        [DisplayName("允许查看贡献者。默认true")]
+        public Boolean AllowContributors { get; set; } = true;
+
+        /// <summary>允许查看分支差异。默认true</summary>
+        [DisplayName("允许查看分支差异。默认true")]
+        public Boolean AllowHistoryDivergence { get; set; } = true;
+
+        /// <summary>允许查看摘要。默认true</summary>
+        [DisplayName("允许查看摘要。默认true")]
+        public Boolean AllowSummary { get; set; } = true;
+        #endregion
 
         protected override void OnNew()
         {

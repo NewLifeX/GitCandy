@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" />
+  <Import Project="..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GitCandy.Web</RootNamespace>
     <AssemblyName>GitCandy.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -20,6 +20,9 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,52 +42,61 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LibGit2Sharp, Version=0.22.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
-      <HintPath>..\packages\LibGit2Sharp.0.22.0\lib\net40\LibGit2Sharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LibGit2Sharp, Version=0.26.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibGit2Sharp.0.26.1\lib\net46\LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="NewLife.Core, Version=7.3.6755.22250, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewLife.Core.7.3.6755.22250\lib\net45\NewLife.Core.dll</HintPath>
+    <Reference Include="NewLife.Core, Version=8.4.7252.1562, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.Core.8.4.2019.1109\lib\net46\NewLife.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NewLife.Cube, Version=2.3.6722.41209, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewLife.Cube.2.3.6722.41209\lib\net45\NewLife.Cube.dll</HintPath>
+    <Reference Include="NewLife.Cube, Version=2.9.7253.33253, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.Cube.2.9.7253.33253\lib\net45\NewLife.Cube.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="XCode, Version=9.8.6755.22252, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewLife.XCode.9.8.6755.22252\lib\net45\XCode.dll</HintPath>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="XCode, Version=9.14.7252.1601, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewLife.XCode.9.14.2019.1109\lib\net45\XCode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -252,14 +264,6 @@
     <Content Include="Views\Repository\_ZipButton.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ZipButton.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Setting\Edit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Setting\Restart.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Restart.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\DisplayTemplates\Members.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -559,16 +563,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_ZipButton.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Setting\Edit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\Restart.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Restart.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\DisplayTemplates\Maps.generated.cs">
       <DependentUpon>Maps.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -674,12 +668,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props'))" />
-  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -698,6 +686,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using GitCandy.Base;
 using GitCandy.Git.Cache;
-using NewLife.Log;
 
 namespace GitCandy
 {
@@ -14,7 +13,7 @@ namespace GitCandy
     {
         protected void Application_Start()
         {
-            XTrace.WriteVersion(GetType().Assembly);
+            //XTrace.WriteVersion(GetType().Assembly);
 
             AreaRegistration.RegisterAllAreas();
 

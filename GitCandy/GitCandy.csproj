@@ -32,23 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NewLife.Core, Version=7.3.6755.22250, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewLife.Core.7.3.6755.22250\lib\net45\NewLife.Core.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="XCode, Version=9.8.6755.22252, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewLife.XCode.9.8.6755.22252\lib\net45\XCode.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\FileHelper.cs" />
@@ -80,13 +79,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>生成实体类.tt</DependentUpon>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Security\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

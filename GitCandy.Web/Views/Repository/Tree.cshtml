@@ -71,26 +71,36 @@ else
                 <tbody>
                     @foreach (var entry in Model.Entries)
                     {
+                        var commit = entry.Commit ?? new CommitModel();
+                        var author = commit.Author;
                         <tr>
                             <td>
                                 <span title="@entry.Name">
                                     @if (entry.EntryType == TreeEntryTargetType.Tree)
-                                    { <span class="glyphicon glyphicon-folder-close"></span> }
+                                    {<span class="glyphicon glyphicon-folder-close"></span> }
                                     else if (entry.EntryType == TreeEntryTargetType.Blob)
                                     { <span class="glyphicon glyphicon-file"></span> }
                                     else if (entry.EntryType == TreeEntryTargetType.GitLink)
                                     { <i class="glyphicon glyphicon-bookmark"></i> }
                                     else
-                                    { <span class="glyphicon glyphicon-leaf"></span> }
+                                    { <span class="glyphicon glyphicon-leaf"></span>}
                                     @if (entry.EntryType == TreeEntryTargetType.GitLink)
-                                    { @entry.Name.ShortString(25) }
-                                    else
-                                    { <a href="@Model.GetUrl(entry.EntryType + "", entry.Path)">@entry.Name.ShortString(25)</a> }
+                                    {@entry.Name.ShortString(25) }
+                                else
+                                { <a href="@Model.GetUrl(entry.EntryType + "", entry.Path)">@entry.Name.ShortString(25)</a>}
                                 </span>
                             </td>
-                            <td><span title="@entry.Commit.CommitMessageShort">@(entry.Commit.Sha == null ? Html.Raw(entry.Commit.CommitMessageShort) : Html.ActionLink(entry.Commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = entry.Commit.Sha })))</span></td>
-                            <td title="@entry.Commit.Author">@entry.Commit.Author.Name.ShortString(20)</td>
-                            <td title="@entry.Commit.Author.When">@entry.Commit.Author.When.LocalDateTime.ToFullString()</td>
+                            <td><span title="@commit.CommitMessageShort">@(commit.Sha == null ? Html.Raw(commit.CommitMessageShort) : Html.ActionLink(commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = commit.Sha })))</span></td>
+                            @if (author != null)
+                            {
+                                <td title="@author">@author.Name.ShortString(20)</td>
+                                <td title="@author.When">@author.When.LocalDateTime.ToFullString()</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td></td>
+                            }
                         </tr>
                     }
                 </tbody>

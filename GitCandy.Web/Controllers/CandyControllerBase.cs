@@ -21,12 +21,80 @@ namespace GitCandy.Controllers
 
         public MembershipService MembershipService { get; set; } = new MembershipService();
 
+        public Token Token
+        {
+            get
+            {
+                return _token;
+            }
+            set
+            {
+                if (value == null || value.Expired)
+                {
+                    var cookie = new HttpCookie(AuthKey)
+                    {
+                        Expires = new DateTime(1980, 1, 1)
+                    };
+
+                    Response.Cookies.Set(cookie);
+
+                    if (_token != null)
+                    {
+                        MembershipService.SetAuthorizationAsInvalid(_token.AuthCode);
+                        RemoveCachedToken(_token.AuthCode.ToString());
+                        _token = null;
+                    }
+                    if (value != null && value.Expired)
+                    {
+                        MembershipService.SetAuthorizationAsInvalid(value.AuthCode);
+                        RemoveCachedToken(value.AuthCode.ToString());
+                    }
+
+                    Session.Abandon();
+                }
+                else
+                {
+                    var bytes = value.AuthCode.ToByteArray();
+                    var str = Convert.ToBase64String(bytes);
+
+                    var cookie = new HttpCookie(AuthKey, str)
+                    {
+                        Expires = value.Expires,
+                        HttpOnly = true,
+                    };
+
+                    Response.Cookies.Set(cookie);
+                }
+
+                _token = value;
+                Token.Current = value;
+                CacheToken(value);
+            }
+        }
+
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var prv = ManageProvider.Provider;
-            if (prv.TryLogin() != null)
+            try
             {
-                prv.SetPrincipal();
+                var cookie = Request.Cookies[AuthKey];
+                if (cookie != null)
+                {
+                    var bytes = Convert.FromBase64String(cookie.Value);
+                    var guid = new Guid(bytes);
+                    var token = GetCachedToken(guid.ToString())
+                        ?? MembershipService.GetToken(guid);
+
+                    if (token != null
+                        && !token.Expired
+                        && (token.RenewIfNeed() || token.LastIp != Request.UserHostAddress))
+                    {
+                        token.LastIp = Request.UserHostAddress;
+                        MembershipService.UpdateAuthorization(token.AuthCode, token.Expires, token.LastIp);
+                    }
+                    // else // DO NOT set token = null here
+
+                    if (gcUser.Current == null) gcUser.Current = gcUser.FindByID(token.UserID);
+                    CandyManageProvider.Provider.SetPrincipal();
 
                 // 同步用户数据到Git用户表
                 if (UserY.Current == null) UserY.Current = UserY.GetOrAdd(prv.Current);

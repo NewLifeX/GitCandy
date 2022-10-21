@@ -34,12 +34,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.0.*")]
-[assembly: AssemblyFileVersion("2.0.2018.0630")]
+[assembly: AssemblyVersion("1.3.*")]
+[assembly: AssemblyFileVersion("1.3.2017.0824")]
 
 /*
- * v2.0.2018.0630   全面使用魔方权限体系
- * 
  * v1.3.2017.0824   全面停用SSH
  * 
  * v1.2.2017.0124   Markdown语法增强，支持相对路径引用图片和链接
