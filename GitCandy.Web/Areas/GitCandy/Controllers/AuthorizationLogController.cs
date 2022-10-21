@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NewLife.Cube;
+﻿using NewLife.Cube;
 using NewLife.GitCandy.Entity;
 
-namespace GitCandy.Web.Controllers
+namespace GitCandy.Web.Areas.GitCandy.Controllers
 {
     public class AuthorizationLogController : EntityController<AuthorizationLog>
     {

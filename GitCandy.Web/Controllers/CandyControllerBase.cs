@@ -3,10 +3,10 @@ using GitCandy.Configuration;
 using GitCandy.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife.Log;
 using NewLife.Model;
 using NewLife.Reflection;
-using XCode.Membership;
 using UserY = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Controllers;
