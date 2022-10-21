@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 using NewLife.Data;
 using NewLife.Model;
 using NewLife.Web;
@@ -149,12 +150,20 @@ namespace NewLife.GitCandy.Entity
         #region 高级查询
         public static IList<User> SearchByName(String name, PageParameter param)
         {
-            return FindAll(_.IsTeam.IsTrue(false) & _.Name.Contains(name), param);
+            var exp = new WhereExpression();
+            exp &= _.IsTeam == false;
+            if (!name.IsNullOrEmpty()) exp &= _.Name.Contains(name);
+
+            return FindAll(exp, param);
         }
 
         public static IList<User> SearchTeam(String name, PageParameter param)
         {
-            return FindAll(_.IsTeam == true & _.Name.Contains(name), param);
+            var exp = new WhereExpression();
+            exp &= _.IsTeam == true;
+            if (!name.IsNullOrEmpty()) exp &= _.Name.Contains(name);
+
+            return FindAll(exp, param);
         }
 
         /// <summary>搜索用户，不包含团队</summary>
@@ -163,7 +172,11 @@ namespace NewLife.GitCandy.Entity
         /// <returns></returns>
         public static IList<User> SearchUser(String key, PageParameter param)
         {
-            return FindAll(_.IsTeam.IsTrue(false) & (_.Name.Contains(key) | _.Email.Contains(key)), param);
+            var exp = new WhereExpression();
+            exp &= _.IsTeam == false;
+            if (!key.IsNullOrEmpty()) exp &= _.Name.Contains(key) | _.Email.Contains(key);
+
+            return FindAll(exp, param);
         }
         #endregion
 

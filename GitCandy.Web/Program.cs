@@ -29,7 +29,13 @@ else
 
 // 启用接口响应压缩
 services.AddResponseCompression();
-
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Bearer";
+    options.DefaultAuthenticateScheme = "Bearer";
+    options.DefaultChallengeScheme = "Bearer";
+    options.DefaultSignInScheme = "Bearer";
+});
 services.AddControllersWithViews();
 
 // 引入魔方

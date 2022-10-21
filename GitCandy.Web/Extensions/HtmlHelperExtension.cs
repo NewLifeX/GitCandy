@@ -1,9 +1,7 @@
 ﻿using System.Globalization;
 using GitCandy.Models;
-using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Web.Extensions;
@@ -33,15 +31,15 @@ public static class HtmlHelperExtension
         return new RouteValueDictionary(over);
     }
 
-    public static HtmlString ActionLink(this IHtmlHelper htmlHelper, String linkText, String actionName, RouteValueDictionary routeValues, Object htmlAttributes)
-    {
-        return htmlHelper.ActionLink(linkText, actionName, routeValues, htmlAttributes.CastToDictionary());
-    }
+    //public static HtmlString ActionLink(this IHtmlHelper htmlHelper, String linkText, String actionName, RouteValueDictionary routeValues, Object htmlAttributes)
+    //{
+    //    return htmlHelper.ActionLink(linkText, actionName, routeValues, htmlAttributes.CastToDictionary());
+    //}
 
-    public static HtmlString ActionLink(this IHtmlHelper htmlHelper, String linkText, String actionName, String controllerName, RouteValueDictionary routeValues, Object htmlAttributes)
-    {
-        return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes.CastToDictionary());
-    }
+    //public static HtmlString ActionLink(this IHtmlHelper htmlHelper, String linkText, String actionName, String controllerName, RouteValueDictionary routeValues, Object htmlAttributes)
+    //{
+    //    return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes.CastToDictionary());
+    //}
 
     public static IHtmlContent CultureActionLink(this IHtmlHelper htmlHelper, String langName)
     {

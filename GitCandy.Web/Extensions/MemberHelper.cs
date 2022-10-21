@@ -8,5 +8,5 @@ public static class MemberHelper
     /// <summary>是否管理员</summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    public static Boolean IsAdmin(this IManageUser user) => user != null && user is IUser au && au.RoleName == "管理员";
+    public static Boolean IsAdmin(this IManageUser user) => user != null && user is User au && au.Roles.Any(e => e.IsSystem);
 }
