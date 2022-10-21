@@ -1,7 +1,6 @@
 ﻿@model String[]
 
 @{
-    var controller = ViewData.ModelMetadata.AdditionalValues["Controller"] as String;
 }
 
 @for (var i = 0; i < Model.Length; i++)
@@ -9,5 +8,5 @@
     var ss = Model[i].Split("@");
     if (i != 0)
     {<text> , </text>}
-    @Html.ActionLink(ss[1], "Tree", controller, new { owner = ss[0], name = ss[1] }, null)
+    <a href="/@ss[0]/@ss[1]">@ss[1]</a>
 }
