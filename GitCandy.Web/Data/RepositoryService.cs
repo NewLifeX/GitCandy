@@ -330,7 +330,7 @@ public class RepositoryService
             q3 = q3.OrderByDescending(e => e.LastCommit);
 
             model.Collaborations = ToModels(q3);
-            var list = Repository.Search(showAll, q3.Select(e => e.ID), param);
+            var list = Repository.Search(showAll, q3.Select(e => e.ID).ToArray(), param);
             model.Repositories = ToModels(list);
         }
 

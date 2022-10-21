@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyTitle>Web管理平台</AssemblyTitle>
-    <Description>零代数据管理平台，基于魔方，快速开发各种管理后台</Description>
+    <AssemblyTitle>糖果代码库</AssemblyTitle>
+    <Description>一个基于.NET 的Git分布式版本控制平台，支持公共和私有代码库。可以不受限制的创建代码库，与你的团队一块协作。</Description>
     <Company>新生命开发团队</Company>
     <Copyright>©2002-2022 NewLife</Copyright>
     <VersionPrefix>1.0</VersionPrefix>
