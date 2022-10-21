@@ -38,6 +38,7 @@ public abstract class CandyControllerBase : Controller
             return;
         }
 
+        // 自动创建本地用户
         Token = UserX.GetOrAdd(user.ID, user.Name);
 
         // 语言文化

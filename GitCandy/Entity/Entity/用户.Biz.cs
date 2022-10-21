@@ -269,7 +269,7 @@ namespace NewLife.GitCandy.Entity
             }
             else
             {
-                user = new User { LinkID = linkid, Name = name };
+                user = new User { LinkID = linkid, Name = name, Enable = true };
                 user.Insert();
             }
 
