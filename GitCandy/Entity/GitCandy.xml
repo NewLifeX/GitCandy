@@ -8,6 +8,7 @@
       <Column Name="Email" DataType="String" Description="邮件" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="IsTeam" DataType="Boolean" Description="团队" />
+      <Column Name="IsAdmin" DataType="Boolean" Description="管理员。系统管理员" />
       <Column Name="Description" DataType="String" Length="500" Description="描述" />
       <Column Name="LinkID" DataType="Int32" Description="链接。连接到基础用户" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />

@@ -68,7 +68,7 @@ public class RepositoryController : CandyControllerBase
 
     private ActionResult CreateView(RepositoryModel model)
     {
-        var user = UserX.FindByID(Token.ID);
+        var user = UserX.FindByName(Token.Name);
         // 拥有者
         var owners = user.Teams.Where(e => e.Team != null).ToDictionary(e => e.Team.Name, e => e.TeamName);
         // 加上自己

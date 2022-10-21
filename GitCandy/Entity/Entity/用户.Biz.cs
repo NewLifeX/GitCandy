@@ -259,7 +259,7 @@ namespace NewLife.GitCandy.Entity
         public static User GetOrAdd(Int32 linkid, String name)
         {
             var user = Find(_.LinkID == linkid);
-            if (user == null) user = FindByName(name);
+            user ??= FindByName(name);
             if (user != null)
             {
                 if (user.LinkID > 0 && user.LinkID != linkid) throw new InvalidOperationException($"账号[{name}]被[{user.LinkID}]和[{linkid}]共用，请联系管理员");

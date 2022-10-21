@@ -68,6 +68,14 @@ namespace NewLife.GitCandy.Entity
         [BindColumn("IsTeam", "团队", "")]
         public Boolean IsTeam { get => _IsTeam; set { if (OnPropertyChanging("IsTeam", value)) { _IsTeam = value; OnPropertyChanged("IsTeam"); } } }
 
+        private Boolean _IsAdmin;
+        /// <summary>管理员。系统管理员</summary>
+        [DisplayName("管理员")]
+        [Description("管理员。系统管理员")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("IsAdmin", "管理员。系统管理员", "")]
+        public Boolean IsAdmin { get => _IsAdmin; set { if (OnPropertyChanging("IsAdmin", value)) { _IsAdmin = value; OnPropertyChanged("IsAdmin"); } } }
+
         private String _Description;
         /// <summary>描述</summary>
         [DisplayName("描述")]
@@ -149,6 +157,7 @@ namespace NewLife.GitCandy.Entity
                     case "Email": return _Email;
                     case "Enable": return _Enable;
                     case "IsTeam": return _IsTeam;
+                    case "IsAdmin": return _IsAdmin;
                     case "Description": return _Description;
                     case "LinkID": return _LinkID;
                     case "CreateUserID": return _CreateUserID;
@@ -170,6 +179,7 @@ namespace NewLife.GitCandy.Entity
                     case "Email": _Email = Convert.ToString(value); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
                     case "IsTeam": _IsTeam = value.ToBoolean(); break;
+                    case "IsAdmin": _IsAdmin = value.ToBoolean(); break;
                     case "Description": _Description = Convert.ToString(value); break;
                     case "LinkID": _LinkID = value.ToInt(); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -205,6 +215,9 @@ namespace NewLife.GitCandy.Entity
 
             /// <summary>团队</summary>
             public static readonly Field IsTeam = FindByName("IsTeam");
+
+            /// <summary>管理员。系统管理员</summary>
+            public static readonly Field IsAdmin = FindByName("IsAdmin");
 
             /// <summary>描述</summary>
             public static readonly Field Description = FindByName("Description");
@@ -253,6 +266,9 @@ namespace NewLife.GitCandy.Entity
 
             /// <summary>团队</summary>
             public const String IsTeam = "IsTeam";
+
+            /// <summary>管理员。系统管理员</summary>
+            public const String IsAdmin = "IsAdmin";
 
             /// <summary>描述</summary>
             public const String Description = "Description";

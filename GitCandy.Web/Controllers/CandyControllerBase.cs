@@ -7,6 +7,7 @@ using NewLife.Cube;
 using NewLife.Model;
 using NewLife.Web;
 using XCode.Membership;
+using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
@@ -20,7 +21,7 @@ public abstract class CandyControllerBase : Controller
     public MembershipService MembershipService { get; set; } = new MembershipService();
 
     /// <summary>当前用户</summary>
-    public IManageUser Token => ManageProvider.User as IManageUser;
+    public IManageUser Token { get; private set; }
 
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
@@ -36,7 +37,8 @@ public abstract class CandyControllerBase : Controller
 
             return;
         }
-        //if (User.Identity is not IManageUser) User.Identity = user;
+
+        Token = UserX.GetOrAdd(user.ID, user.Name);
 
         // 语言文化
         var culture = Thread.CurrentThread.CurrentUICulture;
