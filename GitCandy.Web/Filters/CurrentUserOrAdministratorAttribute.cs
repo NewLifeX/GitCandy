@@ -1,30 +1,30 @@
-﻿using System;
-using System.Web.Mvc;
-using GitCandy.Controllers;
-using GitCandy.Extensions;
+﻿using GitCandy.Web.Extensions;
+using Microsoft.AspNetCore.Mvc.Filters;
+using NewLife.Model;
 
-namespace GitCandy.Filters
+namespace GitCandy.Web.Filters;
+
+/// <summary>当前用户或系统管理员</summary>
+public class CurrentUserOrAdministratorAttribute : SmartAuthorizeAttribute
 {
-    /// <summary>当前用户或系统管理员</summary>
-    public class CurrentUserOrAdministratorAttribute : SmartAuthorizeAttribute
+    public override void OnAuthorization(AuthorizationFilterContext filterContext)
     {
-        public override void OnAuthorization(AuthorizationContext filterContext)
+        base.OnAuthorization(filterContext);
+
+        if (filterContext.Result != null) return;
+
+        var user = filterContext.HttpContext.User?.Identity as IManageUser;
+        if (user != null)
         {
-            base.OnAuthorization(filterContext);
+            if (user.IsAdmin()) return;
 
-            var token = (filterContext.Controller as CandyControllerBase)?.Token;
-            if (token != null)
-            {
-                if (token.IsAdmin()) return;
+            var field = filterContext.RouteData.DataTokens["name"];
+            if (field == null) return;
 
-                var field = filterContext.Controller.ValueProvider.GetValue("name");
-                if (field == null) return;
-
-                var name = field.AttemptedValue;
-                if (name.IsNullOrEmpty() || token?.Name == name) return;
-            }
-
-            HandleUnauthorizedRequest(filterContext);
+            var name = field.AttemptedValue;
+            if (name.IsNullOrEmpty() || user?.Name == name) return;
         }
+
+        HandleUnauthorizedRequest(filterContext);
     }
 }

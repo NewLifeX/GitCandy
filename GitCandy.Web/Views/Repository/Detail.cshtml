@@ -1,6 +1,7 @@
 ﻿@model GitCandy.Models.RepositoryModel
-@using NewLife.Model;
-@using GitCandy.Extensions;
+@    using NewLife.Model;
+@    using GitCandy.Extensions;
+    using GitCandy.Web.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_DetailTitle, Model.Name));
     var token = User.Identity as IManageUser;

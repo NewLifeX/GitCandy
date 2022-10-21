@@ -1,19 +1,21 @@
-﻿using System.Web.Mvc;
-using GitCandy.Controllers;
-using GitCandy.Extensions;
+﻿using GitCandy.Web.Extensions;
+using GitCandy.Web.Filters;
+using Microsoft.AspNetCore.Mvc.Filters;
+using NewLife.Model;
 
-namespace GitCandy.Filters
+namespace GitCandy.Filters;
+
+/// <summary>系统管理员</summary>
+public class AdministratorAttribute : SmartAuthorizeAttribute
 {
-    /// <summary>系统管理员</summary>
-    public class AdministratorAttribute : SmartAuthorizeAttribute
+    public override void OnAuthorization(AuthorizationFilterContext filterContext)
     {
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            base.OnAuthorization(filterContext);
+        base.OnAuthorization(filterContext);
 
-            var controller = filterContext.Controller as CandyControllerBase;
-            if (controller == null || controller.Token == null || !controller.Token.IsAdmin())
-                HandleUnauthorizedRequest(filterContext);
-        }
+        if (filterContext.Result != null) return;
+
+        var user = filterContext.HttpContext.User?.Identity as IManageUser;
+        if (user == null || !user.IsAdmin())
+            HandleUnauthorizedRequest(filterContext);
     }
 }

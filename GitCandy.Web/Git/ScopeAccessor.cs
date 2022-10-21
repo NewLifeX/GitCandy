@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
+using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 
 namespace GitCandy.Git

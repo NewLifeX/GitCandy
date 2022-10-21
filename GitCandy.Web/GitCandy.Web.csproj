@@ -46,6 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\GitCandy\Views\User\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

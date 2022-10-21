@@ -1,32 +1,31 @@
-﻿using System.Web.Mvc;
-using GitCandy.Controllers;
-using GitCandy.Extensions;
+﻿using GitCandy.Web.Controllers;
+using GitCandy.Web.Extensions;
+using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace GitCandy.Filters
+namespace GitCandy.Web.Filters;
+
+/// <summary>拥有代码库</summary>
+public class RepositoryOwnerOrSystemAdministratorAttribute : SmartAuthorizeAttribute
 {
-    /// <summary>拥有代码库</summary>
-    public class RepositoryOwnerOrSystemAdministratorAttribute : SmartAuthorizeAttribute
+    public override void OnAuthorization(AuthorizationFilterContext filterContext)
     {
-        public override void OnAuthorization(AuthorizationContext filterContext)
+        base.OnAuthorization(filterContext);
+
+        var controller = filterContext.Controller as CandyControllerBase;
+        if (controller != null && controller.Token != null)
         {
-            base.OnAuthorization(filterContext);
+            if (controller.Token.IsAdmin()) return;
 
-            var controller = filterContext.Controller as CandyControllerBase;
-            if (controller != null && controller.Token != null)
+            var repoController = controller as RepositoryController;
+            if (repoController != null)
             {
-                if (controller.Token.IsAdmin()) return;
-
-                var repoController = controller as RepositoryController;
-                if (repoController != null)
-                {
-                    var owner = controller.ValueProvider.GetValue("owner");
-                    var field = controller.ValueProvider.GetValue("name");
-                    var isAdmin = field != null && repoController.RepositoryService.IsRepositoryAdministrator(owner.AttemptedValue, field.AttemptedValue, controller.Token?.Name);
-                    if (isAdmin) return;
-                }
+                var owner = controller.ValueProvider.GetValue("owner");
+                var field = controller.ValueProvider.GetValue("name");
+                var isAdmin = field != null && repoController.RepositoryService.IsRepositoryAdministrator(owner.AttemptedValue, field.AttemptedValue, controller.Token?.Name);
+                if (isAdmin) return;
             }
-
-            HandleUnauthorizedRequest(filterContext);
         }
+
+        HandleUnauthorizedRequest(filterContext);
     }
 }

@@ -1,33 +1,25 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NewLife;
+using NewLife.Cube;
 
-namespace GitCandy.Controllers
+namespace GitCandy.Web.Controllers;
+
+public class HomeController : CandyControllerBase
 {
-    public class HomeController : CandyControllerBase
+    public ActionResult Index() => RedirectToStartPage();
+
+    [AllowAnonymous]
+    public ActionResult About() => View();
+
+    [AllowAnonymous]
+    public ActionResult Language(String lang)
     {
-        public ActionResult Index()
-        {
-            return RedirectToStartPage();
-        }
+        Response.Cookies.Append("Lang", lang);
 
-        [AllowAnonymous]
-        public ActionResult About()
-        {
-            return View();
-        }
+        //Session["Culture"] = null;
 
-        [AllowAnonymous]
-        public ActionResult Language(String lang)
-        {
-            var cookie = new HttpCookie("Lang", lang);
-            Response.Cookies.Set(cookie);
-
-            Session["Culture"] = null;
-
-            if (Request.UrlReferrer == null) return RedirectToStartPage();
-
-            return Redirect(Request.UrlReferrer.PathAndQuery);
-        }
+        var url = Request.GetReferer();
+        return url.IsNullOrEmpty() ? RedirectToStartPage() : Redirect(url);
     }
 }

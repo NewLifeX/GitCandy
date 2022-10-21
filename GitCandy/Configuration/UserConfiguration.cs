@@ -16,13 +16,13 @@ public class UserConfiguration : Config<UserConfiguration>
     [DisplayName("开放服务")]
     public Boolean IsPublicServer { get; set; } = true;
 
-    /// <summary>强制SSL</summary>
-    [DisplayName("强制SSL")]
-    public Boolean ForceSsl { get; set; }
+    ///// <summary>强制SSL</summary>
+    //[DisplayName("强制SSL")]
+    //public Boolean ForceSsl { get; set; }
 
-    /// <summary>SSL端口</summary>
-    [DisplayName("SSL端口")]
-    public Int32 SslPort { get; set; } = 443;
+    ///// <summary>SSL端口</summary>
+    //[DisplayName("SSL端口")]
+    //public Int32 SslPort { get; set; } = 443;
 
     ///// <summary>开启SSH</summary>
     //[DisplayName("开启SSH")]

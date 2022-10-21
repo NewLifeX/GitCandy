@@ -1,35 +1,32 @@
-﻿using System;
+﻿using System.Buffers;
 using System.Net.Mime;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace GitCandy.Base
+namespace GitCandy.Web.Base;
+
+public class RawResult : ActionResult
 {
-    public class RawResult : ActionResult
+    public RawResult(Byte[] contents, String contentType = "text/plain", String fileDownloadName = null)
     {
-        public RawResult(Byte[] contents, String contentType = "text/plain", String fileDownloadName = null)
-        {
-            if (contents == null)
-                throw new ArgumentNullException("contents");
+        Contents = contents ?? throw new ArgumentNullException("contents");
+        ContentType = contentType;
+        FileDownloadName = fileDownloadName;
+    }
 
-            Contents = contents;
-            ContentType = contentType;
-            FileDownloadName = fileDownloadName;
-        }
+    public Byte[] Contents { get; private set; }
+    public String ContentType { get; private set; }
+    public String FileDownloadName { get; private set; }
 
-        public Byte[] Contents { get; private set; }
-        public String ContentType { get; private set; }
-        public String FileDownloadName { get; private set; }
+    public override void ExecuteResult(ActionContext context)
+    {
+        if (context == null)
+            throw new ArgumentNullException("context");
 
-        public override void ExecuteResult(ControllerContext context)
-        {
-            if (context == null)
-                throw new ArgumentNullException("context");
+        var response = context.HttpContext.Response;
+        if (!String.IsNullOrEmpty(FileDownloadName))
+            response.Headers.ContentDisposition = new ContentDisposition { FileName = FileDownloadName }.ToString();
 
-            var response = context.HttpContext.Response;
-            if (!String.IsNullOrEmpty(FileDownloadName))
-                response.AddHeader("Content-Disposition", new ContentDisposition { FileName = FileDownloadName }.ToString());
-            response.ContentType = ContentType;
-            response.BinaryWrite(Contents);
-        }
+        response.ContentType = ContentType;
+        response.BodyWriter.Write(Contents);
     }
 }

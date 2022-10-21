@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using GitCandy.Configuration;
-using GitCandy.Extensions;
+using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 using NewLife.Log;
 using NewLife.Threading;
@@ -273,16 +273,14 @@ namespace GitCandy.Git.Cache
             {
                 try
                 {
-                    using (var fs = File.Open(filename, FileMode.Open))
+                    using var fs = File.Open(filename, FileMode.Open);
+                    var formatter = new BinaryFormatter();
+                    var value = formatter.Deserialize(fs);
+                    if (value is TReturn)
                     {
-                        var formatter = new BinaryFormatter();
-                        var value = formatter.Deserialize(fs);
-                        if (value is TReturn)
-                        {
-                            result = (TReturn)value;
-                            resultDone = true;
-                            return true;
-                        }
+                        result = (TReturn)value;
+                        resultDone = true;
+                        return true;
                     }
                 }
                 catch { }
@@ -297,12 +295,10 @@ namespace GitCandy.Git.Cache
             var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
             if (!info.Directory.Exists) info.Directory.Create();
 
-            using (var fs = info.Create())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(fs, result);
-                fs.Flush();
-            }
+            using var fs = info.Create();
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(fs, result);
+            fs.Flush();
         }
 
         public override Boolean Equals(Object obj)

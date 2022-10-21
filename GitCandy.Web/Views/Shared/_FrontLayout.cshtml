@@ -1,5 +1,7 @@
-﻿@using NewLife.Model;
-@using GitCandy.Extensions;
+﻿@    using NewLife
+@    using NewLife.Model;
+@    using GitCandy.Extensions;
+    using GitCandy.Web.Extensions;
 @{
     var token = User.Identity as IManageUser;
     var cfg = NewLife.Common.SysConfig.Current;

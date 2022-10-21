@@ -37,41 +37,39 @@ namespace GitCandy.Git
 
         protected override void Calculate()
         {
-            using (var repo = new Repository(this.repoPath))
+            using var repo = new Repository(this.repoPath);
+            var commit = repo.Lookup<Commit>(key);
+            var ancestors = repo.Commits
+                .QueryBy(new CommitFilter { IncludeReachableFrom = commit });
+
+            var dict = new Dictionary<String, Int32>();
+            var statistics = new RepositoryStatisticsModel.Statistics();
+            foreach (var ancestor in ancestors)
             {
-                var commit = repo.Lookup<Commit>(key);
-                var ancestors = repo.Commits
-                    .QueryBy(new CommitFilter { IncludeReachableFrom = commit });
-
-                var dict = new Dictionary<String, Int32>();
-                var statistics = new RepositoryStatisticsModel.Statistics();
-                foreach (var ancestor in ancestors)
+                statistics.NumberOfCommits++;
+                var author = ancestor.Author.ToString();
+                if (dict.ContainsKey(author))
                 {
-                    statistics.NumberOfCommits++;
-                    var author = ancestor.Author.ToString();
-                    if (dict.ContainsKey(author))
-                    {
-                        dict[author]++;
-                    }
-                    else
-                    {
-                        dict.Add(author, 1);
-                        statistics.NumberOfContributors++;
-                    }
+                    dict[author]++;
                 }
-                statistics.NumberOfFiles = FilesInCommit(commit, out var size);
-                statistics.SizeOfSource = size;
-
-                var commits = dict
-                    .OrderByDescending(s => s.Value)
-                    .Select(s => new RepositoryStatisticsModel.ContributorCommits { Author = s.Key, CommitsCount = s.Value })
-                    .ToArray();
-
-                statistics.OrderedCommits = commits;
-
-                result = statistics;
-                resultDone = true;
+                else
+                {
+                    dict.Add(author, 1);
+                    statistics.NumberOfContributors++;
+                }
             }
+            statistics.NumberOfFiles = FilesInCommit(commit, out var size);
+            statistics.SizeOfSource = size;
+
+            var commits = dict
+                .OrderByDescending(s => s.Value)
+                .Select(s => new RepositoryStatisticsModel.ContributorCommits { Author = s.Key, CommitsCount = s.Value })
+                .ToArray();
+
+            statistics.OrderedCommits = commits;
+
+            result = statistics;
+            resultDone = true;
         }
 
         private Int32 FilesInCommit(Commit commit, out Int64 sourceSize)

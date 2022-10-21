@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using GitCandy.Base;
-using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
+using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 
 namespace GitCandy.Git

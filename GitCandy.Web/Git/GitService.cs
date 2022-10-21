@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GitCandy.Base;
 using GitCandy.Configuration;
-using GitCandy.Extensions;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
+using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 using NewLife.Log;
 
@@ -576,7 +576,7 @@ namespace GitCandy.Git
             if (branch != null && branch.Tip != null)
             {
                 referenceName = branch.FriendlyName;
-                path = path.Substring(referenceName.Length).Trim('/');
+                path = path[referenceName.Length..].Trim('/');
                 return branch.Tip;
             }
 
@@ -584,13 +584,13 @@ namespace GitCandy.Git
             if (tag != null && tag.Target is Commit)
             {
                 referenceName = tag.FriendlyName;
-                path = path.Substring(referenceName.Length).Trim('/');
+                path = path[referenceName.Length..].Trim('/');
                 return (Commit)tag.Target;
             }
 
             var index = path.IndexOf('/');
-            var commit = _repository.Lookup<Commit>(path.Substring(0, index));
-            path = path.Substring(index + 1).Trim('/');
+            var commit = _repository.Lookup<Commit>(path[..index]);
+            path = path[(index + 1)..].Trim('/');
             return commit;
         }
 
@@ -654,7 +654,7 @@ namespace GitCandy.Git
             try
             {
                 if (encoding.StartsWith("cp", StringComparison.OrdinalIgnoreCase))
-                    return Encoding.GetEncoding(Int32.Parse(encoding.Substring(2)));
+                    return Encoding.GetEncoding(Int32.Parse(encoding[2..]));
 
                 return Encoding.GetEncoding(encoding);
             }

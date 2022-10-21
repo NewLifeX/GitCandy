@@ -1,21 +1,23 @@
-﻿using System.Web.Mvc;
-using GitCandy.Configuration;
-using GitCandy.Controllers;
-using GitCandy.Extensions;
+﻿using GitCandy.Configuration;
+using GitCandy.Web.Extensions;
+using Microsoft.AspNetCore.Mvc.Filters;
+using NewLife.Model;
 
-namespace GitCandy.Filters
+namespace GitCandy.Web.Filters;
+
+/// <summary>允许注册</summary>
+public class AllowRepositoryCreationAttribute : SmartAuthorizeAttribute
 {
-    /// <summary>允许注册</summary>
-    public class AllowRepositoryCreationAttribute : SmartAuthorizeAttribute
+    public override void OnAuthorization(AuthorizationFilterContext filterContext)
     {
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            base.OnAuthorization(filterContext);
+        base.OnAuthorization(filterContext);
 
-            var token = (filterContext.Controller as CandyControllerBase)?.Token;
-            if (token != null && (UserConfiguration.Current.AllowRepositoryCreation || token.IsAdmin())) return;
+        if (filterContext.Result != null) return;
 
-            HandleUnauthorizedRequest(filterContext);
-        }
+        var user = filterContext.HttpContext.User?.Identity as IManageUser;
+
+        if (user != null && (UserConfiguration.Current.AllowRepositoryCreation || user.IsAdmin())) return;
+
+        HandleUnauthorizedRequest(filterContext);
     }
 }
