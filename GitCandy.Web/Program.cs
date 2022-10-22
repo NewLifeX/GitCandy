@@ -22,10 +22,7 @@ var config = star.Config;
 
 // 默认内存缓存，如有配置可使用Redis缓存
 var cache = new MemoryCache();
-if (config != null && !config["redisCache"].IsNullOrEmpty())
-    services.AddSingleton<ICache>(p => new FullRedis(p, "redisCache") { Name = "Cache", Tracer = star.Tracer });
-else
-    services.AddSingleton<ICache>(cache);
+services.AddSingleton<ICache>(cache);
 
 // 启用接口响应压缩
 services.AddResponseCompression();
