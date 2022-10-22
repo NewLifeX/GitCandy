@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>GitCandy</AssemblyName>
+    <RootNamespace>GitCandy.Web</RootNamespace>
     <AssemblyTitle>糖果代码库</AssemblyTitle>
     <Description>一个基于.NET 的Git分布式版本控制平台，支持公共和私有代码库。可以不受限制的创建代码库，与你的团队一块协作。</Description>
     <Company>新生命开发团队</Company>
@@ -32,6 +34,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
   </ItemGroup>
 
 </Project>

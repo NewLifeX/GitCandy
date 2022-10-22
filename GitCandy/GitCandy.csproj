@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <AssemblyName>GitCandy.Data</AssemblyName>
+    <RootNamespace>GitCandy.Data</RootNamespace>
     <AssemblyTitle>数据层</AssemblyTitle>
     <Description></Description>
     <Company>新生命开发团队</Company>
@@ -19,6 +21,8 @@
     <Compile Remove="Base\Profiler.cs" />
     <Compile Remove="Entity\Entity\SSH密钥.Biz.cs" />
     <Compile Remove="Entity\Entity\SSH密钥.cs" />
+    <Compile Remove="Entity\Entity\认证日志.Biz.cs" />
+    <Compile Remove="Entity\Entity\认证日志.cs" />
   </ItemGroup>
 
   <ItemGroup>
