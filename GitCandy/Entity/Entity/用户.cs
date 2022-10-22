@@ -52,6 +52,14 @@ namespace NewLife.GitCandy.Entity
         [BindColumn("Email", "邮件", "")]
         public String Email { get => _Email; set { if (OnPropertyChanging("Email", value)) { _Email = value; OnPropertyChanged("Email"); } } }
 
+        private String _Password;
+        /// <summary>密码</summary>
+        [DisplayName("密码")]
+        [Description("密码")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Password", "密码", "")]
+        public String Password { get => _Password; set { if (OnPropertyChanging("Password", value)) { _Password = value; OnPropertyChanged("Password"); } } }
+
         private Boolean _Enable;
         /// <summary>启用</summary>
         [DisplayName("启用")]
@@ -69,12 +77,60 @@ namespace NewLife.GitCandy.Entity
         public Boolean IsTeam { get => _IsTeam; set { if (OnPropertyChanging("IsTeam", value)) { _IsTeam = value; OnPropertyChanged("IsTeam"); } } }
 
         private Boolean _IsAdmin;
-        /// <summary>管理员。系统管理员</summary>
+        /// <summary>管理员</summary>
         [DisplayName("管理员")]
-        [Description("管理员。系统管理员")]
+        [Description("管理员")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("IsAdmin", "管理员。系统管理员", "")]
+        [BindColumn("IsAdmin", "管理员", "")]
         public Boolean IsAdmin { get => _IsAdmin; set { if (OnPropertyChanging("IsAdmin", value)) { _IsAdmin = value; OnPropertyChanged("IsAdmin"); } } }
+
+        private Boolean _Online;
+        /// <summary>在线</summary>
+        [DisplayName("在线")]
+        [Description("在线")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Online", "在线", "")]
+        public Boolean Online { get => _Online; set { if (OnPropertyChanging("Online", value)) { _Online = value; OnPropertyChanged("Online"); } } }
+
+        private DateTime _RegisterTime;
+        /// <summary>注册时间</summary>
+        [DisplayName("注册时间")]
+        [Description("注册时间")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("RegisterTime", "注册时间", "")]
+        public DateTime RegisterTime { get => _RegisterTime; set { if (OnPropertyChanging("RegisterTime", value)) { _RegisterTime = value; OnPropertyChanged("RegisterTime"); } } }
+
+        private String _RegisterIP;
+        /// <summary>注册IP</summary>
+        [DisplayName("注册IP")]
+        [Description("注册IP")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("RegisterIP", "注册IP", "")]
+        public String RegisterIP { get => _RegisterIP; set { if (OnPropertyChanging("RegisterIP", value)) { _RegisterIP = value; OnPropertyChanged("RegisterIP"); } } }
+
+        private Int32 _Logins;
+        /// <summary>登录</summary>
+        [DisplayName("登录")]
+        [Description("登录")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Logins", "登录", "")]
+        public Int32 Logins { get => _Logins; set { if (OnPropertyChanging("Logins", value)) { _Logins = value; OnPropertyChanged("Logins"); } } }
+
+        private DateTime _LastLogin;
+        /// <summary>最后登录</summary>
+        [DisplayName("最后登录")]
+        [Description("最后登录")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("LastLogin", "最后登录", "")]
+        public DateTime LastLogin { get => _LastLogin; set { if (OnPropertyChanging("LastLogin", value)) { _LastLogin = value; OnPropertyChanged("LastLogin"); } } }
+
+        private String _LastLoginIP;
+        /// <summary>最后登录IP</summary>
+        [DisplayName("最后登录IP")]
+        [Description("最后登录IP")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("LastLoginIP", "最后登录IP", "")]
+        public String LastLoginIP { get => _LastLoginIP; set { if (OnPropertyChanging("LastLoginIP", value)) { _LastLoginIP = value; OnPropertyChanged("LastLoginIP"); } } }
 
         private String _Description;
         /// <summary>描述</summary>
@@ -155,9 +211,16 @@ namespace NewLife.GitCandy.Entity
                     case "Name": return _Name;
                     case "NickName": return _NickName;
                     case "Email": return _Email;
+                    case "Password": return _Password;
                     case "Enable": return _Enable;
                     case "IsTeam": return _IsTeam;
                     case "IsAdmin": return _IsAdmin;
+                    case "Online": return _Online;
+                    case "RegisterTime": return _RegisterTime;
+                    case "RegisterIP": return _RegisterIP;
+                    case "Logins": return _Logins;
+                    case "LastLogin": return _LastLogin;
+                    case "LastLoginIP": return _LastLoginIP;
                     case "Description": return _Description;
                     case "LinkID": return _LinkID;
                     case "CreateUserID": return _CreateUserID;
@@ -177,9 +240,16 @@ namespace NewLife.GitCandy.Entity
                     case "Name": _Name = Convert.ToString(value); break;
                     case "NickName": _NickName = Convert.ToString(value); break;
                     case "Email": _Email = Convert.ToString(value); break;
+                    case "Password": _Password = Convert.ToString(value); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
                     case "IsTeam": _IsTeam = value.ToBoolean(); break;
                     case "IsAdmin": _IsAdmin = value.ToBoolean(); break;
+                    case "Online": _Online = value.ToBoolean(); break;
+                    case "RegisterTime": _RegisterTime = value.ToDateTime(); break;
+                    case "RegisterIP": _RegisterIP = Convert.ToString(value); break;
+                    case "Logins": _Logins = value.ToInt(); break;
+                    case "LastLogin": _LastLogin = value.ToDateTime(); break;
+                    case "LastLoginIP": _LastLoginIP = Convert.ToString(value); break;
                     case "Description": _Description = Convert.ToString(value); break;
                     case "LinkID": _LinkID = value.ToInt(); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -210,14 +280,35 @@ namespace NewLife.GitCandy.Entity
             /// <summary>邮件</summary>
             public static readonly Field Email = FindByName("Email");
 
+            /// <summary>密码</summary>
+            public static readonly Field Password = FindByName("Password");
+
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
 
             /// <summary>团队</summary>
             public static readonly Field IsTeam = FindByName("IsTeam");
 
-            /// <summary>管理员。系统管理员</summary>
+            /// <summary>管理员</summary>
             public static readonly Field IsAdmin = FindByName("IsAdmin");
+
+            /// <summary>在线</summary>
+            public static readonly Field Online = FindByName("Online");
+
+            /// <summary>注册时间</summary>
+            public static readonly Field RegisterTime = FindByName("RegisterTime");
+
+            /// <summary>注册IP</summary>
+            public static readonly Field RegisterIP = FindByName("RegisterIP");
+
+            /// <summary>登录</summary>
+            public static readonly Field Logins = FindByName("Logins");
+
+            /// <summary>最后登录</summary>
+            public static readonly Field LastLogin = FindByName("LastLogin");
+
+            /// <summary>最后登录IP</summary>
+            public static readonly Field LastLoginIP = FindByName("LastLoginIP");
 
             /// <summary>描述</summary>
             public static readonly Field Description = FindByName("Description");
@@ -261,14 +352,35 @@ namespace NewLife.GitCandy.Entity
             /// <summary>邮件</summary>
             public const String Email = "Email";
 
+            /// <summary>密码</summary>
+            public const String Password = "Password";
+
             /// <summary>启用</summary>
             public const String Enable = "Enable";
 
             /// <summary>团队</summary>
             public const String IsTeam = "IsTeam";
 
-            /// <summary>管理员。系统管理员</summary>
+            /// <summary>管理员</summary>
             public const String IsAdmin = "IsAdmin";
+
+            /// <summary>在线</summary>
+            public const String Online = "Online";
+
+            /// <summary>注册时间</summary>
+            public const String RegisterTime = "RegisterTime";
+
+            /// <summary>注册IP</summary>
+            public const String RegisterIP = "RegisterIP";
+
+            /// <summary>登录</summary>
+            public const String Logins = "Logins";
+
+            /// <summary>最后登录</summary>
+            public const String LastLogin = "LastLogin";
+
+            /// <summary>最后登录IP</summary>
+            public const String LastLoginIP = "LastLoginIP";
 
             /// <summary>描述</summary>
             public const String Description = "Description";

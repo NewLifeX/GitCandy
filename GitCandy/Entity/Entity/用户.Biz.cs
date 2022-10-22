@@ -256,10 +256,11 @@ namespace NewLife.GitCandy.Entity
         //    return user;
         //}
 
-        public static User GetOrAdd(Int32 linkid, String name)
+        public static User GetOrAdd(Int32 linkid, String name, String mail)
         {
             var user = Find(_.LinkID == linkid);
             user ??= FindByName(name);
+            user ??= FindByEmail(mail);
             if (user != null)
             {
                 if (user.LinkID > 0 && user.LinkID != linkid) throw new InvalidOperationException($"账号[{name}]被[{user.LinkID}]和[{linkid}]共用，请联系管理员");
@@ -285,11 +286,28 @@ namespace NewLife.GitCandy.Entity
         {
             if (user == null) return null;
 
-            var u = GetOrAdd(user.ID, user.Name);
+            var mail = (user as IUser)?.Mail;
+            var u = GetOrAdd(user.ID, user.Name, mail);
             if (u != null)
             {
-                u.NickName = user.NickName;
-                if (user is XCode.Membership.IUser au) u.Email = au.Mail;
+                if (u.NickName.IsNullOrEmpty() || u.NickName.EqualIgnoreCase(u.Name)) u.NickName = user.NickName;
+                if (user is IUser au)
+                {
+                    u.Email = au.Mail;
+
+                    // 同步管理员
+                    if (!u.IsAdmin && au.Roles.Any(e => e.Enable && e.IsSystem)) u.IsAdmin = true;
+
+                    // 同步密码，使用魔方用户表作为唯一的密码保存地
+                    if (!u.Password.IsNullOrEmpty())
+                    {
+                        au.Password = u.Password;
+                        u.Password = null;
+
+                        (au as IEntity).Update();
+                    }
+                }
+
                 u.SaveAsync();
             }
 

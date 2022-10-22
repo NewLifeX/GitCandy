@@ -5,6 +5,6 @@ namespace GitCandy.Models
     {
         public CommitModel Commit { get; set; }
         public AheadBehindModel[] AheadBehinds { get; set; }
-        public System.Boolean CanDelete { get; set; }
+        public Boolean CanDelete { get; set; }
     }
 }
