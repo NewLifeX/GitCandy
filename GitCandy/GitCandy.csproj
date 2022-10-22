@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Compile Remove="Base\Profiler.cs" />
+    <Compile Remove="Entity\Entity\SSH密钥.Biz.cs" />
+    <Compile Remove="Entity\Entity\SSH密钥.cs" />
   </ItemGroup>
 
   <ItemGroup>
