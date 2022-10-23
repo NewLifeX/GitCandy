@@ -308,7 +308,8 @@ public class MembershipService
         var p = new PageParameter
         {
             PageIndex = page,
-            PageSize = pagesize
+            PageSize = pagesize,
+            RetrieveTotalCount = true,
         };
         var list = User.SearchTeam(keyword, p);
 
