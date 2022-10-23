@@ -141,16 +141,13 @@ namespace NewLife.GitCandy.Entity
 
         public static IList<Repository> GetPublics(PageParameter param = null)
         {
-            if (param == null) param = new PageParameter { PageSize = 20 };
-
             return FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
         }
 
         public static IList<Repository> Search(Boolean showAll, Int32[] excludes = null, PageParameter param = null)
         {
-            if (param == null) param = new PageParameter { PageSize = 20 };
-
             var exp = _.Enable == true;
+
             // 只显示共有
             if (!showAll) exp &= _.IsPrivate == false;
             if (excludes != null && excludes.Length > 0) exp &= _.ID.NotIn(excludes);

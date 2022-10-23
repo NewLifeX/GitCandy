@@ -23,20 +23,28 @@ public class RepositoryController : CandyControllerBase
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
     UserConfiguration _config = UserConfiguration.Current;
 
-    public ActionResult Index()
+    public ActionResult Index(Int32? page)
     {
         var user = Token;
         var username = user?.Name;
 
         var p = new NewLife.Web.Pager
         {
-            PageSize = 20
+            PageIndex = page ?? 1,
+            PageSize = UserConfiguration.Current.PageSize,
+            RetrieveTotalCount = true,
         };
 
         // 管理员可以看到其他人私有仓库
         var model = RepositoryService.GetRepositories(username, user.IsAdmin(), p);
 
         model.CanCreateRepository = user != null && (UserConfiguration.Current.AllowRepositoryCreation || user.IsAdmin());
+
+        ViewBag.Pager = Pager.Items(model.ItemCount)
+            .PerPage(UserConfiguration.Current.PageSize)
+            .Move(model.CurrentPage)
+            .Segment(5)
+            .Center();
 
         return View(model);
     }

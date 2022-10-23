@@ -324,14 +324,34 @@ public class RepositoryService
             var user = User.FindByName(username);
             if (user == null) return model;
 
-            var q1 = user.Repositories.Select(e => e.Repository);
-            var q2 = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
-            var q3 = q1.Union(q2).Where(e => e.Enable);
-            q3 = q3.OrderByDescending(e => e.LastCommit);
+            //var q1 = user.Repositories.Select(e => e.Repository);
+            //var q2 = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
+            //var q3 = q1.Union(q2).Where(e => e.Enable);
+            //q3 = q3.OrderByDescending(e => e.LastCommit);
 
-            model.Collaborations = ToModels(q3);
-            var list = Repository.Search(showAll, q3.Select(e => e.ID).ToArray(), param);
-            model.Repositories = ToModels(list);
+            //model.Collaborations = ToModels(q3);
+
+            //var list = Repository.Search(showAll, q3.Select(e => e.ID).ToArray(), param);
+
+            // 一次性查出来，再区分是否协作者
+            var list = Repository.Search(showAll, null, param);
+
+            var q1 = new List<Repository>();
+            var q2 = new List<Repository>();
+            var userRepoIds = user.Repositories.Select(e => e.RepositoryID).ToArray();
+            var teamRepoIds = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.RepositoryID)).ToArray();
+            foreach (var item in list)
+            {
+                if (userRepoIds.Contains(item.ID) || teamRepoIds.Contains(item.ID))
+                    q1.Add(item);
+                else
+                    q2.Add(item);
+            }
+
+            model.Collaborations = ToModels(q1);
+            model.Repositories = ToModels(q2);
+            model.CurrentPage = param.PageIndex;
+            model.ItemCount = (Int32)param.TotalCount;
         }
 
         return model;
