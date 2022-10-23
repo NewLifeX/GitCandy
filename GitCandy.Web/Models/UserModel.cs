@@ -42,9 +42,9 @@ namespace GitCandy.Models
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public String Description { get; set; }
 
-        //[Display(ResourceType = typeof(SR), Name = "Account_IsSystemAdministrator")]
-        //[UIHint("YesNo")]
-        //public Boolean IsAdmin { get; set; }
+        [Display(ResourceType = typeof(SR), Name = "Account_IsSystemAdministrator")]
+        [UIHint("YesNo")]
+        public Boolean IsAdmin { get; set; }
 
         [Display(ResourceType = typeof(SR), Name = "Account_Teams")]
         [UIHint("Maps")]
@@ -54,6 +54,6 @@ namespace GitCandy.Models
         [Display(ResourceType = typeof(SR), Name = "Account_Repositories")]
         [UIHint("Members")]
         //[AdditionalMetadata("Controller", "Repository")]
-        public String[] Respositories { get; set; }
+        public String[] Repositories { get; set; }
     }
 }

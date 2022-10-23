@@ -21,7 +21,7 @@ public class MembershipService
             Nickname = user.NickName,
             Email = user.Email,
             Description = user.Description,
-            //IsAdmin = user.IsAdmin,
+            IsAdmin = user.IsAdmin,
         };
         if (withMembers)
         {
@@ -32,7 +32,7 @@ public class MembershipService
                 var vu = User.FindByName(viewUser);
                 rs = rs.Where(e => e.CanViewFor(vu));
             }
-            model.Respositories = rs.Select(e => e.Owner.Name + "@" + e.Name).ToArray();
+            model.Repositories = rs.Select(e => e.Owner.Name + "@" + e.Name).ToArray();
         }
         return model;
     }
@@ -139,7 +139,8 @@ public class MembershipService
         var p = new PageParameter
         {
             PageIndex = page,
-            PageSize = pagesize
+            PageSize = pagesize,
+            RetrieveTotalCount = true,
         };
         var list = User.SearchByName(keyword, p);
 
@@ -151,7 +152,7 @@ public class MembershipService
                 Nickname = e.NickName,
                 Email = e.Email,
                 Description = e.Description,
-                //IsAdmin = e.IsAdmin,
+                IsAdmin = e.IsAdmin,
             }).ToArray(),
             CurrentPage = page,
             ItemCount = (Int32)p.TotalCount
