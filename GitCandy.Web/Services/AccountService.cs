@@ -1,4 +1,5 @@
-﻿using NewLife.Cube.Entity;
+﻿using NewLife;
+using NewLife.Cube.Entity;
 using NewLife.Web;
 using XCode.Membership;
 using UserX = NewLife.GitCandy.Entity.User;
@@ -21,12 +22,15 @@ public class AccountService
                 //var tokens = UserToken.FindAllByUserID(user.LinkID);
                 var pager = new Pager { PageSize = 100 };
                 var tokens = UserToken.Search(null, user.LinkID, true, DateTime.MinValue, DateTime.MinValue, pager);
-                var token = tokens.FirstOrDefault(e => e.Expire.Year < 1000 || e.Expire > DateTime.Now);
-                if (token != null && token.Token == password)
+                var md5 = password.MD5();
+                foreach (var token in tokens)
                 {
-                    user.Login(ip);
+                    if (token.Enable && (token.Expire.Year < 1000 || token.Expire > DateTime.Now) && token.Token.EqualIgnoreCase(password, md5))
+                    {
+                        user.Login(ip);
 
-                    return user;
+                        return user;
+                    }
                 }
 
                 // 基础用户表中验证用户密码
