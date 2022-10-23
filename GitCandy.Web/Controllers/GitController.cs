@@ -8,6 +8,7 @@ using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Log;
+using NewLife.Model;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
@@ -41,7 +42,15 @@ public class GitController : CandyControllerBase
                 var password = ss[1];
 
                 // 登录验证
-                user = _accountService.Login(username, password, UserHost);
+                try
+                {
+                    user = _accountService.Login(username, password, UserHost);
+                }
+                catch (Exception ex)
+                {
+                    XTrace.WriteLine(ex.Message);
+                    throw;
+                }
             }
         }
 
@@ -49,7 +58,7 @@ public class GitController : CandyControllerBase
 
         if (user == null && !UserConfiguration.Current.IsPublicServer)
         {
-            return HandleUnauthorizedRequest();
+            return HandleUnauthorizedRequest(user);
         }
 
         var right = false;
@@ -67,7 +76,7 @@ public class GitController : CandyControllerBase
             right = RepositoryService.CanReadRepository(owner, project, user?.Name);
         }
 
-        if (!right) return HandleUnauthorizedRequest();
+        if (!right) return HandleUnauthorizedRequest(user);
 
         return verb switch
         {
@@ -78,9 +87,9 @@ public class GitController : CandyControllerBase
         };
     }
 
-    protected ActionResult HandleUnauthorizedRequest()
+    protected ActionResult HandleUnauthorizedRequest(IManageUser user)
     {
-        if (Token == null)
+        if (user == null)
         {
             // 要求客户端提供基本验证的用户名和密码
             HttpContext.Response.Clear();
