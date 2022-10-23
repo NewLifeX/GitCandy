@@ -1,5 +1,8 @@
 ﻿using GitCandy.Base;
 using GitCandy.Git.Cache;
+using GitCandy.Web.Base;
+using GitCandy.Web.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Caching;
 using NewLife.Cube;
@@ -61,17 +64,83 @@ app.UseCube(app.Environment);
 
 app.UseAuthorization();
 
-//// 启用星尘注册中心，向注册中心注册服务，服务消费者将自动更新服务端地址列表
-//app.RegisterService("Zero.Web", null, app.Environment.EnvironmentName);
+// 启用星尘注册中心，向注册中心注册服务，服务消费者将自动更新服务端地址列表
+app.RegisterService("GitCandy", null, app.Environment.EnvironmentName);
 
 app.UseEndpoints(endpoints =>
 {
+    #region GitController
     endpoints.MapControllerRoute(
-        name: "repo",
+        name: "UserGit",
+        pattern: "{owner}/{project}/{*verb}",
+        defaults: new { controller = "Git", action = "Smart" },
+        constraints: new { owner = new UserUrlConstraint(), verb = new GitUrlConstraint() }
+    );
+    //endpoints.MapControllerRoute(
+    //    name: "GitAct",
+    //    url: "{owner}/{name}/{action}/{branch}/{*path}",
+    //    defaults: new { controller = "Repository", path = UrlParameter.Optional },
+    //    constraints: new { owner = new UserUrlConstraint() },
+    //    namespaces: new[] { typeof(AccountController).Namespace }
+    //);
+    endpoints.MapControllerRoute(
+        name: "UserGitAct",
+        pattern: "{owner}/{name}/{action}/{*path}",
+        defaults: new { controller = "Repository" },
+        constraints: new { owner = new UserUrlConstraint() }
+    );
+    endpoints.MapControllerRoute(
+        name: "UserGitWeb",
+        pattern: "{owner}/{name}",
+        defaults: new { controller = "Repository", action = "Tree" },
+        constraints: new { owner = new UserUrlConstraint() }
+    );
+    #endregion
+
+    #region AccountContorller
+    // 实现用户名直达用户首页
+    endpoints.MapControllerRoute(
+        name: "UserIndex",
+        pattern: "{name}",
+        defaults: new { controller = "Account", action = "Detail" },
+        constraints: new { name = new UserUrlConstraint { IsTeam = false } }
+    );
+    endpoints.MapControllerRoute(
+        name: "User",
+        pattern: "User/{action}/{name}",
+        defaults: new { controller = "Account" }
+    );
+    #endregion
+
+    #region TeamContorller
+    // 实现团队名直达团队首页
+    endpoints.MapControllerRoute(
+        name: "TeamIndex",
+        pattern: "{name}",
+        defaults: new { controller = "Team", action = "Detail" },
+        constraints: new { name = new UserUrlConstraint { IsTeam = true } }
+    );
+    endpoints.MapControllerRoute(
+        name: "Team",
+        pattern: "Team/{action}/{name}",
+        defaults: new { controller = "Team" }
+    );
+    #endregion
+
+    #region RepositoryController
+    endpoints.MapControllerRoute(
+        name: "Repository",
+        pattern: "{controller=Repository}/{action}/{name}/{*path}",
+        defaults: new { controller = "Repository", path = "" }
+    );
+    #endregion
+
+    endpoints.MapControllerRoute(
+        name: "HomeIndex",
         pattern: "{controller=Repository}/{action=Index}");
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 GitCacheAccessor.Initialize();
