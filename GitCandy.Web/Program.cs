@@ -2,6 +2,7 @@
 using GitCandy.Git.Cache;
 using GitCandy.Web.Base;
 using GitCandy.Web.Controllers;
+using GitCandy.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Caching;
@@ -26,6 +27,8 @@ var config = star.Config;
 // 默认内存缓存，如有配置可使用Redis缓存
 var cache = new MemoryCache();
 services.AddSingleton<ICache>(cache);
+
+services.AddSingleton<AccountService>();
 
 // 启用接口响应压缩
 services.AddResponseCompression();

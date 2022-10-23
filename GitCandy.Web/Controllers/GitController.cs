@@ -1,15 +1,13 @@
 ﻿using System.Globalization;
 using System.IO.Compression;
-using System.Text;
 using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Git;
+using GitCandy.Web.Services;
 using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
-using NewLife.Cube;
 using NewLife.Log;
-using XCode.Membership;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
@@ -18,18 +16,20 @@ namespace GitCandy.Web.Controllers;
 public class GitController : CandyControllerBase
 {
     private const String AuthKey = "GitCandyGitAuthorize";
+    private readonly AccountService _accountService;
+
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
+
+    public GitController(AccountService accountService)
+    {
+        _accountService = accountService;
+    }
 
     //[SmartGit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
-        var username = Session[AuthKey] as String;
-        if (username == null)
-        {
-            var token = Token;
-            if (token != null) username = token.Name;
-        }
-        if (username == null)
+        var user = Session[AuthKey] as UserX;
+        if (user == null)
         {
             // 从Http基本验证获取信息进行登录
             var auth = Request.Headers.Authorization.ToString();
@@ -37,34 +37,17 @@ public class GitController : CandyControllerBase
             {
                 var certificate = auth["Basic ".Length..].ToBase64().ToStr();
                 var ss = certificate.Split(':');
-                username = ss[0];
+                var username = ss[0];
                 var password = ss[1];
 
                 // 登录验证
-                var user = UserX.Check(username);
-                if (user != null)
-                {
-                    // 基础用户表找到该用户
-                    var provider = ManageProvider.Provider;
-                    var u = provider.FindByID(user.LinkID);
-                    if (u != null && u.Enable)
-                    {
-                        // 基础用户表中验证用户密码
-                        u = ManageProvider.Provider.Login(u.Name, password, false);
-                        if (u != null)
-                        {
-                            user.Login(UserHost);
-
-                            username = user.Name;
-                        }
-                    }
-                }
+                user = _accountService.Login(username, password, UserHost);
             }
         }
 
-        Session[AuthKey] = username;
+        Session[AuthKey] = user;
 
-        if (username.IsNullOrEmpty() && !UserConfiguration.Current.IsPublicServer)
+        if (user == null && !UserConfiguration.Current.IsPublicServer)
         {
             return HandleUnauthorizedRequest();
         }
@@ -77,11 +60,11 @@ public class GitController : CandyControllerBase
         }
         else if (String.Equals(service, "git-receive-pack", StringComparison.OrdinalIgnoreCase)) // git push
         {
-            right = RepositoryService.CanWriteRepository(owner, project, username);
+            right = RepositoryService.CanWriteRepository(owner, project, user?.Name);
         }
         else if (String.Equals(service, "git-upload-pack", StringComparison.OrdinalIgnoreCase)) // git fetch
         {
-            right = RepositoryService.CanReadRepository(owner, project, username);
+            right = RepositoryService.CanReadRepository(owner, project, user?.Name);
         }
 
         if (!right) return HandleUnauthorizedRequest();
