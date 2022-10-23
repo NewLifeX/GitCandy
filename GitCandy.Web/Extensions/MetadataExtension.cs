@@ -85,7 +85,7 @@ public static class MetadataExtension
 
     public static String CalcSha(this String str)
     {
-        var sha = new SHA1CryptoServiceProvider();
+        var sha = SHA1.Create();
         var data = Encoding.UTF8.GetBytes(str);
         data = sha.ComputeHash(data);
         return data.BytesToString();
