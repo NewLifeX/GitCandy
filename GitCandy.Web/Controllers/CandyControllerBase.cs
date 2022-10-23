@@ -1,11 +1,9 @@
-﻿using System.Web;
-using GitCandy.Data;
+﻿using GitCandy.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife.Cube;
 using NewLife.Model;
-using NewLife.Web;
 using XCode.Membership;
 using UserX = NewLife.GitCandy.Entity.User;
 
@@ -26,20 +24,25 @@ public abstract class CandyControllerBase : Controller
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         // 如果未登录，则自动跳转登录
-        var user = ManageProvider.Provider.TryLogin(HttpContext);
-        if (user == null)
-        {
-            var url = "/Admin/User/Login";
-            var returnUrl = Request.GetRawUrl();
-            if (returnUrl != null) url += "?r=" + HttpUtility.UrlEncode(returnUrl.PathAndQuery);
+        var provider = ManageProvider.Provider;
+        var user = provider.Current ?? provider.TryLogin(HttpContext);
+        //if (user == null)
+        //{
+        //    var url = "/Admin/User/Login";
+        //    var returnUrl = Request.GetRawUrl();
+        //    if (returnUrl != null) url += "?r=" + HttpUtility.UrlEncode(returnUrl.PathAndQuery);
 
-            filterContext.Result = new RedirectResult(url);
+        //    filterContext.Result = new RedirectResult(url);
 
-            return;
-        }
+        //    return;
+        //}
 
         // 自动创建本地用户
-        Token = UserX.GetOrAdd(user);
+        if (user != null)
+        {
+            Token = UserX.GetOrAdd(user);
+            ViewBag.Token = Token;
+        }
 
         // 语言文化
         var culture = Thread.CurrentThread.CurrentUICulture;

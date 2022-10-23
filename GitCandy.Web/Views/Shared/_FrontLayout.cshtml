@@ -4,7 +4,7 @@
 @using GitCandy.Web.Extensions;
 @using NewLife.Web
 @{
-    var token = User.Identity as IManageUser;
+    var token = ViewBag.Token as IManageUser;
     var cfg = NewLife.Common.SysConfig.Current;
     var title = ViewBag.Title + "";
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
@@ -48,19 +48,20 @@
                             <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
                         }
                         <li class="">@Html.ActionLink("创建项目", "Create", "Repository")</li>
+                        <li class="">@Html.ActionLink("控制台", "Index", "Index", new { area="Admin" }, null)</li>
                     }
                     <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)
                     {
-                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "Admin/User")</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Admin/User", new { r = retUrl }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "User", new { area="Admin" }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
                     }
                     else
                     {
                         <li class="">@Html.ActionLink(token + "", "Detail", "Account", new { name = token.Name }, null)</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Admin/User", new { r = retUrl }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "User", new { area="Admin",r = retUrl }, null)</li>
                     }
                 </ul>
             </div>
