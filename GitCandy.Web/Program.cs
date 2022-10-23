@@ -69,6 +69,13 @@ app.RegisterService("GitCandy", null, app.Environment.EnvironmentName);
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+        name: "HomeIndex",
+        pattern: "{controller=Repository}/{action=Index}");
+
     #region GitController
     endpoints.MapControllerRoute(
         name: "UserGit",
@@ -134,13 +141,6 @@ app.UseEndpoints(endpoints =>
         defaults: new { controller = "Repository", path = "" }
     );
     #endregion
-
-    endpoints.MapControllerRoute(
-        name: "HomeIndex",
-        pattern: "{controller=Repository}/{action=Index}");
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 GitCacheAccessor.Initialize();
