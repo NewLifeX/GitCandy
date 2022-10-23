@@ -16,6 +16,12 @@ public abstract class CandyControllerBase : Controller
 
     //private Token _token;
 
+    /// <summary>临时会话扩展信息。仅限本地内存，不支持分布式共享</summary>
+    public IDictionary<String, Object> Session { get; private set; }
+
+    /// <summary>用户主机</summary>
+    public String UserHost { get; private set; }
+
     public MembershipService MembershipService { get; set; } = new MembershipService();
 
     /// <summary>当前用户</summary>
@@ -23,6 +29,12 @@ public abstract class CandyControllerBase : Controller
 
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
+        // 进程内模拟的Session，活跃有效期20分钟
+        var ctx = filterContext.HttpContext;
+        Session = ctx.Items["Session"] as IDictionary<String, Object>;
+
+        UserHost = HttpContext.GetUserHost();
+
         // 如果未登录，则自动跳转登录
         var provider = ManageProvider.Provider;
         var user = provider.Current ?? provider.TryLogin(HttpContext);

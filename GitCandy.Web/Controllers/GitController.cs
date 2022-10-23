@@ -1,20 +1,73 @@
 ﻿using System.Globalization;
 using System.IO.Compression;
+using System.Text;
+using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Git;
 using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
+using NewLife.Cube;
 using NewLife.Log;
+using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
 public class GitController : CandyControllerBase
 {
+    private const String AuthKey = "GitCandyGitAuthorize";
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
     //[SmartGit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
+        var username = Session[AuthKey] as String;
+        if (username == null)
+        {
+            var token = Token;
+            if (token != null) username = token.Name;
+        }
+        if (username == null)
+        {
+            // 从Http基本验证获取信息进行登录
+            var auth = Request.Headers.Authorization.ToString();
+            if (!String.IsNullOrEmpty(auth))
+            {
+                var bytes = Convert.FromBase64String(auth[6..]);
+                var certificate = Encoding.ASCII.GetString(bytes);
+                var index = certificate.IndexOf(':');
+                var password = certificate[(index + 1)..];
+                username = certificate[..index];
+
+                // 登录验证
+                var user = UserX.Check(username, password);
+                username = user != null && user.Login(password, HttpContext.GetUserHost()) ? user.Name : null;
+            }
+        }
+
+        Session[AuthKey] = username;
+
+        if (username == null && !UserConfiguration.Current.IsPublicServer)
+        {
+            return HandleUnauthorizedRequest();
+        }
+
+        var right = false;
+
+        if (String.IsNullOrEmpty(service)) // redirect to git browser
+        {
+            right = true;
+        }
+        else if (String.Equals(service, "git-receive-pack", StringComparison.OrdinalIgnoreCase)) // git push
+        {
+            right = RepositoryService.CanWriteRepository(owner, project, username);
+        }
+        else if (String.Equals(service, "git-upload-pack", StringComparison.OrdinalIgnoreCase)) // git fetch
+        {
+            right = RepositoryService.CanReadRepository(owner, project, username);
+        }
+
+        if (!right) return HandleUnauthorizedRequest();
+
         return verb switch
         {
             "info/refs" => await InfoRefs(owner, project, service),
@@ -24,14 +77,39 @@ public class GitController : CandyControllerBase
         };
     }
 
+    protected ActionResult HandleUnauthorizedRequest()
+    {
+        if (Token == null)
+        {
+            // 要求客户端提供基本验证的用户名和密码
+            HttpContext.Response.Clear();
+            HttpContext.Response.Headers.WWWAuthenticate = "Basic realm=\"GitCandy\"";
+
+            // 基本验证是明文传输密码，本想改为摘要验证，但是那样传输过来的是密码混合其它新的的签名，无法跟数据库对比
+            //var sb = new StringBuilder();
+            //sb.Append("Digest");
+            //sb.Append(" realm=\"GitCandy\"");
+            //sb.Append(",qop=\"auth,auth-int\"");
+            //sb.Append(",nonce=\"66C4EF58DA7CB956BD04233FBB64E0A4\"");
+            //filterContext.HttpContext.Response.AddHeader("WWW-Authenticate", sb.ToString());
+
+            //filterContext.Result = new HttpUnauthorizedResult();
+            return new UnauthorizedResult();
+        }
+        else
+        {
+            throw new UnauthorizedAccessException();
+        }
+    }
+
     protected async Task<ActionResult> InfoRefs(String owner, String project, String service)
     {
         //Response.Charset = "";
-        Response.ContentType = String.Format(CultureInfo.InvariantCulture, "application/x-{0}-advertisement", service);
+        Response.ContentType = $"application/x-{service}-advertisement";
 
         SetNoCache();
 
-        await Response.WriteAsync(FormatMessage(String.Format(CultureInfo.InvariantCulture, "# service={0}\n", service)));
+        await Response.WriteAsync(FormatMessage($"# service={service}\n"));
         await Response.WriteAsync(FlushMessage());
 
         try
@@ -52,7 +130,7 @@ public class GitController : CandyControllerBase
     protected ActionResult ExecutePack(String owner, String project, String service)
     {
         //Response.Charset = "";
-        Response.ContentType = String.Format(CultureInfo.InvariantCulture, "application/x-{0}-result", service);
+        Response.ContentType = $"application/x-{service}-result";
         SetNoCache();
 
         try

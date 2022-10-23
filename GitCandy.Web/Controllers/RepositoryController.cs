@@ -282,6 +282,7 @@ public class RepositoryController : CandyControllerBase
         model.Owner = repo.Owner.Name;
         model.Name = name;
         if (model.IsRoot)
+        {
             //var m = RepositoryService.GetRepositoryModel(name);
             //model.Description = m.Description;
 
@@ -303,6 +304,7 @@ public class RepositoryController : CandyControllerBase
 
                 model.Description = repo.Description;
             }
+        }
 
         // 修正Markdown
         if (model.Readme != null) model.Readme.FixMarkdown($"/{owner}/{name}");

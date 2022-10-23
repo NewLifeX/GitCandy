@@ -313,6 +313,38 @@ namespace NewLife.GitCandy.Entity
 
             return u;
         }
+
+        public Boolean Login(String password, String ip)
+        {
+            var user = this;
+            if (!user.Enable) return false;
+
+            // 清空密码后，任意密码可以登录，并成为新密码
+            if (user.Password.IsNullOrEmpty())
+                user.Password = password.MD5();
+            else
+            {
+                if (user.Password != password.MD5()) return false;
+            }
+
+            user.Logins++;
+            user.LastLogin = DateTime.Now;
+            user.LastLoginIP = ip;
+            user.Save();
+
+            return true;
+        }
+
+        public static User Check(String name, String pass)
+        {
+            var user = FindByName(name) ?? FindByEmail(name);
+            if (user == null) return null;
+
+            if (!user.Enable) return null;
+            if (user.Password != pass.MD5()) return null;
+
+            return user;
+        }
         #endregion
     }
 }
