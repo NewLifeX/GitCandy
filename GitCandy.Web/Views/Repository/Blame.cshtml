@@ -5,7 +5,9 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
 }
 
-<h4>@Html.Link(Model)</h4>
+<h4>
+    @await Html.PartialAsync("_RepositoryLink", Model)
+</h4>
 
 @await Html.PartialAsync("_PathBar", Model.PathBar)
 @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)

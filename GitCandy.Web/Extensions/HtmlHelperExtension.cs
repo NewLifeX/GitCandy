@@ -73,6 +73,6 @@ public static class HtmlHelperExtension
         //var link2 = html.ActionLink(repo.Name, "Tree", new { owner = repo.Owner, name = repo.Name, path = "" });
         var link2 = html.RouteLink(repo.Name, "UserGitWeb", new { owner = repo.Owner, name = repo.Name });
 
-        return new HtmlString(link1 + "/" + link2);
+        return new HtmlString(link1.ToString() + "/" + link2.ToString());
     }
 }

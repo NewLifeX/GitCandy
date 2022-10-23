@@ -6,7 +6,9 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TreeTitle, Model.Name, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
 }
 
-<h3>@Html.Link(Model)</h3>
+<h3>
+    @await Html.PartialAsync("_RepositoryLink", Model)
+</h3>
 
 @if (Model.Entries == null)
 {
@@ -78,17 +80,29 @@ else
                             <td>
                                 <span title="@entry.Name">
                                     @if (entry.EntryType == TreeEntryTargetType.Tree)
-                                    {<span class="glyphicon glyphicon-folder-close"></span> }
+                                    {
+                                        <span class="glyphicon glyphicon-folder-close"></span>
+                                    }
                                     else if (entry.EntryType == TreeEntryTargetType.Blob)
-                                    { <span class="glyphicon glyphicon-file"></span> }
+                                    {
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    }
                                     else if (entry.EntryType == TreeEntryTargetType.GitLink)
-                                    { <i class="glyphicon glyphicon-bookmark"></i> }
+                                    {
+                                        <i class="glyphicon glyphicon-bookmark"></i>
+                                    }
                                     else
-                                    { <span class="glyphicon glyphicon-leaf"></span>}
+                                    {
+                                        <span class="glyphicon glyphicon-leaf"></span>
+                                    }
                                     @if (entry.EntryType == TreeEntryTargetType.GitLink)
-                                    {@entry.Name.ShortString(25) }
-                                else
-                                { <a href="@Model.GetUrl(entry.EntryType + "", entry.Path)">@entry.Name.ShortString(25)</a>}
+                                    {
+                                        @entry.Name.ShortString(25)
+                                    }
+                                    else
+                                    {
+                                        <a href="@Model.GetUrl(entry.EntryType + "", entry.Path)">@entry.Name.ShortString(25)</a>
+                                    }
                                 </span>
                             </td>
                             <td><span title="@commit.CommitMessageShort">@(commit.Sha == null ? Html.Raw(commit.CommitMessageShort) : Html.ActionLink(commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = commit.Sha })))</span></td>

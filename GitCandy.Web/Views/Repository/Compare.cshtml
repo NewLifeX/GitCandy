@@ -4,7 +4,9 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CompareTitle, Model.Name));
 }
 
-<h4>@Html.Link(Model)</h4>
+<h4>
+    @await Html.PartialAsync("_RepositoryLink", Model)
+</h4>
 
 <div class="row">
     <div class="col-md-3 branch-from">

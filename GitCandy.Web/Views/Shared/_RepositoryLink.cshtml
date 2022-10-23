@@ -1,0 +1,13 @@
+﻿@model RepositoryModelBase
+@using GitCandy.Models
+@{
+    var repo = Model;
+    var user = NewLife.GitCandy.Entity.User.FindByName(repo?.Owner);
+}
+@if (user != null)
+{
+    @Html.ActionLink(repo.Owner, "Detail", user.IsTeam ? "Team" : "Account", new { name = repo.Owner }, null)
+    <text>/</text>
+    @*@Html.ActionLink(repo.Name, "Tree", new { owner = repo.Owner, name = repo.Name, path = "" })*@
+    @Html.RouteLink(repo.Name, "UserGitWeb", new { owner = repo.Owner, name = repo.Name })
+}

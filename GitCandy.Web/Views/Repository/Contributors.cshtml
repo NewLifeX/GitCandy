@@ -5,7 +5,9 @@
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model));
 }
 
-<h4>@String.Format(SR.Repository_ContributorsTitle, "") @Html.Link(Model)</h4>
+<h4>
+    @String.Format(SR.Repository_ContributorsTitle, "")     @await Html.PartialAsync("_RepositoryLink", Model)
+</h4>
 
 <div class="col-md-5">
     @foreach (var item in Model.Statistics.Current.OrderedCommits)
