@@ -52,16 +52,16 @@ public class GitService : IDisposable
     }
 
     #region Git Smart HTTP Transport
-    public void InfoRefs(String service, Stream inStream, Stream outStream)
+    public async Task InfoRefs(String service, Stream inStream, Stream outStream)
     {
         Contract.Requires(service == "receive-pack" || service == "upload-pack");
-        RunGitCmd(service, true, inStream, outStream);
+        await RunGitCmdAsync(service, true, inStream, outStream);
     }
 
-    public void ExecutePack(String service, Stream inStream, Stream outStream)
+    public async Task ExecutePack(String service, Stream inStream, Stream outStream)
     {
         Contract.Requires(service == "receive-pack" || service == "upload-pack");
-        RunGitCmd(service, false, inStream, outStream);
+        await RunGitCmdAsync(service, false, inStream, outStream);
     }
     #endregion
 
@@ -834,6 +834,44 @@ public class GitService : IDisposable
             inStream.CopyTo(process.StandardInput.BaseStream);
             process.StandardInput.Close();
             process.StandardOutput.BaseStream.CopyTo(outStream);
+
+            process.WaitForExit(10 * 60 * 1000);
+
+            rs = process.ExitCode;
+        }
+
+        sw.Stop();
+        WriteLog("git.exe 完成 {0} 耗时 {1}", rs, sw.Elapsed);
+    }
+
+    private async Task RunGitCmdAsync(String serviceName, Boolean advertiseRefs, Stream inStream, Stream outStream)
+    {
+        var args = serviceName + " --stateless-rpc";
+        if (advertiseRefs)
+            args += " --advertise-refs";
+        args += " \"" + _repositoryPath + "\"";
+
+        WriteLog("git.exe {0}", args);
+        var sw = new Stopwatch();
+        sw.Start();
+
+        var cfg = UserConfiguration.Current;
+        var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
+        {
+            CreateNoWindow = true,
+            RedirectStandardError = true,
+            RedirectStandardInput = true,
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()),
+        };
+
+        var rs = 0;
+        using (var process = Process.Start(info))
+        {
+            await inStream.CopyToAsync(process.StandardInput.BaseStream);
+            process.StandardInput.Close();
+            await process.StandardOutput.BaseStream.CopyToAsync(outStream);
 
             process.WaitForExit(10 * 60 * 1000);
 

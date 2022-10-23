@@ -6,12 +6,15 @@ using GitCandy.Data;
 using GitCandy.Git;
 using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
+using NewLife;
 using NewLife.Cube;
 using NewLife.Log;
+using XCode.Membership;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
+/// <summary>Git控制器。专用于Git客户端连接</summary>
 public class GitController : CandyControllerBase
 {
     private const String AuthKey = "GitCandyGitAuthorize";
@@ -32,21 +35,36 @@ public class GitController : CandyControllerBase
             var auth = Request.Headers.Authorization.ToString();
             if (!String.IsNullOrEmpty(auth))
             {
-                var bytes = Convert.FromBase64String(auth[6..]);
-                var certificate = Encoding.ASCII.GetString(bytes);
-                var index = certificate.IndexOf(':');
-                var password = certificate[(index + 1)..];
-                username = certificate[..index];
+                var certificate = auth["Basic ".Length..].ToBase64().ToStr();
+                var ss = certificate.Split(':');
+                username = ss[0];
+                var password = ss[1];
 
                 // 登录验证
-                var user = UserX.Check(username, password);
-                username = user != null && user.Login(password, HttpContext.GetUserHost()) ? user.Name : null;
+                var user = UserX.Check(username);
+                if (user != null)
+                {
+                    // 基础用户表找到该用户
+                    var provider = ManageProvider.Provider;
+                    var u = provider.FindByID(user.LinkID);
+                    if (u != null && u.Enable)
+                    {
+                        // 基础用户表中验证用户密码
+                        u = ManageProvider.Provider.Login(u.Name, password, false);
+                        if (u != null)
+                        {
+                            user.Login(UserHost);
+
+                            username = user.Name;
+                        }
+                    }
+                }
             }
         }
 
         Session[AuthKey] = username;
 
-        if (username == null && !UserConfiguration.Current.IsPublicServer)
+        if (username.IsNullOrEmpty() && !UserConfiguration.Current.IsPublicServer)
         {
             return HandleUnauthorizedRequest();
         }
@@ -71,8 +89,8 @@ public class GitController : CandyControllerBase
         return verb switch
         {
             "info/refs" => await InfoRefs(owner, project, service),
-            "git-upload-pack" => ExecutePack(owner, project, "git-upload-pack"),
-            "git-receive-pack" => ExecutePack(owner, project, "git-receive-pack"),
+            "git-upload-pack" => await ExecutePack(owner, project, "git-upload-pack"),
+            "git-receive-pack" => await ExecutePack(owner, project, "git-receive-pack"),
             _ => RedirectToAction("Tree", "Repository", new { Owner = owner, Name = project }),
         };
     }
@@ -117,7 +135,8 @@ public class GitController : CandyControllerBase
             using (var git = new GitService(owner, project))
             {
                 var svc = service[4..];
-                git.InfoRefs(svc, GetInputStream(), Response.Body);
+                //var buf = GetInputStream().ReadBytes();
+                await git.InfoRefs(svc, GetInputStream(), Response.Body);
             }
             return new EmptyResult();
         }
@@ -127,7 +146,7 @@ public class GitController : CandyControllerBase
         }
     }
 
-    protected ActionResult ExecutePack(String owner, String project, String service)
+    protected async Task<ActionResult> ExecutePack(String owner, String project, String service)
     {
         //Response.Charset = "";
         Response.ContentType = $"application/x-{service}-result";
@@ -139,10 +158,10 @@ public class GitController : CandyControllerBase
             {
                 git.Log = XTrace.Log;
                 var svc = service[4..];
-                git.ExecutePack(svc, GetInputStream(), Response.Body);
+                await git.ExecutePack(svc, GetInputStream(), Response.Body);
 
                 // 拦截提交
-                if (svc == "receive-pack") Task.Run(() => UpdateRepo(owner, project));
+                if (svc == "receive-pack") _ = Task.Run(() => UpdateRepo(owner, project));
             }
             return new EmptyResult();
         }

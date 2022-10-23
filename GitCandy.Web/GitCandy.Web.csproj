@@ -39,4 +39,8 @@
     <Compile Remove="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
