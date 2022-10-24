@@ -35,26 +35,30 @@ public abstract class CandyControllerBase : Controller
 
         UserHost = HttpContext.GetUserHost();
 
-        // 如果未登录，则自动跳转登录
-        var provider = ManageProvider.Provider;
-        var user = provider.Current ?? provider.TryLogin(HttpContext);
-        //if (user == null)
-        //{
-        //    var url = "/Admin/User/Login";
-        //    var returnUrl = Request.GetRawUrl();
-        //    if (returnUrl != null) url += "?r=" + HttpUtility.UrlEncode(returnUrl.PathAndQuery);
-
-        //    filterContext.Result = new RedirectResult(url);
-
-        //    return;
-        //}
-
-        // 自动创建本地用户
-        if (user != null)
+        if (Token == null)
         {
-            Token = UserX.GetOrAdd(user);
-            ViewBag.Token = Token;
+            // 如果未登录，则自动跳转登录
+            var provider = ManageProvider.Provider;
+            var user = provider.Current ?? provider.TryLogin(HttpContext);
+            //if (user == null)
+            //{
+            //    var url = "/Admin/User/Login";
+            //    var returnUrl = Request.GetRawUrl();
+            //    if (returnUrl != null) url += "?r=" + HttpUtility.UrlEncode(returnUrl.PathAndQuery);
+
+            //    filterContext.Result = new RedirectResult(url);
+
+            //    return;
+            //}
+
+            // 自动创建本地用户
+            if (user != null)
+            {
+                Token = UserX.GetOrAdd(user);
+            }
         }
+
+        ViewBag.Token = Token;
 
         // 语言文化
         var culture = Thread.CurrentThread.CurrentUICulture;

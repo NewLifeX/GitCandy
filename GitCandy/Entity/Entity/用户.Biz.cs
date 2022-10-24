@@ -290,7 +290,8 @@ namespace NewLife.GitCandy.Entity
             var u = GetOrAdd(user.ID, user.Name, mail);
             if (u != null)
             {
-                if (u.NickName.IsNullOrEmpty() || u.NickName.EqualIgnoreCase(u.Name)) u.NickName = user.NickName;
+                // 使用SSO资料覆盖本地资料
+                if (!user.NickName.IsNullOrEmpty()) u.NickName = user.NickName;
                 if (user is IUser au)
                 {
                     u.Email = au.Mail;
@@ -307,6 +308,8 @@ namespace NewLife.GitCandy.Entity
                         (au as IEntity).Update();
                     }
                 }
+
+                if (u.RegisterTime.Year < 1000) u.RegisterTime = u.CreateTime;
 
                 u.SaveAsync();
             }
