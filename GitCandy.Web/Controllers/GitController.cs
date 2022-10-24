@@ -18,17 +18,20 @@ public class GitController : CandyControllerBase
 {
     private const String AuthKey = "GitCandyGitAuthorize";
     private readonly AccountService _accountService;
+    private readonly ITracer _tracer;
 
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
-    public GitController(AccountService accountService)
+    public GitController(AccountService accountService, ITracer tracer)
     {
         _accountService = accountService;
+        _tracer = tracer;
     }
 
     //[SmartGit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
+        using var span = _tracer?.NewSpan("SmartGit", new { owner, project, service, verb });
         var user = Session[AuthKey] as UserX;
         if (user == null)
         {
@@ -48,6 +51,8 @@ public class GitController : CandyControllerBase
                 }
                 catch (Exception ex)
                 {
+                    span?.SetError(ex, null);
+
                     XTrace.WriteLine(ex.Message);
                     throw;
                 }
