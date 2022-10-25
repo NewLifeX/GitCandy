@@ -24,6 +24,12 @@ public class UserController : EntityController<User>
             df.DataVisible = e => (e as UserX).IsTeam;
         }
         {
+            var df = ListFields.AddDataField("userteams", null, "members") as ListField;
+            df.DisplayName = "关联分组";
+            df.Url = "/GitCandy/UserTeam?userId={ID}";
+            df.DataVisible = e => !(e as UserX).IsTeam;
+        }
+        {
             var df = ListFields.AddDataField("repos",  "IsAdmin") as ListField;
             df.DisplayName = "仓库列表";
             df.Url = "/GitCandy/Repository?ownerId={ID}";
@@ -38,6 +44,13 @@ public class UserController : EntityController<User>
 
     protected override IEnumerable<User> Search(Pager p)
     {
+        var id = p["Id"].ToInt(-1);
+        if (id > 0)
+        {
+            var entity = UserX.FindByKey(id);
+            if (entity != null) return new[] { entity };
+        }
+
         var ownerId = p["ownerId"].ToInt(-1);
         var enable = p["enable"]?.ToBoolean();
         var isTeam = p["isTeam"]?.ToBoolean();
