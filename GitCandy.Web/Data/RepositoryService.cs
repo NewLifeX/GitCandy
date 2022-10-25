@@ -339,7 +339,7 @@ public class RepositoryService
             // 已登录时，主屏显示当前用户关联仓库（自己和团队的），右边显示非当前用户关联的公开库
             // 未登录时，主屏显示所有用户公开的仓库，右边不显示
             var myRepos = user != null ?
-                Repository.Search(user.ID, -1, true, null, param) :
+                Repository.Search(user.ID, -1, null, null, param) :
                 Repository.Search(-1, -1, true, false, param);
 
             var otherRepose = user != null ?

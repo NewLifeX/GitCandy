@@ -183,7 +183,7 @@ public partial class Repository : LogEntity<Repository>
             exp &= _.ID.NotIn(UserRepository.SearchSql(ids));
         }
         if (enable != null) exp &= _.Enable == enable;
-        if (isPrivate != null) exp &= _.IsPrivate == isPrivate;
+        if (isPrivate != null) exp &= _.IsPrivate.IsTrue(isPrivate);
 
         return FindAll(exp, param);
     }

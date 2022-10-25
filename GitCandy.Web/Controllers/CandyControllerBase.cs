@@ -35,6 +35,7 @@ public abstract class CandyControllerBase : Controller
 
         UserHost = HttpContext.GetUserHost();
 
+        Token = Session["GitToken"] as IManageUser;
         if (Token == null)
         {
             // 如果未登录，则自动跳转登录
@@ -55,6 +56,7 @@ public abstract class CandyControllerBase : Controller
             if (user != null)
             {
                 Token = UserX.GetOrAdd(user);
+                Session["GitToken"] = Token;
             }
         }
 
