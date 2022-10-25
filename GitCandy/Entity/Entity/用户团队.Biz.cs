@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using NewLife.Data;
 using XCode;
 using XCode.DataAccessLayer;
@@ -36,42 +38,18 @@ public partial class UserTeam : LogEntity<UserTeam>
     #endregion
 
     #region 扩展属性
-    private User _User;
     /// <summary>团队</summary>
-    public User User
-    {
-        get
-        {
-            //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
-            {
-                _User = User.FindByID(UserID);
-                //Dirtys["User"] = true;
-            }
-            return _User;
-        }
-        set { _User = value; }
-    }
+    [XmlIgnore, IgnoreDataMember]
+    public User User => Extends.Get(nameof(User), k => User.FindByID(UserID));
 
     /// <summary>用户名称</summary>
     [DisplayName("用户")]
     [Map(__.UserID, typeof(User), "ID")]
     public String UserName => User + "";
 
-    private User _Team;
     /// <summary>团队</summary>
-    public User Team
-    {
-        get
-        {
-            //if (_Team == null && TeamID > 0 && !Dirtys.ContainsKey("Team"))
-            {
-                _Team = User.FindByID(TeamID);
-                //Dirtys["Team"] = true;
-            }
-            return _Team;
-        }
-        set { _Team = value; }
-    }
+    [XmlIgnore, IgnoreDataMember]
+    public User Team => Extends.Get(nameof(Team), k => User.FindByID(TeamID));
 
     /// <summary>团队名称</summary>
     [DisplayName("团队")]
@@ -146,10 +124,8 @@ public partial class UserTeam : LogEntity<UserTeam>
         // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段
         var exp = SearchWhereByKeys(key, null, null);
 
-        // 以下仅为演示，Field（继承自FieldItem）重载了==、!=、>、<、>=、<=等运算符
-        //if (userid > 0) exp &= _.OperatorID == userid;
-        //if (isSign != null) exp &= _.IsSign == isSign.Value;
-        //exp &= _.OccurTime.Between(start, end); // 大于等于start，小于end，当start/end大于MinValue时有效
+        if (userid > 0) exp &= _.UserID == userid;
+        exp &= _.UpdateTime.Between(start, end);
 
         return FindAll(exp, param);
     }

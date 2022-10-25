@@ -36,9 +36,11 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
 
     protected override Int32 OnDelete()
     {
-        Teams?.Delete(true);
+        //Teams?.Delete(true);
+        UserTeam.FindAllByUserID(ID).Delete(true);
         UserTeam.FindAllByTeamID(ID).Delete(true);
-        Repositories?.Delete(true);
+        //Repositories?.Delete(true);
+        UserRepository.FindAllByUserID(ID).Delete();
         Repository.FindAllByOwnerID(ID).Delete();
         //AuthorizationLog.FindAllByUserID(ID).Delete();
 
