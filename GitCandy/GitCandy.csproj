@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configuration\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <None Remove="Configuration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Base\Profiler.cs" />
     <Compile Remove="Entity\Entity\SSH密钥.Biz.cs" />
     <Compile Remove="Entity\Entity\SSH密钥.cs" />

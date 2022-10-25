@@ -3,9 +3,9 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
 using GitCandy.Base;
-using GitCandy.Configuration;
 using GitCandy.Git.Cache;
 using GitCandy.Models;
+using GitCandy.Web;
 using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 using NewLife;
@@ -132,7 +132,7 @@ public class GitService : IDisposable
         model.Entries = entries;
 
         // 缓存加载摘要
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (cfg.AllowSummary)
         {
             var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
@@ -332,7 +332,7 @@ public class GitService : IDisposable
 
     public CommitsModel GetCommits(String path, Int32 page = 1, Int32 pagesize = 20)
     {
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (!cfg.AllowCommits) return null;
 
         var commit = GetCommitByPath(ref path, out var referenceName);
@@ -373,7 +373,7 @@ public class GitService : IDisposable
 
     public BlameModel GetBlame(String path)
     {
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (!cfg.AllowBlame) return null;
 
         var commit = GetCommitByPath(ref path, out var referenceName);
@@ -414,7 +414,7 @@ public class GitService : IDisposable
     {
         referenceName = null;
 
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (!cfg.AllowArchive) return null;
 
         var commit = GetCommitByPath(ref path, out referenceName);
@@ -449,7 +449,7 @@ public class GitService : IDisposable
 
     public BranchesModel GetBranches()
     {
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (!cfg.AllowHistoryDivergence) return new BranchesModel();
 
         var head = _repository.Head;
@@ -482,7 +482,7 @@ public class GitService : IDisposable
 
     public ContributorsModel GetContributors(String path)
     {
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         if (!cfg.AllowContributors) return null;
 
         var commit = GetCommitByPath(ref path, out var referenceName);
@@ -491,7 +491,7 @@ public class GitService : IDisposable
         var contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, commit));
         var contributors = contributorsAccessor.Result.Value;
         contributors.OrderedCommits = contributors.OrderedCommits
-            .Take(UserConfiguration.Current.Contributors)
+            .Take(GitSetting.Current.Contributors)
             .ToArray();
         var statistics = new RepositoryStatisticsModel
         {
@@ -701,7 +701,7 @@ public class GitService : IDisposable
     /// <returns></returns>
     public static String GetPath(String owner, String name)
     {
-        var p = UserConfiguration.Current.RepositoryPath;
+        var p = GitSetting.Current.RepositoryPath;
         p = p.CombinePath(owner, name).GetFullPath();
 
         return p;
@@ -817,7 +817,7 @@ public class GitService : IDisposable
         var sw = new Stopwatch();
         sw.Start();
 
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
         {
             CreateNoWindow = true,
@@ -855,7 +855,7 @@ public class GitService : IDisposable
         var sw = new Stopwatch();
         sw.Start();
 
-        var cfg = UserConfiguration.Current;
+        var cfg = GitSetting.Current;
         var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
         {
             CreateNoWindow = true,

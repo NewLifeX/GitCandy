@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.IO.Compression;
-using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Git;
 using GitCandy.Web.Services;
@@ -61,7 +60,7 @@ public class GitController : CandyControllerBase
 
         Session[AuthKey] = user;
 
-        if (user == null && !UserConfiguration.Current.IsPublicServer)
+        if (user == null && !GitSetting.Current.IsPublicServer)
         {
             return HandleUnauthorizedRequest(user);
         }

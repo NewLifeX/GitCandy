@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 using System.Runtime.Serialization.Formatters.Binary;
-using GitCandy.Configuration;
+using GitCandy.Web;
 using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 using NewLife;
@@ -60,7 +60,7 @@ public abstract class GitCacheAccessor
     {
         enabled = false;
 
-        var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
+        var cachePath = GitSetting.Current.CachePath.GetFullPath();
         if (String.IsNullOrEmpty(cachePath)) return;
 
         cachePath.EnsureDirectory(false);
@@ -102,7 +102,7 @@ public abstract class GitCacheAccessor
         // 每天凌晨3点删除一次所有缓存目录
         _timer2 = new TimerX(s =>
         {
-            var dir = UserConfiguration.Current.CachePath.GetFullPath();
+            var dir = GitSetting.Current.CachePath.GetFullPath();
             foreach (var item in dir.AsDirectory().GetDirectories())
             {
                 XTrace.WriteLine("Delete cache directory {0}", item.FullName);
@@ -126,7 +126,7 @@ public abstract class GitCacheAccessor
 
     public static void Delete(String owner, String project)
     {
-        var cachePath = UserConfiguration.Current.CachePath.GetFullPath();
+        var cachePath = GitSetting.Current.CachePath.GetFullPath();
         foreach (var item in accessors)
         {
             var path = cachePath.CombinePath(item.Name, owner, project);
@@ -265,7 +265,7 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
 
     protected override Boolean Load()
     {
-        var filename = Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile());
+        var filename = Path.Combine(GitSetting.Current.CachePath.GetFullPath(), GetCacheFile());
         if (File.Exists(filename))
         {
             try
@@ -291,7 +291,7 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
     {
         if (!resultDone) return;
 
-        var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
+        var info = new FileInfo(Path.Combine(GitSetting.Current.CachePath.GetFullPath(), GetCacheFile()));
         if (!info.Directory.Exists) info.Directory.Create();
 
         using var fs = info.Create();

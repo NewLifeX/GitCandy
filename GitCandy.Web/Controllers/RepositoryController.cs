@@ -1,5 +1,4 @@
 ﻿using GitCandy.Base;
-using GitCandy.Configuration;
 using GitCandy.Data;
 using GitCandy.Git;
 using GitCandy.Git.Cache;
@@ -21,7 +20,7 @@ namespace GitCandy.Web.Controllers;
 public class RepositoryController : CandyControllerBase
 {
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
-    UserConfiguration _config = UserConfiguration.Current;
+    GitSetting _config = GitSetting.Current;
 
     public ActionResult Index(Int32? page)
     {
@@ -31,17 +30,17 @@ public class RepositoryController : CandyControllerBase
         var p = new NewLife.Web.Pager
         {
             PageIndex = page ?? 1,
-            PageSize = UserConfiguration.Current.PageSize,
+            PageSize = GitSetting.Current.PageSize,
             RetrieveTotalCount = true,
         };
 
         // 管理员可以看到其他人私有仓库
         var model = RepositoryService.GetRepositories(username, user.IsAdmin(), p);
 
-        model.CanCreateRepository = user != null && (UserConfiguration.Current.AllowRepositoryCreation || user.IsAdmin());
+        model.CanCreateRepository = user != null && (GitSetting.Current.AllowRepositoryCreation || user.IsAdmin());
 
         ViewBag.Pager = Pager.Items(model.ItemCount)
-            .PerPage(UserConfiguration.Current.PageSize)
+            .PerPage(GitSetting.Current.PageSize)
             .Move(model.CurrentPage)
             .Segment(5)
             .Center();
@@ -407,11 +406,11 @@ public class RepositoryController : CandyControllerBase
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
         using var git = new GitService(owner, name);
-        var model = git.GetCommits(path, page ?? 1, UserConfiguration.Current.Commits);
+        var model = git.GetCommits(path, page ?? 1, GitSetting.Current.Commits);
         if (model == null) return NotFound();
 
         ViewBag.Pager = Pager.Items(model.ItemCount)
-            .PerPage(UserConfiguration.Current.Commits)
+            .PerPage(GitSetting.Current.Commits)
             .Move(model.CurrentPage)
             .Segment(5)
             .Center();

@@ -1,5 +1,4 @@
 ﻿using GitCandy.Base;
-using GitCandy.Configuration;
 using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
 using GitCandy.Web.Extensions;
@@ -16,10 +15,10 @@ public class TeamController : CandyControllerBase
     {
         if (!Token.IsAdmin()) return Forbid();
 
-        var model = MembershipService.GetTeamList(query, page ?? 1, UserConfiguration.Current.PageSize);
+        var model = MembershipService.GetTeamList(query, page ?? 1, GitSetting.Current.PageSize);
 
         ViewBag.Pager = Pager.Items(model.ItemCount)
-            .PerPage(UserConfiguration.Current.PageSize)
+            .PerPage(GitSetting.Current.PageSize)
             .Move(model.CurrentPage)
             .Segment(5)
             .Center();

@@ -4,8 +4,8 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using GitCandy.Configuration;
 using GitCandy.Git.Cache;
+using GitCandy.Web;
 using LibGit2Sharp;
 using NewLife;
 using NewLife.Reflection;
@@ -33,7 +33,7 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            var info = new FileInfo(Path.Combine(UserConfiguration.Current.CachePath.GetFullPath(), GetCacheFile()));
+            var info = new FileInfo(Path.Combine(GitSetting.Current.CachePath.GetFullPath(), GetCacheFile()));
             if (!info.Directory.Exists) info.Directory.Create();
 
             result = info.FullName;
