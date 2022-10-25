@@ -13,10 +13,7 @@ namespace GitCandy.Base
     // emulates StrCmpLogicalW, but not fully
     public class StringLogicalComparer : IComparer, IComparer<String>
     {
-        public Int32 Compare(Object s1, Object s2)
-        {
-            return Compare(s1 as String, s2 as String);
-        }
+        public Int32 Compare(Object s1, Object s2) => Compare(s1 as String, s2 as String);
 
         public Int32 Compare(String s1, String s2)
         {

@@ -420,7 +420,7 @@ public class GitService : IDisposable
         var commit = GetCommitByPath(ref path, out referenceName);
         if (commit == null) return null;
 
-        if (referenceName == null) referenceName = commit.Sha;
+        referenceName ??= commit.Sha;
 
         var accessor = GitCacheAccessor.Singleton(new ArchiverAccessor(_repoId, _repository, commit, CpToEncoding(commit.Encoding), _i18n.Value));
 

@@ -36,10 +36,7 @@ namespace GitCandy.Git
             this.code = FileHelper.ReadToEnd(bytes, encoding);
         }
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Sha, path);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Sha, path);
 
         protected override void Init()
         {

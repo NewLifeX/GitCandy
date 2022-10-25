@@ -64,7 +64,7 @@ namespace NewLife.GitCandy.Entity
         /// <summary>用户名称</summary>
         [DisplayName("用户")]
         [Map(__.OwnerID, typeof(User), "ID")]
-        public String OwnerName { get { return Owner + ""; } }
+        public String OwnerName => Owner + "";
         #endregion
 
         #region 扩展查询
@@ -139,10 +139,7 @@ namespace NewLife.GitCandy.Entity
             return FindAll(exp, param);
         }
 
-        public static IList<Repository> GetPublics(PageParameter param = null)
-        {
-            return FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
-        }
+        public static IList<Repository> GetPublics(PageParameter param = null) => FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
 
         public static IList<Repository> Search(Boolean showAll, Int32[] excludes = null, PageParameter param = null)
         {

@@ -52,7 +52,7 @@ namespace GitCandy.Security
         public DateTime IssueDate { get; private set; }
         public String LastIp { get; set; }
 
-        public Boolean Expired { get { return Expires > DateTime.Now.AddMinutes(AuthPeriod); } }
+        public Boolean Expired => Expires > DateTime.Now.AddMinutes(AuthPeriod);
 
         public Boolean RenewIfNeed()
         {
@@ -65,12 +65,6 @@ namespace GitCandy.Security
             return false;
         }
 
-        public static DateTime AuthorizationExpires
-        {
-            get
-            {
-                return DateTime.Now.AddMinutes(AuthPeriod);
-            }
-        }
+        public static DateTime AuthorizationExpires => DateTime.Now.AddMinutes(AuthPeriod);
     }
 }

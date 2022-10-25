@@ -10,7 +10,7 @@ namespace GitCandy.Models
         public CommitModel Commit { get; set; }
         public IEnumerable<TreeEntryModel> Entries { get; set; }
         public TreeEntryModel Readme { get; set; }
-        public Boolean IsRoot { get { return String.IsNullOrEmpty(Path) || Path == "\\" || Path == "/"; } }
+        public Boolean IsRoot => String.IsNullOrEmpty(Path) || Path == "\\" || Path == "/";
         public RepositoryScope Scope { get; set; }
         public GitUrl[] GitUrls { get; set; }
         public String Description { get; set; }

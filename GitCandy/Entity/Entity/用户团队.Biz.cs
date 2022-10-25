@@ -54,7 +54,7 @@ namespace NewLife.GitCandy.Entity
         /// <summary>用户名称</summary>
         [DisplayName("用户")]
         [Map(__.UserID, typeof(User), "ID")]
-        public String UserName { get { return User + ""; } }
+        public String UserName => User + "";
 
         private User _Team;
         /// <summary>团队</summary>
@@ -75,7 +75,7 @@ namespace NewLife.GitCandy.Entity
         /// <summary>团队名称</summary>
         [DisplayName("团队")]
         [Map(__.TeamID, typeof(User), "ID")]
-        public String TeamName { get { return Team + ""; } }
+        public String TeamName => Team + "";
         #endregion
 
         #region 扩展查询
@@ -161,7 +161,7 @@ namespace NewLife.GitCandy.Entity
         public static UserTeam Add(Int32 userid, Int32 teamid, Boolean isadmin)
         {
             var ut = FindByUserIDAndTeamID(userid, teamid);
-            if (ut == null) ut = new UserTeam();
+            ut ??= new UserTeam();
             ut.UserID = userid;
             ut.TeamID = teamid;
             ut.IsAdmin = isadmin;

@@ -25,10 +25,7 @@ namespace GitCandy.Git
             this.pathExist = commit[path] != null;
         }
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Sha, path);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Sha, path);
 
         protected override void Init()
         {

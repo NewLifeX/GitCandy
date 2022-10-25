@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <Compile Remove="Areas\GitCandy\Controllers\AuthorizationLogController.cs" />
+    <Compile Remove="Models\SettingModel.cs" />
+    <Compile Remove="Models\SshModel.cs" />
   </ItemGroup>
 
 </Project>

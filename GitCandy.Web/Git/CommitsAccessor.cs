@@ -27,17 +27,11 @@ namespace GitCandy.Git
             this.pageSize = pageSize;
         }
 
-        public override Boolean IsAsync { get { return false; } }
+        public override Boolean IsAsync => false;
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Sha, path, page, pageSize);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Sha, path, page, pageSize);
 
-        protected override void Init()
-        {
-            result = new RevisionSummaryCacheItem[0];
-        }
+        protected override void Init() => result = new RevisionSummaryCacheItem[0];
 
         protected override void Calculate()
         {

@@ -18,10 +18,7 @@ namespace GitCandy.Git
             this.key = key;
         }
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(key);
-        }
+        protected override String GetCacheKey() => GetCacheKey(key);
 
         protected override void Init()
         {

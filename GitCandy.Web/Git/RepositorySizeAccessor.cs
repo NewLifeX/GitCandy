@@ -18,17 +18,11 @@ namespace GitCandy.Git
             this.key = key;
         }
 
-        public override Boolean IsAsync { get { return false; } }
+        public override Boolean IsAsync => false;
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(key);
-        }
+        protected override String GetCacheKey() => GetCacheKey(key);
 
-        protected override void Init()
-        {
-            result = 0;
-        }
+        protected override void Init() => result = 0;
 
         protected override void Calculate()
         {

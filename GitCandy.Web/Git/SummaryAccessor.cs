@@ -23,10 +23,7 @@ namespace GitCandy.Git
             this.tree = tree;
         }
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Id, tree.Id);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Id, tree.Id);
 
         protected override void Init()
         {

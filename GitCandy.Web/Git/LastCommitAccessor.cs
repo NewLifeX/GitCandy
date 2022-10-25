@@ -24,15 +24,9 @@ namespace GitCandy.Git
             var treeEntry = commit[path];
         }
 
-        protected override String GetCacheKey()
-        {
-            return GetCacheKey(commit.Sha, path);
-        }
+        protected override String GetCacheKey() => GetCacheKey(commit.Sha, path);
 
-        protected override void Init()
-        {
-            result = commit.Sha;
-        }
+        protected override void Init() => result = commit.Sha;
 
         protected override void Calculate()
         {
