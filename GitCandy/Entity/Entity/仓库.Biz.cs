@@ -154,6 +154,40 @@ public partial class Repository : LogEntity<Repository>
         return FindAll(exp, param);
     }
 
+    public static IList<Repository> Search(Int32 userId, Int32 noUserId, Boolean? enable, Boolean? isPrivate, PageParameter param)
+    {
+        var exp = new WhereExpression();
+
+        if (userId > 0)
+        {
+            // 用户自身，或用户所属团队
+            var ids = new List<Int32> { userId };
+            var user = User.FindByID(userId);
+            if (user != null && !user.IsTeam)
+            {
+                ids.AddRange(user.Teams.Select(e => e.TeamID));
+            }
+
+            exp &= _.ID.In(UserRepository.SearchSql(ids));
+        }
+        else if (noUserId > 0)
+        {
+            // 用户自身，或用户所属团队
+            var ids = new List<Int32> { noUserId };
+            var user = User.FindByID(noUserId);
+            if (user != null && !user.IsTeam)
+            {
+                ids.AddRange(user.Teams.Select(e => e.TeamID));
+            }
+
+            exp &= _.ID.NotIn(UserRepository.SearchSql(ids));
+        }
+        if (enable != null) exp &= _.Enable == enable;
+        if (isPrivate != null) exp &= _.IsPrivate == isPrivate;
+
+        return FindAll(exp, param);
+    }
+
     public static IList<Repository> GetPublics(PageParameter param = null) => FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
 
     public static IList<Repository> Search(Boolean showAll, Int32[] excludes = null, PageParameter param = null)

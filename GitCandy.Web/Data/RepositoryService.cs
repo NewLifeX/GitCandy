@@ -303,7 +303,7 @@ public class RepositoryService
     //    return CheckReadWrite(repo, user, true);
     //}
 
-    public RepositoryListModel GetRepositories(String username, Boolean showAll, PageParameter param)
+    public RepositoryListModel GetRepositories(User user, Boolean showAll, PageParameter param)
     {
         var model = new RepositoryListModel();
 
@@ -314,15 +314,15 @@ public class RepositoryService
             param.Desc = true;
         }
 
-        if (String.IsNullOrEmpty(username))
+        if (user == null)
         {
             model.Collaborations = new RepositoryModel[0];
             model.Repositories = ToModels(Repository.GetPublics(param));
         }
         else
         {
-            var user = User.FindByName(username);
-            if (user == null) return model;
+            //var user = User.FindByName(username);
+            //if (user == null) return model;
 
             //var q1 = user.Repositories.Select(e => e.Repository);
             //var q2 = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.Repository));
@@ -334,22 +334,32 @@ public class RepositoryService
             //var list = Repository.Search(showAll, q3.Select(e => e.ID).ToArray(), param);
 
             // 一次性查出来，再区分是否协作者
-            var list = Repository.Search(showAll, null, param);
+            //var list = Repository.Search(showAll, null, param);
 
-            var q1 = new List<Repository>();
-            var q2 = new List<Repository>();
-            var userRepoIds = user.Repositories.Select(e => e.RepositoryID).ToArray();
-            var teamRepoIds = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.RepositoryID)).ToArray();
-            foreach (var item in list)
-            {
-                if (userRepoIds.Contains(item.ID) || teamRepoIds.Contains(item.ID))
-                    q1.Add(item);
-                else
-                    q2.Add(item);
-            }
+            // 已登录时，主屏显示当前用户关联仓库（自己和团队的），右边显示非当前用户关联的公开库
+            // 未登录时，主屏显示所有用户公开的仓库，右边不显示
+            var myRepos = user != null ?
+                Repository.Search(user.ID, -1, true, null, param) :
+                Repository.Search(-1, -1, true, false, param);
 
-            model.Collaborations = ToModels(q1);
-            model.Repositories = ToModels(q2);
+            var otherRepose = user != null ?
+                Repository.Search(-1, user.ID, true, false, new PageParameter { PageSize = 30 }) :
+                null;
+
+            //var myRepos = new List<Repository>();
+            //var otherRepose = new List<Repository>();
+            //var userRepoIds = user.Repositories.Select(e => e.RepositoryID).ToArray();
+            //var teamRepoIds = user.Teams.Where(e => e.Team != null).SelectMany(s => s.Team.Repositories.Select(e => e.RepositoryID)).ToArray();
+            //foreach (var item in list)
+            //{
+            //    if (userRepoIds.Contains(item.ID) || teamRepoIds.Contains(item.ID))
+            //        myRepos.Add(item);
+            //    else
+            //        otherRepose.Add(item);
+            //}
+
+            model.Collaborations = ToModels(myRepos);
+            model.Repositories = ToModels(otherRepose);
             model.CurrentPage = param.PageIndex;
             model.ItemCount = (Int32)param.TotalCount;
         }

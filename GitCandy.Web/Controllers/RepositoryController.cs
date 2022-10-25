@@ -25,7 +25,7 @@ public class RepositoryController : CandyControllerBase
     public ActionResult Index(Int32? page)
     {
         var user = Token;
-        var username = user?.Name;
+        //var username = user?.Name;
 
         var p = new NewLife.Web.Pager
         {
@@ -34,8 +34,8 @@ public class RepositoryController : CandyControllerBase
             RetrieveTotalCount = true,
         };
 
-        // 管理员可以看到其他人私有仓库
-        var model = RepositoryService.GetRepositories(username, user.IsAdmin(), p);
+        // 任何人只能看到自己的仓库，以及别人的公开库，即使管理员也禁止访问他人私有库
+        var model = RepositoryService.GetRepositories(user as UserX, false, p);
 
         model.CanCreateRepository = user != null && (GitSetting.Current.AllowRepositoryCreation || user.IsAdmin());
 
