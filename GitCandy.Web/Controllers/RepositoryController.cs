@@ -122,64 +122,79 @@ public class RepositoryController : CandyControllerBase
         return CreateView(model);
     }
 
-    public ActionResult Detail(String owner, String name)
+    public ActionResult Detail(Int32 id)
     {
-        var username = Token?.Name;
-        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+        var repo = Repository.FindByID(id);
+        var user = Token as UserX;
 
-        var model = RepositoryService.Get(owner, name, true, username);
+        if (!RepositoryService.CanReadRepository(repo, user)) return Forbid();
+
+        var model = RepositoryService.Get(repo, true, user?.Name);
         if (model == null) return NotFound();
 
-        using var git = new GitService(owner, name);
+        using var git = new GitService(repo.OwnerName, repo.Name);
         model.DefaultBranch = git.GetHeadBranch();
 
         return View(model);
     }
 
-    public ActionResult Edit(String owner, String name)
+    public ActionResult Edit(Int32 id)
     {
-        var username = Token?.Name;
-        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+        var repo = Repository.FindByID(id);
+        var user = Token as UserX;
 
-        var model = RepositoryService.Get(owner, name, username: Token?.Name);
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
+
+        var model = RepositoryService.Get(repo, false, user?.Name);
         if (model == null) return NotFound();
 
-        using (var git = new GitService(owner, name))
-        {
-            model.DefaultBranch = git.GetHeadBranch();
-            model.LocalBranches = git.GetLocalBranches();
-        }
+        using var git = new GitService(repo.OwnerName, repo.Name);
+        model.DefaultBranch = git.GetHeadBranch();
+        model.LocalBranches = git.GetLocalBranches();
+
         return View(model);
     }
 
     [HttpPost]
-    public ActionResult Edit(String owner, String name, RepositoryModel model)
+    public ActionResult Edit(Int32 id, RepositoryModel model)
     {
-        if (String.IsNullOrEmpty(name)) return NotFound();
+        var repo = Repository.FindByID(id);
+        var user = Token as UserX;
 
-        var username = Token?.Name;
-        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+        if (repo == null) return NotFound();
+
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
 
         if (ModelState.IsValid)
         {
-            if (!RepositoryService.Update(owner, model)) return NotFound();
+            if (!RepositoryService.Update(repo, model)) return NotFound();
 
-            using (var git = new GitService(owner, name))
-                git.SetHeadBranch(model.DefaultBranch);
-            return RedirectToAction("Detail", new { name });
+            using var git = new GitService(repo.OwnerName, repo.Name);
+            git.SetHeadBranch(model.DefaultBranch);
+
+            return RedirectToAction("Detail", new { repo.ID });
         }
+        else
+        {
+            using var git = new GitService(repo.OwnerName, repo.Name);
+            model.DefaultBranch = git.GetHeadBranch();
+            model.LocalBranches = git.GetLocalBranches();
 
-        return View(model);
+            return View(model);
+        }
     }
 
-    public ActionResult Coop(String owner, String name)
+    public ActionResult Coop(Int32 id)
     {
-        if (String.IsNullOrEmpty(name)) return NotFound();
+        var repo = Repository.FindByID(id);
+        var user = Token as UserX;
 
-        var username = Token?.Name;
-        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+        if (repo == null) return NotFound();
 
-        var model = RepositoryService.GetRepositoryCollaborationModel(owner, name);
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
+
+        var model = RepositoryService.GetRepositoryCollaborationModel(repo);
+
         return View(model);
     }
 
@@ -246,22 +261,28 @@ public class RepositoryController : CandyControllerBase
         return Json(SR.Shared_SomethingWrong);
     }
 
-    public ActionResult Delete(String owner, String name, String conform)
+    public ActionResult Delete(Int32 id, String conform)
     {
         if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
         {
-            var username = Token?.Name;
-            if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+            var repo = Repository.FindByID(id);
+            var user = Token as UserX;
 
-            RepositoryService.Delete(owner, name);
-            GitService.DeleteRepository(owner, name);
-            GitCacheAccessor.Delete(owner, name);
+            if (repo == null) return NotFound();
 
-            XTrace.WriteLine("Repository {0} deleted by {1}#{2}", name, Token?.Name, Token.ID);
+            if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
+
+            repo.Delete();
+            //RepositoryService.Delete(owner, name);
+            GitService.DeleteRepository(repo.OwnerName, repo.Name);
+            GitCacheAccessor.Delete(repo.OwnerName, repo.Name);
+
+            XTrace.WriteLine("Repository {0} deleted by {1}#{2}", repo.Name, Token?.Name, Token.ID);
 
             return RedirectToAction("Index");
         }
-        return View((Object)name);
+
+        return View((Object)id);
     }
 
     public ActionResult Tree(String owner, String name, String path)
@@ -273,6 +294,8 @@ public class RepositoryController : CandyControllerBase
         using var git = new GitService(owner, name);
         var model = git.GetTree(path);
         if (model == null) return NotFound();
+
+        model.Id = repo.ID;
 
         if (model.Entries == null && model.ReferenceName != "HEAD")
             return RedirectToAction("Tree", new { path = model.ReferenceName });

@@ -13,7 +13,7 @@
 @if (Model.Entries == null)
 {
     <div>
-        @Html.ActionLink(SR.Shared_Detail, "Detail", Html.OverRoute(), new { @class = "btn btn-default pull-right" })
+        @Html.ActionLink(SR.Shared_Detail, "Detail", new{ Model.Id }, new { @class = "btn btn-default pull-right" })
         @await Html.PartialAsync("_GitUrlButton", Model.GitUrls)
     </div>
     <div class="alert alert-info">@SR.Repository_EmptyWords</div>
@@ -37,7 +37,7 @@ else
         <div>
             @if (Model.IsRoot)
             {
-                @Html.ActionLink(SR.Shared_Detail, "Detail", Html.OverRoute(), new { @class = "btn btn-default pull-right" })
+                @Html.ActionLink(SR.Shared_Detail, "Detail", new{ Model.Id }, new { @class = "btn btn-default pull-right" })
                 @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
                 @await Html.PartialAsync("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
                 <a href="@Url.Action("Compare", Html.OverRoute(new { path = "" }))" class="btn btn-default"><span class="glyphicon glyphicon-retweet"></span>@SR.Repository_Compare</a>

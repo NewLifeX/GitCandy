@@ -15,9 +15,9 @@
 
 <div>
     <div class="pull-left">
-        @Html.ActionLink(SR.Shared_Back, "Detail", "Repository", new { name = Model }, new { @class = "btn btn-default" })
+        @Html.ActionLink(SR.Shared_Back, "Detail", "Repository", new { id = Model }, new { @class = "btn btn-default" })
     </div>
     <div class="pull-right">
-        @Html.ActionLink(SR.Shared_Delete, "Delete", "Repository", new { name = Model, Conform = "Yes" }, new { @class = "btn btn-danger" })
+        @Html.ActionLink(SR.Shared_Delete, "Delete", "Repository", new { id = Model, Conform = "Yes" }, new { @class = "btn btn-danger" })
     </div>
 </div>

@@ -47,9 +47,8 @@ public class RepositoryService
         return repo;
     }
 
-    public RepositoryModel Get(String owner, String reponame, Boolean withShipment = false, String username = null)
+    public RepositoryModel Get(Repository repo, Boolean withShipment = false, String username = null)
     {
-        var repo = Repository.FindByOwnerAndName(owner, reponame);
         if (repo == null) return null;
 
         var model = ToModel(repo);
@@ -77,9 +76,9 @@ public class RepositoryService
         return model;
     }
 
-    public Boolean Update(String owner, RepositoryModel model)
+    public Boolean Update(Repository repo, RepositoryModel model)
     {
-        var repo = Repository.FindByOwnerAndName(owner, model.Name);
+        //var repo = Repository.FindByOwnerAndName(owner, model.Name);
         if (repo == null) return false;
 
         repo.IsPrivate = model.IsPrivate;
@@ -92,9 +91,9 @@ public class RepositoryService
         return true;
     }
 
-    public CollaborationModel GetRepositoryCollaborationModel(String owner, String name)
+    public CollaborationModel GetRepositoryCollaborationModel(Repository repo)
     {
-        var repo = Repository.FindByOwnerAndName(owner, name);
+        //var repo = Repository.FindByOwnerAndName(owner, name);
         if (repo == null) return null;
 
         var list = UserRepository.FindAllByRepositoryID(repo.ID).ToList();
@@ -213,7 +212,18 @@ public class RepositoryService
         return role.IsOwner;
     }
 
-    private Boolean CheckReadWrite(Repository repo, User user, Boolean write)
+    public Boolean IsRepositoryAdministrator(Repository repo, User user)
+    {
+        if (repo == null) return false;
+        if (user == null) return false;
+
+        var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
+        if (role == null) return false;
+
+        return role.IsOwner;
+    }
+
+    public Boolean CheckReadWrite(Repository repo, User user, Boolean write)
     {
         //var repo = Repository.FindByOwnerAndName(owner, reponame);
         if (repo == null) return false;
@@ -254,6 +264,16 @@ public class RepositoryService
         var user = User.FindByName(username);
         if (user == null) return false;
         //if (user.IsAdmin) return true;
+
+        return CheckReadWrite(repo, user, false);
+    }
+
+    public Boolean CanReadRepository(Repository repo, User user)
+    {
+        if (repo == null) return false;
+        if (repo.AllowAnonymousRead) return true;
+
+        if (user == null) return false;
 
         return CheckReadWrite(repo, user, false);
     }
@@ -373,6 +393,7 @@ public class RepositoryService
     {
         return new RepositoryModel
         {
+            Id = repo.ID,
             Owner = repo.Owner.Name,
             Name = repo.Name,
             Description = repo.Description,

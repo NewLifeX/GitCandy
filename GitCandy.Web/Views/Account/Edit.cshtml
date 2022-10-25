@@ -4,7 +4,7 @@
 @using GitCandy.Web.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Account_EditTitle, Model.Name));
-    var token = User.Identity as IManageUser;
+    var token = ViewBag.Token as IManageUser;
 }
 
 <h3>@String.Format(SR.Account_EditTitle, Model.Name)</h3>

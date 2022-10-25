@@ -4,7 +4,7 @@
 @using GitCandy.Web.Extensions;
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_EditTitle, Model.Name));
-    var token = User.Identity as IManageUser;
+    var token = ViewBag.Token as IManageUser;
 }
 
 <h3>@String.Format(SR.Repository_EditTitle, Model.Name)</h3>
@@ -55,14 +55,14 @@
         <dd>@Html.ValidationSummary(true, SR.Repository_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" })</dd>
 
         <dt>
-            @Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default pull-left" })
+            @Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Id }, new { @class = "btn btn-default pull-left" })
         </dt>
         <dd>
             <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
             <button type="reset" class="btn btn-inverse">@SR.Shared_Reset</button> &nbsp;
             @if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin()))
             {
-                @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" })
+                @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Id }, new { @class = "btn btn-danger" })
             }
         </dd>
     </dl>

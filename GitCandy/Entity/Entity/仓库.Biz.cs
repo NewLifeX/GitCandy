@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using NewLife.Data;
 using XCode;
 using XCode.Membership;
@@ -45,21 +47,9 @@ public partial class Repository : LogEntity<Repository>
     #endregion
 
     #region 扩展属性
-    private User _Owner;
     /// <summary>拥有者。个人或团队</summary>
-    public User Owner
-    {
-        get
-        {
-            //if (_User == null && UserID > 0 && !Dirtys.ContainsKey("User"))
-            {
-                _Owner = User.FindByID(OwnerID);
-                //Dirtys["User"] = true;
-            }
-            return _Owner;
-        }
-        set { _Owner = value; }
-    }
+    [XmlIgnore, IgnoreDataMember]
+    public User Owner => Extends.Get(nameof(Owner), k => User.FindByID(OwnerID));
 
     /// <summary>拥有者。个人或团队</summary>
     [DisplayName("拥有者")]
