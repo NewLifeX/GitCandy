@@ -148,6 +148,21 @@ namespace NewLife.GitCandy.Entity
         #endregion
 
         #region 高级查询
+        public static IList<User> Search(Int32 ownerId, Boolean? enable, Boolean? isTeam, DateTime start, DateTime end, String key, PageParameter param)
+        {
+            // WhereExpression重载&和|运算符，作为And和Or的替代
+            // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段
+            var exp = SearchWhereByKeys(key, null, null);
+
+            if (ownerId > 0) exp &= _.ID.In(UserTeam.SearchSql(ownerId));
+            if (enable != null) exp &= _.Enable == enable;
+            if (isTeam != null) exp &= _.IsTeam == isTeam;
+
+            exp &= _.LastLogin.Between(start, end);
+
+            return FindAll(exp, param);
+        }
+
         public static IList<User> SearchByName(String name, PageParameter param)
         {
             var exp = new WhereExpression();

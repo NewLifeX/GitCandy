@@ -42,6 +42,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\GitCandy\Views\User\_List_Search.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\GitCandy\Views\User\_List_Search.cshtml" />
     <None Include="Areas\GitCandy\Views\Repository\_List_Search.cshtml" />
   </ItemGroup>
 
