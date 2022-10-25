@@ -19,12 +19,13 @@ public class RepositoryController : EntityController<Repository>
     protected override IEnumerable<Repository> Search(Pager p)
     {
         var ownerId = p["ownerId"].ToInt(-1);
+        var userId = p["userId"].ToInt(-1);
         var enable = p["enable"]?.ToBoolean();
         var isPrivate = p["isPrivate"]?.ToBoolean();
 
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return Repository.Search(ownerId, enable, isPrivate, start, end, p["q"], p);
+        return Repository.Search(ownerId, userId, enable, isPrivate, start, end, p["q"], p);
     }
 }

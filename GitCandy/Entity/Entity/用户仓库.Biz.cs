@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using NewLife.Data;
 using XCode;
+using XCode.DataAccessLayer;
 using XCode.Membership;
 
 namespace NewLife.GitCandy.Entity
@@ -111,6 +112,8 @@ namespace NewLife.GitCandy.Entity
 
             return FindAll(exp, param);
         }
+
+        public static SelectBuilder SearchSql(IList<Int32> userIds) => FindSQL(_.UserID.In(userIds), null, _.RepositoryID);
         #endregion
 
         #region 扩展操作

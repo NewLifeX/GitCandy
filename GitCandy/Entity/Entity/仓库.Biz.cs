@@ -126,13 +126,26 @@ namespace NewLife.GitCandy.Entity
         /// <param name="key">关键字</param>
         /// <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
         /// <returns>实体集</returns>
-        public static IList<Repository> Search(Int32 ownerId, Boolean? enable, Boolean? isPrivate, DateTime start, DateTime end, String key, PageParameter param)
+        public static IList<Repository> Search(Int32 ownerId, Int32 userId, Boolean? enable, Boolean? isPrivate, DateTime start, DateTime end, String key, PageParameter param)
         {
             // WhereExpression重载&和|运算符，作为And和Or的替代
             // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段
             var exp = SearchWhereByKeys(key, null, null);
 
             if (ownerId > 0) exp &= _.OwnerID == ownerId;
+            if (userId > 0)
+            {
+                // 用户自身，或用户所属团队
+                var ids = new List<Int32> { userId };
+                var user = User.FindByID(userId);
+                if (user != null && !user.IsTeam)
+                {
+                    var members = UserTeam.FindAllByUserID(user.ID);
+                    ids.AddRange(members.Select(e => e.TeamID));
+                }
+
+                exp &= _.ID.In(UserRepository.SearchSql(ids));
+            }
             if (enable != null) exp &= _.Enable == enable;
             if (isPrivate != null) exp &= _.IsPrivate == isPrivate;
 

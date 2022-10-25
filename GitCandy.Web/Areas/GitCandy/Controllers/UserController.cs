@@ -23,6 +23,17 @@ public class UserController : EntityController<User>
             df.Url = "/GitCandy/User?ownerId={ID}";
             df.DataVisible = e => (e as UserX).IsTeam;
         }
+        {
+            var df = ListFields.AddDataField("repos",  "IsAdmin") as ListField;
+            df.DisplayName = "仓库列表";
+            df.Url = "/GitCandy/Repository?ownerId={ID}";
+        }
+        {
+            var df = ListFields.AddDataField("repos2", "IsAdmin") as ListField;
+            df.DisplayName = "关联仓库";
+            df.Url = "/GitCandy/Repository?userId={ID}";
+            df.DataVisible = e => !(e as UserX).IsTeam;
+        }
     }
 
     protected override IEnumerable<User> Search(Pager p)
