@@ -19,8 +19,11 @@
 
   <ItemGroup>
     <Compile Remove="Configuration\**" />
+    <Compile Remove="Security\**" />
     <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Security\**" />
     <None Remove="Configuration\**" />
+    <None Remove="Security\**" />
   </ItemGroup>
 
   <ItemGroup>

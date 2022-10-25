@@ -41,4 +41,8 @@
     <Compile Remove="Models\SshModel.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\GitCandy\Views\Repository\_List_Search.cshtml" />
+  </ItemGroup>
+
 </Project>

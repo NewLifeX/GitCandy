@@ -1,5 +1,4 @@
-﻿using GitCandy.Security;
-using NewLife;
+﻿using NewLife;
 using NewLife.Cube.Entity;
 using NewLife.Log;
 using NewLife.Web;
