@@ -45,7 +45,7 @@ public class GitController : Controller
         var history = new GitHistory
         {
             Success = true,
-            Action = service,
+            Action = !service.IsNullOrEmpty() ? service : verb,
             Remark = verb,
             UserAgent = Request.Headers["User-Agent"],
             Version = Request.Headers["Git-Protocol"],
