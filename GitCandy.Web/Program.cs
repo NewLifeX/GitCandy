@@ -1,8 +1,10 @@
-﻿using GitCandy.Base;
+﻿using System.Security.Claims;
+using GitCandy.Base;
 using GitCandy.Git.Cache;
 using GitCandy.Web.Base;
 using GitCandy.Web.Controllers;
 using GitCandy.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Caching;
@@ -32,13 +34,20 @@ services.AddSingleton<AccountService>();
 
 // 启用接口响应压缩
 services.AddResponseCompression();
+
+// 身份验证
 services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "Bearer";
-    options.DefaultAuthenticateScheme = "Bearer";
-    options.DefaultChallengeScheme = "Bearer";
-    options.DefaultSignInScheme = "Bearer";
+    options.DefaultScheme = "Front";
+    options.DefaultAuthenticateScheme = "Front";
+    options.DefaultChallengeScheme = "Front";
+    options.DefaultSignInScheme = "Front";
+}).AddCookie("Front", options =>
+{
+    options.AccessDeniedPath = "/Admin/User/Login";
+    options.LoginPath = "/Admin/User/Login";
 });
+
 services.AddControllersWithViews();
 
 // 引入魔方
@@ -65,6 +74,7 @@ app.UseStaticFiles();
 // 使用魔方
 app.UseCube(app.Environment);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // 启用星尘注册中心，向注册中心注册服务，服务消费者将自动更新服务端地址列表

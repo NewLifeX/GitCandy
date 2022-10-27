@@ -81,4 +81,6 @@ public abstract class CandyControllerBase : Controller
 
         return Redirect(returnUrl);
     }
+
+    //public virtual new ActionResult Forbid() => StatusCode(403);
 }

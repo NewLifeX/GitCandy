@@ -6,6 +6,7 @@ using GitCandy.Models;
 using GitCandy.Web.App_GlobalResources;
 using GitCandy.Web.Base;
 using GitCandy.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife;
@@ -291,6 +292,7 @@ public class RepositoryController : CandyControllerBase
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
         var repo = Repository.FindByOwnerAndName(owner, name);
+
         using var git = new GitService(owner, name);
         var model = git.GetTree(path);
         if (model == null) return NotFound();
