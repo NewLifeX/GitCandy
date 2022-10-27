@@ -11,14 +11,15 @@ namespace GitCandy.Web.Areas.GitCandy.Controllers
     /// <summary>Git历史</summary>
     [Menu(10, true, Icon = "fa-table")]
     [GitCandyArea]
-    public class GitHistoryController : EntityController<GitHistory>
+    public class GitHistoryController : ReadOnlyEntityController<GitHistory>
     {
         static GitHistoryController()
         {
             //LogOnChange = true;
 
             //ListFields.RemoveField("Id", "Creator");
-            ListFields.RemoveCreateField();
+            //ListFields.RemoveCreateField();
+            ListFields.AddDataField("Remark", "TraceId");
 
             //{
             //    var df = ListFields.GetField("Code") as ListField;

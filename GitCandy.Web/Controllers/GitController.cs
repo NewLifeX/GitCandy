@@ -7,6 +7,7 @@ using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Cube;
+using NewLife.GitCandy.Entity;
 using NewLife.Log;
 using NewLife.Model;
 using UserX = NewLife.GitCandy.Entity.User;
@@ -37,8 +38,20 @@ public class GitController : Controller
         // 进程内模拟的Session，活跃有效期20分钟
         var ctx = HttpContext;
         Session = ctx.Items["Session"] as IDictionary<String, Object>;
+        var ip = HttpContext.GetUserHost();
 
         using var span = _tracer?.NewSpan("SmartGit", new { owner, project, service, verb });
+
+        var history = new GitHistory
+        {
+            Success = true,
+            Action = service,
+            Remark = verb,
+            UserAgent = Request.Headers["User-Agent"],
+            Version = Request.Headers["Git-Protocol"],
+            CreateIP = ip,
+        };
+
         var user = Session[AuthKey] as UserX;
         if (user == null)
         {
@@ -51,10 +64,11 @@ public class GitController : Controller
                 var username = ss[0];
                 var password = ss[1];
 
+                history.Name = username;
+
                 // 登录验证
                 try
                 {
-                    var ip = HttpContext.GetUserHost();
                     user = _accountService.Login(username, password, ip);
                 }
                 catch (Exception ex)
@@ -64,15 +78,29 @@ public class GitController : Controller
                     XTrace.WriteLine(ex.Message);
                     //throw;
 
+                    history.Success = false;
+                    history.Remark = ex.Message;
+                    history.Insert();
+
                     return HandleUnauthorizedRequest(user);
                 }
             }
         }
 
+        var repo = NewLife.GitCandy.Entity.Repository.FindByOwnerAndName(owner, project);
+
+        history.UserID = user?.ID ?? 0;
+        history.Name ??= user?.Name;
+        history.RepositoryID = repo?.ID ?? 0;
+
         Session[AuthKey] = user;
 
         if (user == null && !GitSetting.Current.IsPublicServer)
         {
+            history.Success = false;
+            history.Remark = "代码库未开放";
+            history.Insert();
+
             return HandleUnauthorizedRequest(user);
         }
 
@@ -91,15 +119,36 @@ public class GitController : Controller
             right = RepositoryService.CanReadRepository(owner, project, user?.Name);
         }
 
-        if (!right) return HandleUnauthorizedRequest(user);
-
-        return verb switch
+        if (!right)
         {
-            "info/refs" => await InfoRefs(owner, project, service),
-            "git-upload-pack" => await ExecutePack(owner, project, "git-upload-pack"),
-            "git-receive-pack" => await ExecutePack(owner, project, "git-receive-pack"),
-            _ => RedirectToAction("Tree", "Repository", new { Owner = owner, Name = project }),
-        };
+            history.Success = false;
+            history.Remark = "无权访问";
+            history.Insert();
+
+            return HandleUnauthorizedRequest(user);
+        }
+
+        try
+        {
+            return verb switch
+            {
+                "info/refs" => await InfoRefs(owner, project, service),
+                "git-upload-pack" => await ExecutePack(owner, project, "git-upload-pack"),
+                "git-receive-pack" => await ExecutePack(owner, project, "git-receive-pack"),
+                _ => RedirectToAction("Tree", "Repository", new { Owner = owner, Name = project }),
+            };
+        }
+        catch (Exception ex)
+        {
+            history.Success = false;
+            history.Remark = ex.Message;
+
+            throw;
+        }
+        finally
+        {
+            history.Insert();
+        }
     }
 
     protected ActionResult HandleUnauthorizedRequest(IManageUser user)

@@ -80,7 +80,7 @@ namespace NewLife.GitCandy.Entity
         /// <summary>客户端</summary>
         [DisplayName("客户端")]
         [Description("客户端")]
-        [DataObjectField(false, false, true, 50)]
+        [DataObjectField(false, false, true, 200)]
         [BindColumn("UserAgent", "客户端", "")]
         public String UserAgent { get => _UserAgent; set { if (OnPropertyChanging("UserAgent", value)) { _UserAgent = value; OnPropertyChanged("UserAgent"); } } }
 
