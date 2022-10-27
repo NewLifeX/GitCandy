@@ -6,6 +6,7 @@ using GitCandy.Web.Services;
 using LibGit2Sharp;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
+using NewLife.Cube;
 using NewLife.Log;
 using NewLife.Model;
 using UserX = NewLife.GitCandy.Entity.User;
@@ -13,11 +14,14 @@ using UserX = NewLife.GitCandy.Entity.User;
 namespace GitCandy.Web.Controllers;
 
 /// <summary>Git控制器。专用于Git客户端连接</summary>
-public class GitController : CandyControllerBase
+public class GitController : Controller
 {
     private const String AuthKey = "GitCandyGitAuthorize";
     private readonly AccountService _accountService;
     private readonly ITracer _tracer;
+
+    /// <summary>临时会话扩展信息。仅限本地内存，不支持分布式共享</summary>
+    public IDictionary<String, Object> Session { get; private set; }
 
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
@@ -30,6 +34,10 @@ public class GitController : CandyControllerBase
     //[SmartGit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
+        // 进程内模拟的Session，活跃有效期20分钟
+        var ctx = HttpContext;
+        Session = ctx.Items["Session"] as IDictionary<String, Object>;
+
         using var span = _tracer?.NewSpan("SmartGit", new { owner, project, service, verb });
         var user = Session[AuthKey] as UserX;
         if (user == null)
@@ -46,14 +54,17 @@ public class GitController : CandyControllerBase
                 // 登录验证
                 try
                 {
-                    user = _accountService.Login(username, password, UserHost);
+                    var ip = HttpContext.GetUserHost();
+                    user = _accountService.Login(username, password, ip);
                 }
                 catch (Exception ex)
                 {
                     span?.SetError(ex, null);
 
                     XTrace.WriteLine(ex.Message);
-                    throw;
+                    //throw;
+
+                    return HandleUnauthorizedRequest(user);
                 }
             }
         }

@@ -28,24 +28,32 @@ public class AccountService
             if (u != null && u.Enable)
             {
                 {
-                    // 以用户令牌登录，替代密码，更安全
-                    //var tokens = UserToken.FindAllByUserID(user.LinkID);
-                    var pager = new Pager { PageSize = 100 };
-                    var tokens = UserToken.Search(null, user.LinkID, true, DateTime.MinValue, DateTime.MinValue, pager);
-                    foreach (var token in tokens)
+                    using var span2 = _tracer?.NewSpan("AccountLogin-Token", new { u.Name, ip });
+                    try
                     {
-                        if (token.Enable && (token.Expire.Year < 1000 || token.Expire > DateTime.Now) && token.Token.EqualIgnoreCase(password, md5))
+                        // 以用户令牌登录，替代密码，更安全
+                        //var tokens = UserToken.FindAllByUserID(user.LinkID);
+                        var pager = new Pager { PageSize = 100 };
+                        var tokens = UserToken.Search(null, user.LinkID, true, DateTime.MinValue, DateTime.MinValue, pager);
+                        foreach (var token in tokens)
                         {
-                            using var span2 = _tracer?.NewSpan("AccountLogin-Token", new { token.Token });
-                            user.Login(ip);
+                            if (token.Enable && (token.Expire.Year < 1000 || token.Expire > DateTime.Now) && token.Token.EqualIgnoreCase(password, md5))
+                            {
+                                user.Login(ip);
 
-                            return user;
+                                return user;
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        span?.SetError(ex, null);
+                        throw;
                     }
                 }
 
                 {
-                    using var span2 = _tracer?.NewSpan("AccountLogin-Password", u.Name);
+                    using var span2 = _tracer?.NewSpan("AccountLogin-Password", new { u.Name, ip });
                     try
                     {
                         // 基础用户表中验证用户密码
