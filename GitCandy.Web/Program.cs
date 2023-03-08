@@ -1,12 +1,8 @@
-﻿using System.Security.Claims;
-using GitCandy.Base;
-using GitCandy.Git.Cache;
+﻿using GitCandy.Git.Cache;
 using GitCandy.Web.Base;
-using GitCandy.Web.Controllers;
 using GitCandy.Web.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using NewLife;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using NewLife.Caching;
 using NewLife.Cube;
 using NewLife.Log;
@@ -55,6 +51,17 @@ services.AddCube();
 
 // 后台服务
 //services.AddHostedService<MyHostedService>();
+
+// 解决文件上传Request body too large
+services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = Int32.MaxValue;
+});
+// 接口请求限制
+services.Configure<KestrelServerOptions>(options =>
+{
+    options.Limits.MaxRequestBodySize = Int32.MaxValue;
+});
 
 var app = builder.Build();
 

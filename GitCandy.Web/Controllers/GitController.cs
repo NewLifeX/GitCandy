@@ -32,7 +32,7 @@ public class GitController : Controller
         _tracer = tracer;
     }
 
-    //[SmartGit]
+    [DisableRequestSizeLimit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
         // 进程内模拟的Session，活跃有效期20分钟
