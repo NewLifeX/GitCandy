@@ -835,7 +835,10 @@ public class GitService : IDisposable
             process.StandardInput.Close();
             process.StandardOutput.BaseStream.CopyTo(outStream);
 
-            process.WaitForExit(10 * 60 * 1000);
+            if (!process.WaitForExit(15 * 1000))
+            {
+                process.Kill();
+            }
 
             rs = process.ExitCode;
         }
@@ -873,7 +876,10 @@ public class GitService : IDisposable
             process.StandardInput.Close();
             await process.StandardOutput.BaseStream.CopyToAsync(outStream);
 
-            process.WaitForExit(10 * 60 * 1000);
+            if (!process.WaitForExit(15 * 1000))
+            {
+                process.Kill();
+            }
 
             rs = process.ExitCode;
         }
