@@ -1,4 +1,6 @@
-﻿using GitCandy.Base;
+﻿using System.IO;
+using System.Xml.Linq;
+using GitCandy.Base;
 using GitCandy.Data;
 using GitCandy.Git;
 using GitCandy.Git.Cache;
@@ -12,7 +14,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
+using NewLife.Serialization;
 using NewLife.Web;
+using XCode.Membership;
 using Pager = GitCandy.Base.Pager;
 using UserX = NewLife.GitCandy.Entity.User;
 
@@ -21,7 +25,11 @@ namespace GitCandy.Web.Controllers;
 public class RepositoryController : CandyControllerBase
 {
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
+
     GitSetting _config = GitSetting.Current;
+    private readonly ITracer _tracer;
+
+    public RepositoryController(ITracer tracer) => _tracer = tracer;
 
     public ActionResult Index(Int32? page)
     {
@@ -89,6 +97,8 @@ public class RepositoryController : CandyControllerBase
     [HttpPost]
     public ActionResult Create(RepositoryModel model)
     {
+        using var span = _tracer?.NewSpan("CreateRepository", model);
+
         if (!_config.AllowRepositoryCreation) return Forbid();
 
         if (ModelState.IsValid)
@@ -111,11 +121,13 @@ public class RepositoryController : CandyControllerBase
             }
             catch (ArgumentException ex)
             {
+                span?.SetError(ex, null);
                 //ModelState.AddModelError(ex.ParamName, SR.Repository_AlreadyExists);
                 ModelState.AddModelError(ex.ParamName, ex.Message);
             }
             catch (Exception ex)
             {
+                span?.SetError(ex, null);
                 ModelState.AddModelError("", ex.Message);
             }
         }
@@ -159,6 +171,8 @@ public class RepositoryController : CandyControllerBase
     [HttpPost]
     public ActionResult Edit(Int32 id, RepositoryModel model)
     {
+        using var span = _tracer?.NewSpan("EditRepository", new { id, model });
+
         var repo = Repository.FindByID(id);
         var user = Token as UserX;
 
@@ -187,6 +201,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Coop(Int32 id)
     {
+        using var span = _tracer?.NewSpan("CoopRepository", new { id });
+
         var repo = Repository.FindByID(id);
         var user = Token as UserX;
 
@@ -200,62 +216,70 @@ public class RepositoryController : CandyControllerBase
     }
 
     [HttpPost]
-    public ActionResult ChooseUser(String owner, String name, String user, String act, String value)
+    public ActionResult ChooseUser(Int32 id, String name, String user, String act, String value)
     {
+        using var span = _tracer?.NewSpan(nameof(ChooseUser), new { id, name, user, act, value });
+
         String message = null;
 
+        var repo = Repository.FindByID(id);
         var username = Token?.Name;
-        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, username)) return Forbid();
 
         if (act == "add")
         {
-            var role = RepositoryService.RepositoryAddUser(owner, name, user);
+            var role = RepositoryService.RepositoryAddUser(repo, user);
             if (role != null)
-                return Json(new { role.AllowRead, role.AllowWrite, role.IsOwner });
+                return Content(new { role.AllowRead, role.AllowWrite, role.IsOwner }.ToJson(false, true, false));
         }
         else if (act == "del")
+        {
             if (!Token.IsAdmin()
                  && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
                 message = SR.Account_CantRemoveSelf;
-            else if (RepositoryService.RepositoryRemoveUser(owner, name, user))
+            else if (RepositoryService.RepositoryRemoveUser(repo, user))
                 return Json("success");
-            else if (act == "read" || act == "write" || act == "owner")
-            {
-                var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
-                if (!Token.IsAdmin()
-                     && (act == "owner" && !val)
-                     && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
-                    message = SR.Account_CantRemoveSelf;
-                else if (RepositoryService.RepositoryUserSetValue(owner, name, user, act, val))
-                    return Json("success");
-            }
+        }
+        else if (act == "read" || act == "write" || act == "owner")
+        {
+            var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
+            if (!Token.IsAdmin()
+                 && (act == "owner" && !val)
+                 && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
+                message = SR.Account_CantRemoveSelf;
+            else if (RepositoryService.RepositoryUserSetValue(repo, user, act, val))
+                return Json("success");
+        }
 
         Response.StatusCode = 400;
         return Json(message ?? SR.Shared_SomethingWrong);
     }
 
     [HttpPost]
-    public ActionResult ChooseTeam(String owner, String name, String team, String act, String value)
+    public ActionResult ChooseTeam(Int32 id, String name, String team, String act, String value)
     {
+        using var span = _tracer?.NewSpan(nameof(ChooseTeam), new { id, name, team, act, value });
+
+        var repo = Repository.FindByID(id);
         var username = Token?.Name;
-        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(owner, name, username)) return Forbid();
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, username)) return Forbid();
 
         if (act == "add")
         {
-            var role = RepositoryService.RepositoryAddUser(owner, name, team);
+            var role = RepositoryService.RepositoryAddUser(repo, team);
             if (role != null)
-                return Json(new { role.AllowRead, role.AllowWrite });
+                return Content(new { role.AllowRead, role.AllowWrite }.ToJson(false, true, false));
         }
         else if (act == "del")
         {
-            if (RepositoryService.RepositoryRemoveUser(owner, name, team))
+            if (RepositoryService.RepositoryRemoveUser(repo, team))
                 return Json("success");
-            else if (act == "read" || act == "write" || act == "owner")
-            {
-                var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
-                if (RepositoryService.RepositoryUserSetValue(owner, name, team, act, val))
-                    return Json("success");
-            }
+        }
+        else if (act == "read" || act == "write" || act == "owner")
+        {
+            var val = String.Equals(Boolean.TrueString, value, StringComparison.OrdinalIgnoreCase);
+            if (RepositoryService.RepositoryUserSetValue(repo, team, act, val))
+                return Json("success");
         }
 
         Response.StatusCode = 400;
@@ -264,6 +288,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Delete(Int32 id, String conform)
     {
+        using var span = _tracer?.NewSpan("DeleteRepository", new { id, conform });
+
         if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
         {
             var repo = Repository.FindByID(id);
@@ -288,6 +314,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Tree(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Tree", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -338,6 +366,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Blob(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Blob", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -355,6 +385,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Blame(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Blame", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -369,6 +401,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Raw(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Raw", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -383,6 +417,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Commit(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Commit", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -397,6 +433,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Compare(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Compare", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -427,6 +465,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Commits(String owner, String name, String path, Int32? page)
     {
+        using var span = _tracer?.NewSpan("Repository-Commits", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -447,26 +487,37 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Archive(String owner, String name, String path)
     {
-        var username = Token?.Name;
-        if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
-
-        using var git = new GitService(owner, name);
-        var repo = Repository.FindByOwnerAndName(owner, name);
-        if (repo != null)
+        using var span = _tracer?.NewSpan("Repository-Archive", new { owner, name, path });
+        try
         {
-            repo.Downloads++;
-            repo.Save();
+            var username = Token?.Name;
+            if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
+
+            using var git = new GitService(owner, name);
+            var repo = Repository.FindByOwnerAndName(owner, name);
+            if (repo != null)
+            {
+                repo.Downloads++;
+                repo.Save();
+            }
+
+            var cacheFile = git.GetArchiveFilename(path, out var referenceName);
+            if (cacheFile == null) return NotFound();
+
+            var filename = name + "-" + referenceName;
+            return File(cacheFile, "application/zip", filename + ".zip");
         }
-
-        var cacheFile = git.GetArchiveFilename(path, out var referenceName);
-        if (cacheFile == null) return NotFound();
-
-        var filename = name + "-" + referenceName;
-        return File(cacheFile, "application/zip", filename + ".zip");
+        catch (Exception ex)
+        {
+            span?.SetError(ex, null);
+            throw;
+        }
     }
 
     public ActionResult Tags(String owner, String name)
     {
+        using var span = _tracer?.NewSpan("Repository-Tags", new { owner, name });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -484,6 +535,8 @@ public class RepositoryController : CandyControllerBase
     [HttpPost]
     public ActionResult Tags(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Tags", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanWriteRepository(owner, name, username)) return Forbid();
 
@@ -494,6 +547,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Branches(String owner, String name)
     {
+        using var span = _tracer?.NewSpan("Repository-Branches", new { owner, name });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 
@@ -511,6 +566,8 @@ public class RepositoryController : CandyControllerBase
     [HttpPost]
     public ActionResult Branches(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Branches", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanWriteRepository(owner, name, username)) return Forbid();
 
@@ -521,6 +578,8 @@ public class RepositoryController : CandyControllerBase
 
     public ActionResult Contributors(String owner, String name, String path)
     {
+        using var span = _tracer?.NewSpan("Repository-Contributors", new { owner, name, path });
+
         var username = Token?.Name;
         if (!RepositoryService.CanReadRepository(owner, name, username)) return Forbid();
 

@@ -99,6 +99,7 @@ public class RepositoryService
         var list = UserRepository.FindAllByRepositoryID(repo.ID).ToList();
         var model = new CollaborationModel
         {
+            Id = repo.ID,
             Name = repo.Name,
             Users = list.Where(e => !e.User.IsTeam)
                 .Select(s => new CollaborationModel.UserRole
@@ -123,9 +124,9 @@ public class RepositoryService
         return model;
     }
 
-    public UserRepository RepositoryAddUser(String owner, String reponame, String username)
+    public UserRepository RepositoryAddUser(Repository repo, String username)
     {
-        var repo = Repository.FindByOwnerAndName(owner, reponame);
+        //var repo = Repository.FindByOwnerAndName(owner, reponame);
         if (repo == null) return null;
 
         var user = User.FindByName(username);
@@ -147,9 +148,9 @@ public class RepositoryService
         return role;
     }
 
-    public Boolean RepositoryRemoveUser(String owner, String reponame, String username)
+    public Boolean RepositoryRemoveUser(Repository repo, String username)
     {
-        var repo = Repository.FindByOwnerAndName(owner, reponame);
+        //var repo = Repository.FindByOwnerAndName(owner, reponame);
         if (repo == null) return false;
 
         var user = User.FindByName(username);
@@ -163,9 +164,9 @@ public class RepositoryService
         return true;
     }
 
-    public Boolean RepositoryUserSetValue(String owner, String reponame, String username, String field, Boolean value)
+    public Boolean RepositoryUserSetValue(Repository repo, String username, String field, Boolean value)
     {
-        var repo = Repository.FindByOwnerAndName(owner, reponame);
+        //var repo = Repository.FindByOwnerAndName(owner, reponame);
         if (repo == null) return false;
 
         var user = User.FindByName(username);
@@ -201,6 +202,19 @@ public class RepositoryService
     public Boolean IsRepositoryAdministrator(String owner, String reponame, String username)
     {
         var repo = Repository.FindByOwnerAndName(owner, reponame);
+        if (repo == null) return false;
+
+        var user = User.FindByName(username);
+        if (user == null) return false;
+
+        var role = UserRepository.FindByUserIDAndRepositoryID(user.ID, repo.ID);
+        if (role == null) return false;
+
+        return role.IsOwner;
+    }
+
+    public Boolean IsRepositoryAdministrator(Repository repo, String username)
+    {
         if (repo == null) return false;
 
         var user = User.FindByName(username);
