@@ -1,10 +1,14 @@
-﻿using GitCandy.Git.Cache;
+﻿using System.Reflection;
+using GitCandy.Git.Cache;
 using GitCandy.Web.Base;
 using GitCandy.Web.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.FileProviders;
+using NewLife;
 using NewLife.Caching;
 using NewLife.Cube;
+using NewLife.Cube.Extensions;
 using NewLife.Log;
 using XCode;
 
@@ -77,6 +81,18 @@ else
 
 app.UseResponseCompression();
 app.UseStaticFiles();
+
+// 独立静态文件设置，魔方自己的静态资源内嵌在程序集里面
+var env = app.Environment;
+var options = new StaticFileOptions();
+{
+    var embeddedProvider = new CubeEmbeddedFileProvider(Assembly.GetExecutingAssembly(), "GitCandy.Web.wwwroot");
+    if (!env.WebRootPath.IsNullOrEmpty() && Directory.Exists(env.WebRootPath))
+        options.FileProvider = new CompositeFileProvider(new PhysicalFileProvider(env.WebRootPath), embeddedProvider);
+    else
+        options.FileProvider = embeddedProvider;
+}
+app.UseStaticFiles(options);
 
 // 使用魔方
 app.UseCube(app.Environment);
