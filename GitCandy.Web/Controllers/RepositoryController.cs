@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using NewLife;
 using NewLife.GitCandy.Entity;
 using NewLife.Log;
-using NewLife.Serialization;
 using NewLife.Web;
 using XCode.Membership;
 using Pager = GitCandy.Base.Pager;
@@ -230,7 +229,7 @@ public class RepositoryController : CandyControllerBase
         {
             var role = RepositoryService.RepositoryAddUser(repo, user);
             if (role != null)
-                return Content(new { role.AllowRead, role.AllowWrite, role.IsOwner }.ToJson(false, true, false));
+                return Json(new { role.AllowRead, role.AllowWrite, role.IsOwner });
         }
         else if (act == "del")
         {
@@ -268,7 +267,7 @@ public class RepositoryController : CandyControllerBase
         {
             var role = RepositoryService.RepositoryAddUser(repo, team);
             if (role != null)
-                return Content(new { role.AllowRead, role.AllowWrite }.ToJson(false, true, false));
+                return Json(new { role.AllowRead, role.AllowWrite });
         }
         else if (act == "del")
         {
