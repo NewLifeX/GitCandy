@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
-    <PackageReference Include="NewLife.Core" Version="10.2.2023.301" />
+    <PackageReference Include="LibGit2Sharp" Version="0.27.2" />
+    <PackageReference Include="NewLife.Core" Version="10.6.2023.1001" />
   </ItemGroup>
 
   <ItemGroup>
