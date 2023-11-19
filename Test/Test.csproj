@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <Company>新生命开发团队</Company>
     <Copyright>©2002-2022 NewLife</Copyright>
     <VersionPrefix>1.2</VersionPrefix>
