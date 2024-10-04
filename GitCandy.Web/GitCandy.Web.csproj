@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
-    <PackageReference Include="NewLife.Core" Version="10.10.2024.902" />
+    <PackageReference Include="NewLife.Core" Version="11.0.2024.1001" />
     <PackageReference Include="NewLife.Cube.Core" Version="6.1.2024.902" />
     <PackageReference Include="NewLife.Stardust.Extensions" Version="3.0.2024.902" />
   </ItemGroup>
