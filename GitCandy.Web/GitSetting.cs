@@ -4,33 +4,13 @@ using NewLife.Configuration;
 
 namespace GitCandy.Web;
 
-[Config("Config\\Git.Config")]
+[Config("Git")]
 public class GitSetting : Config<GitSetting>
 {
     #region 属性
     /// <summary>开放服务</summary>
     [DisplayName("开放服务")]
     public Boolean IsPublicServer { get; set; } = true;
-
-    ///// <summary>强制SSL</summary>
-    //[DisplayName("强制SSL")]
-    //public Boolean ForceSsl { get; set; }
-
-    ///// <summary>SSL端口</summary>
-    //[DisplayName("SSL端口")]
-    //public Int32 SslPort { get; set; } = 443;
-
-    ///// <summary>开启SSH</summary>
-    //[DisplayName("开启SSH")]
-    //public bool EnableSsh { get; set; } = true;
-
-    ///// <summary>SSH端口</summary>
-    //[DisplayName("SSH端口")]
-    //public int SshPort { get; set; } = 22;
-
-    ///// <summary>跳过本地错误</summary>
-    //[DisplayName("跳过本地错误")]
-    //public Boolean LocalSkipCustomError { get; set; }
 
     /// <summary>允许注册</summary>
     [DisplayName("允许注册")]
@@ -123,6 +103,8 @@ public class GitSetting : Config<GitSetting>
                 return ret;
         }
 
+        if (Runtime.Linux) return "/usr/bin";
+
         return "";
     }
 
@@ -144,5 +126,13 @@ public class GitSetting : Config<GitSetting>
                 return fullpath;
         }
         return null;
+    }
+
+    public String GetGitFile()
+    {
+        var path = GitCorePath;
+        if (Runtime.Windows) return path.CombinePath("git.exe");
+
+        return path.CombinePath("git");
     }
 }

@@ -818,7 +818,7 @@ public class GitService : IDisposable
         sw.Start();
 
         var cfg = GitSetting.Current;
-        var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
+        var info = new ProcessStartInfo(cfg.GetGitFile(), args)
         {
             CreateNoWindow = true,
             RedirectStandardError = true,
@@ -859,7 +859,7 @@ public class GitService : IDisposable
         sw.Start();
 
         var cfg = GitSetting.Current;
-        var info = new ProcessStartInfo(Path.Combine(cfg.GitCorePath.GetFullPath(), "git.exe"), args)
+        var info = new ProcessStartInfo(cfg.GetGitFile(), args)
         {
             CreateNoWindow = true,
             RedirectStandardError = true,
