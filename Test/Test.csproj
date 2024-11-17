@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
-    <PackageReference Include="NewLife.Core" Version="11.0.2024.1113" />
+    <PackageReference Include="NewLife.Core" Version="11.0.2024.1115" />
   </ItemGroup>
 
   <ItemGroup>
