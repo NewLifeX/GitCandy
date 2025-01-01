@@ -7,7 +7,7 @@
     <AssemblyTitle>糖果代码库</AssemblyTitle>
     <Description>一个基于.NET 的Git分布式版本控制平台，支持公共和私有代码库。可以不受限制的创建代码库，与你的团队一块协作。</Description>
     <Company>新生命开发团队</Company>
-    <Copyright>©2002-2024 NewLife</Copyright>
+    <Copyright>©2002-2025 NewLife</Copyright>
     <VersionPrefix>3.0</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
-    <PackageReference Include="NewLife.Core" Version="11.1.2024.1206" />
+    <PackageReference Include="NewLife.Core" Version="11.3.2025.101" />
     <PackageReference Include="NewLife.Cube.Core" Version="6.2.2024.1212" />
     <PackageReference Include="NewLife.Stardust.Extensions" Version="3.2.2024.1211" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿## GitCandy
+## GitCandy
 GitCandy© 是一个基于 ASP.NET MVC 的 [Git](http://git-scm.com/documentation) 版本控制服务端，支持公有和私有代码库，可不受限制的创建代码代码库，随时随地的与团队进行协作。  
 
 GitCandy© 由团队成员[Aimeast](https://github.com/Aimeast/GitCandy)创建，本分支引入[魔方](http://git.newlifex.com/NewLife/X/Tree/master/NewLife.Cube)并进行功能调整，主要改进为免部署，以及支持团队个人下属源码库两级管理。  
