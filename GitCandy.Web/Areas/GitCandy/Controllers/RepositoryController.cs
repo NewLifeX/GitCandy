@@ -1,4 +1,5 @@
-﻿using NewLife.Cube;
+﻿using NewLife;
+using NewLife.Cube;
 using NewLife.Cube.ViewModels;
 using NewLife.GitCandy.Entity;
 using NewLife.Web;

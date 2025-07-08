@@ -1,4 +1,5 @@
-﻿using NewLife.Cube;
+﻿using NewLife;
+using NewLife.Cube;
 using NewLife.Cube.ViewModels;
 using NewLife.GitCandy.Entity;
 using NewLife.Web;
@@ -30,7 +31,7 @@ public class UserController : EntityController<User>
             df.DataVisible = e => !(e as UserX).IsTeam;
         }
         {
-            var df = ListFields.AddDataField("repos",  "IsAdmin") as ListField;
+            var df = ListFields.AddDataField("repos", "IsAdmin") as ListField;
             df.DisplayName = "仓库列表";
             df.Url = "/GitCandy/Repository?ownerId={ID}";
         }
