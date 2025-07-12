@@ -232,7 +232,7 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
         user ??= FindByEmail(mail);
         if (user != null)
         {
-            if (user.LinkID > 0 && user.LinkID != linkid) throw new InvalidOperationException($"账号[{name}]被[{user.LinkID}]和[{linkid}]共用，请联系管理员");
+            //if (user.LinkID > 0 && user.LinkID != linkid) throw new InvalidOperationException($"账号[{name}]被[{user.LinkID}]和[{linkid}]共用，请联系管理员");
 
             user.LinkID = linkid;
             user.SaveAsync();

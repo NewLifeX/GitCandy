@@ -100,6 +100,8 @@ public static class MetadataExtension
 
     public static String ShortString(this String str, Int32 length)
     {
+        if (str.IsNullOrEmpty()) return str;
+
         var wide = 0;
         var len = 0;
         foreach (var ch in str)

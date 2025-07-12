@@ -3,6 +3,10 @@
 @using LibGit2Sharp;
 
 @{
+    var routes = new RouteValueDictionary();
+    routes["owner"] = Model.Owner;
+    routes["name"] = Model.Name;
+
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TreeTitle, Model.Name, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
 }
 
@@ -13,7 +17,7 @@
 @if (Model.Entries == null)
 {
     <div>
-        @Html.ActionLink(SR.Shared_Detail, "Detail", new{ Model.Id }, new { @class = "btn btn-default pull-right" })
+        @Html.ActionLink(SR.Shared_Detail, "Detail", new { Model.Id }, new { @class = "btn btn-default pull-right" })
         @await Html.PartialAsync("_GitUrlButton", Model.GitUrls)
     </div>
     <div class="alert alert-info">@SR.Repository_EmptyWords</div>
@@ -26,10 +30,10 @@ else
             <h5>@Model.Description</h5>
             <div class="border-area">
                 <ul class="nav nav-justified">
-                    <li>@Html.ActionLink(Model.Scope.Commits + " " + SR.Repository_Commits, "Commits")</li>
-                    <li>@Html.ActionLink(Model.Scope.Branches + " " + SR.Repository_Branches, "Branches")</li>
-                    <li>@Html.ActionLink(Model.Scope.Tags + " " + SR.Repository_Tags, "Tags")</li>
-                    <li>@Html.ActionLink(Model.Scope.Contributors + " " + SR.Repository_Contributors, "Contributors")</li>
+                    <li><a href="/@Model.Owner/@Model.Name/Commits">@(Model.Scope.Commits + " " + SR.Repository_Commits)</a></li>
+                    <li><a href="/@Model.Owner/@Model.Name/Branches">@(Model.Scope.Branches + " " + SR.Repository_Branches)</a></li>
+                    <li><a href="/@Model.Owner/@Model.Name/Tags">@(Model.Scope.Tags + " " + SR.Repository_Tags)</a></li>
+                    <li><a href="/@Model.Owner/@Model.Name/Contributors">@(Model.Scope.Contributors + " " + SR.Repository_Contributors)</a></li>
                 </ul>
             </div>
         }
@@ -37,7 +41,7 @@ else
         <div>
             @if (Model.IsRoot)
             {
-                @Html.ActionLink(SR.Shared_Detail, "Detail", new{ Model.Id }, new { @class = "btn btn-default pull-right" })
+                @Html.ActionLink(SR.Shared_Detail, "Detail", new { Model.Id }, new { @class = "btn btn-default pull-right" })
                 @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
                 @await Html.PartialAsync("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
                 <a href="@Url.Action("Compare", Html.OverRoute(new { path = "" }))" class="btn btn-default"><span class="glyphicon glyphicon-retweet"></span>@SR.Repository_Compare</a>

@@ -115,7 +115,7 @@ app.MapControllerRoute(
 );
 app.MapControllerRoute(
     name: "UserGitWeb",
-    pattern: "{owner}/{name}",
+    pattern: "{owner}/{name}/{action}",
     defaults: new { controller = "Repository", action = "Tree" },
     constraints: new { owner = new UserUrlConstraint() }
 );
