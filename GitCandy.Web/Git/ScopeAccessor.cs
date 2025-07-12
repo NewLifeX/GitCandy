@@ -29,7 +29,7 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            result = new RepositoryScope
+            _result = new RepositoryScope
             {
                 Commits = 0,
                 Contributors = 0,
@@ -49,12 +49,12 @@ namespace GitCandy.Git
                 var set = new HashSet<String>();
                 foreach (var ancestor in ancestors)
                 {
-                    result.Commits++;
+                    _result.Commits++;
                     if (set.Add(ancestor.Author.ToString()))
-                        result.Contributors++;
+                        _result.Contributors++;
                 }
             }
-            resultDone = true;
+            _resultDone = true;
         }
     }
 }

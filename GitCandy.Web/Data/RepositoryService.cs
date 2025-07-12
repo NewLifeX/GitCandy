@@ -350,7 +350,7 @@ public class RepositoryService
 
         if (user == null)
         {
-            model.Collaborations = new RepositoryModel[0];
+            model.Collaborations = [];
             model.Repositories = ToModels(Repository.GetPublics(param));
         }
         else

@@ -338,7 +338,7 @@ public class GitService : IDisposable
         var commit = GetCommitByPath(ref path, out var referenceName);
         if (commit == null) return null;
 
-        var commitsAccessor = GitCacheAccessor.Singleton(new CommitsAccessor(_repoId, _repository, commit, path, page, pagesize));
+        var commitsAccessor = GitCacheAccessor.GetOrAdd(new CommitsAccessor(_repoId, _repository, commit, path, page, pagesize));
         var scopeAccessor = GitCacheAccessor.Singleton(new ScopeAccessor(_repoId, _repository, commit, path));
 
         var model = new CommitsModel

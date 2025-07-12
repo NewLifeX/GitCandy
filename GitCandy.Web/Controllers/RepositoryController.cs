@@ -613,7 +613,7 @@ public class RepositoryController : CandyControllerBase
 
         var result = new List<GitUrl>(4)
         {
-            new GitUrl { Type = url.Scheme, Url = httpUrl }
+            new() { Type = url.Scheme, Url = httpUrl }
         };
         //if (UserConfiguration.Current.EnableSsh)
         //    result.Add(new GitUrl { Type = "ssh", Url = sshUrl });

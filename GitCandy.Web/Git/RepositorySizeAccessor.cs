@@ -22,16 +22,16 @@ namespace GitCandy.Git
 
         protected override String GetCacheKey() => GetCacheKey(key);
 
-        protected override void Init() => result = 0;
+        protected override void Init() => _result = 0;
 
         protected override void Calculate()
         {
             var info = new DirectoryInfo(this.repoPath);
             foreach (var file in info.GetFiles("*", SearchOption.AllDirectories))
             {
-                result += file.Length;
+                _result += file.Length;
             }
-            resultDone = true;
+            _resultDone = true;
         }
     }
 }

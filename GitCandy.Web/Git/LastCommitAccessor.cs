@@ -26,7 +26,7 @@ namespace GitCandy.Git
 
         protected override String GetCacheKey() => GetCacheKey(commit.Sha, path);
 
-        protected override void Init() => result = commit.Sha;
+        protected override void Init() => _result = commit.Sha;
 
         protected override void Calculate()
         {
@@ -35,7 +35,7 @@ namespace GitCandy.Git
             var treeEntry = commit[path];
             if (treeEntry == null)
             {
-                resultDone = true;
+                _resultDone = true;
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace GitCandy.Git
             while (queue.Count > 0)
             {
                 commit = queue.Dequeue();
-                result = commit.Sha;
+                _result = commit.Sha;
                 var has = false;
                 foreach (var parent in commit.Parents)
                 {
@@ -62,7 +62,7 @@ namespace GitCandy.Git
                 if (!has)
                     break;
             }
-            resultDone = true;
+            _resultDone = true;
             return;
         }
     }

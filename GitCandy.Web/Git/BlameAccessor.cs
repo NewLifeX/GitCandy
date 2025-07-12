@@ -40,10 +40,9 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            result = new BlameHunkModel[]
-            {
-                new BlameHunkModel
-                {
+            _result =
+            [
+                new() {
                     Code = code,
                     MessageShort = commit.MessageShort.RepetitionIfEmpty(GitService.UnknowString),
                     Sha = commit.Sha,
@@ -51,7 +50,7 @@ namespace GitCandy.Git
                     AuthorEmail = commit.Author.Email,
                     AuthorDate = commit.Author.When,
                 }
-            };
+            ];
         }
 
         protected override void Calculate()
@@ -60,7 +59,7 @@ namespace GitCandy.Git
             {
                 var reader = new StringReader(code);
                 var blame = repo.Blame(path, new BlameOptions { StartingAt = commit });
-                result = blame.Select(s => new BlameHunkModel
+                _result = blame.Select(s => new BlameHunkModel
                 {
                     Code = reader.ReadLines(s.LineCount),
                     MessageShort = s.FinalCommit.MessageShort.RepetitionIfEmpty(GitService.UnknowString),
@@ -71,7 +70,7 @@ namespace GitCandy.Git
                 })
                 .ToArray();
             }
-            resultDone = true;
+            _resultDone = true;
         }
     }
 }

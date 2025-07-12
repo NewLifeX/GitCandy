@@ -27,7 +27,7 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            result = tree
+            _result = tree
                 .OrderBy(s => s.TargetType == TreeEntryTargetType.Blob)
                 .ThenBy(s => s.Name, new StringLogicalComparer())
                 .Select(s => new RevisionSummaryCacheItem
@@ -54,16 +54,16 @@ namespace GitCandy.Git
                 // null, continue search current reference
                 // true, have found, done
                 // false, search has been interrupted, but waiting for next match
-                var status = new Boolean?[result.Length];
-                var done = result.Length;
+                var status = new Boolean?[_result.Length];
+                var done = _result.Length;
                 Commit lastCommit = null;
                 foreach (var ancestor in ancestors)
                 {
-                    for (var index = 0; index < result.Length; index++)
+                    for (var index = 0; index < _result.Length; index++)
                     {
                         if (status[index] == true)
                             continue;
-                        var item = result[index];
+                        var item = _result[index];
                         var ancestorEntry = ancestor[item.Path];
                         if (ancestorEntry != null && ancestorEntry.Target.Sha == item.TargetSha)
                         {
@@ -102,7 +102,7 @@ namespace GitCandy.Git
                     lastCommit = ancestor;
                 }
             }
-            resultDone = true;
+            _resultDone = true;
         }
     }
 }

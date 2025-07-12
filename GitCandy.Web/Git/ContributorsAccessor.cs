@@ -26,9 +26,9 @@ namespace GitCandy.Git
 
         protected override void Init()
         {
-            result = new RepositoryStatisticsModel.Statistics
+            _result = new RepositoryStatisticsModel.Statistics
             {
-                OrderedCommits = new RepositoryStatisticsModel.ContributorCommits[0]
+                OrderedCommits = []
             };
         }
 
@@ -65,8 +65,8 @@ namespace GitCandy.Git
 
             statistics.OrderedCommits = commits;
 
-            result = statistics;
-            resultDone = true;
+            _result = statistics;
+            _resultDone = true;
         }
 
         private Int32 FilesInCommit(Commit commit, out Int64 sourceSize)

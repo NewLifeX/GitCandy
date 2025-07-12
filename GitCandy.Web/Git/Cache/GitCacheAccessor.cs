@@ -1,9 +1,10 @@
-﻿using System.Diagnostics.Contracts;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics.Contracts;
 using GitCandy.Web;
 using GitCandy.Web.Extensions;
 using LibGit2Sharp;
 using NewLife;
+using NewLife.Caching;
 using NewLife.Log;
 using NewLife.Serialization;
 using NewLife.Threading;
@@ -12,18 +13,19 @@ namespace GitCandy.Git.Cache;
 
 public abstract class GitCacheAccessor
 {
+    #region 单实例控制
     protected static readonly Type[] accessors;
-    protected static readonly Object locker = new Object();
-    protected static readonly List<GitCacheAccessor> runningList = new List<GitCacheAccessor>();
+    protected static readonly Object locker = new();
+    protected static readonly List<GitCacheAccessor> runningList = [];
+    private static readonly ConcurrentDictionary<String, GitCacheAccessor> _running = [];
+    //private static readonly ICache _cache = new MemoryCache();
 
     protected static Boolean enabled;
 
-    protected Task task;
-
     static GitCacheAccessor()
     {
-        accessors = new[]
-        {
+        accessors =
+        [
             typeof(ArchiverAccessor),
             typeof(BlameAccessor),
             typeof(CommitsAccessor),
@@ -33,7 +35,7 @@ public abstract class GitCacheAccessor
             typeof(RepositorySizeAccessor),
             typeof(ScopeAccessor),
             typeof(SummaryAccessor),
-        };
+        ];
     }
 
     public static T Singleton<T>(T accessor) where T : GitCacheAccessor
@@ -54,6 +56,19 @@ public abstract class GitCacheAccessor
         }
     }
 
+    public static T GetOrAdd<T>(T accessor) where T : GitCacheAccessor
+    {
+        var key = $"{accessor.GetType().Name}#{accessor.GetCacheKey()}";
+        return _running.GetOrAdd(key, k =>
+        {
+            accessor.Init();
+            accessor.LoadOrCalculate();
+            return accessor;
+        }) as T;
+    }
+    #endregion
+
+    #region 静态方法
     private static TimerX _timer;
     private static TimerX _timer2;
     public static void Initialize()
@@ -133,12 +148,26 @@ public abstract class GitCacheAccessor
             if (Directory.Exists(path)) Directory.Delete(path, true);
         }
     }
+    #endregion
+
+    #region 属性
+    /// <summary>是否异步处理。默认true</summary>
+    public virtual Boolean IsAsync => true;
+
+    protected Task _task;
+    #endregion
+
+    #region 方法
+    protected abstract String GetCacheKey();
 
     protected void RemoveFromRunningPool()
     {
         lock (locker)
         {
             runningList.Remove(this);
+
+            var key = $"{GetType().Name}#{GetCacheKey()}";
+            _running.TryRemove(key, out _);
         }
     }
 
@@ -147,7 +176,7 @@ public abstract class GitCacheAccessor
     protected virtual void LoadOrCalculate()
     {
         var loaded = enabled && Load();
-        task = loaded
+        _task = loaded
             ? new Task(() => { })
             : new Task(() =>
             {
@@ -162,7 +191,7 @@ public abstract class GitCacheAccessor
                 }
             });
 
-        task.ContinueWith(t =>
+        _task.ContinueWith(t =>
         {
             Task.Delay(TimeSpan.FromMinutes(1.0)).Wait();
             RemoveFromRunningPool();
@@ -170,16 +199,16 @@ public abstract class GitCacheAccessor
 
         if (loaded)
         {
-            task.Start();
+            _task.Start();
         }
         else if (IsAsync)
         {
             //Scheduler.Instance.AddJob(new SingleJob(task));
-            Task.Run(() => task.Start());
+            Task.Run(() => _task.Start());
         }
         else
         {
-            task.Start();
+            _task.Start();
         }
     }
 
@@ -189,47 +218,46 @@ public abstract class GitCacheAccessor
 
     protected abstract void Calculate();
 
-    public virtual Boolean IsAsync => true;
-
     public static Boolean operator ==(GitCacheAccessor left, GitCacheAccessor right)
     {
         return ReferenceEquals(left, right)
-            || !(left is null) && left.Equals(right)
-            || !(right is null) && right.Equals(left);
+            || left is not null && left.Equals(right)
+            || right is not null && right.Equals(left);
     }
 
     public static Boolean operator !=(GitCacheAccessor left, GitCacheAccessor right)
     {
-        return !(left is null) && !left.Equals(right)
-            || !(right is null) && !right.Equals(left);
+        return left is not null && !left.Equals(right)
+            || right is not null && !right.Equals(left);
     }
 
     public override Boolean Equals(Object obj) => throw new NotImplementedException("Must override this method");
 
     public override Int32 GetHashCode() => throw new NotImplementedException("Must override this method");
+    #endregion
 }
 
 public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
     where TAccessor : GitCacheAccessor<TReturn, TAccessor>
 {
     public static String Name { get; set; }
-    //public static int AccessorId { get; private set; }
 
     protected readonly String repoId;
     protected readonly Repository repo;
     protected readonly String repoPath;
 
-    protected TReturn result;
-    protected Boolean resultDone;
+    protected TReturn _result;
+    protected Boolean _resultDone;
     protected String cacheKey;
 
+    /// <summary>结果。获取处理结果</summary>
     public GitCacheReturn<TReturn> Result
     {
         get
         {
-            if (task != null && !IsAsync)
-                task.Wait();
-            return new GitCacheReturn<TReturn> { Value = result, Done = resultDone };
+            if (_task != null && !IsAsync)
+                _task.Wait();
+            return new GitCacheReturn<TReturn> { Value = _result, Done = _resultDone };
         }
     }
 
@@ -244,8 +272,6 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
         this.repo = repo;
         repoPath = repo.Info.Path;
     }
-
-    protected abstract String GetCacheKey();
 
     protected virtual String GetCacheKey(params Object[] keys)
     {
@@ -271,14 +297,12 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
             try
             {
                 using var fs = File.Open(filename, FileMode.Open);
-                //var formatter = new BinaryFormatter();
-                //var value = formatter.Deserialize(fs);
-                var binary = new Binary { Stream = fs };
+                var binary = new Binary { Stream = fs, UseProperty = false };
                 var value = binary.Read<TReturn>();
                 if (value is not null)
                 {
-                    result = value;
-                    resultDone = true;
+                    _result = value;
+                    _resultDone = true;
                     return true;
                 }
             }
@@ -289,16 +313,14 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
 
     protected override void Save()
     {
-        if (!resultDone) return;
+        if (!_resultDone) return;
 
         var info = new FileInfo(Path.Combine(GitSetting.Current.CachePath.GetFullPath(), GetCacheFile()));
         if (!info.Directory.Exists) info.Directory.Create();
 
         using var fs = info.Create();
-        //var formatter = new BinaryFormatter();
-        //formatter.Serialize(fs, result);
-        var binary = new Binary { Stream = fs };
-        binary.Write(result);
+        var binary = new Binary { Stream = fs, UseProperty = false };
+        binary.Write(_result);
         fs.Flush();
     }
 

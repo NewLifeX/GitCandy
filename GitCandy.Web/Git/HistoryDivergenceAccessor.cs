@@ -26,7 +26,7 @@ namespace GitCandy.Git
             if (head.Tip == null)
                 return;
 
-            result = repo.Branches
+            _result = repo.Branches
                 .Where(s => s != head && s.FriendlyName != "HEAD")
                 .OrderByDescending(s => s.Tip.Author.When)
                 .Select(branch =>
@@ -54,7 +54,7 @@ namespace GitCandy.Git
             using (var repo = new Repository(this.repoPath))
             {
                 var head = repo.Head;
-                foreach (var item in result)
+                foreach (var item in _result)
                 {
                     var commit = repo.Branches[item.Name].Tip;
                     var divergence = repo.ObjectDatabase.CalculateHistoryDivergence(commit, head.Tip);
@@ -62,7 +62,7 @@ namespace GitCandy.Git
                     item.Behind = divergence.BehindBy ?? 0;
                 }
             }
-            resultDone = true;
+            _resultDone = true;
         }
     }
 }

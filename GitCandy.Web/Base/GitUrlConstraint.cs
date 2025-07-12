@@ -4,7 +4,7 @@ namespace GitCandy.Web.Base;
 
 class GitUrlConstraint : IRouteConstraint
 {
-    private static HashSet<String> _cache = new HashSet<String>(StringComparer.OrdinalIgnoreCase)
+    private static HashSet<String> _cache = new(StringComparer.OrdinalIgnoreCase)
     {
         "info/refs","git-upload-pack","git-receive-pack"
     };
