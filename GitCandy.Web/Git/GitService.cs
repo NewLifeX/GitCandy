@@ -691,7 +691,7 @@ public class GitService : IDisposable
         return sb.ToString();
     }
 
-    private Signature CreateSafeSignature(String name, String email, DateTimeOffset when) => new Signature(name.RepetitionIfEmpty(UnknowString), email, when);
+    private Signature CreateSafeSignature(String name, String email, DateTimeOffset when) => new(name.RepetitionIfEmpty(UnknowString), email.RepetitionIfEmpty(UnknowString), when);
     #endregion
 
     #region Static Methods
