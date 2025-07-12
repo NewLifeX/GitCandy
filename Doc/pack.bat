@@ -15,7 +15,7 @@ for %%f in (*.exe) do (
 :found
 if defined name (
     del %name%.zip /f/q
-    %clover% zip %name%.zip *.exe *.dll *.pdb appsettings.json *.runtimeconfig.json *.deps.json -r ./runtimes/win-x64/ ./runtimes/linux-x64/
+    %clover% zip %name%.zip *.exe *.dll *.pdb appsettings.json *.runtimeconfig.json *.deps.json -r ./runtimes/win-x64/* ./runtimes/linux-x64/
 ) else (
     echo No exe file found in the current directory.
 )
