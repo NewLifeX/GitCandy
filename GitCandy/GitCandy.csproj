@@ -7,7 +7,7 @@
     <AssemblyTitle>数据层</AssemblyTitle>
     <Description></Description>
     <Company>新生命开发团队</Company>
-    <Copyright>©2002-2025 NewLife</Copyright>
+    <Copyright>©2002-2026 NewLife</Copyright>
     <VersionPrefix>2.0</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
@@ -35,9 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="11.8.2025.1112" />
-    <PackageReference Include="NewLife.Stardust" Version="3.4.2025.1001" />
-    <PackageReference Include="NewLife.XCode" Version="11.21.2025.1001" />
+    <PackageReference Include="NewLife.Core" Version="11.10.2026.101" />
+    <PackageReference Include="NewLife.Stardust" Version="3.6.2026.102" />
+    <PackageReference Include="NewLife.XCode" Version="11.23.2026.102" />
   </ItemGroup>
 
 </Project>
