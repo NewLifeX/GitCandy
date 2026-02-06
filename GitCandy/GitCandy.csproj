@@ -35,9 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="11.10.2026.113-beta1337" />
-    <PackageReference Include="NewLife.Stardust" Version="3.6.2026.113-beta1339" />
-    <PackageReference Include="NewLife.XCode" Version="11.23.2026.113-beta1334" />
+    <PackageReference Include="NewLife.Core" Version="11.11.2026.201" />
+    <PackageReference Include="NewLife.Stardust" Version="3.7.2026.201" />
+    <PackageReference Include="NewLife.XCode" Version="11.24.2026.201" />
   </ItemGroup>
 
 </Project>
