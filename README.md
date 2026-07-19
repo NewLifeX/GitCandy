@@ -1,31 +1,39 @@
 ## GitCandy
-GitCandy© 是一个基于 ASP.NET MVC 的 [Git](http://git-scm.com/documentation) 版本控制服务端，支持公有和私有代码库，可不受限制的创建代码代码库，随时随地的与团队进行协作。  
 
-GitCandy© 由团队成员[Aimeast](https://github.com/Aimeast/GitCandy)创建，本分支引入[魔方](http://git.newlifex.com/NewLife/X/Tree/master/NewLife.Cube)并进行功能调整，主要改进为免部署，以及支持团队个人下属源码库两级管理。  
+GitCandy© 是一个基于 .NET 的 [Git](http://git-scm.com/documentation) 分布式版本控制平台（Git Hosting Service），支持公有和私有代码库，可不受限制地创建代码库，随时随地与团队进行协作。
+
+本分支基于 ASP.NET Core MVC + [NewLife.Cube 魔方](http://git.newlifex.com/NewLife/X/Tree/master/NewLife.Cube) 重构，主要特点：免部署、团队与个人下属源码库两级管理。
 
 演示：[http://git.newlifex.com/](http://git.newlifex.com/)
 
-源码： http://git.NewLifeX.com/NewLife/GitCandy  
-海外： https://github.com/NewLifeX/GitCandy  
+源码：http://git.NewLifeX.com/NewLife/GitCandy  
+海外：https://github.com/NewLifeX/GitCandy  
 
 GitCandy官方群：200319579    新生命群：1600800
 
+### 📚 文档索引
+
+| 文档 | 说明 |
+|------|------|
+| [需求文档](Doc/需求文档.md) | 愿景、核心目标与功能需求 |
+| [功能清单](Doc/功能清单.md) | 功能点实现/测试/注释三维追踪 |
+| [架构设计](Doc/架构设计.md) | 分层架构、核心组件与关键流程 |
+
 ---
 ### 系统要求
-* [IIS 7.0](http://www.iis.net/learn)
-* [.NET Framework 4.5](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
-* [ASP.NET MVC 5](http://www.asp.net/mvc/tutorials/mvc-5)
-* [Git](http://git-for-windows.github.io/)
-* [Sqlite](http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki) 或 [Sql Server](http://www.microsoft.com/en-us/sqlserver/get-sql-server/try-it.aspx)
+* [.NET 10.0](https://dotnet.microsoft.com/)（或更高版本）
+* [ASP.NET Core](https://learn.microsoft.com/aspnet/core/)
+* [Git](http://git-for-windows.github.io/)（git-core 用于传输协议）
+* [SQLite](https://www.sqlite.org/) 或 [SqlServer](https://www.microsoft.com/sqlserver/)（通过 XCode 支持多数据库）
 
 ---
 ### 安装
-* 下载最新[发布](https://github.com/NewLifeX/GitCandy/releases)的版本或自己编译最新的[master](http://git.newlifex.com/NewLife/GitCandy)分支源码
-* 在IIS创建一个站点，并把二进制文件和资源文件复制到站点目录
-* 如果用了 Visual Studio 的发布功能，还要复制`GitCandy\bin\[NativeBinaries & x86 & x64]`文件夹到站点目录
-* 打开新建的站点，默认登录用户名是`admin`，密码是`gitcandy`
-* 转到`设置`页面，分别设置`代码库`，`缓存`和`git-core`的路径
-* 推荐在`Web.config`设置`<compilation debug="false" />`
+* 下载最新[发布](https://github.com/NewLifeX/GitCandy/releases)版本或编译最新 [master](http://git.newlifex.com/NewLife/GitCandy) 分支源码
+* 发布后直接运行 `GitCandy.exe`（自宿主 Kestrel），或部署到 IIS
+* 如果用了 Visual Studio 的发布功能，还需复制 `runtimes/` 目录到站点目录
+* 打开站点，默认管理员用户名 `admin`，密码 `admin`
+* 转到魔方后台「糖果配置」页面设置 `代码库`、`缓存` 和 `git-core` 路径
+* 推荐生产环境设置 `ASPNETCORE_ENVIRONMENT=Production`
 
 ##### *注*
 * `代码库`和`缓存`路径示例：`x:\Repos`，`x:\Cache`
