@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using NewLife.Data;
 using NewLife.GitCandy.Entity;
 using Xunit;
 
@@ -91,5 +92,69 @@ public class RepositoryTests
         Assert.Contains(publics, r => r.Name == "publicrepo1");
         Assert.Contains(publics, r => r.Name == "publicrepo2");
         Assert.DoesNotContain(publics, r => r.Name == "privaterepo1");
+    }
+
+    [Fact]
+    [DisplayName("Search_按拥有者过滤_返回正确仓库")]
+    public void Search_ByOwner_FiltersCorrectly()
+    {
+        CreateTestRepo("search_by_owner1");
+        CreateTestRepo("search_by_owner2");
+
+        var param = new PageParameter { PageSize = 100 };
+        var results = Repository.Search(_owner.ID, 0, null, null, DateTime.MinValue, DateTime.MinValue, null, param);
+        Assert.All(results, r => Assert.Equal(_owner.ID, r.OwnerID));
+    }
+
+    [Fact]
+    [DisplayName("Search_按启用状态过滤_正确筛选")]
+    public void Search_ByEnable_FiltersCorrectly()
+    {
+        CreateTestRepo("enable_test1");
+        var disabledRepo = new Repository
+        {
+            Name = "enable_test_disabled",
+            OwnerID = _owner.ID,
+            Enable = false,
+        };
+        disabledRepo.Save();
+
+        var param = new PageParameter { PageSize = 100 };
+        var enabled = Repository.Search(0, 0, true, null, DateTime.MinValue, DateTime.MinValue, null, param);
+        Assert.All(enabled, r => Assert.True(r.Enable));
+    }
+
+    [Fact]
+    [DisplayName("Search_按私有状态过滤_正确筛选")]
+    public void Search_ByPrivate_FiltersCorrectly()
+    {
+        CreateTestRepo("private_filter_public", false);
+        CreateTestRepo("private_filter_private", true);
+
+        var param = new PageParameter { PageSize = 100 };
+        var privates = Repository.Search(0, 0, null, true, DateTime.MinValue, DateTime.MinValue, null, param);
+        Assert.All(privates, r => Assert.True(r.IsPrivate));
+    }
+
+    [Fact]
+    [DisplayName("FindByOwnerIDAndName_有效参数_返回正确仓库")]
+    public void FindByOwnerIDAndName_ValidParams_ReturnsCorrectRepo()
+    {
+        CreateTestRepo("find_by_ownerid_name");
+        var found = Repository.FindByOwnerIDAndName(_owner.ID, "find_by_ownerid_name");
+        Assert.NotNull(found);
+        Assert.Equal(_owner.ID, found.OwnerID);
+    }
+
+    [Fact]
+    [DisplayName("FindAllByOwnerID_有效拥有者_返回所有仓库")]
+    public void FindAllByOwnerID_ValidOwner_ReturnsAllRepos()
+    {
+        CreateTestRepo("findall_owner1");
+        CreateTestRepo("findall_owner2");
+        CreateTestRepo("findall_owner3");
+
+        var list = Repository.FindAllByOwnerID(_owner.ID);
+        Assert.Equal(3, list.Count);
     }
 }
