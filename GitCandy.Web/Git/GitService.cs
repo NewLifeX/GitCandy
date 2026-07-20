@@ -13,6 +13,7 @@ using NewLife.Log;
 
 namespace GitCandy.Git;
 
+/// <summary>Git服务。封装LibGit2Sharp操作，提供Git仓库浏览、比较、归档等核心功能</summary>
 public class GitService : IDisposable
 {
     public const String UnknowString = "<Unknow>";
@@ -52,12 +53,22 @@ public class GitService : IDisposable
     }
 
     #region Git Smart HTTP Transport
+    /// <summary>获取Git引用公告（info/refs）</summary>
+    /// <param name="service">服务类型（git-upload-pack/git-receive-pack）</param>
+    /// <param name="inStream">输入流</param>
+    /// <param name="outStream">输出流</param>
+    /// <returns></returns>
     public async Task InfoRefs(String service, Stream inStream, Stream outStream)
     {
         Contract.Requires(service == "receive-pack" || service == "upload-pack");
         await RunGitCmdAsync(service, true, inStream, outStream);
     }
 
+    /// <summary>执行Git pack传输（git-upload-pack/git-receive-pack）</summary>
+    /// <param name="service">服务类型</param>
+    /// <param name="inStream">输入流</param>
+    /// <param name="outStream">输出流</param>
+    /// <returns></returns>
     public async Task ExecutePack(String service, Stream inStream, Stream outStream)
     {
         Contract.Requires(service == "receive-pack" || service == "upload-pack");
@@ -66,6 +77,9 @@ public class GitService : IDisposable
     #endregion
 
     #region Repository Browser
+    /// <summary>获取代码树。按路径浏览目录结构和文件列表</summary>
+    /// <param name="path">路径（可为空或分支/标签/提交SHA）</param>
+    /// <returns></returns>
     public TreeModel GetTree(String path)
     {
         var isEmptyPath = String.IsNullOrEmpty(path);
@@ -205,6 +219,9 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取文件内容（Blob视图）。返回文件元数据、内容和编码</summary>
+    /// <param name="path">文件路径（含分支/标签/提交SHA）</param>
+    /// <returns></returns>
     public TreeEntryModel GetBlob(String path)
     {
         var commit = GetCommitByPath(ref path, out var referenceName);
@@ -268,6 +285,9 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取单次提交详情</summary>
+    /// <param name="path">提交SHA</param>
+    /// <returns></returns>
     public CommitModel GetCommit(String path)
     {
         var commit = GetCommitByPath(ref path, out var referenceName);
@@ -288,6 +308,10 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>比较两个分支/提交之间的差异</summary>
+    /// <param name="start">起始分支/提交</param>
+    /// <param name="end">目标分支/提交</param>
+    /// <returns></returns>
     public CompareModel GetCompare(String start, String end)
     {
         var commit1 = GetCommitByPath(ref start, out var name1);
@@ -330,6 +354,11 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取提交历史列表（分页）</summary>
+    /// <param name="path">分支/标签/路径</param>
+    /// <param name="page">页码</param>
+    /// <param name="pagesize">每页大小</param>
+    /// <returns></returns>
     public CommitsModel GetCommits(String path, Int32 page = 1, Int32 pagesize = 20)
     {
         var cfg = GitSetting.Current;
@@ -371,6 +400,9 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取Blame数据。逐行查看文件的修改历史和责任人</summary>
+    /// <param name="path">文件路径</param>
+    /// <returns></returns>
     public BlameModel GetBlame(String path)
     {
         var cfg = GitSetting.Current;
@@ -410,6 +442,10 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取归档文件名。按分支/标签/提交打包</summary>
+    /// <param name="path">分支/标签/提交</param>
+    /// <param name="referenceName">引用名称</param>
+    /// <returns></returns>
     public String GetArchiveFilename(String path, out String referenceName)
     {
         referenceName = null;
@@ -427,6 +463,8 @@ public class GitService : IDisposable
         return accessor.Result.Value;
     }
 
+    /// <summary>获取标签列表</summary>
+    /// <returns></returns>
     public TagsModel GetTags()
     {
         var model = new TagsModel
@@ -447,6 +485,8 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>获取分支列表</summary>
+    /// <returns></returns>
     public BranchesModel GetBranches()
     {
         var cfg = GitSetting.Current;
@@ -476,10 +516,17 @@ public class GitService : IDisposable
         return model;
     }
 
+    /// <summary>删除分支</summary>
+    /// <param name="branch">分支名</param>
     public void DeleteBranch(String branch) => _repository.Branches.Remove(branch);
 
+    /// <summary>删除标签</summary>
+    /// <param name="tag">标签名</param>
     public void DeleteTag(String tag) => _repository.Tags.Remove(tag);
 
+    /// <summary>获取贡献者统计</summary>
+    /// <param name="path">分支/标签</param>
+    /// <returns></returns>
     public ContributorsModel GetContributors(String path)
     {
         var cfg = GitSetting.Current;
@@ -520,6 +567,8 @@ public class GitService : IDisposable
     #endregion
 
     #region Repository Settings
+    /// <summary>获取当前HEAD分支名</summary>
+    /// <returns></returns>
     public String GetHeadBranch()
     {
         var head = _repository.Head;
@@ -528,8 +577,13 @@ public class GitService : IDisposable
         return head.FriendlyName;
     }
 
+    /// <summary>获取所有本地分支名列表</summary>
+    /// <returns></returns>
     public String[] GetLocalBranches() => _repository.Branches.Select(s => s.FriendlyName).OrderBy(s => s, new StringLogicalComparer()).ToArray();
 
+    /// <summary>设置默认分支（HEAD）</summary>
+    /// <param name="name">分支名</param>
+    /// <returns></returns>
     public Boolean SetHeadBranch(String name)
     {
         var refs = _repository.Refs;
@@ -696,8 +750,8 @@ public class GitService : IDisposable
 
     #region Static Methods
     /// <summary>获取版本库的路径</summary>
-    /// <param name="owner"></param>
-    /// <param name="name"></param>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
     /// <returns></returns>
     public static String GetPath(String owner, String name)
     {
@@ -707,6 +761,11 @@ public class GitService : IDisposable
         return p;
     }
 
+    /// <summary>创建Git仓库。可选从远程导入</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="remoteUrl">远程导入地址（可选）</param>
+    /// <returns></returns>
     public static Boolean CreateRepository(String owner, String name, String remoteUrl = null)
     {
         var path = GetPath(owner, name);
@@ -752,6 +811,10 @@ public class GitService : IDisposable
         }
     }
 
+    /// <summary>删除Git仓库（包含裸仓库目录）</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <returns></returns>
     public static Boolean DeleteRepository(String owner, String name)
     {
         var path = GetPath(owner, name);

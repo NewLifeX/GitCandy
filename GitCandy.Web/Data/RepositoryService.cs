@@ -6,8 +6,12 @@ using NewLife.GitCandy.Entity;
 
 namespace GitCandy.Data;
 
+/// <summary>仓库服务。提供仓库CRUD、权限检查、协作管理和列表查询</summary>
 public class RepositoryService
 {
+    /// <summary>创建仓库。同时创建数据库记录和Git文件仓库</summary>
+    /// <param name="model">仓库模型</param>
+    /// <returns></returns>
     public Repository Create(RepositoryModel model)
     {
         var owner = User.FindByName(model.Owner);
@@ -47,6 +51,11 @@ public class RepositoryService
         return repo;
     }
 
+    /// <summary>获取仓库模型。可选包含协作者和团队信息</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="withShipment">是否包含协作者</param>
+    /// <param name="username">当前用户名</param>
+    /// <returns></returns>
     public RepositoryModel Get(Repository repo, Boolean withShipment = false, String username = null)
     {
         if (repo == null) return null;
@@ -76,6 +85,10 @@ public class RepositoryService
         return model;
     }
 
+    /// <summary>更新仓库设置。修改可见性和匿名访问权限</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="model">仓库模型</param>
+    /// <returns></returns>
     public Boolean Update(Repository repo, RepositoryModel model)
     {
         //var repo = Repository.FindByOwnerAndName(owner, model.Name);
@@ -91,6 +104,9 @@ public class RepositoryService
         return true;
     }
 
+    /// <summary>获取仓库协作模型。包含用户和团队的角色权限列表</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <returns></returns>
     public CollaborationModel GetRepositoryCollaborationModel(Repository repo)
     {
         //var repo = Repository.FindByOwnerAndName(owner, name);
@@ -124,6 +140,10 @@ public class RepositoryService
         return model;
     }
 
+    /// <summary>添加仓库协作者（用户或团队）</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public UserRepository RepositoryAddUser(Repository repo, String username)
     {
         //var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -148,6 +168,10 @@ public class RepositoryService
         return role;
     }
 
+    /// <summary>移除仓库协作者</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean RepositoryRemoveUser(Repository repo, String username)
     {
         //var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -164,6 +188,12 @@ public class RepositoryService
         return true;
     }
 
+    /// <summary>设置仓库协作者权限（读/写/拥有者）</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="username">用户名</param>
+    /// <param name="field">字段（read/write/owner）</param>
+    /// <param name="value">值</param>
+    /// <returns></returns>
     public Boolean RepositoryUserSetValue(Repository repo, String username, String field, Boolean value)
     {
         //var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -189,6 +219,10 @@ public class RepositoryService
         return true;
     }
 
+    /// <summary>删除仓库数据库记录</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <returns></returns>
     public Boolean Delete(String owner, String name)
     {
         var repo = Repository.FindByOwnerAndName(owner, name);
@@ -199,6 +233,11 @@ public class RepositoryService
         return true;
     }
 
+    /// <summary>判断用户是否为仓库管理员</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="reponame">仓库名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean IsRepositoryAdministrator(String owner, String reponame, String username)
     {
         var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -213,6 +252,10 @@ public class RepositoryService
         return role.IsOwner;
     }
 
+    /// <summary>判断用户是否为仓库管理员</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean IsRepositoryAdministrator(Repository repo, String username)
     {
         if (repo == null) return false;
@@ -226,6 +269,10 @@ public class RepositoryService
         return role.IsOwner;
     }
 
+    /// <summary>判断用户是否为仓库管理员</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="user">用户实体</param>
+    /// <returns></returns>
     public Boolean IsRepositoryAdministrator(Repository repo, User user)
     {
         if (repo == null) return false;
@@ -237,6 +284,11 @@ public class RepositoryService
         return role.IsOwner;
     }
 
+    /// <summary>检查用户对仓库的读写权限（含团队权限继承）</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="user">用户实体</param>
+    /// <param name="write">是否检查写权限</param>
+    /// <returns></returns>
     public Boolean CheckReadWrite(Repository repo, User user, Boolean write)
     {
         //var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -269,6 +321,11 @@ public class RepositoryService
         return false;
     }
 
+    /// <summary>检查用户是否可读仓库</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="reponame">仓库名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean CanReadRepository(String owner, String reponame, String username)
     {
         var repo = Repository.FindByOwnerAndName(owner, reponame);
@@ -282,6 +339,10 @@ public class RepositoryService
         return CheckReadWrite(repo, user, false);
     }
 
+    /// <summary>检查用户是否可读仓库</summary>
+    /// <param name="repo">仓库实体</param>
+    /// <param name="user">用户实体</param>
+    /// <returns></returns>
     public Boolean CanReadRepository(Repository repo, User user)
     {
         if (repo == null) return false;
@@ -292,6 +353,11 @@ public class RepositoryService
         return CheckReadWrite(repo, user, false);
     }
 
+    /// <summary>检查用户是否可写仓库</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="reponame">仓库名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean CanWriteRepository(String owner, String reponame, String username)
     {
         var repo = Repository.FindByOwnerAndName(owner, reponame);

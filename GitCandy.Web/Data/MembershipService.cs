@@ -7,9 +7,15 @@ using XCode;
 
 namespace GitCandy.Data;
 
+/// <summary>成员服务。提供用户/团队数据查询、团队管理、成员管理等功能</summary>
 public class MembershipService
 {
     #region Account part
+    /// <summary>获取用户模型。包含团队和仓库信息</summary>
+    /// <param name="name">用户名</param>
+    /// <param name="withMembers">是否包含成员</param>
+    /// <param name="viewUser">查看者用户名</param>
+    /// <returns></returns>
     public UserModel GetUserModel(String name, Boolean withMembers = false, String viewUser = null)
     {
         var user = User.FindByName(name);
@@ -134,6 +140,11 @@ public class MembershipService
     //    if (user != null) user.Delete();
     //}
 
+    /// <summary>获取用户列表。分页搜索</summary>
+    /// <param name="keyword">关键词</param>
+    /// <param name="page">页码</param>
+    /// <param name="pagesize">每页大小</param>
+    /// <returns></returns>
     public UserListModel GetUserList(String keyword, Int32 page, Int32 pagesize = 20)
     {
         var p = new PageParameter
@@ -161,6 +172,9 @@ public class MembershipService
     #endregion
 
     #region Team part
+    /// <summary>更新团队信息</summary>
+    /// <param name="model">团队模型</param>
+    /// <returns></returns>
     public Boolean UpdateTeam(TeamModel model)
     {
         var team = User.FindByName(model.Name);
@@ -173,6 +187,11 @@ public class MembershipService
         return true;
     }
 
+    /// <summary>获取团队模型。包含成员列表</summary>
+    /// <param name="name">团队名</param>
+    /// <param name="withMembers">是否包含成员</param>
+    /// <param name="viewUser">查看者用户名</param>
+    /// <returns></returns>
     public TeamModel GetTeamModel(String name, Boolean withMembers = false, String viewUser = null)
     {
         var team = User.FindByName(name);
@@ -219,6 +238,10 @@ public class MembershipService
         return model;
     }
 
+    /// <summary>添加团队成员</summary>
+    /// <param name="teamname">团队名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean TeamAddUser(String teamname, String username)
     {
         var team = User.FindByName(teamname);
@@ -241,6 +264,10 @@ public class MembershipService
         return true;
     }
 
+    /// <summary>移除团队成员</summary>
+    /// <param name="teamname">团队名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean TeamRemoveUser(String teamname, String username)
     {
         var team = User.FindByName(teamname);
@@ -257,6 +284,11 @@ public class MembershipService
         return true;
     }
 
+    /// <summary>设置团队管理员</summary>
+    /// <param name="teamname">团队名</param>
+    /// <param name="username">用户名</param>
+    /// <param name="isAdmin">是否管理员</param>
+    /// <returns></returns>
     public Boolean TeamUserSetAdministrator(String teamname, String username, Boolean isAdmin)
     {
         var team = User.FindByName(teamname);
@@ -274,6 +306,9 @@ public class MembershipService
         return true;
     }
 
+    /// <summary>搜索团队（AJAX）</summary>
+    /// <param name="query">搜索关键词</param>
+    /// <returns></returns>
     public String[] SearchTeam(String query)
     {
         var p = new PageParameter();
@@ -281,6 +316,10 @@ public class MembershipService
         return list.ToList().Select(e => e.Name).ToArray();
     }
 
+    /// <summary>判断用户是否在团队中</summary>
+    /// <param name="teamname">团队名</param>
+    /// <param name="username">用户名</param>
+    /// <returns></returns>
     public Boolean InTeam(String teamname, String username)
     {
         var team = User.FindByName(teamname);
@@ -293,6 +332,9 @@ public class MembershipService
         return tu != null;
     }
 
+    /// <summary>删除团队</summary>
+    /// <param name="name">团队名</param>
+    /// <returns></returns>
     public Boolean DeleteTeam(String name)
     {
         var team = User.FindByName(name);
@@ -303,6 +345,11 @@ public class MembershipService
         return true;
     }
 
+    /// <summary>获取团队列表。分页搜索</summary>
+    /// <param name="keyword">搜索关键词</param>
+    /// <param name="page">页码</param>
+    /// <param name="pagesize">每页大小</param>
+    /// <returns></returns>
     public TeamListModel GetTeamList(String keyword, Int32 page, Int32 pagesize = 20)
     {
         var p = new PageParameter

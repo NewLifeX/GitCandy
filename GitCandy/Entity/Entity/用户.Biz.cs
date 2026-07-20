@@ -65,6 +65,9 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
     #endregion
 
     #region 扩展查询
+    /// <summary>根据编号查找用户</summary>
+    /// <param name="id">编号</param>
+    /// <returns></returns>
     public static User FindByID(Int32 id)
     {
         if (id <= 0) return null;
@@ -88,6 +91,9 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
         return Meta.SingleCache.GetItemWithSlaveKey(name) as User;
     }
 
+    /// <summary>根据邮箱查找用户</summary>
+    /// <param name="email">邮箱</param>
+    /// <returns></returns>
     public static User FindByEmail(String email)
     {
         if (email.IsNullOrEmpty() || !email.Contains("@") || !email.Contains(".")) return null;
@@ -102,6 +108,15 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
     #endregion
 
     #region 高级查询
+    /// <summary>搜索用户。支持按拥有者、启用状态、团队标识、时间范围和关键词筛选</summary>
+    /// <param name="ownerId">拥有者</param>
+    /// <param name="enable">是否启用</param>
+    /// <param name="isTeam">是否为团队</param>
+    /// <param name="start">开始时间</param>
+    /// <param name="end">结束时间</param>
+    /// <param name="key">关键词</param>
+    /// <param name="param">分页参数</param>
+    /// <returns></returns>
     public static IList<User> Search(Int32 ownerId, Boolean? enable, Boolean? isTeam, DateTime start, DateTime end, String key, PageParameter param)
     {
         // WhereExpression重载&和|运算符，作为And和Or的替代
@@ -154,6 +169,13 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
     #endregion
 
     #region 业务
+    /// <summary>创建新用户</summary>
+    /// <param name="name">用户名</param>
+    /// <param name="nickname">昵称</param>
+    /// <param name="password">密码</param>
+    /// <param name="email">邮箱</param>
+    /// <param name="description">描述</param>
+    /// <returns></returns>
     public static User Create(String name, String nickname, String password, String email, String description)
     {
         var user = User.FindByName(name);
@@ -175,6 +197,11 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
         return user;
     }
 
+    /// <summary>创建团队</summary>
+    /// <param name="name">团队名</param>
+    /// <param name="nickname">显示名</param>
+    /// <param name="description">描述</param>
+    /// <returns></returns>
     public static User CreateTeam(String name, String nickname, String description)
     {
         var user = FindByName(name);

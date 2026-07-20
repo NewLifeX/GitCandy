@@ -21,15 +21,22 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
+/// <summary>仓库控制器。提供仓库列表浏览、创建/编辑/删除、协作管理和Git代码浏览（树/文件/提交/分支/标签等）</summary>
 public class RepositoryController : CandyControllerBase
 {
+    /// <summary>仓库服务</summary>
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
     GitSetting _config = GitSetting.Current;
     private readonly ITracer _tracer;
 
+    /// <summary>实例化仓库控制器</summary>
+    /// <param name="tracer">追踪器</param>
     public RepositoryController(ITracer tracer) => _tracer = tracer;
 
+    /// <summary>仓库列表首页。分页显示用户可访问的仓库</summary>
+    /// <param name="page">页码</param>
+    /// <returns></returns>
     public ActionResult Index(Int32? page)
     {
         var user = Token;
@@ -67,6 +74,8 @@ public class RepositoryController : CandyControllerBase
             ViewBag.Title2 = repo.Description;
     }
 
+    /// <summary>创建仓库页面</summary>
+    /// <returns></returns>
     public ActionResult Create()
     {
         if (!_config.AllowRepositoryCreation) return Forbid();
@@ -93,6 +102,9 @@ public class RepositoryController : CandyControllerBase
         return View("Create", model);
     }
 
+    /// <summary>创建仓库提交。支持从远程仓库导入</summary>
+    /// <param name="model">仓库模型</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Create(RepositoryModel model)
     {
@@ -134,6 +146,9 @@ public class RepositoryController : CandyControllerBase
         return CreateView(model);
     }
 
+    /// <summary>仓库详情页</summary>
+    /// <param name="id">仓库编号</param>
+    /// <returns></returns>
     public ActionResult Detail(Int32 id)
     {
         var repo = Repository.FindByID(id);
@@ -150,6 +165,9 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>编辑仓库页面。仅管理员或仓库拥有者可访问</summary>
+    /// <param name="id">仓库编号</param>
+    /// <returns></returns>
     public ActionResult Edit(Int32 id)
     {
         var repo = Repository.FindByID(id);
@@ -167,6 +185,10 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>编辑仓库提交</summary>
+    /// <param name="id">仓库编号</param>
+    /// <param name="model">仓库模型</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Edit(Int32 id, RepositoryModel model)
     {
@@ -198,6 +220,9 @@ public class RepositoryController : CandyControllerBase
         }
     }
 
+    /// <summary>仓库协作管理页面。管理员或仓库拥有者可管理协作者</summary>
+    /// <param name="id">仓库编号</param>
+    /// <returns></returns>
     public ActionResult Coop(Int32 id)
     {
         using var span = _tracer?.NewSpan("CoopRepository", new { id });
@@ -214,6 +239,13 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>添加/移除用户协作者或修改权限</summary>
+    /// <param name="id">仓库编号</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="user">用户名</param>
+    /// <param name="act">操作（add/del/read/write/owner）</param>
+    /// <param name="value">值</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult ChooseUser(Int32 id, String name, String user, String act, String value)
     {
@@ -254,6 +286,13 @@ public class RepositoryController : CandyControllerBase
         return Json(message ?? SR.Shared_SomethingWrong);
     }
 
+    /// <summary>添加/移除团队协作者或修改权限</summary>
+    /// <param name="id">仓库编号</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="team">团队名</param>
+    /// <param name="act">操作（add/del/read/write/owner）</param>
+    /// <param name="value">值</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult ChooseTeam(Int32 id, String name, String team, String act, String value)
     {
@@ -285,6 +324,10 @@ public class RepositoryController : CandyControllerBase
         return Json(SR.Shared_SomethingWrong);
     }
 
+    /// <summary>删除仓库。仅管理员或仓库拥有者可操作，需二次确认。同时清理Git文件和缓存</summary>
+    /// <param name="id">仓库编号</param>
+    /// <param name="conform">确认值（输入yes确认）</param>
+    /// <returns></returns>
     public ActionResult Delete(Int32 id, String conform)
     {
         using var span = _tracer?.NewSpan("DeleteRepository", new { id, conform });
@@ -311,6 +354,11 @@ public class RepositoryController : CandyControllerBase
         return View((Object)id);
     }
 
+    /// <summary>代码树浏览。按路径查看仓库目录结构和文件列表，根目录自动刷新统计数据</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">路径</param>
+    /// <returns></returns>
     public ActionResult Tree(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Tree", new { owner, name, path });
@@ -363,6 +411,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>文件内容查看（Blob视图）。支持语法高亮</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">文件路径</param>
+    /// <returns></returns>
     public ActionResult Blob(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Blob", new { owner, name, path });
@@ -382,6 +435,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>Blame代码审阅。逐行查看文件的修改历史和责任人</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">文件路径</param>
+    /// <returns></returns>
     public ActionResult Blame(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Blame", new { owner, name, path });
@@ -398,6 +456,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>查看文件原始内容（Raw视图）</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">文件路径</param>
+    /// <returns></returns>
     public ActionResult Raw(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Raw", new { owner, name, path });
@@ -414,6 +477,11 @@ public class RepositoryController : CandyControllerBase
             : new RawResult(model.RawData);
     }
 
+    /// <summary>单次提交详情。查看提交信息和变更文件列表</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">提交SHA</param>
+    /// <returns></returns>
     public ActionResult Commit(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Commit", new { owner, name, path });
@@ -430,6 +498,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>分支差异比较。比较两个分支/提交之间的代码差异</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">比较参数（start...end）</param>
+    /// <returns></returns>
     public ActionResult Compare(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Compare", new { owner, name, path });
@@ -462,6 +535,12 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>提交历史列表。分页查看仓库提交记录</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">分支/路径</param>
+    /// <param name="page">页码</param>
+    /// <returns></returns>
     public ActionResult Commits(String owner, String name, String path, Int32? page)
     {
         using var span = _tracer?.NewSpan("Repository-Commits", new { owner, name, path });
@@ -484,6 +563,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>代码归档下载。按分支/标签/提交打包下载源码（zip格式）</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">分支/标签/提交</param>
+    /// <returns></returns>
     public ActionResult Archive(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Archive", new { owner, name, path });
@@ -513,6 +597,10 @@ public class RepositoryController : CandyControllerBase
         }
     }
 
+    /// <summary>查看标签列表</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <returns></returns>
     public ActionResult Tags(String owner, String name)
     {
         using var span = _tracer?.NewSpan("Repository-Tags", new { owner, name });
@@ -531,6 +619,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>删除指定标签</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">标签名</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Tags(String owner, String name, String path)
     {
@@ -544,6 +637,10 @@ public class RepositoryController : CandyControllerBase
         return Json("success");
     }
 
+    /// <summary>查看分支列表</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <returns></returns>
     public ActionResult Branches(String owner, String name)
     {
         using var span = _tracer?.NewSpan("Repository-Branches", new { owner, name });
@@ -562,6 +659,11 @@ public class RepositoryController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>删除指定分支</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">分支名</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Branches(String owner, String name, String path)
     {
@@ -575,6 +677,11 @@ public class RepositoryController : CandyControllerBase
         return Json("success");
     }
 
+    /// <summary>贡献者统计。查看仓库贡献者列表及提交统计</summary>
+    /// <param name="owner">拥有者</param>
+    /// <param name="name">仓库名</param>
+    /// <param name="path">分支/标签</param>
+    /// <returns></returns>
     public ActionResult Contributors(String owner, String name, String path)
     {
         using var span = _tracer?.NewSpan("Repository-Contributors", new { owner, name, path });

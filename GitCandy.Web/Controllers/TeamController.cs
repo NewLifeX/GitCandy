@@ -9,8 +9,13 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
+/// <summary>团队控制器。提供团队列表、创建、编辑、删除和成员管理</summary>
 public class TeamController : CandyControllerBase
 {
+    /// <summary>团队列表。仅管理员可查看</summary>
+    /// <param name="query">搜索关键词</param>
+    /// <param name="page">页码</param>
+    /// <returns></returns>
     public ActionResult Index(String query, Int32? page)
     {
         if (!Token.IsAdmin()) return Forbid();
@@ -26,6 +31,8 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>创建团队页面</summary>
+    /// <returns></returns>
     public ActionResult Create()
     {
         if (!Token.IsAdmin()) return Forbid();
@@ -33,6 +40,9 @@ public class TeamController : CandyControllerBase
         return View();
     }
 
+    /// <summary>创建团队</summary>
+    /// <param name="model">团队模型</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Create(TeamModel model)
     {
@@ -59,6 +69,9 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>团队详情。管理员或团队成员可查看</summary>
+    /// <param name="name">团队名</param>
+    /// <returns></returns>
     public ActionResult Detail(String name)
     {
         if (!Token.IsAdmin())
@@ -74,6 +87,9 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>编辑团队页面。仅管理员或团队管理员可访问</summary>
+    /// <param name="name">团队名</param>
+    /// <returns></returns>
     public ActionResult Edit(String name)
     {
         if (!Token.IsAdmin())
@@ -92,6 +108,10 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>编辑团队提交</summary>
+    /// <param name="name">团队名</param>
+    /// <param name="model">团队模型</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult Edit(String name, TeamModel model)
     {
@@ -108,6 +128,9 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>查看团队成员列表</summary>
+    /// <param name="name">团队名</param>
+    /// <returns></returns>
     public ActionResult Users(String name)
     {
         if (!Token.IsAdmin())
@@ -122,6 +145,11 @@ public class TeamController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>团队添加/移除成员或设置管理员</summary>
+    /// <param name="name">团队名</param>
+    /// <param name="user">用户名</param>
+    /// <param name="act">操作（add/del/admin/member）</param>
+    /// <returns></returns>
     [HttpPost]
     public ActionResult ChooseUser(String name, String user, String act)
     {
@@ -158,6 +186,10 @@ public class TeamController : CandyControllerBase
         return Json(message ?? SR.Shared_SomethingWrong);
     }
 
+    /// <summary>删除团队。仅管理员可操作，需二次确认</summary>
+    /// <param name="name">团队名</param>
+    /// <param name="conform">确认值（输入yes确认）</param>
+    /// <returns></returns>
     public ActionResult Delete(String name, String conform)
     {
         if (!Token.IsAdmin()) return Forbid();
@@ -171,6 +203,9 @@ public class TeamController : CandyControllerBase
         return View((Object)name);
     }
 
+    /// <summary>搜索团队（AJAX）</summary>
+    /// <param name="query">搜索关键词</param>
+    /// <returns></returns>
     [HttpPost]
     public JsonResult Search(String query)
     {

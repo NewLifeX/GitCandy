@@ -59,6 +59,9 @@ public partial class Repository : LogEntity<Repository>
     #endregion
 
     #region 扩展查询
+    /// <summary>根据编号查找仓库</summary>
+    /// <param name="id">编号</param>
+    /// <returns></returns>
     public static Repository FindByID(Int32 id)
     {
         if (id <= 0) return null;
@@ -85,6 +88,10 @@ public partial class Repository : LogEntity<Repository>
         //return Meta.SingleCache[name];
     }
 
+    /// <summary>根据拥有者名称和仓库名查找仓库</summary>
+    /// <param name="owner">拥有者名称</param>
+    /// <param name="name">仓库名</param>
+    /// <returns></returns>
     public static Repository FindByOwnerAndName(String owner, String name)
     {
         if (owner.IsNullOrEmpty() || name.IsNullOrEmpty()) return null;
@@ -95,6 +102,9 @@ public partial class Repository : LogEntity<Repository>
         return FindByOwnerIDAndName(user.ID, name);
     }
 
+    /// <summary>根据拥有者编号查找所有仓库</summary>
+    /// <param name="userid">拥有者编号</param>
+    /// <returns></returns>
     public static IList<Repository> FindAllByOwnerID(Int32 userid)
     {
         if (userid <= 0) return new List<Repository>();
@@ -144,6 +154,13 @@ public partial class Repository : LogEntity<Repository>
         return FindAll(exp, param);
     }
 
+    /// <summary>查询用户可访问的仓库（含团队权限）</summary>
+    /// <param name="userId">用户编号</param>
+    /// <param name="noUserId">排除用户编号</param>
+    /// <param name="enable">是否启用</param>
+    /// <param name="isPrivate">是否私有</param>
+    /// <param name="param">分页参数</param>
+    /// <returns></returns>
     public static IList<Repository> Search(Int32 userId, Int32 noUserId, Boolean? enable, Boolean? isPrivate, PageParameter param)
     {
         var exp = new WhereExpression();
@@ -178,8 +195,16 @@ public partial class Repository : LogEntity<Repository>
         return FindAll(exp, param);
     }
 
+    /// <summary>获取所有公开仓库</summary>
+    /// <param name="param">分页参数</param>
+    /// <returns></returns>
     public static IList<Repository> GetPublics(PageParameter param = null) => FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
 
+    /// <summary>搜索仓库</summary>
+    /// <param name="showAll">是否显示全部（含私有）</param>
+    /// <param name="excludes">排除仓库编号</param>
+    /// <param name="param">分页参数</param>
+    /// <returns></returns>
     public static IList<Repository> Search(Boolean showAll, Int32[] excludes = null, PageParameter param = null)
     {
         var exp = _.Enable == true;

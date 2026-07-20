@@ -24,14 +24,24 @@ public class GitController : Controller
     /// <summary>临时会话扩展信息。仅限本地内存，不支持分布式共享</summary>
     public IDictionary<String, Object> Session { get; private set; }
 
+    /// <summary>仓库服务</summary>
     public RepositoryService RepositoryService { get; set; } = new RepositoryService();
 
+    /// <summary>实例化Git控制器</summary>
+    /// <param name="accountService">账号服务</param>
+    /// <param name="tracer">追踪器</param>
     public GitController(AccountService accountService, ITracer tracer)
     {
         _accountService = accountService;
         _tracer = tracer;
     }
 
+    /// <summary>Git智能HTTP传输入口。处理git push/pull/clone等操作</summary>
+    /// <param name="owner">仓库拥有者</param>
+    /// <param name="project">项目名称</param>
+    /// <param name="service">Git服务类型（git-upload-pack/git-receive-pack）</param>
+    /// <param name="verb">Git动词（info/refs等）</param>
+    /// <returns></returns>
     [DisableRequestSizeLimit]
     public async Task<ActionResult> Smart(String owner, String project, String service, String verb)
     {
@@ -151,6 +161,9 @@ public class GitController : Controller
         }
     }
 
+    /// <summary>处理未授权请求。未登录返回401要求Basic认证，已登录但无权限抛出异常</summary>
+    /// <param name="user">当前用户</param>
+    /// <returns></returns>
     protected ActionResult HandleUnauthorizedRequest(IManageUser user)
     {
         if (user == null)
@@ -176,6 +189,11 @@ public class GitController : Controller
         }
     }
 
+    /// <summary>处理Git info/refs请求。返回服务端引用公告</summary>
+    /// <param name="owner">仓库拥有者</param>
+    /// <param name="project">项目名称</param>
+    /// <param name="service">服务类型</param>
+    /// <returns></returns>
     protected async Task<ActionResult> InfoRefs(String owner, String project, String service)
     {
         //Response.Charset = "";
@@ -202,6 +220,11 @@ public class GitController : Controller
         }
     }
 
+    /// <summary>处理Git pack传输请求。执行git-upload-pack或git-receive-pack</summary>
+    /// <param name="owner">仓库拥有者</param>
+    /// <param name="project">项目名称</param>
+    /// <param name="service">服务类型</param>
+    /// <returns></returns>
     protected async Task<ActionResult> ExecutePack(String owner, String project, String service)
     {
         //Response.Charset = "";

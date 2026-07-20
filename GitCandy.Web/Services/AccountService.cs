@@ -7,12 +7,20 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Services;
 
+/// <summary>账号服务。处理用户登录认证，支持令牌Token和密码两种验证方式</summary>
 public class AccountService
 {
     private readonly ITracer _tracer;
 
+    /// <summary>实例化账号服务</summary>
+    /// <param name="tracer">追踪器</param>
     public AccountService(ITracer tracer) => _tracer = tracer;
 
+    /// <summary>用户登录。先尝试令牌Token验证，再尝试密码验证，最后回退到旧版密码</summary>
+    /// <param name="username">用户名</param>
+    /// <param name="password">密码或令牌</param>
+    /// <param name="ip">客户端IP</param>
+    /// <returns>登录成功返回用户实体，失败返回null</returns>
     public UserX Login(String username, String password, String ip)
     {
         using var span = _tracer?.NewSpan("AccountLogin", new { username, ip });

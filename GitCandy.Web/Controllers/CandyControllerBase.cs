@@ -22,11 +22,14 @@ public abstract class CandyControllerBase : Controller
     /// <summary>用户主机</summary>
     public String UserHost { get; private set; }
 
+    /// <summary>成员服务</summary>
     public MembershipService MembershipService { get; set; } = new MembershipService();
 
     /// <summary>当前用户</summary>
     public IManageUser Token { get; private set; }
 
+    /// <summary>动作执行前处理。自动同步Cube用户到GitCandy本地用户表，设置语言文化</summary>
+    /// <param name="filterContext"></param>
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         // 进程内模拟的Session，活跃有效期20分钟
@@ -75,6 +78,9 @@ public abstract class CandyControllerBase : Controller
         base.OnActionExecuting(filterContext);
     }
 
+    /// <summary>重定向到起始页面。默认跳转到仓库列表</summary>
+    /// <param name="returnUrl">返回地址</param>
+    /// <returns></returns>
     protected virtual ActionResult RedirectToStartPage(String returnUrl = null)
     {
         if (String.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl)) return RedirectToAction("Index", "Repository");

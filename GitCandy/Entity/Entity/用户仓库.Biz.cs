@@ -72,6 +72,9 @@ public partial class UserRepository : LogEntity<UserRepository>
             return Meta.Cache.Entities.FirstOrDefault(e => e.UserID == userid && e.RepositoryID == repositoryid);
     }
 
+    /// <summary>根据用户编号查找所有仓库关联</summary>
+    /// <param name="userid">用户编号</param>
+    /// <returns></returns>
     public static IList<UserRepository> FindAllByUserID(Int32 userid)
     {
         if (userid <= 0) return new List<UserRepository>();
@@ -82,6 +85,9 @@ public partial class UserRepository : LogEntity<UserRepository>
             return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
     }
 
+    /// <summary>根据仓库编号查找所有用户关联</summary>
+    /// <param name="repid">仓库编号</param>
+    /// <returns></returns>
     public static IList<UserRepository> FindAllByRepositoryID(Int32 repid)
     {
         if (repid <= 0) return new List<UserRepository>();

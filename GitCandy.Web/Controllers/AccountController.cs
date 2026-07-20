@@ -7,8 +7,13 @@ using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
 
+/// <summary>账号控制器。提供用户列表查看、用户详情和用户名搜索</summary>
 public class AccountController : CandyControllerBase
 {
+    /// <summary>用户列表。仅管理员可查看</summary>
+    /// <param name="query">搜索关键词</param>
+    /// <param name="page">页码</param>
+    /// <returns></returns>
     public ActionResult Index(String query, Int32? page)
     {
         if (!Token.IsAdmin()) return Forbid();
@@ -24,6 +29,9 @@ public class AccountController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>用户详情页。查看用户个人信息、所属团队和仓库列表</summary>
+    /// <param name="name">用户名</param>
+    /// <returns></returns>
     public ActionResult Detail(String name)
     {
         if (name.IsNullOrEmpty()) name = Token?.Name;
@@ -34,6 +42,9 @@ public class AccountController : CandyControllerBase
         return View(model);
     }
 
+    /// <summary>用户名搜索（AJAX）</summary>
+    /// <param name="query">搜索关键词</param>
+    /// <returns></returns>
     [HttpPost]
     public JsonResult Search(String query)
     {

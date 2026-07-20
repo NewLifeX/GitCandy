@@ -74,6 +74,10 @@ public partial class UserTeam : LogEntity<UserTeam>
             return Meta.Cache.Entities.FirstOrDefault(e => e.UserID == userid && e.TeamID == teamid);
     }
 
+    /// <summary>根据用户名和团队名查找关联</summary>
+    /// <param name="username">用户名</param>
+    /// <param name="teamname">团队名</param>
+    /// <returns></returns>
     public static UserTeam FindByUserAndTeam(String username, String teamname)
     {
         if (username.IsNullOrEmpty() || teamname.IsNullOrEmpty()) return null;
@@ -87,6 +91,9 @@ public partial class UserTeam : LogEntity<UserTeam>
         return FindByUserIDAndTeamID(user.ID, team.ID);
     }
 
+    /// <summary>根据用户编号查找所有团队关联</summary>
+    /// <param name="userid">用户编号</param>
+    /// <returns></returns>
     public static IList<UserTeam> FindAllByUserID(Int32 userid)
     {
         if (userid <= 0) return new List<UserTeam>();
@@ -97,6 +104,9 @@ public partial class UserTeam : LogEntity<UserTeam>
             return Meta.Cache.Entities.Where(e => e.UserID == userid).ToList();
     }
 
+    /// <summary>根据团队编号查找所有成员关联</summary>
+    /// <param name="teamid">团队编号</param>
+    /// <returns></returns>
     public static IList<UserTeam> FindAllByTeamID(Int32 teamid)
     {
         if (teamid <= 0) return new List<UserTeam>();
