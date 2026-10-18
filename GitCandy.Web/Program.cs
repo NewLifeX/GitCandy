@@ -60,6 +60,8 @@ services.Configure<FormOptions>(options =>
 services.Configure<KestrelServerOptions>(options =>
 {
     options.Limits.MaxRequestBodySize = Int32.MaxValue;
+    // 不暴露服务器类型
+    options.AddServerHeader = false;
 });
 
 var app = builder.Build();
@@ -76,6 +78,17 @@ else
 
 // 必须在路由和控制器之前启用，才能让 SR 资源按 Lang Cookie 切换语言
 app.UseRequestLocalization();
+
+// 基础安全响应头，避免 MIME 嗅探与被第三方站点框架嵌套
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+    headers["X-Content-Type-Options"] = "nosniff";
+    headers["X-Frame-Options"] = "SAMEORIGIN";
+    headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+
+    await next();
+});
 
 // 页面请求返回友好错误页；Git 协议请求保持原样，避免影响命令行客户端
 app.UseWhen(
