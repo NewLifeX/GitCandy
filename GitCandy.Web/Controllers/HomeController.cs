@@ -53,6 +53,9 @@ public class HomeController : CandyControllerBase
 
         // 仅允许跳回本站地址，避免开放重定向
         var url = Request.GetReferer();
+        // 错误页没有可返回的内容，切语言后回到起始页
+        if (url != null && url.Contains("/Home/Error", StringComparison.OrdinalIgnoreCase)) url = null;
+
         if (!url.IsNullOrEmpty())
         {
             if (url.StartsWith("/") && !url.StartsWith("//")) return Redirect(url);
