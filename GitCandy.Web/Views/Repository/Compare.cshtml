@@ -8,23 +8,26 @@
     @await Html.PartialAsync("_RepositoryLink", Model)
 </h4>
 
-<div class="row">
-    <div class="col-md-3 branch-from">
+<div class="row compare-bar">
+    <div class="col-sm-4 branch-from">
         <label class="control-label">@SR.Repository_BaseBranch</label>
-        @await Html.PartialAsync("_BranchSelector", Model.BaseBranchSelector)
+        <div>@await Html.PartialAsync("_BranchSelector", Model.BaseBranchSelector)</div>
     </div>
-    <div class="col-md-3 branch-to">
+    <div class="col-sm-4 branch-to">
         <label class="control-label">@SR.Repository_TargetBranch</label>
-        @await Html.PartialAsync("_BranchSelector", Model.CompareBranchSelector)
+        <div>@await Html.PartialAsync("_BranchSelector", Model.CompareBranchSelector)</div>
     </div>
-    <div class="col-md-1">
-        <button class="branch-compare btn btn-primary">@SR.Repository_Compare</button>
+    <div class="col-sm-2">
+        <label class="control-label">&nbsp;</label>
+        <div>
+            <button type="button" class="branch-compare btn btn-primary">@SR.Repository_Compare</button>
+        </div>
     </div>
 </div>
 
 @if (Model.Walks == null || Model.Walks.Length == 0)
 {
-    @SR.Repository_CompareNothing
+    <div class="alert alert-info">@SR.Repository_CompareNothing</div>
 }
 else
 {

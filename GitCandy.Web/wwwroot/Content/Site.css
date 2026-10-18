@@ -122,6 +122,14 @@
     margin-top: 10px;
 }
 
+.compare-bar {
+    margin-bottom: 15px;
+}
+
+.compare-bar label {
+    display: block;
+}
+
 @media (max-width: 767px) {
     .tree-table {
         width: 100%;
