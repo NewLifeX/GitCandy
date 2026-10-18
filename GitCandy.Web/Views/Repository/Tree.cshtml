@@ -8,10 +8,13 @@
     routes["name"] = Model.Name;
 
     var referenceName = Model.ReferenceName ?? Model.Commit?.Sha.ToShortSha();
+    // 空仓库没有可浏览的引用，标题只显示仓库名
     var historyPath = String.IsNullOrEmpty(Model.Path) ? referenceName : referenceName + "/" + Model.Path;
-    var title = String.IsNullOrEmpty(Model.Path)
-        ? String.Format(SR.Repository_TreeRootTitle, Model.FullName, referenceName)
-        : String.Format(SR.Repository_TreeTitle, Model.FullName, referenceName, Model.Path);
+    var title = Model.Entries == null
+        ? Model.FullName
+        : String.IsNullOrEmpty(Model.Path)
+            ? String.Format(SR.Repository_TreeRootTitle, Model.FullName, referenceName)
+            : String.Format(SR.Repository_TreeTitle, Model.FullName, referenceName, Model.Path);
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
 }
 
