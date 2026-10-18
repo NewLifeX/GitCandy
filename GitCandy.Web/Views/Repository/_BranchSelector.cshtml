@@ -10,7 +10,7 @@
 }
 <div class="dropdown btn-group">
     <a class="btn btn-default" data-toggle="dropdown"><i class="@Model.CurrentIsBranch.ToFlagString("glyphicon glyphicon-random", "glyphicon glyphicon-tag")"></i><span class="branch-name"> @Model.Current</span></a>
-    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="@SR.Repository_Branches" aria-label="@SR.Repository_Branches"><span class="caret"></span></a>
     <div class="dropdown-menu">
         <form>
             <ul class="nav nav-tabs nav-justified">
