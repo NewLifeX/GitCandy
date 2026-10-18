@@ -208,25 +208,26 @@ public static class MetadataExtension
         var ps = new Int32[] { 0, 0 };
         while (true)
         {
-            var url = txt.Substring("](", ")", p, ps);
-            if (url.IsNullOrEmpty() || ps[0] < 0) break;
+            var raw = txt.Substring("](", ")", p, ps);
+            if (raw.IsNullOrEmpty() || ps[0] < 0) break;
 
-            if (!url.IsNullOrEmpty() && !url.StartsWithIgnoreCase("http://", "https://", "/"))
+            if (NeedFixMarkdownUrl(raw))
             {
+                // 允许 `url "title"` 形式，只改写地址部分
+                var index = raw.IndexOfAny([' ', '\t']);
+                var url = index < 0 ? raw : raw[..index];
+                var title = index < 0 ? "" : raw[index..];
+
                 // 处理Url。找到当前文件路径
                 var path = model.Path;
-                var p2 = path.LastIndexOf("/");
-                if (p2 >= 0)
-                    path = path[..(p2 + 1)];
-                else
-                    path = "";
+                var p2 = path.LastIndexOf('/');
+                path = p2 >= 0 ? path[..(p2 + 1)] : "";
 
                 var name = model.ReferenceName;
                 if (name.IsNullOrEmpty()) name = "master";
-                url = $"{baseurl}/Blob/{name}/{path}{url}";
 
                 // 重新拼接
-                txt = txt[..ps[0]] + url + txt[ps[1]..];
+                txt = txt[..ps[0]] + $"{baseurl}/Blob/{name}/{path}{url}" + title + txt[ps[1]..];
             }
 
             // 下一次
@@ -234,5 +235,19 @@ public static class MetadataExtension
         }
 
         model.TextContent = txt;
+    }
+
+    /// <summary>判断Markdown链接是否需要改写为仓库内地址</summary>
+    /// <param name="url">链接地址</param>
+    /// <returns></returns>
+    private static Boolean NeedFixMarkdownUrl(String url)
+    {
+        if (url.IsNullOrEmpty()) return false;
+
+        // 页内锚点保持原样
+        if (url[0] == '#') return false;
+
+        // 外部地址与协议链接保持原样
+        return !url.StartsWithIgnoreCase("http://", "https://", "/", "//", "mailto:", "tel:", "data:", "ftp://");
     }
 }
