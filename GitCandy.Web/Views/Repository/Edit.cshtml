@@ -10,9 +10,10 @@
 <h3>@String.Format(SR.Repository_EditTitle, Model.Name)</h3>
 
 
-@using (Html.BeginForm("Edit", "Repository", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Repository", new { id = Model.Id }, FormMethod.Post))
 {
     <dl class="dl-horizontal col-md-8">
+        @Html.HiddenFor(s => s.Id)
         <dt>@Html.DisplayNameFor(s => s.Name)</dt>
         <dd>
             @Html.HiddenFor(s => s.Name)
