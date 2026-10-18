@@ -99,11 +99,18 @@ app.UseWhen(
 if (Environment.GetEnvironmentVariable("__ASPNETCORE_BROWSER_TOOLS") is null)
     app.UseResponseCompression();
 
-app.UseStaticFiles();
+// 带内容指纹的资源可以长期缓存，未带指纹的仍走默认协商缓存
+static void SetAssetCacheControl(Microsoft.AspNetCore.StaticFiles.StaticFileResponseContext ctx)
+{
+    if (ctx.Context.Request.Query.ContainsKey("v"))
+        ctx.Context.Response.Headers.CacheControl = "public,max-age=31536000,immutable";
+}
+
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = SetAssetCacheControl });
 
 // 独立静态文件设置，魔方自己的静态资源内嵌在程序集里面
 var env = app.Environment;
-var options = new StaticFileOptions();
+var options = new StaticFileOptions { OnPrepareResponse = SetAssetCacheControl };
 {
     var embeddedProvider = new CubeEmbeddedFileProvider(Assembly.GetExecutingAssembly(), "GitCandy.Web.wwwroot");
     if (!env.WebRootPath.IsNullOrEmpty() && Directory.Exists(env.WebRootPath))
