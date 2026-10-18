@@ -34,7 +34,7 @@ else
         {
             <h5>@Model.Description</h5>
             <div class="border-area">
-                <ul class="nav nav-justified">
+                <ul class="nav nav-justified repo-stats">
                     @if (GitSetting.Current.AllowCommits)
                     {
                         <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Commits" })">@(Model.IsLoading ? "…" : Model.Scope.Commits) @SR.Repository_Commits</a></li>
@@ -71,7 +71,7 @@ else
         </div>
         @await Html.PartialAsync("_PathBar", Model.PathBar)
         <div class="border-area table-responsive">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped tree-table">
                 <caption>
                     <div class="clearfix">
                         <div title="@Model.Commit.CommitMessageShort" class="pull-left">@Html.ActionLink(Model.Commit.CommitMessageShort.ShortString(80), "Commit", Html.OverRoute(new { path = Model.Commit.Sha }))</div>

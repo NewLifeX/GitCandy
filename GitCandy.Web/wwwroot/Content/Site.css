@@ -88,6 +88,36 @@
     cursor: auto !important;
 }
 
+@media (max-width: 767px) {
+    .tree-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .tree-table td:nth-child(3),
+    .tree-table td:nth-child(4) {
+        display: none;
+    }
+
+    .tree-table td:nth-child(1) {
+        width: 45%;
+        word-break: break-all;
+    }
+
+    .tree-table td:nth-child(2) {
+        width: 55%;
+        word-break: break-word;
+    }
+
+    .tree-table caption {
+        white-space: normal;
+    }
+
+    .table-responsive > .tree-table > tbody > tr > td {
+        white-space: normal;
+    }
+}
+
 .blame-code {
     margin: 0 !important;
     padding: 0 !important;
@@ -99,11 +129,48 @@
     width: 300px;
 }
 
+@media (max-width: 767px) {
+    .blame-table,
+    .blame-table tbody,
+    .blame-table tr,
+    .blame-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .blame-table .blame-info {
+        border-bottom: none;
+    }
+
+    .blame-table .blame-code {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 469px) {
+    .repo-stats {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .repo-stats > li {
+        width: 50%;
+        float: none;
+    }
+}
+
 .url-path {
     width: 400px;
 }
 .url-path > input {
     background: #fff !important;
+}
+
+@media (max-width: 767px) {
+    .url-path {
+        width: 100%;
+    }
 }
 
 [aria-label] {
