@@ -3,7 +3,7 @@
 
 @if (Model.BlobType == BlobType.Text)
 {
-    <pre><code class="language @Model.TextBrush">@Model.TextContent</code></pre>
+    <pre><code class="language-@Model.TextBrush">@Model.TextContent</code></pre>
 }
 else if (Model.BlobType == BlobType.MarkDown)
 {
@@ -11,11 +11,11 @@ else if (Model.BlobType == BlobType.MarkDown)
 }
 else if (Model.BlobType == BlobType.Image)
 {
-    <img alt="@Model.Name" src="@Url.Action("Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }))" />
+    <img alt="@(Model.FileName ?? Model.Name)" src="@Url.Action("Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }))" />
 }
 else // Binary
 {
-    <div class="alert alert-block">
+    <div class="alert alert-info">
         @SR.Repository_BinaryFileWrods<br />
         @Html.ActionLink(SR.Repository_Raw, "Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }))
     </div>
