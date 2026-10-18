@@ -333,7 +333,7 @@ public class GitServiceTests : IDisposable
 
         var tag = Assert.Single(tags.Tags, t => t.ReferenceName == "v2.0");
         Assert.Equal(_secondCommitSha, tag.Sha);
-        Assert.Equal("添加核心代码", tag.MessageShort);
+        Assert.Equal("附注标签", tag.MessageShort);
     }
 
     // ========== GIT-8: Blame代码审阅 ==========

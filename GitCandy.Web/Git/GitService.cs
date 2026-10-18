@@ -489,12 +489,15 @@ public class GitService : IDisposable
             // PeeledTarget 同时兼容轻量标签与附注标签，附注标签的 Target 是 TagAnnotation 而非 Commit
             if (tag.PeeledTarget is not Commit commit) continue;
 
+            // 附注标签优先展示标签自身的说明与打标签时间，轻量标签退回提交信息
+            var annotation = tag.Annotation;
+            var message = (annotation?.Message ?? commit.Message)?.Trim();
             list.Add(new TagModel
             {
                 ReferenceName = tag.FriendlyName,
                 Sha = commit.Sha,
-                When = commit.Author.When,
-                MessageShort = commit.MessageShort.RepetitionIfEmpty(UnknowString),
+                When = annotation?.Tagger.When ?? commit.Author.When,
+                MessageShort = message.RepetitionIfEmpty(UnknowString).ShortString(100),
             });
         }
 
