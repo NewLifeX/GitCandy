@@ -47,7 +47,10 @@
                             <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
                             <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
                         }
-                        <li class="">@Html.ActionLink(SR.Repository_CreateTitle, "Create", "Repository")</li>
+                        @if (GitSetting.Current.AllowRepositoryCreation || token.IsAdmin())
+                        {
+                            <li class="">@Html.ActionLink(SR.Repository_CreateTitle, "Create", "Repository")</li>
+                        }
                         <li class="">@Html.ActionLink(SR.Shared_Console, "Index", "Index", new { area="Admin" }, null)</li>
                     }
                     <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
@@ -55,7 +58,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)
                     {
-                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
+                        @if (GitSetting.Current.AllowRegisterUser)
+                        {
+                            <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
+                        }
                         <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
                     }
                     else

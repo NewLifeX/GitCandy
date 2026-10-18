@@ -121,6 +121,30 @@ public class RepositoryControllerTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("Create_关闭创建但管理员_仍可打开创建页")]
+    public void Create_AdminWhenCreationDisabled_ReturnsView()
+    {
+        var old = GitSetting.Current.AllowRepositoryCreation;
+        try
+        {
+            GitSetting.Current.AllowRepositoryCreation = false;
+            _owner.IsAdmin = true;
+            _owner.Update();
+
+            var result = NewController(_owner).Create();
+
+            var view = Assert.IsType<ViewResult>(result);
+            Assert.IsType<RepositoryModel>(view.Model);
+        }
+        finally
+        {
+            GitSetting.Current.AllowRepositoryCreation = old;
+            _owner.IsAdmin = false;
+            _owner.Update();
+        }
+    }
+
+    [Fact]
     [DisplayName("Detail_公开仓库_返回详情")]
     public void Detail_PublicRepo_ReturnsDetail()
     {
