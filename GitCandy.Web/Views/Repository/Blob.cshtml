@@ -30,8 +30,14 @@
     <div class="col-md-12">
         <span>@Model.SizeString</span>
         <div class="pull-right">
-            @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
-            @Html.ActionLink(SR.Repository_Blame, "Blame", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default hidden-xs" })
+            @if (GitSetting.Current.AllowCommits)
+            {
+                @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
+            }
+            @if (GitSetting.Current.AllowBlame)
+            {
+                @Html.ActionLink(SR.Repository_Blame, "Blame", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default hidden-xs" })
+            }
             @Html.ActionLink(SR.Repository_Raw, "Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
         </div>
     </div>

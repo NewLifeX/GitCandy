@@ -34,10 +34,16 @@ else
             <h5>@Model.Description</h5>
             <div class="border-area">
                 <ul class="nav nav-justified">
-                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Commits" })">@(Model.IsLoading ? "…" : Model.Scope.Commits) @SR.Repository_Commits</a></li>
+                    @if (GitSetting.Current.AllowCommits)
+                    {
+                        <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Commits" })">@(Model.IsLoading ? "…" : Model.Scope.Commits) @SR.Repository_Commits</a></li>
+                    }
                     <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Branches" })">@(Model.IsLoading ? "…" : Model.Scope.Branches) @SR.Repository_Branches</a></li>
                     <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Tags" })">@(Model.IsLoading ? "…" : Model.Scope.Tags) @SR.Repository_Tags</a></li>
-                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Contributors" })">@(Model.IsLoading ? "…" : Model.Scope.Contributors) @SR.Repository_Contributors</a></li>
+                    @if (GitSetting.Current.AllowContributors)
+                    {
+                        <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Contributors" })">@(Model.IsLoading ? "…" : Model.Scope.Contributors) @SR.Repository_Contributors</a></li>
+                    }
                 </ul>
             </div>
         }
@@ -47,7 +53,10 @@ else
             {
                 @Html.ActionLink(SR.Shared_Detail, "Detail", new { Model.Id }, new { @class = "btn btn-default pull-right" })
                 @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
-                @await Html.PartialAsync("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
+                @if (GitSetting.Current.AllowArchive)
+                {
+                    @await Html.PartialAsync("_ZipButton", Model.ReferenceName ?? Model.Commit.Sha)
+                }
                 <a href="@Url.Action("Compare", Html.OverRoute(new { path = "" }))" class="btn btn-default"><span class="glyphicon glyphicon-retweet"></span>@SR.Repository_Compare</a>
                 @await Html.PartialAsync("_GitUrlButton", Model.GitUrls)
             }

@@ -16,7 +16,10 @@
         {
             <div class="row border-area">
                 <div class="pull-right">
-                    @await Html.PartialAsync("_ZipButton", tag.ReferenceName)
+                    @if (GitSetting.Current.AllowArchive)
+                    {
+                        @await Html.PartialAsync("_ZipButton", tag.ReferenceName)
+                    }
                     @if (Model.CanDelete)
                     { <a class="btn btn-default" data-tag="@tag.ReferenceName" href="#">@SR.Shared_Delete</a>}
                 </div>
