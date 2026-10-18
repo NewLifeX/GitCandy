@@ -482,6 +482,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 文件较大 的本地化字符串。
+        /// </summary>
+        public static string Repository_FileTooLarge {
+            get {
+                return ResourceManager.GetString("Repository_FileTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Blame 的本地化字符串。
         /// </summary>
         public static string Repository_Blame {

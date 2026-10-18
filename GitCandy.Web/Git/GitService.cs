@@ -18,6 +18,9 @@ public class GitService : IDisposable
 {
     public const String UnknowString = "<Unknow>";
 
+    /// <summary>文本预览上限。超过该大小的文本文件只提供原文件下载，默认4MB</summary>
+    public static Int32 MaxTextSize { get; set; } = 4 * 1024 * 1024;
+
     private readonly Repository _repository;
     private readonly String _repositoryPath;
     private readonly String _repoId = null;
@@ -251,6 +254,15 @@ public class GitService : IDisposable
         var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);
         var extension = Path.GetExtension(entry.Name).ToLowerInvariant();
         var brush = FileHelper.BrushMapping.TryGetValue(extension, out var value) ? value : "no-highlight";
+        var blobType = encoding == null
+            ? FileHelper.ImageSet.Contains(extension)
+                ? BlobType.Image
+                : BlobType.Binary
+            : extension == ".md"
+                ? BlobType.MarkDown
+                : BlobType.Text;
+        // 超大文本解码成字符串会占用大量内存并拖慢页面，只提供原文件下载
+        var tooLarge = (blobType == BlobType.Text || blobType == BlobType.MarkDown) && data.Length > MaxTextSize;
         var model = new TreeEntryModel
         {
             Name = entry.Name,
@@ -270,17 +282,12 @@ public class GitService : IDisposable
             EntryType = entry.TargetType,
             RawData = data,
             SizeString = FileHelper.GetSizeString(data.Length),
-            // 二进制文件不需要解码成文本，避免大文件产生无用的字符串分配
-            TextContent = encoding == null ? null : data.ToStr(encoding),
+            // 二进制文件与超大文件不需要解码成文本，避免无用的字符串分配
+            TextContent = encoding == null || tooLarge ? null : data.ToStr(encoding),
             TextBrush = brush,
-            BlobType = encoding == null
-                ? FileHelper.ImageSet.Contains(extension)
-                    ? BlobType.Image
-                    : BlobType.Binary
-                : extension == ".md"
-                    ? BlobType.MarkDown
-                    : BlobType.Text,
+            BlobType = blobType,
             BlobEncoding = encoding,
+            IsTooLarge = tooLarge,
             BranchSelector = GetBranchSelectorModel(referenceName, commit.Sha, path),
             PathBar = new PathBarModel
             {

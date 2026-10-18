@@ -20,6 +20,10 @@ namespace GitCandy.Models
         public String TextBrush { get; set; }
         public BlobType BlobType { get; set; }
         public Encoding BlobEncoding { get; set; }
+
+        /// <summary>文件过大时跳过文本预览，仅提供原文件下载</summary>
+        public Boolean IsTooLarge { get; set; }
+
         public PathBarModel PathBar { get; set; }
     }
 }

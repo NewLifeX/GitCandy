@@ -262,6 +262,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Repository_BinaryFileWrods" xml:space="preserve">
     <value>This is a binary file that preview is not supported</value>
   </data>
+  <data name="Repository_FileTooLarge" xml:space="preserve">
+    <value>This file is too large ({0}) to preview. Please download the raw file: </value>
+  </data>
   <data name="Repository_Blame" xml:space="preserve">
     <value>Blame</value>
   </data>

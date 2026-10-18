@@ -191,6 +191,29 @@ public class GitServiceTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("GetBlob_超大文本_跳过内容预览")]
+    public void GetBlob_LargeText_SkipsPreview()
+    {
+        var old = GitService.MaxTextSize;
+        try
+        {
+            // 阈值调到0，让普通 README 也触发保护逻辑
+            GitService.MaxTextSize = 0;
+
+            var blob = _gitService.GetBlob(_commitSha + "/README.md");
+
+            Assert.NotNull(blob);
+            Assert.True(blob.IsTooLarge);
+            Assert.Null(blob.TextContent);
+            Assert.NotEmpty(blob.RawData);
+        }
+        finally
+        {
+            GitService.MaxTextSize = old;
+        }
+    }
+
+    [Fact]
     [DisplayName("GetBlob_二进制文件_不解码文本")]
     public void GetBlob_BinaryFile_SkipsTextDecoding()
     {

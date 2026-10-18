@@ -1,7 +1,14 @@
 ﻿@using GitCandy.Models
 @model GitCandy.Models.TreeEntryModel
 
-@if (Model.BlobType == BlobType.Text)
+@if (Model.IsTooLarge)
+{
+    <div class="alert alert-warning">
+        @String.Format(SR.Repository_FileTooLarge, Model.SizeString)
+        @Html.ActionLink(SR.Repository_Raw, "Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }))
+    </div>
+}
+else if (Model.BlobType == BlobType.Text)
 {
     <pre><code class="language-@Model.TextBrush">@Model.TextContent</code></pre>
 }

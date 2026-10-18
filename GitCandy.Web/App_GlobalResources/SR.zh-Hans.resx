@@ -262,6 +262,9 @@
   <data name="Repository_BinaryFileWrods" xml:space="preserve">
     <value>不支持预览二进制文件</value>
   </data>
+  <data name="Repository_FileTooLarge" xml:space="preserve">
+    <value>文件较大（{0}），已跳过内容预览，请下载原文件查看：</value>
+  </data>
   <data name="Repository_Blame" xml:space="preserve">
     <value>审阅</value>
   </data>
