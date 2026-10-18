@@ -507,10 +507,17 @@ public class GitService : IDisposable
     public BranchesModel GetBranches()
     {
         var cfg = GitSetting.Current;
-        if (!cfg.AllowHistoryDivergence) return new BranchesModel();
 
         var head = _repository.Head;
         if (head.Tip == null) return new BranchesModel();
+
+        var model = new BranchesModel
+        {
+            Commit = ToCommitModel(head.Tip, head.FriendlyName),
+            AheadBehinds = [],
+        };
+
+        if (!cfg.AllowHistoryDivergence) return model;
 
         var key = CalcBranchesKey();
         var accessor = GitCacheAccessor.Singleton(new HistoryDivergenceAccessor(_repoId, _repository, key));
@@ -518,22 +525,18 @@ public class GitService : IDisposable
         var aheadBehinds = result.Value
             .Where(s => !String.IsNullOrEmpty(s.Name) && !String.Equals(s.Name, head.FriendlyName, StringComparison.Ordinal))
             .ToArray();
-        var model = new BranchesModel
+        model.IsLoading = !result.Done;
+        model.AheadBehinds = aheadBehinds.Select(s => new AheadBehindModel
         {
-            Commit = ToCommitModel(head.Tip, head.FriendlyName),
-            IsLoading = !result.Done,
-            AheadBehinds = aheadBehinds.Select(s => new AheadBehindModel
+            Ahead = s.Ahead,
+            Behind = s.Behind,
+            Commit = new CommitModel
             {
-                Ahead = s.Ahead,
-                Behind = s.Behind,
-                Commit = new CommitModel
-                {
-                    ReferenceName = s.Name,
-                    Author = CreateSafeSignature(s.AuthorName, s.AuthorEmail, s.AuthorWhen),
-                    Committer = CreateSafeSignature(s.CommitterName, s.CommitterEmail, s.CommitterWhen),
-                },
-            }).ToArray(),
-        };
+                ReferenceName = s.Name,
+                Author = CreateSafeSignature(s.AuthorName, s.AuthorEmail, s.AuthorWhen),
+                Committer = CreateSafeSignature(s.CommitterName, s.CommitterEmail, s.CommitterWhen),
+            },
+        }).ToArray();
         return model;
     }
 

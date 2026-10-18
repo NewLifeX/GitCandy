@@ -274,6 +274,26 @@ public class GitServiceTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("GetBranches_关闭分支差异_仍返回当前分支")]
+    public void GetBranches_DivergenceDisabled_StillReturnsHead()
+    {
+        var old = GitSetting.Current.AllowHistoryDivergence;
+        try
+        {
+            GitSetting.Current.AllowHistoryDivergence = false;
+
+            var branches = _gitService.GetBranches();
+
+            Assert.NotNull(branches.Commit);
+            Assert.Empty(branches.AheadBehinds);
+        }
+        finally
+        {
+            GitSetting.Current.AllowHistoryDivergence = old;
+        }
+    }
+
+    [Fact]
     [DisplayName("GetHeadBranch_返回当前HEAD分支")]
     public void GetHeadBranch_ReturnsCurrentHead()
     {
