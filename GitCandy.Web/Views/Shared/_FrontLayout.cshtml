@@ -46,12 +46,12 @@
                         {
                             <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
                             <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
+                            <li class="">@Html.ActionLink(SR.Shared_Console, "Index", "Index", new { area="Admin" }, null)</li>
                         }
                         @if (GitSetting.Current.AllowRepositoryCreation || token.IsAdmin())
                         {
                             <li class="">@Html.ActionLink(SR.Repository_CreateTitle, "Create", "Repository")</li>
                         }
-                        <li class="">@Html.ActionLink(SR.Shared_Console, "Index", "Index", new { area="Admin" }, null)</li>
                     }
                     <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
                 </ul>
