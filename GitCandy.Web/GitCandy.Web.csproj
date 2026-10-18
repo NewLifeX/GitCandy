@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
-    <PackageReference Include="NewLife.Core" Version="12.0.2026.1017-beta1103" />
+    <PackageReference Include="NewLife.Core" Version="12.0.2026.1018-beta1517" />
     <PackageReference Include="NewLife.Cube.Core" Version="6.15.2026.1017-beta1435" />
     <PackageReference Include="NewLife.Stardust.Extensions" Version="3.10.2026.1017-beta1056" />
   </ItemGroup>
