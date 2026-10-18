@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using GitCandy.Data;
 using GitCandy.Models;
+using NewLife.Data;
 using NewLife.GitCandy.Entity;
 using Xunit;
 
@@ -119,5 +120,28 @@ public class RepositoryServiceTests
         var repo = CreateRepo("not_admin_test");
         Assert.False(_service.IsRepositoryAdministrator(repo, _user.Name));
         Assert.False(_service.IsRepositoryAdministrator(repo, _user));
+    }
+
+    [Fact]
+    [DisplayName("GetRepositories_匿名用户_只返回匿名可读仓库并分页")]
+    public void GetRepositories_Anonymous_OnlyReadableReposAndPaged()
+    {
+        var suffix = Guid.NewGuid().ToString("N")[..6];
+        var visible = CreateRepo("anonvisible_" + suffix);
+        var hidden = _service.Create(new RepositoryModel
+        {
+            Name = "anonhidden_" + suffix,
+            Owner = _owner.Name,
+            IsPrivate = false,
+            AllowAnonymousRead = false,
+        });
+
+        var param = new PageParameter { PageIndex = 1, PageSize = 100 };
+        var model = _service.GetRepositories(null, false, param);
+
+        Assert.Contains(model.Repositories, e => e.Name == visible.Name);
+        Assert.DoesNotContain(model.Repositories, e => e.Name == hidden.Name);
+        Assert.Equal(1, model.CurrentPage);
+        Assert.Equal((Int32)param.TotalCount, model.ItemCount);
     }
 }

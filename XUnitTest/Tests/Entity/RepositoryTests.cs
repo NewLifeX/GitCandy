@@ -25,6 +25,7 @@ public class RepositoryTests
             OwnerID = _owner.ID,
             Enable = true,
             IsPrivate = isPrivate,
+            AllowAnonymousRead = !isPrivate,
             Description = $"仓库{name}",
         };
         repo.Save();
@@ -89,6 +90,7 @@ public class RepositoryTests
 
         var publics = Repository.GetPublics();
         Assert.All(publics, r => Assert.False(r.IsPrivate));
+        Assert.All(publics, r => Assert.True(r.AllowAnonymousRead));
         Assert.Contains(publics, r => r.Name == "publicrepo1");
         Assert.Contains(publics, r => r.Name == "publicrepo2");
         Assert.DoesNotContain(publics, r => r.Name == "privaterepo1");

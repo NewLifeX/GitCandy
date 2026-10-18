@@ -418,6 +418,8 @@ public class RepositoryService
         {
             model.Collaborations = [];
             model.Repositories = ToModels(Repository.GetPublics(param));
+            model.CurrentPage = param.PageIndex;
+            model.ItemCount = (Int32)param.TotalCount;
         }
         else
         {

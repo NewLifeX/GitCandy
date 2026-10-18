@@ -198,10 +198,10 @@ public partial class Repository : LogEntity<Repository>
         return FindAll(exp, param);
     }
 
-    /// <summary>获取所有公开仓库</summary>
+    /// <summary>获取所有匿名可读的公开仓库</summary>
     /// <param name="param">分页参数</param>
     /// <returns></returns>
-    public static IList<Repository> GetPublics(PageParameter param = null) => FindAll(_.Enable == true & _.IsPrivate.IsTrue(false), param);
+    public static IList<Repository> GetPublics(PageParameter param = null) => FindAll(_.Enable == true & _.IsPrivate.IsTrue(false) & _.AllowAnonymousRead == true, param);
 
     /// <summary>搜索仓库</summary>
     /// <param name="showAll">是否显示全部（含私有）</param>
