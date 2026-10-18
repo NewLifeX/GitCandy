@@ -55,7 +55,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)
                     {
-                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "User", new { area="Admin" }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Register, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
                         <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "User", new { area="Admin", r = retUrl }, null)</li>
                     }
                     else

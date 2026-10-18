@@ -2,8 +2,7 @@
 @model GitCandy.Models.RepositoryListModel
 
 @{
-    //ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
-    ViewBag.Title = "";
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, SR.Repository_ListTitle);
     var hasMore = Model.Repositories != null && Model.Repositories.Length > 0;
 }
 <div class="row">
