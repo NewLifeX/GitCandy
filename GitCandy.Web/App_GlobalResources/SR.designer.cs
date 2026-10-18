@@ -1670,6 +1670,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 切换导航 的本地化字符串。
+        /// </summary>
+        public static string Shared_ToggleNavigation {
+            get {
+                return ResourceManager.GetString("Shared_ToggleNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Users 的本地化字符串。
         /// </summary>
         public static string Shared_Users {

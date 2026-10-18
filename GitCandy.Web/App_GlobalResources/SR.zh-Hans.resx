@@ -658,6 +658,9 @@
   <data name="Shared_TitleFormat" xml:space="preserve">
     <value>{0} - GitCandy</value>
   </data>
+  <data name="Shared_ToggleNavigation" xml:space="preserve">
+    <value>切换导航</value>
+  </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>用户</value>
   </data>

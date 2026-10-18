@@ -658,6 +658,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Shared_TitleFormat" xml:space="preserve">
     <value>{0} - GitCandy</value>
   </data>
+  <data name="Shared_ToggleNavigation" xml:space="preserve">
+    <value>Toggle navigation</value>
+  </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>Users</value>
   </data>
