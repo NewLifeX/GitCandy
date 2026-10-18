@@ -30,10 +30,10 @@ else
             <h5>@Model.Description</h5>
             <div class="border-area">
                 <ul class="nav nav-justified">
-                    <li><a href="/@Model.Owner/@Model.Name/Commits">@(Model.Scope.Commits + " " + SR.Repository_Commits)</a></li>
-                    <li><a href="/@Model.Owner/@Model.Name/Branches">@(Model.Scope.Branches + " " + SR.Repository_Branches)</a></li>
-                    <li><a href="/@Model.Owner/@Model.Name/Tags">@(Model.Scope.Tags + " " + SR.Repository_Tags)</a></li>
-                    <li><a href="/@Model.Owner/@Model.Name/Contributors">@(Model.Scope.Contributors + " " + SR.Repository_Contributors)</a></li>
+                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Commits" })">@(Model.IsLoading ? "…" : Model.Scope.Commits) @SR.Repository_Commits</a></li>
+                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Branches" })">@(Model.IsLoading ? "…" : Model.Scope.Branches) @SR.Repository_Branches</a></li>
+                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Tags" })">@(Model.IsLoading ? "…" : Model.Scope.Tags) @SR.Repository_Tags</a></li>
+                    <li><a href="@Url.RouteUrl("UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Contributors" })">@(Model.IsLoading ? "…" : Model.Scope.Contributors) @SR.Repository_Contributors</a></li>
                 </ul>
             </div>
         }
