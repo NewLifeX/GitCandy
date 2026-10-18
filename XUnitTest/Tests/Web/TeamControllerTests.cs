@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using GitCandy.Data;
 using GitCandy.Models;
 using GitCandy.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -81,6 +82,21 @@ public class TeamControllerTests
         var view = Assert.IsType<ViewResult>(result);
         var model = Assert.IsType<TeamModel>(view.Model);
         Assert.Equal(team.Name, model.Name);
+    }
+
+    [Fact]
+    [DisplayName("Detail_团队成员_返回成员标记")]
+    public void Detail_TeamMember_ReturnsMemberFlags()
+    {
+        var team = User.CreateTeam("memberteam_" + Guid.NewGuid().ToString("N")[..6], "成员团队", "描述");
+        var member = User.Create("member_" + Guid.NewGuid().ToString("N")[..6], "团队成员", "pwd", "member_" + Guid.NewGuid().ToString("N")[..6] + "@test.com", null);
+        new MembershipService().TeamAddUser(team.Name, member.Name);
+
+        var model = new MembershipService().GetTeamModel(team.Name, true, member.Name);
+
+        Assert.NotNull(model);
+        Assert.True(model.CurrentUserIsMember);
+        Assert.False(model.CurrentUserIsAdmin);
     }
 
     [Fact]

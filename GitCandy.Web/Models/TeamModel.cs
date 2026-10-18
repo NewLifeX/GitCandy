@@ -36,6 +36,12 @@ namespace GitCandy.Models
 
         public RepositoryRole[] RepositoriesRole { get; set; }
 
+        /// <summary>当前查看者是否为团队成员</summary>
+        public Boolean CurrentUserIsMember { get; set; }
+
+        /// <summary>当前查看者是否为团队管理员</summary>
+        public Boolean CurrentUserIsAdmin { get; set; }
+
         public class UserRole
         {
             public String Name { get; set; }

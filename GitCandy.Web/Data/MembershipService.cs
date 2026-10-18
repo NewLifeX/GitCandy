@@ -236,6 +236,14 @@ public class MembershipService
             model.Repositories = rs
                 .Select(s => s.Repository.Owner.Name + "@" + s.Repository.Name)
                 .ToArray();
+
+            if (!viewUser.IsNullOrEmpty())
+            {
+                var vu = User.FindByName(viewUser);
+                var ut = vu?.Teams.FirstOrDefault(e => e.TeamID == team.ID);
+                model.CurrentUserIsMember = ut != null;
+                model.CurrentUserIsAdmin = ut?.IsAdmin == true;
+            }
         }
         return model;
     }
