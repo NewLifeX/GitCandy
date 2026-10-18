@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /Admin/
+Disallow: /Sso/
+Disallow: /Repository/Edit
+Disallow: /Repository/Delete
+Disallow: /Repository/Coop
+Disallow: /Account/Change
+Allow: /
+
+# 代码库页面与匿名可读文件允许收录
