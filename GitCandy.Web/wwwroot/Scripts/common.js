@@ -86,6 +86,8 @@
 ; window.jQuery(function ($) {
     'use strict';
 
+    // 仓库内容不可信，转义其中的原始 HTML，避免 README 注入脚本
+    marked.setOptions({ sanitize: true, gfm: true });
     $('#md').html(marked($('#md').text()));
     // 旧版 marked 会把中文标题的锚点退化成同一个 "-"，这里重新生成唯一锚点
     (function fixMarkdownAnchors() {
