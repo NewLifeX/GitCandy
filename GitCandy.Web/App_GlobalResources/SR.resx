@@ -130,7 +130,7 @@
     <value>Change Password</value>
   </data>
   <data name="Account_ConformPassword" xml:space="preserve">
-    <value>Conform Password</value>
+    <value>Confirm Password</value>
   </data>
   <data name="Account_CreateTitle" xml:space="preserve">
     <value>Register</value>
@@ -139,10 +139,10 @@
     <value>Account creation was unsuccessful. Please correct the errors and try again.</value>
   </data>
   <data name="Account_DeleteTitle" xml:space="preserve">
-    <value>Conform Delete User {0}</value>
+    <value>Confirm Delete User {0}</value>
   </data>
   <data name="Account_DeletionWords" xml:space="preserve">
-    <value>Do you conform to delete the account "{0}"?</value>
+    <value>Are you sure you want to delete the account "{0}"?</value>
   </data>
   <data name="Account_Description" xml:space="preserve">
     <value>Description</value>
@@ -260,7 +260,7 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>{2} at {1} · {0}</value>
   </data>
   <data name="Repository_BranchDeletionWords" xml:space="preserve">
-    <value>Do you conform to delete the branch "{0}"?</value>
+    <value>Are you sure you want to delete the branch "{0}"?</value>
   </data>
   <data name="Repository_Branches" xml:space="preserve">
     <value>Branches</value>
@@ -350,10 +350,10 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Source size in default branch</value>
   </data>
   <data name="Repository_DeleteTitle" xml:space="preserve">
-    <value>Conform Delete Repository {0}</value>
+    <value>Confirm Delete Repository {0}</value>
   </data>
   <data name="Repository_DeletionWords" xml:space="preserve">
-    <value>Do you conform to delete the repository "{0}"?</value>
+    <value>Are you sure you want to delete the repository "{0}"?</value>
   </data>
   <data name="Repository_Description" xml:space="preserve">
     <value>Description</value>
@@ -365,7 +365,7 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Edit Repository {0}</value>
   </data>
   <data name="Repository_EmptyWords" xml:space="preserve">
-    <value>This is a empty repository or we are importing a remote repository. Push a repository with HEAD(master) branch for display here.</value>
+    <value>This is an empty repository or the remote repository import has not completed. Push a repository with a HEAD (master) branch to display it here.</value>
   </data>
   <data name="Repository_FileAdded" xml:space="preserve">
     <value>Added</value>
@@ -398,7 +398,7 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Git Url</value>
   </data>
   <data name="Repository_HeadNotSet" xml:space="preserve">
-    <value>The HEAD has not set yet</value>
+    <value>HEAD has not been set yet</value>
   </data>
   <data name="Repository_History" xml:space="preserve">
     <value>History</value>
@@ -473,7 +473,7 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Tags</value>
   </data>
   <data name="Repository_TagDeletionWords" xml:space="preserve">
-    <value>Do you conform to delete the tag "{0}"?</value>
+    <value>Are you sure you want to delete the tag "{0}"?</value>
   </data>
   <data name="Repository_TagsTitle" xml:space="preserve">
     <value>Tags · {0}</value>
@@ -542,19 +542,19 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Re-generate ssh key</value>
   </data>
   <data name="Setting_ReGenSshTitle" xml:space="preserve">
-    <value>Conform to Re-generate ssh key</value>
+    <value>Confirm Regenerate SSH Key</value>
   </data>
   <data name="Setting_ReGenSshWords" xml:space="preserve">
-    <value>Do you conform to Re-generate ssh key?</value>
+    <value>Are you sure you want to regenerate the SSH key?</value>
   </data>
   <data name="Setting_RepositoryPath" xml:space="preserve">
     <value>Path of repositories</value>
   </data>
   <data name="Setting_RestartTitle" xml:space="preserve">
-    <value>Conform to restart</value>
+    <value>Confirm Restart</value>
   </data>
   <data name="Setting_RestartWords" xml:space="preserve">
-    <value>Do you conform to restart this application?</value>
+    <value>Are you sure you want to restart this application?</value>
   </data>
   <data name="Setting_SshPort" xml:space="preserve">
     <value>SSH connection port</value>
@@ -578,7 +578,7 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Back</value>
   </data>
   <data name="Shared_Conform" xml:space="preserve">
-    <value>Conform</value>
+    <value>Confirm</value>
   </data>
   <data name="Shared_Create" xml:space="preserve">
     <value>Create</value>
@@ -662,10 +662,10 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>Team creation was unsuccessful. Please correct the errors and try again.</value>
   </data>
   <data name="Team_DeleteTitle" xml:space="preserve">
-    <value>Conform Delete Team {0}</value>
+    <value>Confirm Delete Team {0}</value>
   </data>
   <data name="Team_DeletionWords" xml:space="preserve">
-    <value>Do you conform to delete the team "{0}"?</value>
+    <value>Are you sure you want to delete the team "{0}"?</value>
   </data>
   <data name="Team_Description" xml:space="preserve">
     <value>Team description</value>
@@ -719,9 +719,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
     <value>"{0}" is mandatory</value>
   </data>
   <data name="Validation_StringLength" xml:space="preserve">
-    <value>"{0}" should be smaller than {1} chars</value>
+    <value>"{0}" must be no more than {1} characters</value>
   </data>
   <data name="Validation_StringLengthRange" xml:space="preserve">
-    <value>"{0}" should be smaller than {1} chars and large then {2} chars</value>
+    <value>"{0}" must be between {1} and {2} characters</value>
   </data>
 </root>
