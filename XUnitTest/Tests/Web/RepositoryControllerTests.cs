@@ -228,6 +228,9 @@ public class RepositoryControllerTests : IDisposable
         var model = Assert.IsType<TreeEntryModel>(view.Model);
         Assert.Contains("Console.WriteLine", model.TextContent);
         Assert.Equal("cs", model.TextBrush);
+        Assert.Equal(_owner.Name, model.Owner);
+        Assert.Equal(_repoName, model.Name);
+        Assert.Equal("main.cs", model.FileName);
     }
 
     [Fact]

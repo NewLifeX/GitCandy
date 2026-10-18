@@ -254,6 +254,7 @@ public class GitService : IDisposable
         var model = new TreeEntryModel
         {
             Name = entry.Name,
+            FileName = entry.Name,
             ReferenceName = referenceName,
             Sha = commit.Sha,
             Path = String.IsNullOrEmpty(path) ? "" : path,

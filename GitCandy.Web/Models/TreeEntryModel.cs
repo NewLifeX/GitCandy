@@ -8,6 +8,8 @@ namespace GitCandy.Models
     {
         //public String Name { get; set; }
         public String Path { get; set; }
+        /// <summary>文件名称</summary>
+        public String FileName { get; set; }
         public String ReferenceName { get; set; }
         public CommitModel Commit { get; set; }
         public String Sha { get; set; }

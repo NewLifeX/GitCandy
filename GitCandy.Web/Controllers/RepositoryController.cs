@@ -436,6 +436,7 @@ public class RepositoryController : CandyControllerBase
         // 修正Markdown
         if (model.Name.EndsWithIgnoreCase(".md")) model.FixMarkdown($"/{owner}/{name}");
 
+        model.Owner = owner;
         model.Name = name;
 
         return View(model);
