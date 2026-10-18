@@ -445,7 +445,9 @@ public class RepositoryService
                 Repository.Search(-1, -1, true, false, param);
 
             var otherRepose = user != null ?
-                Repository.Search(-1, user.ID, true, false, new PageParameter { PageSize = 30 }) :
+                Repository.Search(-1, user.ID, true, false, new PageParameter { PageSize = 30 })
+                    .Where(e => e.AllowAnonymousRead)
+                    .ToList() :
                 null;
 
             //var myRepos = new List<Repository>();

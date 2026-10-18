@@ -144,4 +144,25 @@ public class RepositoryServiceTests
         Assert.Equal(1, model.CurrentPage);
         Assert.Equal((Int32)param.TotalCount, model.ItemCount);
     }
+
+    [Fact]
+    [DisplayName("GetRepositories_登录用户_右侧不显示不可读公开仓库")]
+    public void GetRepositories_LoggedIn_RightSideOnlyReadableRepos()
+    {
+        var suffix = Guid.NewGuid().ToString("N")[..6];
+        var visible = CreateRepo("uservisible_" + suffix);
+        var hidden = _service.Create(new RepositoryModel
+        {
+            Name = "userhidden_" + suffix,
+            Owner = _owner.Name,
+            IsPrivate = false,
+            AllowAnonymousRead = false,
+        });
+
+        var param = new PageParameter { PageIndex = 1, PageSize = 100 };
+        var model = _service.GetRepositories(_user, false, param);
+
+        Assert.Contains(model.Repositories, e => e.Name == visible.Name);
+        Assert.DoesNotContain(model.Repositories, e => e.Name == hidden.Name);
+    }
 }
