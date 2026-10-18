@@ -9,7 +9,13 @@
     <div class="@(hasMore ? "col-md-8" : "col-md-12")">
         @if ((Model.Collaborations == null || Model.Collaborations.Length == 0) && !hasMore)
         {
-            <div class="alert alert-info">@SR.Repository_NoRepositories</div>
+            <div class="alert alert-info">
+                @(Model.CurrentPage > 1 ? SR.Repository_NoMoreRepositories : SR.Repository_NoRepositories)
+                @if (Model.CurrentPage > 1)
+                {
+                    @Html.ActionLink(SR.Shared_FirstPage, "Index", new { page = 1 }, new { @class = "alert-link" })
+                }
+            </div>
         }
         <table class="table border-area">
             @foreach (var repo in Model.Collaborations)

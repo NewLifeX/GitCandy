@@ -1031,6 +1031,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 这一页没有代码库 的本地化字符串。
+        /// </summary>
+        public static string Repository_NoMoreRepositories {
+            get {
+                return ResourceManager.GetString("Repository_NoMoreRepositories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No tags found 的本地化字符串。
         /// </summary>
         public static string Repository_NoTags {

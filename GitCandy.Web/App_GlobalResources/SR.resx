@@ -445,6 +445,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Repository_NoRepositories" xml:space="preserve">
     <value>No repositories yet</value>
   </data>
+  <data name="Repository_NoMoreRepositories" xml:space="preserve">
+    <value>There are no repositories on this page. You may have gone past the last page.</value>
+  </data>
   <data name="Repository_NoTags" xml:space="preserve">
     <value>No tags found</value>
   </data>

@@ -445,6 +445,9 @@
   <data name="Repository_NoRepositories" xml:space="preserve">
     <value>还没有代码库</value>
   </data>
+  <data name="Repository_NoMoreRepositories" xml:space="preserve">
+    <value>这一页没有代码库，可能已经翻过最后一页。</value>
+  </data>
   <data name="Repository_NoTags" xml:space="preserve">
     <value>没有找到标签</value>
   </data>
