@@ -52,4 +52,17 @@ public class FileHelperTests
         Assert.Equal(936, encoding.CodePage);
         Assert.Equal(text, bytes.ToStr(encoding));
     }
+
+    [Theory]
+    [InlineData(".png", "image/png")]
+    [InlineData(".JPG", "image/jpeg")]
+    [InlineData(".svg", "image/svg+xml")]
+    [InlineData(".ico", "image/x-icon")]
+    [InlineData(".bin", FileHelper.BinaryMimeType)]
+    [InlineData(null, FileHelper.BinaryMimeType)]
+    [DisplayName("GetImageMimeType_按扩展名返回图片类型")]
+    public void GetImageMimeType_Extension_ReturnsMimeType(String extension, String expected)
+    {
+        Assert.Equal(expected, FileHelper.GetImageMimeType(extension));
+    }
 }
