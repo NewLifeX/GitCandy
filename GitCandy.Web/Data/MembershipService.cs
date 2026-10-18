@@ -23,6 +23,7 @@ public class MembershipService
 
         var model = new UserModel
         {
+            Id = user.ID,
             Name = user.Name,
             Nickname = user.NickName,
             Email = user.Email,
@@ -159,6 +160,7 @@ public class MembershipService
         {
             Users = list.ToList().Select(e => new UserModel
             {
+                Id = e.ID,
                 Name = e.Name,
                 Nickname = e.NickName,
                 Email = e.Email,

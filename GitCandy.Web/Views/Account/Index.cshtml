@@ -22,7 +22,7 @@
 
 <div>
     <div class="pull-left">@String.Format(SR.Account_UsersFound, Model.ItemCount)</div>
-    <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Create", routeValues: null, new { @class = "btn btn-primary" })</div>
+    <div class="pull-right">@Html.ActionLink(SR.Shared_Create, "Add", "User", new { area = "Admin" }, new { @class = "btn btn-primary" })</div>
 </div>
 <table class="table table-hover table-striped">
     <thead>

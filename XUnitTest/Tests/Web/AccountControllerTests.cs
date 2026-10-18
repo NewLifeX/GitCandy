@@ -59,6 +59,7 @@ public class AccountControllerTests
 
         var view = Assert.IsType<ViewResult>(result);
         var model = Assert.IsType<GitCandy.Models.UserModel>(view.Model);
+        Assert.Equal(_user.ID, model.Id);
         Assert.Equal(_user.Name, model.Name);
         Assert.Equal(_user.NickName, model.Nickname);
     }
@@ -89,5 +90,39 @@ public class AccountControllerTests
         var json = Assert.IsType<JsonResult>(result);
         var names = Assert.IsType<String[]>(json.Value);
         Assert.Contains(searchName, names);
+    }
+
+    [Fact]
+    [DisplayName("Change_匿名用户_拒绝访问")]
+    public void Change_Anonymous_Forbids()
+    {
+        var controller = ControllerTestHelper.Prepare(new AccountController(), null);
+
+        var result = controller.Change(_user.Name);
+
+        Assert.IsType<ForbidResult>(result);
+    }
+
+    [Fact]
+    [DisplayName("Change_修改他人密码_拒绝访问")]
+    public void Change_OtherUser_Forbids()
+    {
+        var controller = ControllerTestHelper.Prepare(new AccountController(), _user);
+
+        var result = controller.Change(_admin.Name);
+
+        Assert.IsType<ForbidResult>(result);
+    }
+
+    [Fact]
+    [DisplayName("Change_本人_返回修改密码页面")]
+    public void Change_Self_ReturnsView()
+    {
+        var controller = ControllerTestHelper.Prepare(new AccountController(), _user);
+
+        var result = controller.Change(_user.Name);
+
+        var view = Assert.IsType<ViewResult>(result);
+        Assert.IsType<GitCandy.Models.ChangePasswordModel>(view.Model);
     }
 }

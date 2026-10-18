@@ -6,6 +6,9 @@ namespace GitCandy.Models
 {
     public class UserModel
     {
+        /// <summary>用户编号</summary>
+        public Int32 Id { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Required")]
         [StringLength(20, MinimumLength = 2, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLengthRange")]
         [RegularExpression(RegularExpression.Username, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_Name")]

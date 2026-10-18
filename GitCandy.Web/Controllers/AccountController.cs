@@ -1,8 +1,10 @@
 ﻿using GitCandy.Base;
+using GitCandy.Models;
 using GitCandy.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Data;
+using XCode.Membership;
 using UserX = NewLife.GitCandy.Entity.User;
 
 namespace GitCandy.Web.Controllers;
@@ -41,6 +43,48 @@ public class AccountController : CandyControllerBase
 
         return View(model);
     }
+
+    /// <summary>修改密码页面。仅本人或管理员可访问</summary>
+    /// <param name="name">用户名</param>
+    /// <returns></returns>
+    public ActionResult Change(String name)
+    {
+        if (name.IsNullOrEmpty()) name = Token?.Name;
+        if (!CanManageUser(name)) return Forbid();
+
+        ViewBag.Name = name;
+        return View(new ChangePasswordModel());
+    }
+
+    /// <summary>修改密码提交</summary>
+    /// <param name="name">用户名</param>
+    /// <param name="model">密码模型</param>
+    /// <returns></returns>
+    [HttpPost]
+    public ActionResult Change(String name, ChangePasswordModel model)
+    {
+        if (name.IsNullOrEmpty()) name = Token?.Name;
+        if (!CanManageUser(name)) return Forbid();
+
+        ViewBag.Name = name;
+        if (!ModelState.IsValid) return View(model);
+
+        try
+        {
+            var provider = ManageProvider.Provider;
+            if (provider == null) throw new InvalidOperationException("用户提供者未初始化");
+
+            provider.ChangePassword(name, model.NewPassword, model.OldPassword);
+            return RedirectToAction("Detail", new { name });
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+            return View(model);
+        }
+    }
+
+    private Boolean CanManageUser(String name) => Token != null && (Token.IsAdmin() || Token.Name.EqualIgnoreCase(name));
 
     /// <summary>用户名搜索（AJAX）</summary>
     /// <param name="query">搜索关键词</param>
