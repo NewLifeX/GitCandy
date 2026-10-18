@@ -12,7 +12,6 @@ namespace GitCandy.Base;
 public static class FileHelper
 {
     public const String BinaryMimeType = "application/octet-stream";
-
     public static readonly IReadOnlyDictionary<String, String> BrushMapping;
     //public static readonly IReadOnlyDictionary<String, String> AchiveMapping;
     public static readonly IReadOnlyCollection<String> ImageSet;
@@ -137,6 +136,22 @@ public static class FileHelper
             return BrushMapping[extension];
         return "no-highlight";
     }
+
+    /// <summary>根据扩展名获取图片 MIME 类型</summary>
+    /// <param name="extension">文件扩展名，含点号</param>
+    /// <returns>MIME 类型，未知时返回二进制类型</returns>
+    public static String GetImageMimeType(String extension) => extension?.ToLowerInvariant() switch
+    {
+        ".png" => "image/png",
+        ".jpg" or ".jpeg" or ".jpe" => "image/jpeg",
+        ".gif" => "image/gif",
+        ".bmp" => "image/bmp",
+        ".svg" or ".svgz" => "image/svg+xml",
+        ".tif" or ".tiff" => "image/tiff",
+        ".ico" => "image/x-icon",
+        ".pbm" => "image/x-portable-bitmap",
+        _ => BinaryMimeType,
+    };
 
     public static Encoding DetectEncoding(Byte[] bytes, params Encoding[] encodings)
     {

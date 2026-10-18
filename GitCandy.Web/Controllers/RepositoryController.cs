@@ -515,9 +515,17 @@ public class RepositoryController : CandyControllerBase
         var model = git.GetBlob(path);
         if (model == null) return NotFound();
 
+        // 图片按真实类型内联输出，文本补充字符集避免浏览器猜错编码，其余二进制作为附件下载
+        var contentType = model.BlobType switch
+        {
+            BlobType.Binary => FileHelper.BinaryMimeType,
+            BlobType.Image => FileHelper.GetImageMimeType(Path.GetExtension(model.Path)),
+            _ => $"text/plain; charset={model.BlobEncoding?.WebName ?? "utf-8"}",
+        };
+
         return model.BlobType == BlobType.Binary
-            ? new RawResult(model.RawData, FileHelper.BinaryMimeType, model.Name)
-            : new RawResult(model.RawData);
+            ? new RawResult(model.RawData, contentType, model.Name)
+            : new RawResult(model.RawData, contentType);
     }
 
     /// <summary>单次提交详情。查看提交信息和变更文件列表</summary>

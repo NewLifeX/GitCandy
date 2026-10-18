@@ -296,6 +296,9 @@ public class RepositoryControllerTests : IDisposable
 
         var raw = Assert.IsType<RawResult>(result);
         Assert.Contains("Test Repository", System.Text.Encoding.UTF8.GetString(raw.Contents));
+        // 文本内容需要声明字符集，避免浏览器按系统编码解析导致中文乱码
+        Assert.StartsWith("text/plain", raw.ContentType);
+        Assert.Contains("charset=", raw.ContentType);
     }
 
     [Fact]
