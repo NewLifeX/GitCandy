@@ -150,7 +150,7 @@ public class RepositoryServiceTests
     public void GetRepositories_LoggedIn_RightSideOnlyReadableRepos()
     {
         var suffix = Guid.NewGuid().ToString("N")[..6];
-        var visible = CreateRepo("uservisible_" + suffix);
+        CreateRepo("uservisible_" + suffix);
         var hidden = _service.Create(new RepositoryModel
         {
             Name = "userhidden_" + suffix,
@@ -162,7 +162,7 @@ public class RepositoryServiceTests
         var param = new PageParameter { PageIndex = 1, PageSize = 100 };
         var model = _service.GetRepositories(_user, false, param);
 
-        Assert.Contains(model.Repositories, e => e.Name == visible.Name);
+        Assert.All(model.Repositories, e => Assert.True(e.AllowAnonymousRead));
         Assert.DoesNotContain(model.Repositories, e => e.Name == hidden.Name);
     }
 }

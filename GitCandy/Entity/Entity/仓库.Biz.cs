@@ -163,8 +163,9 @@ public partial class Repository : LogEntity<Repository>
     /// <param name="enable">是否启用</param>
     /// <param name="isPrivate">是否私有</param>
     /// <param name="param">分页参数</param>
+    /// <param name="allowAnonymousRead">是否允许匿名读取</param>
     /// <returns></returns>
-    public static IList<Repository> Search(Int32 userId, Int32 noUserId, Boolean? enable, Boolean? isPrivate, PageParameter param)
+    public static IList<Repository> Search(Int32 userId, Int32 noUserId, Boolean? enable, Boolean? isPrivate, PageParameter param, Boolean? allowAnonymousRead = null)
     {
         var exp = new WhereExpression();
 
@@ -194,6 +195,7 @@ public partial class Repository : LogEntity<Repository>
         }
         if (enable != null) exp &= _.Enable == enable;
         if (isPrivate != null) exp &= _.IsPrivate.IsTrue(isPrivate);
+        if (allowAnonymousRead != null) exp &= _.AllowAnonymousRead.IsTrue(allowAnonymousRead);
 
         return FindAll(exp, param);
     }

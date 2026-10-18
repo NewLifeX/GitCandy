@@ -196,6 +196,9 @@ public abstract class GitCacheAccessor
                 catch (Exception ex)
                 {
                     XTrace.Log.Error("GitCacheAccessor {0} exception" + Environment.NewLine + "{1}", GetType().FullName, ex);
+
+                    // 计算失败时立即移出运行池，避免坏结果在池中滞留一分钟，导致后续请求一直拿到未完成数据
+                    RemoveFromRunningPool();
                 }
             });
 

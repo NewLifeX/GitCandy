@@ -403,6 +403,14 @@ public class GitServiceTests : IDisposable
         var tree = _gitService.GetTree("");
         Assert.NotNull(tree);
         Assert.NotNull(tree.Scope);
+
+        var timeout = DateTime.Now.AddSeconds(10);
+        while (tree.Scope.Commits == 0 && DateTime.Now < timeout)
+        {
+            Thread.Sleep(50);
+            tree = _gitService.GetTree("");
+        }
+
         Assert.True(tree.Scope.Commits > 0);
         Assert.True(tree.Scope.Branches > 0);
     }
