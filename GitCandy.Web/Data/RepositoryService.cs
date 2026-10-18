@@ -15,10 +15,10 @@ public class RepositoryService
     public Repository Create(RepositoryModel model)
     {
         var owner = User.FindByName(model.Owner);
-        if (owner == null) throw new ArgumentNullException($"拥有者 {model.Owner} 不存在", "Owner");
+        if (owner == null) throw new ArgumentNullException(L.T("The owner {0} does not exist.", model.Owner), "Owner");
 
         var repo = Repository.FindByOwnerAndName(model.Owner, model.Name);
-        if (repo != null) throw new ArgumentException($"{model.Owner} 已存在名为 {model.Name} 的仓库", "Name");
+        if (repo != null) throw new ArgumentException(L.T("{0} already has a repository named {1}.", model.Owner, model.Name), "Name");
 
         using (var trans = Repository.Meta.CreateTrans())
         {

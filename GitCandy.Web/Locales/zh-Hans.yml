@@ -1,0 +1,8 @@
+# 简体中文译文。键为英文源文，缺失时运行期回退英文。
+"The user provider has not been initialized.": "用户提供者未初始化"
+"The owner {0} does not exist.": "拥有者 {0} 不存在"
+"{0} already has a repository named {1}.": "{0} 已存在名为 {1} 的仓库"
+"Invalid repository path: {0}/{1}.": "非法的仓库路径：{0}/{1}"
+"Repository path escapes the root: {0}.": "仓库路径越界：{0}"
+"Invalid Git service type.": "无效的Git服务类型"
+"Unable to start the Git process: {0}.": "无法启动Git进程：{0}"

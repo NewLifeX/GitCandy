@@ -852,7 +852,7 @@ public class GitService : IDisposable
         // 拥有者与仓库名都只能是单层路径，禁止通过 .. 或分隔符跳出仓库根目录
         if (owner.IndexOfAny(['/', '\\']) >= 0 || name.IndexOfAny(['/', '\\']) >= 0 ||
             owner is "." or ".." || name is "." or "..")
-            throw new ArgumentException($"非法的仓库路径：{owner}/{name}");
+            throw new ArgumentException(L.T("Invalid repository path: {0}/{1}.", owner, name));
 
         var root = GitSetting.Current.RepositoryPath.GetFullPath();
         var path = root.CombinePath(owner, name).GetFullPath();
@@ -860,7 +860,7 @@ public class GitService : IDisposable
         var rootPrefix = root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
         var comparison = Runtime.Windows ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
         if (!path.StartsWith(rootPrefix, comparison))
-            throw new ArgumentException($"仓库路径越界：{path}");
+            throw new ArgumentException(L.T("Repository path escapes the root: {0}.", path));
 
         return path;
     }
@@ -977,7 +977,7 @@ public class GitService : IDisposable
     #region RunGitCmd
     private async Task RunGitCmdAsync(String serviceName, Boolean advertiseRefs, Stream inStream, Stream outStream)
     {
-        if (serviceName != "upload-pack" && serviceName != "receive-pack") throw new ArgumentException("无效的Git服务类型", nameof(serviceName));
+        if (serviceName != "upload-pack" && serviceName != "receive-pack") throw new ArgumentException(L.T("Invalid Git service type."), nameof(serviceName));
         if (inStream == null) throw new ArgumentNullException(nameof(inStream));
         if (outStream == null) throw new ArgumentNullException(nameof(outStream));
 
@@ -1002,7 +1002,7 @@ public class GitService : IDisposable
         var sw = Stopwatch.StartNew();
 
         using var process = Process.Start(info);
-        if (process == null) throw new InvalidOperationException($"无法启动Git进程：{info.FileName}");
+        if (process == null) throw new InvalidOperationException(L.T("Unable to start the Git process: {0}.", info.FileName));
 
         try
         {

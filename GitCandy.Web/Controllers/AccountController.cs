@@ -72,7 +72,7 @@ public class AccountController : CandyControllerBase
         try
         {
             var provider = ManageProvider.Provider;
-            if (provider == null) throw new InvalidOperationException("用户提供者未初始化");
+            if (provider == null) throw new InvalidOperationException(L.T("The user provider has not been initialized."));
 
             provider.ChangePassword(name, model.NewPassword, model.OldPassword);
             return RedirectToAction("Detail", new { name });
