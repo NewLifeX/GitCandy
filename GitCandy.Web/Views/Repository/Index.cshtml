@@ -14,16 +14,15 @@
         <table class="table border-area">
             @foreach (var repo in Model.Collaborations)
             {
-                var name = repo.Name.Contains(repo.Owner) ? repo.Name : String.Format("{0}/{1}", repo.Owner, repo.Name);
                 <tr>
                     <td>
-                        <div><h3><a href="~/@repo.Owner/@repo.Name">@name</a></h3></div>
+                        <div><h3><a href="~/@repo.Owner/@repo.Name">@repo.FullName</a></h3></div>
                         <div>@repo.Description</div>
-                        <div style="margin-top: 10px;">
+                        <div class="row repo-meta">
                             <div class="col-md-6">
-                                <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
-                                <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
-                                <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
+                                <span title="@SR.Repository_Views"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
+                                <span title="@SR.Repository_Commits"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
+                                <span title="@SR.Repository_Contributors"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
                             </div>
                             <div class="col-md-6 text-right">@(repo.LastCommit.Year < 1000 ? "" : repo.LastCommit.ToFullString())</div>
                         </div>
@@ -40,18 +39,17 @@
                 <thead>@SR.Repository_PopularRepositories</thead>
                 @foreach (var repo in Model.Repositories)
                 {
-                    var name = repo.Name.Contains(repo.Owner) ? repo.Name : String.Format("{0}/{1}", repo.Owner, repo.Name);
                     <tr>
                         <td>
-                            <div><a href="~/@repo.Owner/@repo.Name">@name</a></div>
+                            <div><a href="~/@repo.Owner/@repo.Name">@repo.FullName</a></div>
                             <div>@repo.Description</div>
-                            <div>
-                                <div class="col-md-6">
-                                    <span title="浏览"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
-                                    <span title="提交"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
-                                    <span title="参与"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
+                            <div class="repo-meta">
+                                <div>
+                                    <span title="@SR.Repository_Views"><i class="glyphicon glyphicon-heart" style="color: deeppink;"></i> @repo.Views.ToString("n0")</span>
+                                    <span title="@SR.Repository_Commits"><i class="glyphicon glyphicon-star" style="color: mediumpurple;"></i> @repo.Commits.ToString("n0")</span>
+                                    <span title="@SR.Repository_Contributors"><i class="glyphicon glyphicon-user" style="color: forestgreen;"></i> @repo.Contributors.ToString("n0")</span>
                                 </div>
-                                <div class="col-md-6 text-right">@(repo.LastCommit.Year < 1000 ? "" : repo.LastCommit.ToFullString())</div>
+                                <div class="text-right">@(repo.LastCommit.Year < 1000 ? "" : repo.LastCommit.ToFullString())</div>
                             </div>
                         </td>
                     </tr>

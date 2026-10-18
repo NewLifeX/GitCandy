@@ -118,6 +118,10 @@
     margin: 15px 0;
 }
 
+.repo-meta {
+    margin-top: 10px;
+}
+
 @media (max-width: 767px) {
     .tree-table {
         width: 100%;

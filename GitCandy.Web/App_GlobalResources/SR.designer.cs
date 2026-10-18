@@ -1157,6 +1157,24 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 浏览数 的本地化字符串。
+        /// </summary>
+        public static string Repository_Views {
+            get {
+                return ResourceManager.GetString("Repository_Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载数 的本地化字符串。
+        /// </summary>
+        public static string Repository_Downloads {
+            get {
+                return ResourceManager.GetString("Repository_Downloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Do you conform to delete the tag &quot;{0}&quot;? 的本地化字符串。
         /// </summary>
         public static string Repository_TagDeletionWords {

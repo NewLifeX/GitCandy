@@ -487,6 +487,12 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Repository_Statistics" xml:space="preserve">
     <value>Statistics</value>
   </data>
+  <data name="Repository_Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="Repository_Downloads" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
   <data name="Repository_Tags" xml:space="preserve">
     <value>Tags</value>
   </data>

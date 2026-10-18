@@ -487,6 +487,12 @@
   <data name="Repository_Statistics" xml:space="preserve">
     <value>统计</value>
   </data>
+  <data name="Repository_Views" xml:space="preserve">
+    <value>浏览数</value>
+  </data>
+  <data name="Repository_Downloads" xml:space="preserve">
+    <value>下载数</value>
+  </data>
   <data name="Repository_Tags" xml:space="preserve">
     <value>标签</value>
   </data>
