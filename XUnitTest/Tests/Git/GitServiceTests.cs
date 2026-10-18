@@ -130,6 +130,28 @@ public class GitServiceTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("GetTree_超大说明文件_跳过预览")]
+    public void GetTree_LargeReadme_SkipsPreview()
+    {
+        var old = GitService.MaxTextSize;
+        try
+        {
+            GitService.MaxTextSize = 0;
+
+            var tree = _gitService.GetTree("");
+
+            Assert.NotNull(tree);
+            Assert.NotNull(tree.Readme);
+            Assert.True(tree.Readme.IsTooLarge);
+            Assert.Null(tree.Readme.TextContent);
+        }
+        finally
+        {
+            GitService.MaxTextSize = old;
+        }
+    }
+
+    [Fact]
     [DisplayName("GetTree_子目录_返回目录内容")]
     public void GetTree_SubDirectory_ReturnsDirectoryContent()
     {

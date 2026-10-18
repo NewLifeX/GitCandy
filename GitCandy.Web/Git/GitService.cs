@@ -188,24 +188,35 @@ public class GitService : IDisposable
             var entry = tree[rm.Name];
             var blob = (Blob)entry.Target;
             var data = blob.GetContentStream().ToBytes();
-            var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);
-            if (encoding == null)
+            rm.SizeString = FileHelper.GetSizeString(data.Length);
+
+            // 超大说明文件同样只保留下载入口，避免首页渲染拖慢
+            if (data.Length > MaxTextSize)
             {
-                rm.BlobType = BlobType.Binary;
-            }
-            else if (rm.Name.EndsWithIgnoreCase(".md"))
-            {
-                rm.BlobType = BlobType.MarkDown;
-                //rm.TextContent = FileHelper.ReadMarkdown(data, encoding, $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}");
-                //rm.Path = $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}";
-                rm.TextContent = data.ToStr(encoding);
-                rm.TextBrush = "no-highlight";
+                rm.BlobType = BlobType.Text;
+                rm.IsTooLarge = true;
             }
             else
             {
-                rm.BlobType = BlobType.Text;
-                rm.TextContent = data.ToStr(encoding);
-                rm.TextBrush = "no-highlight";
+                var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);
+                if (encoding == null)
+                {
+                    rm.BlobType = BlobType.Binary;
+                }
+                else if (rm.Name.EndsWithIgnoreCase(".md"))
+                {
+                    rm.BlobType = BlobType.MarkDown;
+                    //rm.TextContent = FileHelper.ReadMarkdown(data, encoding, $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}");
+                    //rm.Path = $"{model.ReferenceName ?? model.Commit.Sha}/{entry.Path}";
+                    rm.TextContent = data.ToStr(encoding);
+                    rm.TextBrush = "no-highlight";
+                }
+                else
+                {
+                    rm.BlobType = BlobType.Text;
+                    rm.TextContent = data.ToStr(encoding);
+                    rm.TextBrush = "no-highlight";
+                }
             }
         }
 
