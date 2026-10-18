@@ -188,8 +188,10 @@ public static class MetadataExtension
         //var root = HttpRuntime.AppDomainAppVirtualPath;
         //root = root.EnsureEnd("/");
         var root = "/";
+        var reference = Uri.EscapeDataString(model.ReferenceName ?? model.Commit?.Sha);
+        var segments = String.Join("/", (path ?? "").Split('/').Select(Uri.EscapeDataString));
 
-        return root + $"{model.Owner}/{model.Name}/{action}/{model.ReferenceName ?? model.Commit.Sha}/{path}";
+        return root + $"{Uri.EscapeDataString(model.Owner)}/{Uri.EscapeDataString(model.Name)}/{Uri.EscapeDataString(action)}/{reference}/{segments}";
     }
 
     //public static String GetUrl(this PathBarModel model, String action, String path)
