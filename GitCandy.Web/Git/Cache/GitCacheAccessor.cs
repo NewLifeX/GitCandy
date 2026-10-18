@@ -261,7 +261,7 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
         }
     }
 
-    static GitCacheAccessor() => Name = typeof(TAccessor).Name.TrimEnd("Accessor");
+    static GitCacheAccessor() => Name = typeof(TAccessor).Name.TrimSuffix("Accessor");
 
     public GitCacheAccessor(String repoId, Repository repo)
     {
@@ -282,7 +282,7 @@ public abstract class GitCacheAccessor<TReturn, TAccessor> : GitCacheAccessor
         if (cacheKey != null)
             return cacheKey;
 
-        var key = typeof(TAccessor).Name + String.Concat(keys);
+        var key = typeof(TAccessor).Name + repoId + String.Concat(keys);
         cacheKey = key.CalcSha();
         return cacheKey;
     }

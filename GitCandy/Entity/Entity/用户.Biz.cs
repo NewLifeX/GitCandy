@@ -25,9 +25,9 @@ public partial class User : LogEntity<User>, IManageUser/*, IIdentity*/
     [EditorBrowsable(EditorBrowsableState.Never)]
     protected override void InitData()
     {
-        Meta.Modules.Add<UserModule>();
-        Meta.Modules.Add<TimeModule>();
-        Meta.Modules.Add<IPModule>();
+        Meta.Interceptors.Add<UserInterceptor>();
+        Meta.Interceptors.Add<TimeInterceptor>();
+        Meta.Interceptors.Add<IPInterceptor>();
 
         var sc = Meta.SingleCache;
         sc.FindSlaveKeyMethod = k => Find(_.Name == k);

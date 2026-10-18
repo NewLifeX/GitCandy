@@ -300,7 +300,7 @@ public class MembershipService
         var tu = UserTeam.FindByUserIDAndTeamID(user.ID, team.ID);
         if (tu == null) return false;
 
-        tu.IsAdmin = true;
+        tu.IsAdmin = isAdmin;
         tu.Save();
 
         return true;

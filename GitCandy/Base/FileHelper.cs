@@ -244,11 +244,15 @@ public static class FileHelper
             var s = encoding.GetString(bytes); // ignore unknow BOM, supposing there is no BOM
             var r = encoding.GetBytes(s);
 
+            // 探测缓冲区固定截断为1024字节，末尾可能落在多字节字符中间，
+            // 解码再编码后长度可能变化（截断处变成替换字符），只能按较短长度比较，
+            // 否则会索引越界并使UTF-8被误判，进而落到GBK等ANSI编码导致中文乱码
+            var count = Math.Min(r.Length, bytes.Length);
             var match = 0.0;
-            for (var i = 0; i < r.Length; i++)
+            for (var i = 0; i < count; i++)
                 if (bytes[i] == r[i])
                     match++;
-            if (match >= r.Length * 0.9)
+            if (match >= count * 0.9)
                 return true;
         }
         catch { }

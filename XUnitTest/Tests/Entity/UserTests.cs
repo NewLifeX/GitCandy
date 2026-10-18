@@ -114,6 +114,35 @@ public class UserTests
     }
 
     [Fact]
+    [DisplayName("Search_按团队标识过滤_正确筛选")]
+    public void Search_ByIsTeam_FiltersCorrectly()
+    {
+        User.CreateTeam("searchteam2", "搜索团队2", null);
+
+        var param = new PageParameter { PageSize = 100 };
+        var teams = User.Search(0, null, true, DateTime.MinValue, DateTime.MinValue, "searchteam2", param);
+
+        Assert.Contains(teams, u => u.Name == "searchteam2");
+        Assert.All(teams, u => Assert.True(u.IsTeam));
+    }
+
+    [Fact]
+    [DisplayName("Search_按拥有者过滤_返回团队成员")]
+    public void Search_ByOwner_ReturnsTeamMembers()
+    {
+        var owner = User.Create("searchowner", "搜索拥有者", "pwd", "searchowner@test.com", null);
+        var member = User.Create("searchmember", "搜索成员", "pwd", "searchmember@test.com", null);
+        var team = User.CreateTeam("searchteam3", "搜索团队3", null);
+        new UserTeam { UserID = member.ID, TeamID = team.ID }.Save();
+
+        var param = new PageParameter { PageSize = 100 };
+        var users = User.Search(team.ID, null, null, DateTime.MinValue, DateTime.MinValue, null, param);
+
+        Assert.Contains(users, u => u.ID == member.ID);
+        Assert.DoesNotContain(users, u => u.ID == owner.ID);
+    }
+
+    [Fact]
     [DisplayName("GetOrAdd_新用户_自动创建")]
     public void GetOrAdd_NewUser_CreatesAutomatically()
     {

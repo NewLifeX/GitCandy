@@ -26,9 +26,9 @@ public partial class Repository : LogEntity<Repository>
         df.Add(__.Views);
         df.Add(__.Downloads);
 
-        Meta.Modules.Add<UserModule>();
-        Meta.Modules.Add<TimeModule>();
-        Meta.Modules.Add<IPModule>();
+        Meta.Interceptors.Add<UserInterceptor>();
+        Meta.Interceptors.Add<TimeInterceptor>();
+        Meta.Interceptors.Add<IPInterceptor>();
     }
 
     public override void Valid(Boolean isNew)
@@ -56,6 +56,9 @@ public partial class Repository : LogEntity<Repository>
     [Description("拥有者。个人或团队")]
     [Map(__.OwnerID, typeof(User), "ID")]
     public String OwnerName => Owner + "";
+
+    /// <summary>拥有者登录名。Git仓库目录使用登录名，而非可能被修改的显示名</summary>
+    public String OwnerUserName => Owner?.Name ?? OwnerName;
     #endregion
 
     #region 扩展查询

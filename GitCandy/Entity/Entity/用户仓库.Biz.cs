@@ -23,9 +23,9 @@ public partial class UserRepository : LogEntity<UserRepository>
     #region 对象操作
     static UserRepository()
     {
-        Meta.Modules.Add<UserModule>();
-        Meta.Modules.Add<TimeModule>();
-        Meta.Modules.Add<IPModule>();
+        Meta.Interceptors.Add<UserInterceptor>();
+        Meta.Interceptors.Add<TimeInterceptor>();
+        Meta.Interceptors.Add<IPInterceptor>();
     }
 
     public override void Valid(Boolean isNew)

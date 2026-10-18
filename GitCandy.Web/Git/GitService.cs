@@ -234,8 +234,8 @@ public class GitService : IDisposable
 
         var cacheAccessor = GitCacheAccessor.Singleton(new LastCommitAccessor(_repoId, _repository, commit, path));
         var lastCommitSha = cacheAccessor.Result.Value;
-        if (lastCommitSha != commit.Sha)
-            commit = _repository.Lookup<Commit>(lastCommitSha);
+        if (!lastCommitSha.IsNullOrEmpty() && lastCommitSha != commit.Sha)
+            commit = _repository.Lookup<Commit>(lastCommitSha) ?? commit;
 
         var data = blob.GetContentStream().ToBytes();
         var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);

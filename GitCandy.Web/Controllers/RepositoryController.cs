@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Xml.Linq;
 using GitCandy.Base;
 using GitCandy.Data;
@@ -159,7 +159,7 @@ public class RepositoryController : CandyControllerBase
         var model = RepositoryService.Get(repo, true, user?.Name);
         if (model == null) return NotFound();
 
-        using var git = new GitService(repo.OwnerName, repo.Name);
+        using var git = new GitService(repo.OwnerUserName, repo.Name);
         model.DefaultBranch = git.GetHeadBranch();
 
         return View(model);
@@ -178,7 +178,7 @@ public class RepositoryController : CandyControllerBase
         var model = RepositoryService.Get(repo, false, user?.Name);
         if (model == null) return NotFound();
 
-        using var git = new GitService(repo.OwnerName, repo.Name);
+        using var git = new GitService(repo.OwnerUserName, repo.Name);
         model.DefaultBranch = git.GetHeadBranch();
         model.LocalBranches = git.GetLocalBranches();
 
@@ -205,14 +205,14 @@ public class RepositoryController : CandyControllerBase
         {
             if (!RepositoryService.Update(repo, model)) return NotFound();
 
-            using var git = new GitService(repo.OwnerName, repo.Name);
+            using var git = new GitService(repo.OwnerUserName, repo.Name);
             git.SetHeadBranch(model.DefaultBranch);
 
             return RedirectToAction("Detail", new { repo.ID });
         }
         else
         {
-            using var git = new GitService(repo.OwnerName, repo.Name);
+            using var git = new GitService(repo.OwnerUserName, repo.Name);
             model.DefaultBranch = git.GetHeadBranch();
             model.LocalBranches = git.GetLocalBranches();
 
@@ -343,8 +343,8 @@ public class RepositoryController : CandyControllerBase
 
             repo.Delete();
             //RepositoryService.Delete(owner, name);
-            GitService.DeleteRepository(repo.OwnerName, repo.Name);
-            GitCacheAccessor.Delete(repo.OwnerName, repo.Name);
+            GitService.DeleteRepository(repo.OwnerUserName, repo.Name);
+            GitCacheAccessor.Delete(repo.OwnerUserName, repo.Name);
 
             XTrace.WriteLine("Repository {0} deleted by {1}#{2}", repo.Name, Token?.Name, Token.ID);
 
@@ -588,7 +588,7 @@ public class RepositoryController : CandyControllerBase
             if (cacheFile == null) return NotFound();
 
             var filename = name + "-" + referenceName;
-            return File(cacheFile, "application/zip", filename + ".zip");
+            return PhysicalFile(cacheFile, "application/zip", filename + ".zip");
         }
         catch (Exception ex)
         {

@@ -164,22 +164,21 @@ public class TeamController : CandyControllerBase
         if (act == "add")
         {
             if (MembershipService.TeamAddUser(name, user)) return Json("success");
-
-            if (act == "del")
-            {
-                if (String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
-                    message = SR.Account_CantRemoveSelf;
-                else if (MembershipService.TeamRemoveUser(name, user))
-                    return Json("success");
-                else if (act is "admin" or "member")
-                {
-                    var isAdmin = act == "admin";
-                    if (!isAdmin && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
-                        message = SR.Account_CantRemoveSelf;
-                    else if (MembershipService.TeamUserSetAdministrator(name, user, isAdmin))
-                        return Json("success");
-                }
-            }
+        }
+        else if (act == "del")
+        {
+            if (String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
+                message = SR.Account_CantRemoveSelf;
+            else if (MembershipService.TeamRemoveUser(name, user))
+                return Json("success");
+        }
+        else if (act is "admin" or "member")
+        {
+            var isAdmin = act == "admin";
+            if (!isAdmin && String.Equals(user, Token?.Name, StringComparison.OrdinalIgnoreCase))
+                message = SR.Account_CantRemoveSelf;
+            else if (MembershipService.TeamUserSetAdministrator(name, user, isAdmin))
+                return Json("success");
         }
 
         Response.StatusCode = 400;

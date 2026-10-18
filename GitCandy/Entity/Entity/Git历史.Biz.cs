@@ -25,10 +25,10 @@ namespace NewLife.GitCandy.Entity
             //    Step = TimeSpan.FromDays(1),
             //};
 
-            // 过滤器 UserModule、TimeModule、IPModule
-            Meta.Modules.Add<TimeModule>();
-            Meta.Modules.Add<IPModule>();
-            Meta.Modules.Add<TraceModule>();
+            // 过滤器 UserInterceptor、TimeInterceptor、IPInterceptor
+            Meta.Interceptors.Add<TimeInterceptor>();
+            Meta.Interceptors.Add<IPInterceptor>();
+            Meta.Interceptors.Add<TraceInterceptor>();
         }
 
         /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>

@@ -30,6 +30,12 @@ public class DatabaseFixture : IDisposable
 
             XTrace.UseConsole();
 
+            // 注册GBK等中文编码支持
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            // 初始化管理提供者，供未登录场景的控制器过滤器使用
+            XCode.Membership.ManageProvider.Provider ??= new NewLife.Cube.ManageProvider2();
+
             // 只创建一次数据库，所有测试共享
             TempDbPath = Path.Combine(Path.GetTempPath(), $"GitCandyTest_Global.db");
             if (File.Exists(TempDbPath)) File.Delete(TempDbPath);

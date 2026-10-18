@@ -1,12 +1,15 @@
+using System.IO.Compression;
 using System.Text;
 using GitCandy.Git;
 using GitCandy.Web;
 using LibGit2Sharp;
 using Xunit;
+using Xunit.Sdk;
 
 namespace GitCandyXUnitTest.Git;
 
 /// <summary>Git服务集成测试。使用真实LibGit2Sharp仓库测试代码浏览功能</summary>
+[Collection("GitCandyTests")]
 public class GitServiceTests : IDisposable
 {
     private readonly String _baseDir;
@@ -55,7 +58,7 @@ public class GitServiceTests : IDisposable
 
         // 创建README.md
         var readmePath = Path.Combine(repo.Info.WorkingDirectory, "README.md");
-        File.WriteAllText(readmePath, "# Test Repository\n\nThis is a test repository.");
+        File.WriteAllText(readmePath, $"# Test Repository\n\nThis is a test repository. {Guid.NewGuid():N}");
         LibGit2Sharp.Commands.Stage(repo, "README.md");
         var commit1 = repo.Commit("初始化项目", author, committer);
 
@@ -113,19 +116,19 @@ public class GitServiceTests : IDisposable
         Assert.Contains(entries, e => e.Path == "src" && e.EntryType == TreeEntryTargetType.Tree);
     }
 
-    [Fact(Skip = "需调试路径解析")]
+    [Fact]
     [DisplayName("GetTree_子目录_返回目录内容")]
     public void GetTree_SubDirectory_ReturnsDirectoryContent()
     {
         var tree = _gitService.GetTree("master/src");
         Assert.NotNull(tree);
-        Assert.Contains(tree.Entries, e => e.Path == "main.cs");
-        Assert.Contains(tree.Entries, e => e.Path == "utils.cs");
+        Assert.Contains(tree.Entries, e => e.Path == "src/main.cs");
+        Assert.Contains(tree.Entries, e => e.Path == "src/utils.cs");
     }
 
     // ========== GIT-3: 文件内容查看 ==========
 
-    [Fact(Skip = "需要完整的Git缓存基础设施")]
+    [Fact]
     [DisplayName("GetBlob_文本文件_返回内容和编码")]
     public void GetBlob_TextFile_ReturnsContentAndEncoding()
     {
@@ -134,17 +137,17 @@ public class GitServiceTests : IDisposable
         Assert.Contains("Test Repository", blob.TextContent);
     }
 
-    [Fact(Skip = "需要完整的Git缓存基础设施")]
+    [Fact]
     [DisplayName("GetBlob_代码文件_返回语法高亮")]
     public void GetBlob_CodeFile_ReturnsHighlightedContent()
     {
         var blob = _gitService.GetBlob(_commitSha + "/src/main.cs");
         Assert.NotNull(blob);
         Assert.Contains("Console.WriteLine", blob.TextContent);
-        Assert.Equal("csharp", blob.TextBrush);
+        Assert.Equal("cs", blob.TextBrush);
     }
 
-    [Fact(Skip = "需要完整的Git缓存基础设施")]
+    [Fact]
     [DisplayName("GetBlob_不存在的文件_返回Null")]
     public void GetBlob_NonExistentFile_ReturnsNull()
     {
@@ -233,13 +236,21 @@ public class GitServiceTests : IDisposable
 
     // ========== GIT-9: 贡献者统计 ==========
 
-    [Fact(Skip = "需调试缓存基础设施")]
+    [Fact]
     [DisplayName("GetContributors_返回贡献者统计")]
     public void GetContributors_ReturnsContributorStats()
     {
+        // 贡献者统计在后台线程计算，轮询等待结果就绪
         var contributors = _gitService.GetContributors("");
         Assert.NotNull(contributors);
         Assert.NotNull(contributors.Statistics);
+
+        var timeout = DateTime.Now.AddSeconds(10);
+        while (contributors.Statistics.Current.NumberOfCommits == 0 && DateTime.Now < timeout)
+        {
+            Thread.Sleep(50);
+            contributors = _gitService.GetContributors("");
+        }
         Assert.True(contributors.Statistics.Current.NumberOfCommits > 0);
     }
 
@@ -273,6 +284,94 @@ public class GitServiceTests : IDisposable
         Assert.NotNull(tree.Scope);
         Assert.True(tree.Scope.Commits > 0);
         Assert.True(tree.Scope.Branches > 0);
+    }
+
+    // ========== GIT-1: Git Smart HTTP传输 ==========
+
+    [Fact]
+    [DisplayName("InfoRefs_上传服务_返回引用公告")]
+    public async Task InfoRefs_UploadPack_ReturnsReferences()
+    {
+        var core = FindGitCorePath();
+        if (core == null) throw SkipException.ForSkip("未找到包含 git-upload-pack 的 git-core 目录");
+
+        var old = GitSetting.Current.GitCorePath;
+        GitSetting.Current.GitCorePath = core;
+        try
+        {
+            using var input = new MemoryStream();
+            using var output = new MemoryStream();
+            await _gitService.InfoRefs("upload-pack", input, output);
+
+            var text = Encoding.ASCII.GetString(output.ToArray());
+            Assert.Contains("refs/heads/master", text);
+            Assert.Contains("refs/tags/v1.0", text);
+        }
+        finally
+        {
+            GitSetting.Current.GitCorePath = old;
+        }
+    }
+
+    [Fact]
+    [DisplayName("InfoRefs_接收服务_返回引用公告")]
+    public async Task InfoRefs_ReceivePack_ReturnsReferences()
+    {
+        var core = FindGitCorePath();
+        if (core == null) throw SkipException.ForSkip("未找到包含 git-receive-pack 的 git-core 目录");
+
+        var old = GitSetting.Current.GitCorePath;
+        GitSetting.Current.GitCorePath = core;
+        try
+        {
+            using var input = new MemoryStream();
+            using var output = new MemoryStream();
+            await _gitService.InfoRefs("receive-pack", input, output);
+
+            var text = Encoding.ASCII.GetString(output.ToArray());
+            Assert.Contains("refs/heads/master", text);
+        }
+        finally
+        {
+            GitSetting.Current.GitCorePath = old;
+        }
+    }
+
+    // ========== GIT-7: 代码归档下载 ==========
+
+    [Fact]
+    [DisplayName("GetArchiveFilename_有效分支_返回Zip文件")]
+    public void GetArchiveFilename_ValidBranch_ReturnsZipFile()
+    {
+        var file = _gitService.GetArchiveFilename("master", out var referenceName);
+
+        Assert.NotNull(file);
+        Assert.True(File.Exists(file), $"归档文件不存在：{file}，缓存目录：{GitSetting.Current.CachePath}，仓库：{_baseDir}");
+        Assert.Equal("master", referenceName);
+
+        using var zip = ZipFile.OpenRead(file);
+        Assert.Contains(zip.Entries, e => e.FullName == "README.md");
+        Assert.Contains(zip.Entries, e => e.FullName == "src/main.cs");
+    }
+
+    private static String? FindGitCorePath()
+    {
+        var ext = OperatingSystem.IsWindows() ? ".exe" : "";
+        foreach (var dir in (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator))
+        {
+            if (String.IsNullOrWhiteSpace(dir)) continue;
+
+            try
+            {
+                if (File.Exists(Path.Combine(dir, "git" + ext)) &&
+                    File.Exists(Path.Combine(dir, "git-upload-pack" + ext)) &&
+                    File.Exists(Path.Combine(dir, "git-receive-pack" + ext)))
+                    return dir;
+            }
+            catch { }
+        }
+
+        return null;
     }
 
     // ========== 清理 ==========

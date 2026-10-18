@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Others/">
+    <File Path="LICENSE.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="GitCandy.Web/GitCandy.Web.csproj" />
+  <Project Path="GitCandy/GitCandy.csproj" />
+  <Project Path="Test/Test.csproj" />
+  <Project Path="XUnitTest/XUnitTest.csproj" />
+</Solution>
