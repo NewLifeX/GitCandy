@@ -1,4 +1,5 @@
 ﻿@model GitCandy.Models.BranchSelectorModel
+@using System.Linq
 @{
     var values = ViewContext.RouteData.Values;
     var action = values["action"] as String;
@@ -37,19 +38,26 @@
                 </div>
                 <div class="tab-pane @Model.CurrentIsBranch.ToFlagString("", "active") branch-selector" id="tag-pane-@identity">
                     <ul class="nav nav-list">
-                        @foreach (var tag in Model.Tags)
+                        @if (Model.Tags == null || !Model.Tags.Any())
                         {
-                            if (noLink)
+                            <li class="disabled"><a>@SR.Repository_NoTags</a></li>
+                        }
+                        else
+                        {
+                            foreach (var tag in Model.Tags)
                             {
-                                <li><a href="#">@tag</a></li>
-                            }
-                            else if (tag == Model.Current)
-                            {
-                                <li class="active"><a>@tag</a></li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink(tag, action, Html.OverRoute(new { path = tag + "/" + Model.Path }))</li>
+                                if (noLink)
+                                {
+                                    <li><a href="#">@tag</a></li>
+                                }
+                                else if (tag == Model.Current)
+                                {
+                                    <li class="active"><a>@tag</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink(tag, action, Html.OverRoute(new { path = tag + "/" + Model.Path }))</li>
+                                }
                             }
                         }
                     </ul>
