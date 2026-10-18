@@ -81,15 +81,19 @@ namespace GitCandy.Git
                         else if (status[index] == null)
                         {
                             var over = true;
-                            foreach (var parent in lastCommit.Parents) // Backtracking
+                            // 第一个祖先提交没有父提交，不能回溯，直接认为已找到
+                            if (lastCommit != null)
                             {
-                                if (parent.Sha == ancestor.Sha)
-                                    continue;
-                                var entry = parent[item.Path];
-                                if (entry != null && entry.Target.Sha == item.TargetSha)
+                                foreach (var parent in lastCommit.Parents) // Backtracking
                                 {
-                                    over = false;
-                                    break;
+                                    if (parent.Sha == ancestor.Sha)
+                                        continue;
+                                    var entry = parent[item.Path];
+                                    if (entry != null && entry.Target.Sha == item.TargetSha)
+                                    {
+                                        over = false;
+                                        break;
+                                    }
                                 }
                             }
                             status[index] = over;

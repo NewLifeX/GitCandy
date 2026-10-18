@@ -104,25 +104,33 @@ public abstract class GitCacheAccessor
 
         //File.WriteAllLines(filename, expectation);
 
-        _timer = new TimerX(s =>
+        _timer ??= new TimerX(s =>
         {
-            var dirs = Directory.GetDirectories(cachePath, "*.del");
-            foreach (var dir in dirs)
+            try
             {
-                XTrace.WriteLine("Delete cache directory {0}", dir);
-                Directory.Delete(dir, true);
+                var dirs = Directory.GetDirectories(cachePath, "*.del");
+                foreach (var dir in dirs)
+                {
+                    XTrace.WriteLine("Delete cache directory {0}", dir);
+                    Directory.Delete(dir, true);
+                }
             }
+            catch { }
         }, null, 10000, 10 * 60 * 1000);
 
         // 每天凌晨3点删除一次所有缓存目录
-        _timer2 = new TimerX(s =>
+        _timer2 ??= new TimerX(s =>
         {
-            var dir = GitSetting.Current.CachePath.GetFullPath();
-            foreach (var item in dir.AsDirectory().GetDirectories())
+            try
             {
-                XTrace.WriteLine("Delete cache directory {0}", item.FullName);
-                item.Delete(true);
+                var dir = GitSetting.Current.CachePath.GetFullPath();
+                foreach (var item in dir.AsDirectory().GetDirectories())
+                {
+                    XTrace.WriteLine("Delete cache directory {0}", item.FullName);
+                    item.Delete(true);
+                }
             }
+            catch { }
         }, null, DateTime.Now.Date.AddHours(3), 24 * 60 * 60 * 1000);
 
         enabled = true;
@@ -193,9 +201,9 @@ public abstract class GitCacheAccessor
 
         _task.ContinueWith(t =>
         {
-            Task.Delay(TimeSpan.FromMinutes(1.0)).Wait();
-            RemoveFromRunningPool();
-        });
+            // 不能同步等待一分钟，否则会长期占用线程池线程
+            _ = RemoveFromRunningPoolAsync();
+        }, TaskScheduler.Default);
 
         if (loaded)
         {
@@ -210,6 +218,13 @@ public abstract class GitCacheAccessor
         {
             _task.Start();
         }
+    }
+
+    private async Task RemoveFromRunningPoolAsync()
+    {
+        await Task.Delay(TimeSpan.FromMinutes(1.0)).ConfigureAwait(false);
+
+        RemoveFromRunningPool();
     }
 
     protected abstract Boolean Load();

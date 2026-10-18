@@ -15,8 +15,11 @@ public class GitServiceTests : IDisposable
     private readonly String _baseDir;
     private readonly String _owner;
     private readonly String _repoName;
+    private readonly String _oldRepositoryPath;
+    private readonly String _oldCachePath;
     private GitService _gitService;
     private String _commitSha;
+    private String? _secondCommitSha;
 
     public GitServiceTests()
     {
@@ -28,6 +31,8 @@ public class GitServiceTests : IDisposable
         _baseDir = Path.Combine(Path.GetTempPath(), $"GitCandyGitTest_{Guid.NewGuid():N}");
 
         // 配置GitSetting指向临时目录
+        _oldRepositoryPath = GitSetting.Current.RepositoryPath;
+        _oldCachePath = GitSetting.Current.CachePath;
         GitSetting.Current.RepositoryPath = _baseDir;
         GitSetting.Current.CachePath = Path.Combine(_baseDir, "Cache");
 
@@ -72,7 +77,14 @@ public class GitServiceTests : IDisposable
         var utilsPath = Path.Combine(srcDir, "utils.cs");
         File.WriteAllText(utilsPath, "using System;\n\npublic static class Utils\n{\n    public static Int32 Add(Int32 a, Int32 b) => a + b;\n}");
         LibGit2Sharp.Commands.Stage(repo, "src/utils.cs");
+
+        // 二进制文件，用于验证不解码为文本
+        var binPath = Path.Combine(repo.Info.WorkingDirectory, "logo.bin");
+        File.WriteAllBytes(binPath, [0x00, 0xFF, 0xFE, 0x80, 0x81, 0x00, 0xFE, 0xFF, 0x00, 0x01, 0x02, 0x03]);
+        LibGit2Sharp.Commands.Stage(repo, "logo.bin");
+
         var commit2 = repo.Commit("添加核心代码", author, committer);
+        _secondCommitSha = commit2.Sha;
 
         // 创建分支 dev
         repo.Branches.Add("dev", commit2);
@@ -87,6 +99,7 @@ public class GitServiceTests : IDisposable
         // 创建标签
         repo.Tags.Add("v1.0", commit2);
         repo.Tags.Add("v1.1", repo.Branches["dev"].Tip);
+        repo.Tags.Add("v2.0", commit2, new Signature("标签作者", "tagger@test.com", DateTimeOffset.Now), "附注标签");
 
         // 切回 master
         LibGit2Sharp.Commands.Checkout(repo, "master");
@@ -126,6 +139,28 @@ public class GitServiceTests : IDisposable
         Assert.Contains(tree.Entries, e => e.Path == "src/utils.cs");
     }
 
+    [Fact]
+    [DisplayName("GetTree_注解标签_解析到标签提交")]
+    public void GetTree_AnnotatedTag_ResolvesCommit()
+    {
+        var tree = _gitService.GetTree("v2.0");
+
+        Assert.NotNull(tree);
+        Assert.Equal("v2.0", tree.ReferenceName);
+        Assert.Equal(_secondCommitSha, tree.Commit.Sha);
+    }
+
+    [Fact]
+    [DisplayName("GetTree_分支名_返回分支树")]
+    public void GetTree_BranchName_ReturnsTree()
+    {
+        var tree = _gitService.GetTree("dev");
+
+        Assert.NotNull(tree);
+        Assert.Equal("dev", tree.ReferenceName);
+        Assert.Contains(tree.Entries, e => e.Path == "dev-note.md");
+    }
+
     // ========== GIT-3: 文件内容查看 ==========
 
     [Fact]
@@ -152,6 +187,27 @@ public class GitServiceTests : IDisposable
     public void GetBlob_NonExistentFile_ReturnsNull()
     {
         var blob = _gitService.GetBlob(_commitSha + "/nonexistent.cs");
+        Assert.Null(blob);
+    }
+
+    [Fact]
+    [DisplayName("GetBlob_二进制文件_不解码文本")]
+    public void GetBlob_BinaryFile_SkipsTextDecoding()
+    {
+        var blob = _gitService.GetBlob(_commitSha + "/logo.bin");
+
+        Assert.NotNull(blob);
+        Assert.Equal(GitCandy.Models.BlobType.Binary, blob.BlobType);
+        Assert.Null(blob.TextContent);
+        Assert.NotEmpty(blob.RawData);
+    }
+
+    [Fact]
+    [DisplayName("GetBlob_非法版本引用_返回Null")]
+    public void GetBlob_InvalidRevision_ReturnsNull()
+    {
+        var blob = _gitService.GetBlob("notasha/README.md");
+
         Assert.Null(blob);
     }
 
@@ -183,6 +239,29 @@ public class GitServiceTests : IDisposable
         Assert.Null(detail);
     }
 
+    [Fact]
+    [DisplayName("GetCommit_分支名_返回提交详情")]
+    public void GetCommit_BranchName_ReturnsDetails()
+    {
+        var detail = _gitService.GetCommit("master");
+
+        Assert.NotNull(detail);
+        Assert.Equal(_commitSha, detail.Sha);
+    }
+
+    [Fact]
+    [DisplayName("GetCompare_空仓库_返回Null")]
+    public void GetCompare_EmptyRepository_ReturnsNull()
+    {
+        var owner = "emptyowner";
+        var name = "emptyrepo";
+        using var empty = new GitService(owner, name);
+
+        var compare = empty.GetCompare("", "");
+
+        Assert.Null(compare);
+    }
+
     // ========== GIT-5: 分支管理 ==========
 
     [Fact]
@@ -202,6 +281,17 @@ public class GitServiceTests : IDisposable
         Assert.Equal("master", head);
     }
 
+    [Fact]
+    [DisplayName("GetHeadBranch_切换到已有分支_更新HEAD")]
+    public void SetHeadBranch_ExistingBranch_UpdatesHead()
+    {
+        Assert.True(_gitService.SetHeadBranch("dev"));
+        Assert.Equal("dev", _gitService.GetHeadBranch());
+
+        Assert.True(_gitService.SetHeadBranch("master"));
+        Assert.Equal("master", _gitService.GetHeadBranch());
+    }
+
     // ========== GIT-6: 标签管理 ==========
 
     [Fact]
@@ -213,6 +303,17 @@ public class GitServiceTests : IDisposable
         Assert.True(tags.HasTags);
         Assert.Contains(tags.Tags, t => t.ReferenceName == "v1.0");
         Assert.Contains(tags.Tags, t => t.ReferenceName == "v1.1");
+    }
+
+    [Fact]
+    [DisplayName("GetTags_注解标签_返回目标提交SHA")]
+    public void GetTags_AnnotatedTag_ReturnsCommitSha()
+    {
+        var tags = _gitService.GetTags();
+
+        var tag = Assert.Single(tags.Tags, t => t.ReferenceName == "v2.0");
+        Assert.Equal(_secondCommitSha, tag.Sha);
+        Assert.Equal("添加核心代码", tag.MessageShort);
     }
 
     // ========== GIT-8: Blame代码审阅 ==========
@@ -354,6 +455,25 @@ public class GitServiceTests : IDisposable
         Assert.Contains(zip.Entries, e => e.FullName == "src/main.cs");
     }
 
+    [Fact]
+    [DisplayName("GetPath_路径穿越_抛出异常")]
+    public void GetPath_PathTraversal_Throws()
+    {
+        Assert.Throws<ArgumentException>(() => GitService.GetPath("..", "repo"));
+        Assert.Throws<ArgumentException>(() => GitService.GetPath("owner", "../repo"));
+        Assert.Throws<ArgumentException>(() => GitService.GetPath("owner", "sub/repo"));
+    }
+
+    [Fact]
+    [DisplayName("GetPath_正常名称_返回根目录下的路径")]
+    public void GetPath_NormalName_ReturnsPathUnderRoot()
+    {
+        var path = GitService.GetPath(_owner, _repoName);
+
+        Assert.StartsWith(Path.GetFullPath(_baseDir), path);
+        Assert.EndsWith(Path.Combine(_owner, _repoName), path);
+    }
+
     private static String? FindGitCorePath()
     {
         var ext = OperatingSystem.IsWindows() ? ".exe" : "";
@@ -379,10 +499,13 @@ public class GitServiceTests : IDisposable
     public void Dispose()
     {
         _gitService?.Dispose();
+
+        GitSetting.Current.RepositoryPath = _oldRepositoryPath;
+        GitSetting.Current.CachePath = _oldCachePath;
+
         try
         {
-            if (Directory.Exists(_baseDir))
-                Directory.Delete(_baseDir, true);
+            if (Directory.Exists(_baseDir)) Directory.Delete(_baseDir, true);
         }
         catch { }
     }

@@ -115,28 +115,23 @@ public class GitService : IDisposable
         };
 
         // 树结构
-        var tree = String.IsNullOrEmpty(path)
-            ? commit.Tree
-            : commit[path] == null
-                ? null
-                : commit[path].Target as Tree;
+        Tree tree;
+        if (String.IsNullOrEmpty(path))
+        {
+            tree = commit.Tree;
+        }
+        else
+        {
+            var treeEntry = commit[path];
+            tree = treeEntry?.Target as Tree;
+        }
         if (tree == null) return null;
 
         var entries = (from entry in tree
-                           //join item in items on entry.Name equals item.Name into g
-                           //from item in g
                        select new TreeEntryModel
                        {
                            Name = entry.Name,
                            Path = entry.Path.Replace('\\', '/'),
-                           Commit = new CommitModel
-                           {
-                               //Sha = item.CommitSha,
-                               //CommitMessageShort = item.MessageShort,
-                               //Author = CreateSafeSignature(item.AuthorName, item.AuthorEmail, item.AuthorWhen),
-                               //Committer = CreateSafeSignature(item.CommitterName, item.CommitterEmail, item.CommitterWhen),
-                           },
-                           //Sha = item.CommitSha,
                            EntryType = entry.TargetType,
                        })
                        .OrderBy(s => s.EntryType == TreeEntryTargetType.Blob)
@@ -151,11 +146,19 @@ public class GitService : IDisposable
         {
             var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
             var items = summaryAccessor.Result.Value;
-            foreach (var entry in entries)
+            if (items != null && items.Length > 0)
             {
-                var item = items.FirstOrDefault(e => e.Name == entry.Name);
-                if (item != null)
+                // 目录项名称唯一，用字典把逐项扫描的 O(n²) 降到 O(n)
+                var map = new Dictionary<String, RevisionSummaryCacheItem>(items.Length, StringComparer.Ordinal);
+                foreach (var item in items)
                 {
+                    map[item.Name] = item;
+                }
+
+                foreach (var entry in entries)
+                {
+                    if (!map.TryGetValue(entry.Name, out var item)) continue;
+
                     entry.Commit = new CommitModel
                     {
                         Sha = item.CommitSha,
@@ -239,7 +242,8 @@ public class GitService : IDisposable
 
         var data = blob.GetContentStream().ToBytes();
         var encoding = FileHelper.DetectEncoding(data, CpToEncoding(commit.Encoding), _i18n.Value);
-        var extension = Path.GetExtension(entry.Name).ToLower();
+        var extension = Path.GetExtension(entry.Name).ToLowerInvariant();
+        var brush = FileHelper.BrushMapping.TryGetValue(extension, out var value) ? value : "no-highlight";
         var model = new TreeEntryModel
         {
             Name = entry.Name,
@@ -258,10 +262,9 @@ public class GitService : IDisposable
             EntryType = entry.TargetType,
             RawData = data,
             SizeString = FileHelper.GetSizeString(data.Length),
-            TextContent = data.ToStr(encoding),
-            TextBrush = FileHelper.BrushMapping.ContainsKey(extension)
-                ? FileHelper.BrushMapping[extension]
-                : "no-highlight",
+            // 二进制文件不需要解码成文本，避免大文件产生无用的字符串分配
+            TextContent = encoding == null ? null : data.ToStr(encoding),
+            TextBrush = brush,
             BlobType = encoding == null
                 ? FileHelper.ImageSet.Contains(extension)
                     ? BlobType.Image
@@ -316,16 +319,19 @@ public class GitService : IDisposable
     {
         var commit1 = GetCommitByPath(ref start, out var name1);
         var commit2 = GetCommitByPath(ref end, out var name2);
+        var head = _repository.Head;
         if (commit1 == null)
         {
-            commit1 = _repository.Head.Tip;
-            name1 = _repository.Head.FriendlyName;
+            commit1 = head.Tip;
+            name1 = head.FriendlyName;
         }
         if (commit2 == null)
         {
-            commit2 = _repository.Head.Tip;
-            name2 = _repository.Head.FriendlyName;
+            commit2 = head.Tip;
+            name2 = head.FriendlyName;
         }
+        // 空仓库没有任何提交可比对
+        if (commit1 == null || commit2 == null) return null;
 
         var walks = _repository.Commits
             .QueryBy(new CommitFilter
@@ -467,21 +473,22 @@ public class GitService : IDisposable
     /// <returns></returns>
     public TagsModel GetTags()
     {
-        var model = new TagsModel
+        var list = new List<TagModel>();
+        foreach (var tag in _repository.Tags)
         {
-            Tags = (from tag in _repository.Tags
-                    let commit = (tag.IsAnnotated ? tag.Annotation.Target : tag.Target) as Commit
-                    where commit != null
-                    select new TagModel
-                    {
-                        ReferenceName = tag.FriendlyName,
-                        Sha = tag.Target.Sha,
-                        When = ((Commit)tag.Target).Author.When,
-                        MessageShort = ((Commit)tag.Target).MessageShort.RepetitionIfEmpty(UnknowString),
-                    })
-                    .OrderByDescending(s => s.When)
-                    .ToArray()
-        };
+            // PeeledTarget 同时兼容轻量标签与附注标签，附注标签的 Target 是 TagAnnotation 而非 Commit
+            if (tag.PeeledTarget is not Commit commit) continue;
+
+            list.Add(new TagModel
+            {
+                ReferenceName = tag.FriendlyName,
+                Sha = commit.Sha,
+                When = commit.Author.When,
+                MessageShort = commit.MessageShort.RepetitionIfEmpty(UnknowString),
+            });
+        }
+
+        var model = new TagsModel { Tags = list.OrderByDescending(s => s.When).ToArray() };
         return model;
     }
 
@@ -536,21 +543,18 @@ public class GitService : IDisposable
         if (commit == null) return null;
 
         var contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, commit));
-        var contributors = contributorsAccessor.Result.Value;
-        contributors.OrderedCommits = contributors.OrderedCommits
-            .Take(GitSetting.Current.Contributors)
-            .ToArray();
+        var current = CloneStatistics(contributorsAccessor.Result.Value, referenceName) ?? new RepositoryStatisticsModel.Statistics();
+        current.OrderedCommits = (current.OrderedCommits ?? []).Take(cfg.Contributors).ToArray();
         var statistics = new RepositoryStatisticsModel
         {
-            Current = contributors
+            Current = current
         };
-        statistics.Current.Branch = referenceName;
 
-        if (_repository.Head.Tip != commit)
+        var head = _repository.Head;
+        if (!String.Equals(head.Tip?.Sha, commit.Sha, StringComparison.Ordinal))
         {
-            contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, _repository.Head.Tip));
-            statistics.Default = contributorsAccessor.Result.Value;
-            statistics.Default.Branch = _repository.Head.FriendlyName;
+            contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, head.Tip));
+            statistics.Default = CloneStatistics(contributorsAccessor.Result.Value, head.FriendlyName) ?? new RepositoryStatisticsModel.Statistics();
         }
 
         var key = CalcBranchesKey(true);
@@ -614,16 +618,22 @@ public class GitService : IDisposable
     {
         referenceName = null;
 
+        var head = _repository.Head;
         if (String.IsNullOrEmpty(path))
         {
-            referenceName = _repository.Head.FriendlyName;
+            referenceName = head.FriendlyName;
             path = "";
-            return _repository.Head.Tip;
+            return head.Tip;
         }
 
-        path = path + "/";
-        var p = path;
-        var branch = _repository.Branches.FirstOrDefault(s => p.StartsWith(s.FriendlyName + "/"));
+        // 补齐结尾斜杠，让“分支名/文件路径”的统一解析可以直接匹配到分支
+        var full = path + "/";
+
+        // 分支与标签可能互相包含前缀（如 dev 与 dev/feature），取最长匹配
+        var branch = _repository.Branches
+            .Where(s => full.StartsWith(s.FriendlyName + "/", StringComparison.Ordinal))
+            .OrderByDescending(s => s.FriendlyName.Length)
+            .FirstOrDefault();
         if (branch != null && branch.Tip != null)
         {
             referenceName = branch.FriendlyName;
@@ -631,18 +641,47 @@ public class GitService : IDisposable
             return branch.Tip;
         }
 
-        var tag = _repository.Tags.FirstOrDefault(s => p.StartsWith(s.FriendlyName + "/"));
-        if (tag != null && tag.Target is Commit)
+        var tag = _repository.Tags
+            .Where(s => full.StartsWith(s.FriendlyName + "/", StringComparison.Ordinal))
+            .OrderByDescending(s => s.FriendlyName.Length)
+            .FirstOrDefault();
+        // 附注标签的 Target 是 TagAnnotation，必须使用 PeeledTarget 才能拿到提交
+        if (tag?.PeeledTarget is Commit tagCommit)
         {
             referenceName = tag.FriendlyName;
             path = path[referenceName.Length..].Trim('/');
-            return (Commit)tag.Target;
+            return tagCommit;
         }
 
-        var index = path.IndexOf('/');
-        var commit = _repository.Lookup<Commit>(path[..index]);
-        path = path[(index + 1)..].Trim('/');
-        return commit;
+        // 剩余形态为“提交SHA/路径”，无效的引用返回空而不是抛异常
+        var index = full.IndexOf('/');
+        if (index <= 0) return null;
+
+        var sha = full[..index];
+        path = full[(index + 1)..].Trim('/');
+        try
+        {
+            return _repository.Lookup<Commit>(sha);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static RepositoryStatisticsModel.Statistics CloneStatistics(RepositoryStatisticsModel.Statistics source, String branch)
+    {
+        if (source == null) return null;
+
+        return new RepositoryStatisticsModel.Statistics
+        {
+            Branch = branch,
+            NumberOfFiles = source.NumberOfFiles,
+            NumberOfCommits = source.NumberOfCommits,
+            SizeOfSource = source.SizeOfSource,
+            NumberOfContributors = source.NumberOfContributors,
+            OrderedCommits = source.OrderedCommits,
+        };
     }
 
     private CommitModel ToCommitModel(Commit commit, String referenceName, Boolean isTree = true, String detailFilter = null, Tree compareWith = null)
@@ -700,8 +739,10 @@ public class GitService : IDisposable
         return model;
     }
 
-    private Encoding CpToEncoding(String encoding)
+    private static Encoding CpToEncoding(String encoding)
     {
+        if (encoding.IsNullOrEmpty()) return null;
+
         try
         {
             if (encoding.StartsWith("cp", StringComparison.OrdinalIgnoreCase))
@@ -745,7 +786,7 @@ public class GitService : IDisposable
         return sb.ToString();
     }
 
-    private Signature CreateSafeSignature(String name, String email, DateTimeOffset when) => new(name.RepetitionIfEmpty(UnknowString), email.RepetitionIfEmpty(UnknowString), when);
+    private static Signature CreateSafeSignature(String name, String email, DateTimeOffset when) => new(name.RepetitionIfEmpty(UnknowString), email.RepetitionIfEmpty(UnknowString), when);
     #endregion
 
     #region Static Methods
@@ -755,10 +796,23 @@ public class GitService : IDisposable
     /// <returns></returns>
     public static String GetPath(String owner, String name)
     {
-        var p = GitSetting.Current.RepositoryPath;
-        p = p.CombinePath(owner, name).GetFullPath();
+        if (owner.IsNullOrEmpty()) throw new ArgumentNullException(nameof(owner));
+        if (name.IsNullOrEmpty()) throw new ArgumentNullException(nameof(name));
 
-        return p;
+        // 拥有者与仓库名都只能是单层路径，禁止通过 .. 或分隔符跳出仓库根目录
+        if (owner.IndexOfAny(['/', '\\']) >= 0 || name.IndexOfAny(['/', '\\']) >= 0 ||
+            owner is "." or ".." || name is "." or "..")
+            throw new ArgumentException($"非法的仓库路径：{owner}/{name}");
+
+        var root = GitSetting.Current.RepositoryPath.GetFullPath();
+        var path = root.CombinePath(owner, name).GetFullPath();
+
+        var rootPrefix = root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var comparison = Runtime.Windows ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        if (!path.StartsWith(rootPrefix, comparison))
+            throw new ArgumentException($"仓库路径越界：{path}");
+
+        return path;
     }
 
     /// <summary>创建Git仓库。可选从远程导入</summary>
@@ -777,13 +831,16 @@ public class GitService : IDisposable
                 if (remoteUrl != null)
                 {
                     repo.Network.Remotes.Add("origin", remoteUrl, "+refs/*:refs/*");
+
+                    // 捕获路径而不是捕获仓库对象，避免后台任务访问已经释放的 Repository
+                    var repoPath = repo.Info.Path;
                     Task.Run(() =>
                     {
                         XTrace.WriteLine("[{0}/{1}]准备从远程拉取 {2}", owner, name, remoteUrl);
                         try
                         {
                             var sw = Stopwatch.StartNew();
-                            using (var fetch_repo = new Repository(repo.Info.Path))
+                            using (var fetch_repo = new Repository(repoPath))
                             {
                                 //fetch_repo.Fetch("origin");
                                 fetch_repo.Network.Fetch("origin", Array.Empty<String>());
@@ -868,87 +925,65 @@ public class GitService : IDisposable
     #endregion
 
     #region RunGitCmd
-    // un-safe implementation
-    private void RunGitCmd(String serviceName, Boolean advertiseRefs, Stream inStream, Stream outStream)
-    {
-        var args = serviceName + " --stateless-rpc";
-        if (advertiseRefs)
-            args += " --advertise-refs";
-        args += " \"" + _repositoryPath + "\"";
-
-        WriteLog("git.exe {0}", args);
-        var sw = new Stopwatch();
-        sw.Start();
-
-        var cfg = GitSetting.Current;
-        var info = new ProcessStartInfo(cfg.GetGitFile(), args)
-        {
-            CreateNoWindow = true,
-            RedirectStandardError = true,
-            RedirectStandardInput = true,
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()),
-        };
-
-        var rs = 0;
-        using (var process = Process.Start(info))
-        {
-            inStream.CopyTo(process.StandardInput.BaseStream);
-            process.StandardInput.Close();
-            process.StandardOutput.BaseStream.CopyTo(outStream);
-
-            if (!process.WaitForExit(15 * 1000))
-            {
-                process.Kill();
-            }
-
-            rs = process.ExitCode;
-        }
-
-        sw.Stop();
-        WriteLog("git.exe 完成 {0} 耗时 {1}", rs, sw.Elapsed);
-    }
-
     private async Task RunGitCmdAsync(String serviceName, Boolean advertiseRefs, Stream inStream, Stream outStream)
     {
-        var args = serviceName + " --stateless-rpc";
-        if (advertiseRefs)
-            args += " --advertise-refs";
-        args += " \"" + _repositoryPath + "\"";
-
-        WriteLog("git.exe {0}", args);
-        var sw = new Stopwatch();
-        sw.Start();
+        if (serviceName != "upload-pack" && serviceName != "receive-pack") throw new ArgumentException("无效的Git服务类型", nameof(serviceName));
+        if (inStream == null) throw new ArgumentNullException(nameof(inStream));
+        if (outStream == null) throw new ArgumentNullException(nameof(outStream));
 
         var cfg = GitSetting.Current;
-        var info = new ProcessStartInfo(cfg.GetGitFile(), args)
+        var info = new ProcessStartInfo(cfg.GetGitFile())
         {
             CreateNoWindow = true,
             RedirectStandardError = true,
             RedirectStandardInput = true,
             RedirectStandardOutput = true,
+            StandardErrorEncoding = Encoding.UTF8,
             UseShellExecute = false,
-            WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()),
+            WorkingDirectory = Path.GetDirectoryName(cfg.RepositoryPath.GetFullPath()) ?? AppContext.BaseDirectory,
         };
+        // 使用参数列表而不是拼接命令行，避免仓库路径中的引号破坏参数
+        info.ArgumentList.Add(serviceName);
+        info.ArgumentList.Add("--stateless-rpc");
+        if (advertiseRefs) info.ArgumentList.Add("--advertise-refs");
+        info.ArgumentList.Add(_repositoryPath);
 
-        var rs = 0;
-        using (var process = Process.Start(info))
+        WriteLog("git {0}", String.Join(" ", info.ArgumentList));
+        var sw = Stopwatch.StartNew();
+
+        using var process = Process.Start(info);
+        if (process == null) throw new InvalidOperationException($"无法启动Git进程：{info.FileName}");
+
+        try
         {
+            // 必须与 stdout 并发读取 stderr，否则 stderr 管道写满会把 git 进程阻塞住
+            var errorTask = process.StandardError.ReadToEndAsync();
+
             await inStream.CopyToAsync(process.StandardInput.BaseStream);
             process.StandardInput.Close();
             await process.StandardOutput.BaseStream.CopyToAsync(outStream);
 
-            if (!process.WaitForExit(15 * 1000))
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            try
             {
-                process.Kill();
+                await process.WaitForExitAsync(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                try { process.Kill(true); } catch { }
+                WriteLog("git {0} 超时，已强制终止", serviceName);
             }
 
-            rs = process.ExitCode;
+            var error = await errorTask;
+            sw.Stop();
+            if (!error.IsNullOrEmpty()) WriteLog("git stderr：{0}", error.TrimEnd());
+            WriteLog("git {0} 完成 {1} 耗时 {2}", serviceName, process.HasExited ? process.ExitCode : -1, sw.Elapsed);
         }
-
-        sw.Stop();
-        WriteLog("git.exe 完成 {0} 耗时 {1}", rs, sw.Elapsed);
+        catch
+        {
+            try { if (!process.HasExited) process.Kill(true); } catch { }
+            throw;
+        }
     }
     #endregion
 
@@ -961,23 +996,11 @@ public class GitService : IDisposable
 
     protected virtual void Dispose(Boolean disposing)
     {
-        if (!_disposed)
-        {
-            if (disposing)
-            {
-                if (_repository != null)
-                {
-                    _repository.Dispose();
-                }
-            }
+        if (_disposed) return;
 
-            _disposed = true;
-        }
-    }
+        if (disposing) _repository?.Dispose();
 
-    ~GitService()
-    {
-        Dispose(false);
+        _disposed = true;
     }
     #endregion
 
