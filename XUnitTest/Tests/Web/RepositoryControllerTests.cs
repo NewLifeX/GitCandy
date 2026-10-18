@@ -296,6 +296,7 @@ public class RepositoryControllerTests : IDisposable
         var view = Assert.IsType<ViewResult>(result);
         var model = Assert.IsType<BranchesModel>(view.Model);
         Assert.Equal("master", model.Commit.ReferenceName);
+        Assert.DoesNotContain(model.AheadBehinds, e => e.Commit.ReferenceName == "master");
     }
 
     [Fact]

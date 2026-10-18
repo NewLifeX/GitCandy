@@ -515,7 +515,9 @@ public class GitService : IDisposable
         var key = CalcBranchesKey();
         var accessor = GitCacheAccessor.Singleton(new HistoryDivergenceAccessor(_repoId, _repository, key));
         var result = accessor.Result;
-        var aheadBehinds = result.Value;
+        var aheadBehinds = result.Value
+            .Where(s => !String.IsNullOrEmpty(s.Name) && !String.Equals(s.Name, head.FriendlyName, StringComparison.Ordinal))
+            .ToArray();
         var model = new BranchesModel
         {
             Commit = ToCommitModel(head.Tip, head.FriendlyName),
