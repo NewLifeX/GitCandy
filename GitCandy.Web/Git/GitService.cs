@@ -21,6 +21,9 @@ public class GitService : IDisposable
     /// <summary>文本预览上限。超过该大小的文本文件只提供原文件下载，默认4MB</summary>
     public static Int32 MaxTextSize { get; set; } = 4 * 1024 * 1024;
 
+    /// <summary>单个文件差异下发上限。超过该大小的差异只提示查看文件，默认512KB</summary>
+    public static Int32 MaxPatchSize { get; set; } = 512 * 1024;
+
     private readonly Repository _repository;
     private readonly String _repositoryPath;
     private readonly String _repoId = null;
@@ -768,6 +771,7 @@ public class GitService : IDisposable
                              where (s.Path.Replace('\\', '/') + '/').StartsWith(detailFilter)
                              orderby s.Path
                              let patch = patches[s.Path]
+                             let tooLarge = patch.Patch != null && patch.Patch.Length > MaxPatchSize
                              select new CommitChangeModel
                              {
                                  //Name = s.Name,
@@ -776,7 +780,8 @@ public class GitService : IDisposable
                                  ChangeKind = s.Status,
                                  LinesAdded = patch.LinesAdded,
                                  LinesDeleted = patch.LinesDeleted,
-                                 Patch = patch.Patch,
+                                 Patch = tooLarge ? null : patch.Patch,
+                                 IsPatchTooLarge = tooLarge,
                              })
                              .ToArray();
         }

@@ -491,6 +491,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 差异过大 的本地化字符串。
+        /// </summary>
+        public static string Repository_PatchTooLarge {
+            get {
+                return ResourceManager.GetString("Repository_PatchTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Blame 的本地化字符串。
         /// </summary>
         public static string Repository_Blame {

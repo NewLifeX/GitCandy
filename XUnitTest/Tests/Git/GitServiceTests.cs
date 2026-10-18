@@ -268,6 +268,28 @@ public class GitServiceTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("GetCommit_超大差异_不下发内容")]
+    public void GetCommit_LargePatch_SkipsContent()
+    {
+        var old = GitService.MaxPatchSize;
+        try
+        {
+            GitService.MaxPatchSize = 0;
+
+            var commit = _gitService.GetCommit(_commitSha);
+
+            Assert.NotNull(commit);
+            var change = commit.Changes.First(c => !String.IsNullOrEmpty(c.Path));
+            Assert.True(change.IsPatchTooLarge);
+            Assert.Null(change.Patch);
+        }
+        finally
+        {
+            GitService.MaxPatchSize = old;
+        }
+    }
+
+    [Fact]
     [DisplayName("GetCommit_有效SHA_返回提交详情")]
     public void GetCommit_ValidSha_ReturnsCommitDetails()
     {

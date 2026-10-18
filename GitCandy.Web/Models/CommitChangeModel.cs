@@ -11,5 +11,8 @@ namespace GitCandy.Models
         public Int32 LinesAdded { get; set; }
         public Int32 LinesDeleted { get; set; }
         public String Patch { get; set; }
+
+        /// <summary>差异过大时不下发内容，仅提示查看文件</summary>
+        public Boolean IsPatchTooLarge { get; set; }
     }
 }

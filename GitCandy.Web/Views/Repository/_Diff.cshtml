@@ -20,7 +20,20 @@
         </div>
         @if (!removed)
         {
-            <pre><code class="language-diff">@change.Patch</code></pre>
+            if (change.IsPatchTooLarge)
+            {
+                <div class="alert alert-warning">
+                    @SR.Repository_PatchTooLarge
+                    @if (change.ChangeKind != LibGit2Sharp.ChangeKind.Deleted)
+                    {
+                        @Html.ActionLink(change.Path, "Blob", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + change.Path }))
+                    }
+                </div>
+            }
+            else
+            {
+                <pre><code class="language-diff">@change.Patch</code></pre>
+            }
         }
     </div>
 }
