@@ -2,7 +2,7 @@
 @model GitCandy.Models.TreeEntryModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlobTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlobTitle, Model.FullName, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
 }
 
 <h4>

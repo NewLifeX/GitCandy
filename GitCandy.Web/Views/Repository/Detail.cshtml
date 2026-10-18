@@ -3,12 +3,11 @@
 @using NewLife.Model;
 @using GitCandy.Web.Extensions;
 @{
-    var repositoryName = $"{Model.Owner}/{Model.Name}";
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_DetailTitle, repositoryName));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_DetailTitle, Model.FullName));
     var token = ViewBag.Token as IManageUser;
 }
 
-<h3>@String.Format(SR.Repository_DetailTitle, repositoryName)</h3>
+<h3>@String.Format(SR.Repository_DetailTitle, Model.FullName)</h3>
 
 @if (Model != null)
 {

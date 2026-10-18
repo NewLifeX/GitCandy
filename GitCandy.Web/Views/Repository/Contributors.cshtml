@@ -2,7 +2,7 @@
 @model GitCandy.Models.ContributorsModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model.Name));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model.FullName));
     var currentClass = Model.Statistics.Default != null ? "summary-separator" : null;
 }
 

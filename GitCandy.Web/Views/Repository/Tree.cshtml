@@ -10,8 +10,8 @@
     var referenceName = Model.ReferenceName ?? Model.Commit?.Sha.ToShortSha();
     var historyPath = String.IsNullOrEmpty(Model.Path) ? referenceName : referenceName + "/" + Model.Path;
     var title = String.IsNullOrEmpty(Model.Path)
-        ? String.Format(SR.Repository_TreeRootTitle, Model.Name, referenceName)
-        : String.Format(SR.Repository_TreeTitle, Model.Name, referenceName, Model.Path);
+        ? String.Format(SR.Repository_TreeRootTitle, Model.FullName, referenceName)
+        : String.Format(SR.Repository_TreeTitle, Model.FullName, referenceName, Model.Path);
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
 }
 

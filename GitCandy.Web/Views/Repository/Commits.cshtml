@@ -3,8 +3,8 @@
 
 @{
     var title = String.IsNullOrEmpty(Model.Path)
-        ? String.Format(SR.Repository_CommitsRootTitle, Model.Name ?? Model.Sha.ToShortSha())
-        : String.Format(SR.Repository_CommitsTitle, Model.Name ?? Model.Sha.ToShortSha(), Model.Path);
+        ? String.Format(SR.Repository_CommitsRootTitle, Model.FullName ?? Model.Sha.ToShortSha())
+        : String.Format(SR.Repository_CommitsTitle, Model.FullName ?? Model.Sha.ToShortSha(), Model.Path);
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
 }
 

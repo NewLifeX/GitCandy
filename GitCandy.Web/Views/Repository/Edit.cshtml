@@ -3,7 +3,7 @@
 @using NewLife.Model;
 @using GitCandy.Web.Extensions;
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_EditTitle, Model.Name));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_EditTitle, Model.FullName));
     var token = ViewBag.Token as IManageUser;
 }
 

@@ -2,7 +2,7 @@
 @model GitCandy.Models.BlameModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlameTitle, Model.FullName, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
 }
 
 <h4>

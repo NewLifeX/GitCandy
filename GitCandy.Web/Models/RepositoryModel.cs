@@ -18,6 +18,9 @@ public class RepositoryModel
     [Display(ResourceType = typeof(SR), Name = "Repository_Name")]
     public String Name { get; set; }
 
+    /// <summary>完整仓库名（拥有者/仓库名）</summary>
+    public String FullName => String.IsNullOrEmpty(Owner) ? Name : $"{Owner}/{Name}";
+
     [StringLength(500, ErrorMessageResourceType = typeof(SR), ErrorMessageResourceName = "Validation_StringLength")]
     [Display(ResourceType = typeof(SR), Name = "Repository_Description")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
