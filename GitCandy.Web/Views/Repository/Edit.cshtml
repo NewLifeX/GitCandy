@@ -60,7 +60,7 @@
         </dt>
         <dd>
             <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
-            <button type="reset" class="btn btn-inverse">@SR.Shared_Reset</button> &nbsp;
+            <button type="reset" class="btn btn-default">@SR.Shared_Reset</button> &nbsp;
             @if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin()))
             {
                 @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Id }, new { @class = "btn btn-danger" })
