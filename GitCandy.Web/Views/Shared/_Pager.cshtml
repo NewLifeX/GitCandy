@@ -1,13 +1,15 @@
-﻿@{
+@using GitCandy.Web.Extensions
+@{
     var action = ViewContext.RouteData.Values["Action"] as String;
     var pager = ViewBag.Pager as GitCandy.Base.Pager;
+    if (pager == null) { return; }
 }
 <div class="text-center">
     <ul class="pagination">
         @if (pager.HasPreviousPage)
         {
-            <li>@Html.ActionLink("<<", action, new { page = pager.FirstPageIndex })</li>
-            <li>@Html.ActionLink("<", action, new { page = pager.PreviousPageIndex })</li>
+            <li>@Html.ActionLink("<<", action, Html.OverRoute(new { page = pager.FirstPageIndex }, true))</li>
+            <li>@Html.ActionLink("<", action, Html.OverRoute(new { page = pager.PreviousPageIndex }, true))</li>
         }
 
         @foreach (int page in pager)
@@ -18,14 +20,14 @@
             }
             else
             {
-                <li>@Html.ActionLink(page.ToString(), action, new { page })</li>
+                <li>@Html.ActionLink(page.ToString(), action, Html.OverRoute(new { page }, true))</li>
             }
         }
 
         @if (pager.HasNextPage)
         {
-            <li>@Html.ActionLink(">", action, new { page = pager.NextPageIndex })</li>
-            <li>@Html.ActionLink(">>", action, new { page = pager.LastPageIndex })</li>
+            <li>@Html.ActionLink(">", action, Html.OverRoute(new { page = pager.NextPageIndex }, true))</li>
+            <li>@Html.ActionLink(">>", action, Html.OverRoute(new { page = pager.LastPageIndex }, true))</li>
         }
     </ul>
 </div>

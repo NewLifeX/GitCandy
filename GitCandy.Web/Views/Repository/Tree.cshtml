@@ -78,8 +78,9 @@ else
                 <tbody>
                     @foreach (var entry in Model.Entries)
                     {
-                        var commit = entry.Commit ?? new CommitModel();
-                        var author = commit.Author;
+                        var commit = entry.Commit;
+                        var author = commit?.Author;
+                        var loading = Model.IsLoading && String.IsNullOrEmpty(commit?.Sha);
                         <tr>
                             <td>
                                 <span title="@entry.Name">
@@ -109,16 +110,33 @@ else
                                     }
                                 </span>
                             </td>
-                            <td><span title="@commit.CommitMessageShort">@(commit.Sha == null ? Html.Raw(commit.CommitMessageShort) : Html.ActionLink(commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = commit.Sha })))</span></td>
-                            @if (author != null)
+                            @if (Model.ShowSummary)
                             {
-                                <td title="@author">@author.Name.ShortString(20)</td>
-                                <td title="@author.When">@author.When.LocalDateTime.ToFullString()</td>
-                            }
-                            else
-                            {
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    @if (loading)
+                                    {
+                                        <span class="text-muted">…</span>
+                                    }
+                                    else if (commit != null)
+                                    {
+                                        <span title="@commit.CommitMessageShort">@(commit.Sha == null ? Html.Raw(commit.CommitMessageShort) : Html.ActionLink(commit.CommitMessageShort.ShortString(70), "Commit", Html.OverRoute(new { path = commit.Sha })))</span>
+                                    }
+                                </td>
+                                @if (loading)
+                                {
+                                    <td class="text-muted">…</td>
+                                    <td class="text-muted">—</td>
+                                }
+                                else if (author != null)
+                                {
+                                    <td title="@author">@author.Name.ShortString(20)</td>
+                                    <td title="@author.When">@author.When.LocalDateTime.ToFullString()</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td></td>
+                                }
                             }
                         </tr>
                     }
@@ -142,5 +160,6 @@ else
                 </table>
             </div>
         }
+        @await Html.PartialAsync("_AutoRefresh", Model.IsLoading)
     </div>
 }

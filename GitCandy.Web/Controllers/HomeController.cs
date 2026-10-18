@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewLife;
 using NewLife.Cube;
@@ -23,11 +24,32 @@ public class HomeController : CandyControllerBase
     [AllowAnonymous]
     public ActionResult Language(String lang)
     {
-        Response.Cookies.Append("Lang", lang);
+        if (!lang.IsNullOrEmpty())
+        {
+            try
+            {
+                var culture = CultureInfo.GetCultureInfo(lang);
+                // CookieRequestCultureProvider 要求的格式
+                Response.Cookies.Append("Lang", $"c={culture.Name}|uic={culture.Name}", new CookieOptions { Expires = DateTimeOffset.Now.AddYears(1) });
+            }
+            catch (CultureNotFoundException) { }
+        }
 
         //Session["Culture"] = null;
 
+        // 仅允许跳回本站地址，避免开放重定向
         var url = Request.GetReferer();
-        return url.IsNullOrEmpty() ? RedirectToStartPage() : Redirect(url);
+        if (!url.IsNullOrEmpty())
+        {
+            if (url.StartsWith("/") && !url.StartsWith("//")) return Redirect(url);
+
+            if (Uri.TryCreate(url, UriKind.Absolute, out var uri) && String.Equals(uri.Host, Request.Host.Host, StringComparison.OrdinalIgnoreCase))
+            {
+                var port = Request.Host.Port ?? (Request.Scheme == "https" ? 443 : 80);
+                if (uri.Port == port) return Redirect(uri.PathAndQuery);
+            }
+        }
+
+        return RedirectToStartPage();
     }
 }

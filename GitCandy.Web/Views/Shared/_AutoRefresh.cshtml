@@ -1,0 +1,25 @@
+@model Boolean
+@*
+    后台统计尚未就绪时自动刷新页面，最多重试三次，避免用户停留在 0 或占位数据上。
+*@
+@if (Model)
+{
+    <script>
+        (function () {
+            try {
+                var key = 'gc-autorefresh:' + location.pathname + location.search;
+                var count = parseInt(sessionStorage.getItem(key) || '0', 10);
+                if (count < 3) {
+                    sessionStorage.setItem(key, count + 1);
+                    setTimeout(function () { location.reload(); }, 1500);
+                }
+            } catch (e) { }
+        })();
+    </script>
+}
+else
+{
+    <script>
+        try { sessionStorage.removeItem('gc-autorefresh:' + location.pathname + location.search); } catch (e) { }
+    </script>
+}

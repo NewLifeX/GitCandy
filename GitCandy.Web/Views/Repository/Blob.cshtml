@@ -1,4 +1,5 @@
-﻿@model GitCandy.Models.TreeEntryModel
+﻿@using GitCandy.Web.Extensions
+@model GitCandy.Models.TreeEntryModel
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BlobTitle, Model.Name, Model.ReferenceName ?? Model.Sha.ToShortSha(), Model.Path));
@@ -29,9 +30,9 @@
     <div class="col-md-12">
         <span>@Model.SizeString</span>
         <div class="pull-right">
-            @Html.ActionLink(SR.Repository_History, "Commits", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default" })
-            @Html.ActionLink(SR.Repository_Blame, "Blame", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default hidden-xs" })
-            @Html.ActionLink(SR.Repository_Raw, "Raw", new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }, new { @class = "btn btn-default" })
+            @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
+            @Html.ActionLink(SR.Repository_Blame, "Blame", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default hidden-xs" })
+            @Html.ActionLink(SR.Repository_Raw, "Raw", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
         </div>
     </div>
 </div>

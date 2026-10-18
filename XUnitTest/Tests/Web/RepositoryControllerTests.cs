@@ -354,6 +354,53 @@ public class RepositoryControllerTests : IDisposable
         Assert.IsType<ForbidResult>(result);
     }
 
+    [Fact]
+    [DisplayName("Delete_拥有者_返回仓库确认页")]
+    public void Delete_Get_Owner_ReturnsRepositoryView()
+    {
+        var result = NewController(_owner).Delete(_repo.ID, null);
+
+        var view = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsType<RepositoryX>(view.Model);
+        Assert.Equal(_repo.ID, model.ID);
+        Assert.Equal(_repoName, model.Name);
+    }
+
+    [Fact]
+    [DisplayName("Delete_非管理员_拒绝访问")]
+    public void Delete_Get_NonAdmin_Forbids()
+    {
+        var result = NewController(_member).Delete(_repo.ID, null);
+
+        Assert.IsType<ForbidResult>(result);
+    }
+
+    [Fact]
+    [DisplayName("Tree_空仓库_返回空仓库说明页")]
+    public void Tree_EmptyRepository_ReturnsEmptyView()
+    {
+        var name = "emptyrepo_" + Guid.NewGuid().ToString("N")[..6];
+        var repoPath = GitService.GetPath(_owner.Name, name);
+        Directory.CreateDirectory(repoPath);
+        LibRepository.Init(repoPath);
+
+        _service.Create(new RepositoryModel
+        {
+            Name = name,
+            Owner = _owner.Name,
+            Description = "空仓库",
+            IsPrivate = false,
+            AllowAnonymousRead = true,
+        });
+
+        var result = NewController(_owner).Tree(_owner.Name, name, null);
+
+        var view = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsType<TreeModel>(view.Model);
+        Assert.Null(model.Entries);
+        Assert.NotNull(model.ReferenceName);
+    }
+
     public void Dispose()
     {
         var git = GitSetting.Current;

@@ -9,5 +9,5 @@
     @Html.ActionLink(repo.Owner, "Detail", user.IsTeam ? "Team" : "Account", new { name = repo.Owner }, null)
     <text>/</text>
     @*@Html.ActionLink(repo.Name, "Tree", new { owner = repo.Owner, name = repo.Name, path = "" })*@
-    @Html.RouteLink(repo.Name, "UserGitWeb", new { owner = repo.Owner, name = repo.Name })
+    @Html.RouteLink(repo.Name, "UserGitWeb", new { owner = repo.Owner, name = repo.Name, action = "Tree" })
 }

@@ -1,7 +1,7 @@
 ﻿@model GitCandy.Models.BranchesModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BranchesTitle, Model));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_BranchesTitle, Model.Name));
 }
 
 <h4>
@@ -32,7 +32,7 @@ else
                 <tr>
                     <td>
                         <div>@Html.ActionLink(item.Commit.ReferenceName, "Tree", Html.OverRoute(new { path = item.Commit.ReferenceName }))</div>
-                        <strong title="@item.Commit.Author">@Model.Commit.Author.Name</strong>
+                        <strong title="@item.Commit.Author">@item.Commit.Author.Name</strong>
                         <span>@SR.Repository_AuthoredAt</span>
                         <span title="@item.Commit.Author.When">@item.Commit.Author.When.LocalDateTime.ToFullString()</span>
                     </td>
@@ -49,6 +49,7 @@ else
 <script type="text/javascript">
     var deleteBranch_params = {
         words: '@Html.Raw(SR.Repository_BranchDeletionWords)',
-        url: '@Url.Action("Branches", "Repository")'
+        url: '@Html.Raw(Url.Action("Branches", "Repository", new { owner = Model.Owner, name = Model.Name }))'
     };
 </script>
+@await Html.PartialAsync("_AutoRefresh", Model.IsLoading)

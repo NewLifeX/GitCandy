@@ -1,4 +1,5 @@
-﻿@model GitCandy.Models.TagsModel
+﻿@using GitCandy.Web.Extensions
+@model GitCandy.Models.TagsModel
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TagsTitle, Model.Name));
@@ -19,10 +20,10 @@
                     @if (Model.CanDelete)
                     { <a class="btn btn-default" data-tag="@tag.ReferenceName" href="#">@SR.Shared_Delete</a>}
                 </div>
-                <div>@Html.ActionLink(tag.ReferenceName, "Tree", new { path = tag.ReferenceName ?? tag.Sha })</div>
+                <div>@Html.ActionLink(tag.ReferenceName, "Tree", Html.OverRoute(new { path = tag.ReferenceName ?? tag.Sha }))</div>
                 <div title="@tag.When">@tag.When.LocalDateTime.ToFullString()</div>
                 <div>@tag.MessageShort</div>
-                <div>@Html.ActionLink(tag.Sha, "Commit", new { path = tag.ReferenceName ?? tag.Sha })</div>
+                <div>@Html.ActionLink(tag.Sha, "Commit", Html.OverRoute(new { path = tag.ReferenceName ?? tag.Sha }))</div>
             </div>
         }
     }
@@ -35,6 +36,6 @@
 <script type="text/javascript">
     var deleteTag_params = {
         words: '@Html.Raw(SR.Repository_TagDeletionWords)',
-        url: '@Url.Action("Tags", "Repository")'
+        url: '@Html.Raw(Url.Action("Tags", "Repository", new { owner = Model.Owner, name = Model.Name }))'
     };
 </script>

@@ -295,7 +295,7 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
-        ///   查找类似 Respositories 的本地化字符串。
+        ///   查找类似 Repositories 的本地化字符串。
         /// </summary>
         public static string Account_Repositories {
             get {

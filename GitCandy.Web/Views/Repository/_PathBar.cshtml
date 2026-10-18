@@ -1,10 +1,11 @@
-﻿@model GitCandy.Models.PathBarModel
+﻿@using GitCandy.Web.Extensions
+@model GitCandy.Models.PathBarModel
 @{
     var branch = (Model.ReferenceName ?? Model.ReferenceSha);
 }
 
 <ul class="breadcrumb">
-    <li>@Html.ActionLink(Model.Name, Model.Action, new { path = branch })</li>
+    <li>@Html.ActionLink(Model.Name, Model.Action, Html.OverRoute(new { path = branch }))</li>
 
     @if (!String.IsNullOrEmpty(Model.Path))
     {
@@ -29,7 +30,7 @@
             }
             else
             {
-                <li>@Html.ActionLink(dirs[i], Model.Action, new { path = branch + "/" + currentPath }) </li>
+                <li>@Html.ActionLink(dirs[i], Model.Action, Html.OverRoute(new { path = branch + "/" + currentPath })) </li>
             }
         }
     }

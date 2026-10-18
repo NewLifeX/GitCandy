@@ -1,8 +1,11 @@
-﻿using System.Reflection;
+using System.Globalization;
+using System.Reflection;
+using System.Text;
 using GitCandy.Git.Cache;
 using GitCandy.Web.Base;
 using GitCandy.Web.Services;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.FileProviders;
 using NewLife;
@@ -17,6 +20,9 @@ using XCode;
 // 启用控制台日志，拦截所有异常
 XTrace.UseConsole();
 
+// 注册GBK等代码页编码，避免中文服务器上编码探测抛出 NotSupportedException
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
@@ -29,6 +35,15 @@ services.AddSingleton<AccountService>();
 services.AddResponseCompression();
 
 services.AddControllersWithViews();
+
+// 语言切换：读取首页语言菜单写入的 Lang Cookie
+services.Configure<RequestLocalizationOptions>(options =>
+{
+    var cultures = new[] { new CultureInfo("zh-CN"), new CultureInfo("en-US") };
+    options.SupportedCultures = cultures;
+    options.SupportedUICultures = cultures;
+    options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider { CookieName = "Lang" });
+});
 
 // 引入魔方
 services.AddCube();
@@ -58,6 +73,9 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 else
     app.UseExceptionHandler("/CubeHome/Error");
+
+// 必须在路由和控制器之前启用，才能让 SR 资源按 Lang Cookie 切换语言
+app.UseRequestLocalization();
 
 if (Environment.GetEnvironmentVariable("__ASPNETCORE_BROWSER_TOOLS") is null)
     app.UseResponseCompression();

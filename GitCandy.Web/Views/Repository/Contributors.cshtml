@@ -2,7 +2,7 @@
 @model GitCandy.Models.ContributorsModel
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model));
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model.Name));
 }
 
 <h4>
@@ -43,3 +43,4 @@
         </tbody>
     </table>
 </div>
+@await Html.PartialAsync("_AutoRefresh", Model.IsLoading)

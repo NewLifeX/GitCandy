@@ -15,5 +15,11 @@ namespace GitCandy.Models
         public GitUrl[] GitUrls { get; set; }
         public String Description { get; set; }
         public PathBarModel PathBar { get; set; }
+
+        /// <summary>是否显示文件提交摘要列</summary>
+        public Boolean ShowSummary { get; set; }
+
+        /// <summary>提交摘要是否仍在后台计算</summary>
+        public Boolean IsLoading { get; set; }
     }
 }

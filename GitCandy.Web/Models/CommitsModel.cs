@@ -12,5 +12,6 @@ namespace GitCandy.Models
         public Int32 CurrentPage { get; set; }
         public Int32 ItemCount { get; set; }
         public PathBarModel PathBar { get; set; }
+        public Boolean IsLoading { get; set; }
     }
 }

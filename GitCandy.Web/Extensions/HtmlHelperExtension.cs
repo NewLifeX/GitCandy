@@ -8,7 +8,12 @@ namespace GitCandy.Web.Extensions;
 
 public static class HtmlHelperExtension
 {
-    public static RouteValueDictionary OverRoute(this IHtmlHelper helper, Object routeValues = null, Boolean withQuery = false)
+    /// <summary>合并当前路由与查询字符串，生成保留上下文（如 owner/name）的路由值</summary>
+    /// <param name="helper">HTML 助手</param>
+    /// <param name="routeValues">需要覆盖的路由值</param>
+    /// <param name="withQuery">是否合并当前查询字符串，默认合并以避免丢失 owner/name 等上下文</param>
+    /// <returns>路由值字典</returns>
+    public static RouteValueDictionary OverRoute(this IHtmlHelper helper, Object routeValues = null, Boolean withQuery = true)
     {
         var old = helper.ViewContext.RouteData.Values;
         if (routeValues == null) return old;

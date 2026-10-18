@@ -142,6 +142,7 @@ public class GitService : IDisposable
 
         // 缓存加载摘要
         var cfg = GitSetting.Current;
+        model.ShowSummary = cfg.AllowSummary;
         if (cfg.AllowSummary)
         {
             var summaryAccessor = GitCacheAccessor.Singleton(new SummaryAccessor(_repoId, _repository, commit, tree));
@@ -169,6 +170,9 @@ public class GitService : IDisposable
                     entry.Sha = item.CommitSha;
                 }
             }
+
+            // 后台尚未算完时让页面短暂自动刷新一次，避免一直停留在占位内容
+            model.IsLoading = entries.Any(e => e.Commit?.Sha == null);
         }
 
         // 加载说明文件
@@ -216,7 +220,10 @@ public class GitService : IDisposable
         if (model.IsRoot)
         {
             var scopeAccessor = GitCacheAccessor.Singleton(new ScopeAccessor(_repoId, _repository, commit));
-            model.Scope = scopeAccessor.Result.Value;
+            var scope = scopeAccessor.Result;
+            model.Scope = scope.Value;
+            // 根目录的提交/分支/参与者统计同样在后台计算，未就绪时自动刷新
+            if (!scope.Done) model.IsLoading = true;
         }
 
         return model;
@@ -375,6 +382,7 @@ public class GitService : IDisposable
 
         var commitsAccessor = GitCacheAccessor.GetOrAdd(new CommitsAccessor(_repoId, _repository, commit, path, page, pagesize));
         var scopeAccessor = GitCacheAccessor.Singleton(new ScopeAccessor(_repoId, _repository, commit, path));
+        var scope = scopeAccessor.Result;
 
         var model = new CommitsModel
         {
@@ -390,7 +398,8 @@ public class GitService : IDisposable
                 })
                 .ToList(),
             CurrentPage = page,
-            ItemCount = scopeAccessor.Result.Value.Commits,
+            ItemCount = scope.Value.Commits,
+            IsLoading = !scope.Done,
             Path = String.IsNullOrEmpty(path) ? "" : path,
             PathBar = new PathBarModel
             {
@@ -504,10 +513,12 @@ public class GitService : IDisposable
 
         var key = CalcBranchesKey();
         var accessor = GitCacheAccessor.Singleton(new HistoryDivergenceAccessor(_repoId, _repository, key));
-        var aheadBehinds = accessor.Result.Value;
+        var result = accessor.Result;
+        var aheadBehinds = result.Value;
         var model = new BranchesModel
         {
             Commit = ToCommitModel(head.Tip, head.FriendlyName),
+            IsLoading = !result.Done,
             AheadBehinds = aheadBehinds.Select(s => new AheadBehindModel
             {
                 Ahead = s.Ahead,
@@ -543,7 +554,9 @@ public class GitService : IDisposable
         if (commit == null) return null;
 
         var contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, commit));
-        var current = CloneStatistics(contributorsAccessor.Result.Value, referenceName) ?? new RepositoryStatisticsModel.Statistics();
+        var contributors = contributorsAccessor.Result;
+        var isLoading = !contributors.Done;
+        var current = CloneStatistics(contributors.Value, referenceName) ?? new RepositoryStatisticsModel.Statistics();
         current.OrderedCommits = (current.OrderedCommits ?? []).Take(cfg.Contributors).ToArray();
         var statistics = new RepositoryStatisticsModel
         {
@@ -554,17 +567,22 @@ public class GitService : IDisposable
         if (!String.Equals(head.Tip?.Sha, commit.Sha, StringComparison.Ordinal))
         {
             contributorsAccessor = GitCacheAccessor.Singleton(new ContributorsAccessor(_repoId, _repository, head.Tip));
-            statistics.Default = CloneStatistics(contributorsAccessor.Result.Value, head.FriendlyName) ?? new RepositoryStatisticsModel.Statistics();
+            contributors = contributorsAccessor.Result;
+            isLoading |= !contributors.Done;
+            statistics.Default = CloneStatistics(contributors.Value, head.FriendlyName) ?? new RepositoryStatisticsModel.Statistics();
         }
 
         var key = CalcBranchesKey(true);
         var repositorySizeAccessor = GitCacheAccessor.Singleton(new RepositorySizeAccessor(_repoId, _repository, key));
-        statistics.RepositorySize = repositorySizeAccessor.Result.Value;
+        var repositorySize = repositorySizeAccessor.Result;
+        isLoading |= !repositorySize.Done;
+        statistics.RepositorySize = repositorySize.Value;
 
         var model = new ContributorsModel
         {
             Name = Name,
             Statistics = statistics,
+            IsLoading = isLoading,
         };
         return model;
     }

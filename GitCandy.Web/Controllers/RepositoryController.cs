@@ -52,6 +52,13 @@ public class RepositoryController : CandyControllerBase
         // 任何人只能看到自己的仓库，以及别人的公开库，即使管理员也禁止访问他人私有库
         var model = RepositoryService.GetRepositories(user as UserX, false, p);
 
+        // 没有自己的仓库时，把公开库放在主列表，避免右侧出现空栏
+        if (model.Collaborations == null || model.Collaborations.Length == 0)
+        {
+            model.Collaborations = model.Repositories ?? [];
+            model.Repositories = [];
+        }
+
         model.CanCreateRepository = user != null && (GitSetting.Current.AllowRepositoryCreation || user.IsAdmin());
 
         ViewBag.Pager = Pager.Items(model.ItemCount)
@@ -332,15 +339,14 @@ public class RepositoryController : CandyControllerBase
     {
         using var span = _tracer?.NewSpan("DeleteRepository", new { id, conform });
 
+        var repo = Repository.FindByID(id);
+        if (repo == null) return NotFound();
+
+        var user = Token as UserX;
+        if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
+
         if (String.Equals(conform, "yes", StringComparison.OrdinalIgnoreCase))
         {
-            var repo = Repository.FindByID(id);
-            var user = Token as UserX;
-
-            if (repo == null) return NotFound();
-
-            if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
-
             repo.Delete();
             //RepositoryService.Delete(owner, name);
             GitService.DeleteRepository(repo.OwnerUserName, repo.Name);
@@ -351,7 +357,7 @@ public class RepositoryController : CandyControllerBase
             return RedirectToAction("Index");
         }
 
-        return View((Object)id);
+        return View(repo);
     }
 
     /// <summary>代码树浏览。按路径查看仓库目录结构和文件列表，根目录自动刷新统计数据</summary>
@@ -374,8 +380,7 @@ public class RepositoryController : CandyControllerBase
 
         model.Id = repo.ID;
 
-        if (model.Entries == null && model.ReferenceName != "HEAD")
-            return RedirectToAction("Tree", new { path = model.ReferenceName });
+        // 空仓库没有提交，直接展示空仓库说明页；重定向到分支路径只会得到 404
 
         model.GitUrls = GetGitUrl(owner, name);
         model.Owner = repo.Owner.Name;
@@ -395,7 +400,8 @@ public class RepositoryController : CandyControllerBase
                     repo.Branches = ms.Branches;
                     repo.Contributors = ms.Contributors;
                 }
-                //if (model.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
+                // 浏览根目录时顺带刷新最后提交时间，避免仓库列表显示过期数据
+                if (model?.Commit != null) repo.LastCommit = model.Commit.Committer.When.LocalDateTime;
 
                 repo.Views++;
                 repo.LastView = DateTime.Now;
