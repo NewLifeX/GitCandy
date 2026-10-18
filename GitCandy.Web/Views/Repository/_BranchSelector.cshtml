@@ -6,6 +6,7 @@
     var noLink = Model.Path == null;
     //var identity = Html.GetRootViewBag().Identity++;
     var identity = ViewBag.Identity++;
+    var combinePath = (String reference) => String.IsNullOrEmpty(Model.Path) ? reference : reference + "/" + Model.Path;
 }
 <div class="dropdown btn-group">
     <a class="btn btn-default" data-toggle="dropdown"><i class="@Model.CurrentIsBranch.ToFlagString("glyphicon glyphicon-random", "glyphicon glyphicon-tag")"></i><span class="branch-name"> @Model.Current</span></a>
@@ -31,7 +32,7 @@
                             }
                             else
                             {
-                                <li>@Html.ActionLink(branch, action, Html.OverRoute(new { path = branch + "/" + Model.Path }))</li>
+                                <li>@Html.ActionLink(branch, action, Html.OverRoute(new { path = combinePath(branch) }))</li>
                             }
                         }
                     </ul>
@@ -56,7 +57,7 @@
                                 }
                                 else
                                 {
-                                    <li>@Html.ActionLink(tag, action, Html.OverRoute(new { path = tag + "/" + Model.Path }))</li>
+                                    <li>@Html.ActionLink(tag, action, Html.OverRoute(new { path = combinePath(tag) }))</li>
                                 }
                             }
                         }

@@ -16,10 +16,11 @@
 
 @foreach (var commit in Model.Commits)
 {
+    var commitPath = String.IsNullOrEmpty(Model.Path) ? commit.Sha : commit.Sha + "/" + Model.Path;
     <div class="border-area">
         <div class="row">
             <div class="col-md-9">
-                <div title="@commit.CommitMessageShort">@Html.ActionLink(commit.CommitMessageShort.ShortString(100) ?? "<Unknown>", "Commit", Html.OverRoute(new { path = commit.Sha + "/" + Model.Path }))</div>
+                <div title="@commit.CommitMessageShort">@Html.ActionLink(commit.CommitMessageShort.ShortString(100) ?? "<Unknown>", "Commit", Html.OverRoute(new { path = commitPath }))</div>
                 <strong title="@commit.Author">@Html.Link(commit.Author)</strong>
                 <span>@SR.Repository_AuthoredAt</span>
                 <span title="@commit.Author.When">@commit.Author.When.LocalDateTime.ToFullString()</span>

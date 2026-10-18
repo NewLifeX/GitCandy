@@ -10,8 +10,6 @@
     if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
     title += cfg.DisplayName;
     var title2 = ViewBag.Title2 as String;
-    if (!title2.IsNullOrEmpty()) { title += " - " + title2; }
-
     var retUrl = ViewContext.HttpContext.Request.GetRawUrl()?.PathAndQuery;
 }
 <!DOCTYPE html>
@@ -19,6 +17,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @if (!title2.IsNullOrEmpty())
+    {
+        <meta name="description" content="@title2" />
+    }
     <title>@title</title>
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <link rel="stylesheet" href="~/Content/bootstrap-switch.css" />

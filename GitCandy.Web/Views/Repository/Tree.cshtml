@@ -8,6 +8,7 @@
     routes["name"] = Model.Name;
 
     var referenceName = Model.ReferenceName ?? Model.Commit?.Sha.ToShortSha();
+    var historyPath = String.IsNullOrEmpty(Model.Path) ? referenceName : referenceName + "/" + Model.Path;
     var title = String.IsNullOrEmpty(Model.Path)
         ? String.Format(SR.Repository_TreeRootTitle, Model.Name, referenceName)
         : String.Format(SR.Repository_TreeTitle, Model.Name, referenceName, Model.Path);
@@ -64,7 +65,7 @@ else
             {
                 @await Html.PartialAsync("_BranchSelector", Model.BranchSelector)
                 <div class="btn-group">
-                    @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = (Model.ReferenceName ?? Model.Commit.Sha) + "/" + Model.Path }), new { @class = "btn btn-default" })
+                    @Html.ActionLink(SR.Repository_History, "Commits", Html.OverRoute(new { path = historyPath }), new { @class = "btn btn-default" })
                 </div>
             }
         </div>

@@ -31,11 +31,17 @@
         <dt>@Html.DisplayNameFor(s => s.Description)</dt>
         <dd>@Model.Description</dd>
 
-        <dt>@Html.DisplayNameFor(s => s.Collaborators)</dt>
-        <dd>@Html.DisplayFor(s => s.Collaborators)</dd>
+        @if (Model.Collaborators != null && Model.Collaborators.Count > 0)
+        {
+            <dt>@Html.DisplayNameFor(s => s.Collaborators)</dt>
+            <dd>@Html.DisplayFor(s => s.Collaborators)</dd>
+        }
 
-        <dt>@Html.DisplayNameFor(s => s.Teams)</dt>
-        <dd>@Html.DisplayFor(s => s.Teams)</dd>
+        @if (Model.Teams != null && Model.Teams.Count > 0)
+        {
+            <dt>@Html.DisplayNameFor(s => s.Teams)</dt>
+            <dd>@Html.DisplayFor(s => s.Teams)</dd>
+        }
 
         <dt>@Html.DisplayNameFor(s => s.Views)</dt>
         <dd>@Html.DisplayFor(s => s.Views)</dd>
