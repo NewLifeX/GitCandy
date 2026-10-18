@@ -87,6 +87,24 @@
     'use strict';
 
     $('#md').html(marked($('#md').text()));
+    // 旧版 marked 会把中文标题的锚点退化成同一个 "-"，这里重新生成唯一锚点
+    (function fixMarkdownAnchors() {
+        var used = {};
+        $('#md').find('h1,h2,h3,h4,h5,h6').each(function () {
+            var id = this.id && this.id !== '-' ? this.id : '';
+            if (!id) {
+                id = $.trim($(this).text()).toLowerCase().replace(/\s+/g, '-').replace(/[^\w\u4e00-\u9fa5-]/g, '');
+            }
+            if (!id) id = 'section';
+
+            var base = id, index = 1;
+            while (used[id]) {
+                id = base + '-' + (++index);
+            }
+            used[id] = true;
+            this.id = id;
+        });
+    })();
     $('.focus :text').focus();
     $('.focus :text[name=query]').val($.queryString.get('query', true));
     // copy to clipboard
