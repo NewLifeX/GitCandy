@@ -92,6 +92,28 @@
     border-top: 2px solid #ddd !important;
 }
 
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: #555;
+}
+
+.breadcrumb > li > a {
+    color: #286090;
+}
+
+.breadcrumb > .active,
+.table > caption {
+    color: #555;
+}
+
+#md a {
+    text-decoration: underline;
+}
+
+.table a:not(.btn) {
+    color: #2a6496;
+}
+
 @media (max-width: 767px) {
     .tree-table {
         width: 100%;
