@@ -554,6 +554,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 History for {0} 的本地化字符串。
+        /// </summary>
+        public static string Repository_CommitsRootTitle {
+            get {
+                return ResourceManager.GetString("Repository_CommitsRootTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 committed at 的本地化字符串。
         /// </summary>
         public static string Repository_CommittedAt {
@@ -977,6 +986,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 No repositories yet 的本地化字符串。
+        /// </summary>
+        public static string Repository_NoRepositories {
+            get {
+                return ResourceManager.GetString("Repository_NoRepositories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No tags found 的本地化字符串。
         /// </summary>
         public static string Repository_NoTags {
@@ -1162,6 +1180,15 @@ namespace GitCandy.Web.App_GlobalResources {
         public static string Repository_TreeTitle {
             get {
                 return ResourceManager.GetString("Repository_TreeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} at {1} 的本地化字符串。
+        /// </summary>
+        public static string Repository_TreeRootTitle {
+            get {
+                return ResourceManager.GetString("Repository_TreeRootTitle", resourceCulture);
             }
         }
         

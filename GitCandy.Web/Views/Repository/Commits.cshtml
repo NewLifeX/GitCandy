@@ -2,7 +2,10 @@
 @using GitCandy.Web.Extensions
 
 @{
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_CommitsTitle, Model.Name ?? Model.Sha.ToShortSha(), Model.Path));
+    var title = String.IsNullOrEmpty(Model.Path)
+        ? String.Format(SR.Repository_CommitsRootTitle, Model.Name ?? Model.Sha.ToShortSha())
+        : String.Format(SR.Repository_CommitsTitle, Model.Name ?? Model.Sha.ToShortSha(), Model.Path);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
 }
 
 <h4>

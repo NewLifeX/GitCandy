@@ -283,6 +283,9 @@
   <data name="Repository_Commits" xml:space="preserve">
     <value>提交</value>
   </data>
+  <data name="Repository_CommitsRootTitle" xml:space="preserve">
+    <value>{0} 的提交记录</value>
+  </data>
   <data name="Repository_CommitsTitle" xml:space="preserve">
     <value>提交记录 {1} · {0}</value>
   </data>
@@ -427,6 +430,9 @@
   <data name="Repository_NormalView" xml:space="preserve">
     <value>标准视图</value>
   </data>
+  <data name="Repository_NoRepositories" xml:space="preserve">
+    <value>还没有代码库</value>
+  </data>
   <data name="Repository_NoTags" xml:space="preserve">
     <value>没有找到标签</value>
   </data>
@@ -486,6 +492,9 @@
   </data>
   <data name="Repository_Tree" xml:space="preserve">
     <value>浏览</value>
+  </data>
+  <data name="Repository_TreeRootTitle" xml:space="preserve">
+    <value>{0} 在 {1}</value>
   </data>
   <data name="Repository_TreeTitle" xml:space="preserve">
     <value>{2} 在 {1} · {0}</value>

@@ -7,7 +7,11 @@
     routes["owner"] = Model.Owner;
     routes["name"] = Model.Name;
 
-    ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_TreeTitle, Model.Name, Model.ReferenceName ?? Model.Commit.Sha.ToShortSha(), Model.Path));
+    var referenceName = Model.ReferenceName ?? Model.Commit?.Sha.ToShortSha();
+    var title = String.IsNullOrEmpty(Model.Path)
+        ? String.Format(SR.Repository_TreeRootTitle, Model.Name, referenceName)
+        : String.Format(SR.Repository_TreeTitle, Model.Name, referenceName, Model.Path);
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
 }
 
 <h3>

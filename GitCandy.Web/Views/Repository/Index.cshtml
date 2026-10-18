@@ -7,6 +7,10 @@
 }
 <div class="row">
     <div class="@(hasMore ? "col-md-8" : "col-md-12")">
+        @if ((Model.Collaborations == null || Model.Collaborations.Length == 0) && !hasMore)
+        {
+            <div class="alert alert-info">@SR.Repository_NoRepositories</div>
+        }
         <table class="table border-area">
             @foreach (var repo in Model.Collaborations)
             {
