@@ -112,6 +112,15 @@ public class RepositoryControllerTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("Create_匿名用户_拒绝访问")]
+    public void Create_Anonymous_Forbids()
+    {
+        var result = NewController(null).Create();
+
+        Assert.IsType<ForbidResult>(result);
+    }
+
+    [Fact]
     [DisplayName("Detail_公开仓库_返回详情")]
     public void Detail_PublicRepo_ReturnsDetail()
     {

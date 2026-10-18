@@ -85,6 +85,7 @@ public class RepositoryController : CandyControllerBase
     /// <returns></returns>
     public ActionResult Create()
     {
+        if (Token == null) return Forbid();
         if (!_config.AllowRepositoryCreation) return Forbid();
 
         var model = new RepositoryModel
@@ -117,6 +118,7 @@ public class RepositoryController : CandyControllerBase
     {
         using var span = _tracer?.NewSpan("CreateRepository", model);
 
+        if (Token == null) return Forbid();
         if (!_config.AllowRepositoryCreation) return Forbid();
 
         if (ModelState.IsValid)
