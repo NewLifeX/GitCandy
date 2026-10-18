@@ -5,7 +5,9 @@
     var action = values["action"] as String;
     var noLink = Model.Path == null;
     //var identity = Html.GetRootViewBag().Identity++;
-    var identity = ViewBag.Identity++;
+    var identity = ViewContext.HttpContext.Items["BranchSelectorIdentity"] as Int32? ?? 0;
+    identity++;
+    ViewContext.HttpContext.Items["BranchSelectorIdentity"] = identity;
     var combinePath = (String reference) => String.IsNullOrEmpty(Model.Path) ? reference : reference + "/" + Model.Path;
 }
 <div class="dropdown btn-group">
