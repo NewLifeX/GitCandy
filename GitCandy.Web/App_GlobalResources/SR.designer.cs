@@ -1472,6 +1472,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 Console 的本地化字符串。
+        /// </summary>
+        public static string Shared_Console {
+            get {
+                return ResourceManager.GetString("Shared_Console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Create 的本地化字符串。
         /// </summary>
         public static string Shared_Create {

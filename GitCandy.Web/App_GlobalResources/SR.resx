@@ -589,6 +589,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Shared_Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Shared_Console" xml:space="preserve">
+    <value>Console</value>
+  </data>
   <data name="Shared_Conform" xml:space="preserve">
     <value>Confirm</value>
   </data>

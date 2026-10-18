@@ -47,8 +47,8 @@
                             <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
                             <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
                         }
-                        <li class="">@Html.ActionLink("创建项目", "Create", "Repository")</li>
-                        <li class="">@Html.ActionLink("控制台", "Index", "Index", new { area="Admin" }, null)</li>
+                        <li class="">@Html.ActionLink(SR.Repository_CreateTitle, "Create", "Repository")</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Console, "Index", "Index", new { area="Admin" }, null)</li>
                     }
                     <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
                 </ul>

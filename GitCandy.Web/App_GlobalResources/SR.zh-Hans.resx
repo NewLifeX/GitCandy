@@ -589,6 +589,9 @@
   <data name="Shared_Back" xml:space="preserve">
     <value>返回</value>
   </data>
+  <data name="Shared_Console" xml:space="preserve">
+    <value>控制台</value>
+  </data>
   <data name="Shared_Conform" xml:space="preserve">
     <value>确认</value>
   </data>
