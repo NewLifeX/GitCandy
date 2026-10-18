@@ -24,10 +24,10 @@
         <meta name="description" content="@title2" />
     }
     <title>@title</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.css" />
-    <link rel="stylesheet" href="~/Content/bootstrap-switch.css" />
-    <link rel="stylesheet" href="~/Content/highlight.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Content/bootstrap-switch.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Content/highlight.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Content/Site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -96,13 +96,13 @@
         </div>
     </div>
 
-    <script src="~/Scripts/jquery-2.0.3.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/bootstrap-switch.js"></script>
-    <script src="~/Scripts/bootstrap3-typeahead.js"></script>
-    <script src="~/Scripts/highlight.pack.js"></script>
-    <script src="~/Scripts/marked.js"></script>
-    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/jquery-2.0.3.js" asp-append-version="true"></script>
+    <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/Scripts/bootstrap-switch.js" asp-append-version="true"></script>
+    <script src="~/Scripts/bootstrap3-typeahead.js" asp-append-version="true"></script>
+    <script src="~/Scripts/highlight.pack.js" asp-append-version="true"></script>
+    <script src="~/Scripts/marked.js" asp-append-version="true"></script>
+    <script src="~/Scripts/common.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
