@@ -478,6 +478,9 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Repository_TagsTitle" xml:space="preserve">
     <value>Tags · {0}</value>
   </data>
+  <data name="Repository_TargetBranch" xml:space="preserve">
+    <value>Target branch</value>
+  </data>
   <data name="Repository_Teams" xml:space="preserve">
     <value>Teams</value>
   </data>

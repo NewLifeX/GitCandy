@@ -1130,6 +1130,15 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 Target branch 的本地化字符串。
+        /// </summary>
+        public static string Repository_TargetBranch {
+            get {
+                return ResourceManager.GetString("Repository_TargetBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Teams 的本地化字符串。
         /// </summary>
         public static string Repository_Teams {

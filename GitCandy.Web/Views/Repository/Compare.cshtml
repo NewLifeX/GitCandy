@@ -10,9 +10,11 @@
 
 <div class="row">
     <div class="col-md-3 branch-from">
+        <label class="control-label">@SR.Repository_BaseBranch</label>
         @await Html.PartialAsync("_BranchSelector", Model.BaseBranchSelector)
     </div>
     <div class="col-md-3 branch-to">
+        <label class="control-label">@SR.Repository_TargetBranch</label>
         @await Html.PartialAsync("_BranchSelector", Model.CompareBranchSelector)
     </div>
     <div class="col-md-1">

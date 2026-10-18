@@ -117,12 +117,13 @@
         $group.find('button:first').html(type + ' <span class="caret"></span>');
     });
     // prevent all empty link
-    $('a[href=#]').click(function () {
-        event.preventDefault();
+    $('a[href=#]').click(function (e) {
+        e.preventDefault();
     });
     $('.branch-from, .branch-to').each(function () {
         var $con = $(this);
-        $con.find('.tab-content li').click(function () {
+        $con.find('.tab-content li').click(function (e) {
+            e.preventDefault();
             var $bn = $con.find('.branch-name'),
                 $li = $(this);
             $bn.text($li.text());
@@ -132,17 +133,12 @@
         });
     });
     $('.branch-compare').click(function () {
-        var from = $('.branch-from .branch-name').text().trim().replace(/\//g, ';'),
-            to = $('.branch-to .branch-name').text().trim().replace(/\//g, ';'),
-            relative = escape(from) + '...' + escape(to),
-            base = window.location.href,
-            seg = base.split('/'),
-            last = seg[seg.length - 1],
-            append = last != '' && last.indexOf('...') == -1;
+        var from = $('.branch-from .branch-name').text().trim(),
+            to = $('.branch-to .branch-name').text().trim();
 
-        append
-            ? window.location.href += '/' + relative
-            : window.location.href = relative;
+        var url = new URL(window.location.href);
+        url.searchParams.set('path', from + '...' + to);
+        window.location.href = url.toString();
     });
 
     $(".switch input:checkbox").bootstrapSwitch();

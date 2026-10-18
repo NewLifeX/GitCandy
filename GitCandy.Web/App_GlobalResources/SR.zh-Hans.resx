@@ -478,6 +478,9 @@
   <data name="Repository_TagsTitle" xml:space="preserve">
     <value>标签 · {0}</value>
   </data>
+  <data name="Repository_TargetBranch" xml:space="preserve">
+    <value>目标分支</value>
+  </data>
   <data name="Repository_Teams" xml:space="preserve">
     <value>团队</value>
   </data>
