@@ -269,6 +269,26 @@ public class RepositoryControllerTests : IDisposable
     }
 
     [Fact]
+    [DisplayName("Blob_目录路径_重定向到目录浏览")]
+    public void Blob_DirectoryPath_RedirectsToTree()
+    {
+        var result = NewController(_owner).Blob(_owner.Name, _repoName, "master/src");
+
+        var redirect = Assert.IsType<RedirectResult>(result);
+        Assert.Contains("/Tree/", redirect.Url);
+        Assert.EndsWith("master/src", redirect.Url);
+    }
+
+    [Fact]
+    [DisplayName("Blob_不存在的文件_返回404")]
+    public void Blob_NonExistentFile_ReturnsNotFound()
+    {
+        var result = NewController(_owner).Blob(_owner.Name, _repoName, "master/nope.txt");
+
+        Assert.IsType<NotFoundResult>(result);
+    }
+
+    [Fact]
     [DisplayName("Raw_文本文件_返回原始内容")]
     public void Raw_TextFile_ReturnsRawContent()
     {

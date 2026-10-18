@@ -433,7 +433,23 @@ public class RepositoryController : CandyControllerBase
 
         using var git = new GitService(owner, name);
         var model = git.GetBlob(path);
-        if (model == null) return NotFound();
+        if (model == null)
+        {
+            // 目录或空路径没有文件内容，转到目录浏览，避免直接 404
+            if (git.GetTree(path) != null)
+            {
+                // 不使用 UrlHelper 生成地址，便于在无请求上下文的单元测试中复用
+                var url = $"/{owner}/{name}/Tree";
+                if (!path.IsNullOrEmpty())
+                {
+                    var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries).Select(Uri.EscapeDataString);
+                    url += "/" + String.Join("/", segments);
+                }
+                return Redirect(url);
+            }
+
+            return NotFound();
+        }
 
         // 修正Markdown
         if (model.Name.EndsWithIgnoreCase(".md")) model.FixMarkdown($"/{owner}/{name}");
