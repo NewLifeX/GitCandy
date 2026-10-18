@@ -74,11 +74,27 @@ public class RepositoryController : CandyControllerBase
     {
         base.OnActionExecuting(filterContext);
 
-        var owner = filterContext.RouteData.Values["owner"] + "";
-        var name = filterContext.RouteData.Values["name"] + "";
+        var owner = GetArgument(filterContext, "owner");
+        var name = GetArgument(filterContext, "name");
         var repo = Repository.FindByOwnerAndName(owner, name);
         if (repo != null)
             ViewBag.Title2 = repo.Description;
+        else if (!owner.IsNullOrEmpty() && !name.IsNullOrEmpty())
+        {
+            // 仓库不存在时直接返回404，避免被误判为“无权限”而跳转登录页
+            filterContext.Result = NotFound();
+        }
+    }
+
+    /// <summary>读取操作参数，优先使用已绑定的参数，其次使用路由数据</summary>
+    /// <param name="context">操作执行上下文</param>
+    /// <param name="key">参数名</param>
+    /// <returns></returns>
+    private static String GetArgument(ActionExecutingContext context, String key)
+    {
+        if (context.ActionArguments.TryGetValue(key, out var value) && value is String str) return str;
+
+        return context.RouteData.Values[key] as String;
     }
 
     /// <summary>创建仓库页面</summary>
@@ -163,6 +179,7 @@ public class RepositoryController : CandyControllerBase
         var repo = Repository.FindByID(id);
         var user = Token as UserX;
 
+        if (repo == null) return NotFound();
         if (!RepositoryService.CanReadRepository(repo, user)) return Forbid();
 
         var model = RepositoryService.Get(repo, true, user?.Name);
@@ -182,6 +199,7 @@ public class RepositoryController : CandyControllerBase
         var repo = Repository.FindByID(id);
         var user = Token as UserX;
 
+        if (repo == null) return NotFound();
         if (!Token.IsAdmin() && !RepositoryService.IsRepositoryAdministrator(repo, user)) return Forbid();
 
         var model = RepositoryService.Get(repo, false, user?.Name);

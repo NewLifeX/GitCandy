@@ -77,6 +77,12 @@ else
 // 必须在路由和控制器之前启用，才能让 SR 资源按 Lang Cookie 切换语言
 app.UseRequestLocalization();
 
+// 页面请求返回友好错误页；Git 协议请求保持原样，避免影响命令行客户端
+app.UseWhen(
+    ctx => !ctx.Request.Path.Value.Contains("git-", StringComparison.OrdinalIgnoreCase)
+        && !ctx.Request.Path.Value.Contains("info/refs", StringComparison.OrdinalIgnoreCase),
+    branch => branch.UseStatusCodePagesWithReExecute("/Home/Error", "?code={0}"));
+
 if (Environment.GetEnvironmentVariable("__ASPNETCORE_BROWSER_TOOLS") is null)
     app.UseResponseCompression();
 

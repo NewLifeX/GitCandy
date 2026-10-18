@@ -374,6 +374,42 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 页面不存在 的本地化字符串。
+        /// </summary>
+        public static string Home_NotFoundTitle {
+            get {
+                return ResourceManager.GetString("Home_NotFoundTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请求的页面或代码库不存在 的本地化字符串。
+        /// </summary>
+        public static string Home_NotFoundMessage {
+            get {
+                return ResourceManager.GetString("Home_NotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法访问 的本地化字符串。
+        /// </summary>
+        public static string Home_ForbiddenTitle {
+            get {
+                return ResourceManager.GetString("Home_ForbiddenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有访问该页面的权限 的本地化字符串。
+        /// </summary>
+        public static string Home_ForbiddenMessage {
+            get {
+                return ResourceManager.GetString("Home_ForbiddenMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ahead 的本地化字符串。
         /// </summary>
         public static string Repository_Ahead {

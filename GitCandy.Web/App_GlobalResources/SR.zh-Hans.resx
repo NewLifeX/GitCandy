@@ -226,6 +226,18 @@
   <data name="Home_AboutTitle" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="Home_NotFoundTitle" xml:space="preserve">
+    <value>页面不存在</value>
+  </data>
+  <data name="Home_NotFoundMessage" xml:space="preserve">
+    <value>请求的页面或代码库不存在，可能已被删除或从未创建，请检查地址是否正确。</value>
+  </data>
+  <data name="Home_ForbiddenTitle" xml:space="preserve">
+    <value>无法访问</value>
+  </data>
+  <data name="Home_ForbiddenMessage" xml:space="preserve">
+    <value>没有访问该页面的权限。如果这是私有代码库，请登录拥有相应权限的账号后重试。</value>
+  </data>
   <data name="Repository_Ahead" xml:space="preserve">
     <value>领先</value>
   </data>

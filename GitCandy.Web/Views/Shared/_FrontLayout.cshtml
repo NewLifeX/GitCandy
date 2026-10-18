@@ -11,6 +11,8 @@
     title += cfg.DisplayName;
     var title2 = ViewBag.Title2 as String;
     var retUrl = ViewContext.HttpContext.Request.GetRawUrl()?.PathAndQuery;
+    // 错误页不作为登录后的返回地址，避免登录后再次回到错误页面
+    if (retUrl != null && retUrl.StartsWith("/Home/Error", StringComparison.OrdinalIgnoreCase)) retUrl = null;
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="@ViewBag.Lang">

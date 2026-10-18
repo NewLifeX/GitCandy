@@ -226,6 +226,18 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Home_AboutTitle" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Home_NotFoundTitle" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="Home_NotFoundMessage" xml:space="preserve">
+    <value>The requested page or repository does not exist. It may have been deleted or never created, so please check the address.</value>
+  </data>
+  <data name="Home_ForbiddenTitle" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="Home_ForbiddenMessage" xml:space="preserve">
+    <value>You do not have permission to view this page. If this is a private repository, please sign in with an account that has access.</value>
+  </data>
   <data name="Repository_Ahead" xml:space="preserve">
     <value>ahead</value>
   </data>

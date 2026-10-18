@@ -18,6 +18,20 @@ public class HomeController : CandyControllerBase
     [AllowAnonymous]
     public ActionResult About() => View();
 
+    /// <summary>友好错误页。展示状态码对应的提示与返回入口</summary>
+    /// <param name="code">HTTP状态码</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    public ActionResult Error(Int32 code)
+    {
+        if (code <= 0) code = 404;
+
+        ViewBag.Code = code;
+        Response.StatusCode = code;
+
+        return View();
+    }
+
     /// <summary>切换语言</summary>
     /// <param name="lang">语言代码</param>
     /// <returns></returns>

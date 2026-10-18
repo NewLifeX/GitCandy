@@ -1,0 +1,18 @@
+@{
+    var code = (Int32)(ViewBag.Code ?? 404);
+    var title = code == 403 ? SR.Home_ForbiddenTitle : SR.Home_NotFoundTitle;
+    var message = code == 403 ? SR.Home_ForbiddenMessage : SR.Home_NotFoundMessage;
+
+    ViewBag.Title = String.Format(SR.Shared_TitleFormat, title);
+}
+
+<h3>@title</h3>
+
+<div class="alert alert-warning">
+    @message
+</div>
+
+<div class="detail-actions">
+    @Html.ActionLink(SR.Shared_Repositories, "Index", "Repository", null, new { @class = "btn btn-default" })
+    @Html.ActionLink(SR.Shared_About, "About", "Home", null, new { @class = "btn btn-default" })
+</div>
