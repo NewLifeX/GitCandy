@@ -356,7 +356,7 @@ namespace GitCandy.Web.App_GlobalResources {
         ///Get source and fork me on [http://github.com/Aimeast/GitCandy](http://github.com/Aimeast/GitCandy)
         ///
         ///---
-        ///#### Thanks for (alphabet) 的本地化字符串。
+        ///#### Thanks to (alphabetically) 的本地化字符串。
         /// </summary>
         public static string Home_AboutDescription {
             get {

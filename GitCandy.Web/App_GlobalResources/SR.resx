@@ -214,14 +214,14 @@
     <value>{0} user(s) found</value>
   </data>
   <data name="Home_AboutDescription" xml:space="preserve">
-    <value>GitCandy&amp;copy; is a [Git](http://git-scm.com/documentation) distributed version control platform based on .NET application, which supports public and private repositories. You can create and collaborate your repository with your team anytime anywhere without any limit.
+    <value>GitCandy&amp;copy; is a [Git](https://git-scm.com/doc) distributed version control platform built on .NET. It supports public and private repositories. You can create repositories and collaborate with your team anytime, anywhere, without limits.
 
 Visit a demo on [http://git.newlifex.com](http://git.newlifex.com)
 
-Get source and fork me on [https://github.com/NewLifeX/GitCandy](https://github.com/NewLifeX/GitCandy)
+Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://github.com/NewLifeX/GitCandy)
 
 ---
-#### Thanks for (alphabet)</value>
+#### Thanks to (alphabetically)</value>
   </data>
   <data name="Home_AboutTitle" xml:space="preserve">
     <value>About</value>
