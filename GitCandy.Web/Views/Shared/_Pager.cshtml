@@ -4,19 +4,19 @@
     var pager = ViewBag.Pager as GitCandy.Base.Pager;
     if (pager == null) { return; }
 }
-<div class="text-center">
+<nav class="text-center" aria-label="@SR.Shared_Pagination">
     <ul class="pagination">
         @if (pager.HasPreviousPage)
         {
-            <li>@Html.ActionLink("<<", action, Html.OverRoute(new { page = pager.FirstPageIndex }, true))</li>
-            <li>@Html.ActionLink("<", action, Html.OverRoute(new { page = pager.PreviousPageIndex }, true))</li>
+            <li>@Html.ActionLink("«", action, Html.OverRoute(new { page = pager.FirstPageIndex }, true), new { aria_label = SR.Shared_FirstPage, title = SR.Shared_FirstPage })</li>
+            <li>@Html.ActionLink("‹", action, Html.OverRoute(new { page = pager.PreviousPageIndex }, true), new { aria_label = SR.Shared_PreviousPage, title = SR.Shared_PreviousPage })</li>
         }
 
         @foreach (int page in pager)
         {
             if (page == pager.CurrentPageIndex)
             {
-                <li class="active"><span>@(page)</span></li>
+                <li class="active"><span aria-current="page">@(page)</span></li>
             }
             else
             {
@@ -26,8 +26,8 @@
 
         @if (pager.HasNextPage)
         {
-            <li>@Html.ActionLink(">", action, Html.OverRoute(new { page = pager.NextPageIndex }, true))</li>
-            <li>@Html.ActionLink(">>", action, Html.OverRoute(new { page = pager.LastPageIndex }, true))</li>
+            <li>@Html.ActionLink("›", action, Html.OverRoute(new { page = pager.NextPageIndex }, true), new { aria_label = SR.Shared_NextPage, title = SR.Shared_NextPage })</li>
+            <li>@Html.ActionLink("»", action, Html.OverRoute(new { page = pager.LastPageIndex }, true), new { aria_label = SR.Shared_LastPage, title = SR.Shared_LastPage })</li>
         }
     </ul>
-</div>
+</nav>

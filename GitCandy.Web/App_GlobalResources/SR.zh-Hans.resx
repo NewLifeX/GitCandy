@@ -679,6 +679,21 @@
   <data name="Shared_ToggleNavigation" xml:space="preserve">
     <value>切换导航</value>
   </data>
+  <data name="Shared_Pagination" xml:space="preserve">
+    <value>分页</value>
+  </data>
+  <data name="Shared_FirstPage" xml:space="preserve">
+    <value>第一页</value>
+  </data>
+  <data name="Shared_PreviousPage" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="Shared_NextPage" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="Shared_LastPage" xml:space="preserve">
+    <value>最后一页</value>
+  </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>用户</value>
   </data>

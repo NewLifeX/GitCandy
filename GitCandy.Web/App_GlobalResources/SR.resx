@@ -679,6 +679,21 @@ Get the source and contribute on [https://github.com/NewLifeX/GitCandy](https://
   <data name="Shared_ToggleNavigation" xml:space="preserve">
     <value>Toggle navigation</value>
   </data>
+  <data name="Shared_Pagination" xml:space="preserve">
+    <value>Pagination</value>
+  </data>
+  <data name="Shared_FirstPage" xml:space="preserve">
+    <value>First page</value>
+  </data>
+  <data name="Shared_PreviousPage" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
+  <data name="Shared_NextPage" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="Shared_LastPage" xml:space="preserve">
+    <value>Last page</value>
+  </data>
   <data name="Shared_Users" xml:space="preserve">
     <value>Users</value>
   </data>

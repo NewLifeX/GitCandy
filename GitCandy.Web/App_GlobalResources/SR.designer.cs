@@ -1733,6 +1733,51 @@ namespace GitCandy.Web.App_GlobalResources {
         }
         
         /// <summary>
+        ///   查找类似 分页 的本地化字符串。
+        /// </summary>
+        public static string Shared_Pagination {
+            get {
+                return ResourceManager.GetString("Shared_Pagination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 第一页 的本地化字符串。
+        /// </summary>
+        public static string Shared_FirstPage {
+            get {
+                return ResourceManager.GetString("Shared_FirstPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上一页 的本地化字符串。
+        /// </summary>
+        public static string Shared_PreviousPage {
+            get {
+                return ResourceManager.GetString("Shared_PreviousPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下一页 的本地化字符串。
+        /// </summary>
+        public static string Shared_NextPage {
+            get {
+                return ResourceManager.GetString("Shared_NextPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最后一页 的本地化字符串。
+        /// </summary>
+        public static string Shared_LastPage {
+            get {
+                return ResourceManager.GetString("Shared_LastPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Users 的本地化字符串。
         /// </summary>
         public static string Shared_Users {
