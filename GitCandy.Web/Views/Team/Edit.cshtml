@@ -37,17 +37,15 @@
 
         <dt></dt>
         <dd>@Html.ValidationSummary(true, SR.Team_UpdateUnsuccessfull, new { @class = "alert alert-dismissable alert-danger" })</dd>
-
-        <dt>
-            @Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default pull-left" })
-        </dt>
-        <dd>
-            <button type="submit" class="btn btn-primary">@SR.Shared_Save</button> &nbsp;
-            <button type="reset" class="btn btn-default">@SR.Shared_Reset</button> &nbsp;
-            @if (token != null && token.IsAdmin())
-            {
-                @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" })
-            }
-        </dd>
     </dl>
+
+    <div class="detail-actions">
+        @Html.ActionLink(SR.Shared_Back, "Detail", new { Model.Name }, new { @class = "btn btn-default" })
+        <button type="submit" class="btn btn-primary">@SR.Shared_Save</button>
+        <button type="reset" class="btn btn-default">@SR.Shared_Reset</button>
+        @if (token != null && token.IsAdmin())
+        {
+            @Html.ActionLink(SR.Shared_Delete, "Delete", new { Model.Name }, new { @class = "btn btn-danger" })
+        }
+    </div>
 }

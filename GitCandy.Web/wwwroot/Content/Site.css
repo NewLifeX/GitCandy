@@ -114,6 +114,10 @@
     color: #2a6496;
 }
 
+.detail-actions {
+    margin: 15px 0;
+}
+
 @media (max-width: 767px) {
     .tree-table {
         width: 100%;
