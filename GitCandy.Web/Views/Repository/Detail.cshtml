@@ -45,7 +45,7 @@
 
         <dt>
             @*@Html.ActionLink(SR.Repository_Tree, "Tree", new { Model.Owner, Model.Name }, new { @class = "btn btn-default pull-left" })*@
-            @Html.RouteLink(SR.Repository_Tree, "UserGitWeb", new { Model.Owner, Model.Name }, new { @class = "btn btn-default pull-left" })
+            @Html.RouteLink(SR.Repository_Tree, "UserGitWeb", new { owner = Model.Owner, name = Model.Name, action = "Tree" }, new { @class = "btn btn-default pull-left" })
         </dt>
         <dd>
             @if (token != null && (Model.CurrentUserIsOwner || token.IsAdmin()))

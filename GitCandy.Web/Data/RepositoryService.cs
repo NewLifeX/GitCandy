@@ -478,6 +478,8 @@ public class RepositoryService
             Name = repo.Name,
             Description = repo.Description,
             IsPrivate = repo.IsPrivate,
+            AllowAnonymousRead = repo.AllowAnonymousRead,
+            AllowAnonymousWrite = repo.AllowAnonymousWrite,
             Commits = repo.Commits,
             Branches = repo.Branches,
             Contributors = repo.Contributors,

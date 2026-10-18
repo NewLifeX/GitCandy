@@ -130,6 +130,8 @@ public class RepositoryControllerTests : IDisposable
         var model = Assert.IsType<RepositoryModel>(view.Model);
         Assert.Equal(_repoName, model.Name);
         Assert.Equal("master", model.DefaultBranch);
+        Assert.True(model.AllowAnonymousRead);
+        Assert.False(model.AllowAnonymousWrite);
     }
 
     [Fact]
