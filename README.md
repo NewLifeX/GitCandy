@@ -1,3 +1,13 @@
+
+![GitHub License](https://img.shields.io/github/license/NewLifeX/GitCandy?logo=github)
+[![test](https://github.com/NewLifeX/GitCandy/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/NewLifeX/GitCandy/actions/workflows/test.yml)
+![platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+[![contributors](https://img.shields.io/github/contributors/NewLifeX/GitCandy?logo=github)](https://github.com/NewLifeX/GitCandy/graphs/contributors)
+
+<!-- lang:start -->
+🌐 [繁體中文](README.zh-TW.md) | [English](README.en.md) | [Español](README.es.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [Français](README.fr.md) | [Português](README.pt.md) | [Русский](README.ru.md) | [한국어](README.ko.md) | [العربية](README.ar.md)
+<!-- lang:end -->
+
 ## GitCandy
 
 GitCandy© 是一个基于 .NET 的 [Git](http://git-scm.com/documentation) 分布式版本控制平台（Git Hosting Service），支持公有和私有代码库，可不受限制地创建代码库，随时随地与团队进行协作。
