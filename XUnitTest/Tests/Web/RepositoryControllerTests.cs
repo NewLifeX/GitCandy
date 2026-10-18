@@ -269,9 +269,34 @@ public class RepositoryControllerTests : IDisposable
     }
 
     [Fact]
-    [DisplayName("Blob_目录路径_重定向到目录浏览")]
-    public void Blob_DirectoryPath_RedirectsToTree()
+    [DisplayName("简洁地址_查询串路径_回填到动作参数")]
+    public void OnActionExecuting_QueryPath_FillsEmptyArgument()
     {
+        var controller = new RepositoryController(null!);
+        var args = new Dictionary<String, Object?>
+        {
+            ["owner"] = _owner.Name,
+            ["name"] = _repoName,
+            ["path"] = null,
+        };
+
+        ControllerTestHelper.ExecuteFilters(controller, _owner, "?path=master/src", args);
+        Assert.Equal("master/src", args["path"]);
+
+        // 路由段已提供路径时不覆盖
+        var routeArgs = new Dictionary<String, Object?>
+        {
+            ["owner"] = _owner.Name,
+            ["name"] = _repoName,
+            ["path"] = "master/Doc",
+        };
+        ControllerTestHelper.ExecuteFilters(controller, _owner, "?path=master/src", routeArgs);
+        Assert.Equal("master/Doc", routeArgs["path"]);
+    }
+
+    [Fact]
+    [DisplayName("Blob_目录路径_重定向到目录浏览")]
+    public void Blob_DirectoryPath_RedirectsToTree()    {
         var result = NewController(_owner).Blob(_owner.Name, _repoName, "master/src");
 
         var redirect = Assert.IsType<RedirectResult>(result);

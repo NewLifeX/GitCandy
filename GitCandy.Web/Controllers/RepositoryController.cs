@@ -84,6 +84,14 @@ public class RepositoryController : CandyControllerBase
             // 仓库不存在时直接返回404，避免被误判为“无权限”而跳转登录页
             filterContext.Result = NotFound();
         }
+
+        // 简洁地址的路由段为空时，改用查询串中的同名参数，
+        // 否则 /owner/name/Blob?path=xxx 这类地址会被当成空路径
+        if (filterContext.ActionArguments.ContainsKey("path") && (filterContext.ActionArguments["path"] as String).IsNullOrEmpty())
+        {
+            var query = filterContext.HttpContext.Request.Query["path"];
+            if (query.Count > 0 && !query[0].IsNullOrEmpty()) filterContext.ActionArguments["path"] = query[0];
+        }
     }
 
     /// <summary>读取操作参数，优先使用已绑定的参数，其次使用路由数据</summary>

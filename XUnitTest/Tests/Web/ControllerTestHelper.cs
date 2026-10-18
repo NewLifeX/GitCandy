@@ -63,4 +63,22 @@ internal static class ControllerTestHelper
 
         return controller;
     }
+
+    /// <summary>以指定查询串执行动作过滤器，用于验证参数回填</summary>
+    /// <param name="controller">控制器</param>
+    /// <param name="token">当前登录用户，可为空</param>
+    /// <param name="query">查询串，如 ?path=master</param>
+    /// <param name="arguments">动作参数</param>
+    /// <returns>执行后的动作参数</returns>
+    public static IDictionary<String, Object?> ExecuteFilters(CandyControllerBase controller, IManageUser? token, String query, IDictionary<String, Object?> arguments)
+    {
+        var ctx = CreateHttpContext(token);
+        ctx.Request.QueryString = new QueryString(query);
+        controller.ControllerContext = new ControllerContext { HttpContext = ctx, RouteData = new RouteData(), ActionDescriptor = new ControllerActionDescriptor() };
+
+        var context = new ActionExecutingContext(controller.ControllerContext, [], arguments, controller);
+        controller.OnActionExecuting(context);
+
+        return arguments;
+    }
 }
