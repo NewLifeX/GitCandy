@@ -88,6 +88,10 @@
     cursor: auto !important;
 }
 
+.summary-separator > td {
+    border-top: 2px solid #ddd !important;
+}
+
 @media (max-width: 767px) {
     .tree-table {
         width: 100%;

@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = String.Format(SR.Shared_TitleFormat, String.Format(SR.Repository_ContributorsTitle, Model.Name));
+    var currentClass = Model.Statistics.Default != null ? "summary-separator" : null;
 }
 
 <h4>
@@ -31,15 +32,13 @@
                 <tr><td>@SR.Repository_DefaultContributors</td><td>@Model.Statistics.Default.NumberOfContributors</td></tr>
                 <tr><td>@SR.Repository_DefaultFiles</td><td>@Model.Statistics.Default.NumberOfFiles</td></tr>
                 <tr><td>@SR.Repository_DefaultSourceSize</td><td>@FileHelper.GetSizeString(Model.Statistics.Default.SizeOfSource)</td></tr>
-                <tr><td></td><td></td></tr>
             }
-            <tr><td>@SR.Repository_CurrentBranch</td><td>@Model.Statistics.Current.Branch</td></tr>
+            <tr class="@currentClass"><td>@SR.Repository_CurrentBranch</td><td>@Model.Statistics.Current.Branch</td></tr>
             <tr><td>@SR.Repository_CurrentCommits</td><td>@Model.Statistics.Current.NumberOfCommits</td></tr>
             <tr><td>@SR.Repository_CurrentContributors</td><td>@Model.Statistics.Current.NumberOfContributors</td></tr>
             <tr><td>@SR.Repository_CurrentFiles</td><td>@Model.Statistics.Current.NumberOfFiles</td></tr>
             <tr><td>@SR.Repository_CurrentSourceSize</td><td>@FileHelper.GetSizeString(Model.Statistics.Current.SizeOfSource)</td></tr>
-            <tr><td></td><td></td></tr>
-            <tr><td>@SR.Repository_RepositorySize</td><td>@FileHelper.GetSizeString(Model.Statistics.RepositorySize)</td></tr>
+            <tr class="summary-separator"><td>@SR.Repository_RepositorySize</td><td>@FileHelper.GetSizeString(Model.Statistics.RepositorySize)</td></tr>
         </tbody>
     </table>
 </div>
