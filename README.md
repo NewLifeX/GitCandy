@@ -2,6 +2,7 @@
 ![GitHub License](https://img.shields.io/github/license/NewLifeX/GitCandy?logo=github)
 [![test](https://github.com/NewLifeX/GitCandy/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/NewLifeX/GitCandy/actions/workflows/test.yml)
 ![platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![arch](https://img.shields.io/badge/arch-x64%20%7C%20arm64-orange)
 [![contributors](https://img.shields.io/github/contributors/NewLifeX/GitCandy?logo=github)](https://github.com/NewLifeX/GitCandy/graphs/contributors)
 
 <!-- lang:start -->
