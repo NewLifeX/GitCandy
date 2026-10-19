@@ -1,0 +1,8 @@
+# Español 词表（es）。键为英文源文，与源码字符串逐字一致；缺少的键运行时回退英文。
+"The user provider has not been initialized.": "El proveedor de usuarios no se ha inicializado."
+"The owner {0} does not exist.": "El propietario {0} no existe."
+"{0} already has a repository named {1}.": "{0} ya tiene un repositorio llamado {1}."
+"Invalid repository path: {0}/{1}.": "Ruta de repositorio no válida: {0}/{1}."
+"Repository path escapes the root: {0}.": "La ruta del repositorio se sale del directorio raíz: {0}."
+"Invalid Git service type.": "Tipo de servicio Git no válido."
+"Unable to start the Git process: {0}.": "No se pudo iniciar el proceso de Git: {0}."

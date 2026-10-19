@@ -1,0 +1,8 @@
+# Русский 词表（ru）。键为英文源文，与源码字符串逐字一致；缺少的键运行时回退英文。
+"The user provider has not been initialized.": "Поставщик пользователей не инициализирован."
+"The owner {0} does not exist.": "Владелец {0} не существует."
+"{0} already has a repository named {1}.": "У {0} уже есть репозиторий с именем {1}."
+"Invalid repository path: {0}/{1}.": "Недопустимый путь репозитория: {0}/{1}."
+"Repository path escapes the root: {0}.": "Путь репозитория выходит за пределы корневого каталога: {0}."
+"Invalid Git service type.": "Недопустимый тип службы Git."
+"Unable to start the Git process: {0}.": "Не удалось запустить процесс Git: {0}."

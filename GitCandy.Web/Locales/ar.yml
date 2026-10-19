@@ -1,0 +1,8 @@
+# العربية 词表（ar）。键为英文源文，与源码字符串逐字一致；缺少的键运行时回退英文。
+"The user provider has not been initialized.": "لم يتم تهيئة مزوّد المستخدمين."
+"The owner {0} does not exist.": "المالك {0} غير موجود."
+"{0} already has a repository named {1}.": "لدى {0} مستودع باسم {1} بالفعل."
+"Invalid repository path: {0}/{1}.": "مسار مستودع غير صالح: {0}/{1}."
+"Repository path escapes the root: {0}.": "مسار المستودع يخرج عن الجذر: {0}."
+"Invalid Git service type.": "نوع خدمة Git غير صالح."
+"Unable to start the Git process: {0}.": "تعذّر بدء عملية Git: {0}."

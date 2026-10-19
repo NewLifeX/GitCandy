@@ -1,0 +1,8 @@
+# 한국어 词表（ko）。键为英文源文，与源码字符串逐字一致；缺少的键运行时回退英文。
+"The user provider has not been initialized.": "사용자 공급자가 초기화되지 않았습니다."
+"The owner {0} does not exist.": "소유자 {0}이(가) 존재하지 않습니다."
+"{0} already has a repository named {1}.": "{0}에는 이미 {1} 이름의 저장소가 있습니다."
+"Invalid repository path: {0}/{1}.": "유효하지 않은 저장소 경로입니다: {0}/{1}."
+"Repository path escapes the root: {0}.": "저장소 경로가 루트를 벗어납니다: {0}."
+"Invalid Git service type.": "유효하지 않은 Git 서비스 유형입니다."
+"Unable to start the Git process: {0}.": "Git 프로세스를 시작할 수 없습니다: {0}."

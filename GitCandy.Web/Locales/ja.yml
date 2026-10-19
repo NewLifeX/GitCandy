@@ -1,0 +1,8 @@
+# 日本語 词表（ja）。键为英文源文，与源码字符串逐字一致；缺少的键运行时回退英文。
+"The user provider has not been initialized.": "ユーザー プロバイダーが初期化されていません。"
+"The owner {0} does not exist.": "オーナー {0} は存在しません。"
+"{0} already has a repository named {1}.": "{0} には既に {1} という名前のリポジトリがあります。"
+"Invalid repository path: {0}/{1}.": "無効なリポジトリ パスです: {0}/{1}。"
+"Repository path escapes the root: {0}.": "リポジトリ パスがルートの外にあります: {0}。"
+"Invalid Git service type.": "無効な Git サービスの種類です。"
+"Unable to start the Git process: {0}.": "Git プロセスを開始できません: {0}。"
